@@ -24,7 +24,7 @@ jobs:
 
       - name: Setup Claude Code
         run: |
-          curl -fsSL https://claude.ai/install.sh | sh
+          curl -fsSL https://claude.ai/install.sh | bash
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Run PR Content Review
