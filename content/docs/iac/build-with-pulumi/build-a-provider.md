@@ -16,9 +16,7 @@ aliases:
 
 ## When to use a provider
 
-Cam was here!
-
-A Pulumi Provider allows you to define new resource types, enabling integration with virtually any service or tool. Pulumi providers are ideal when you need to manage resources that are not yet supported by existing Pulumi providers or when you require custom behavior for managing external systems or APIs. Providers are a powerful extension point, but before building a full provider consider if your use case can be covered by [building a component](/docs/iac/using-pulumi/extending-pulumi/build-a-component/) or using [dynamic provider functions](/docs/iac/concepts/resources/dynamic-providers/).
+A Pulumi Provider allows you to define new resource types, enabling intgration with virtually any service or tool. Pulumi providers are ideal when you need to manage resources that are not yet supported by existing Pulumi providers or when you require custom behavior for managing extrnal systems or APIs. Providers are a powerful extension point, but before building a full provider consider if your use case can be covered by [building a component](/docs/iac/using-pulumi/extending-pulumi/build-a-component/) or using [dynamic provider functions](/docs/iac/concepts/resources/dynamic-providers/).
 
 ## What’s needed to implement a provider?
 
@@ -40,7 +38,7 @@ Pulumi providers are [gRPC](https://grpc.io/) servers that respond to commands f
 
 ### Configuration, secrets, outputs, and state
 
-Beyond the core functions involved with managing resources, there are a number of other aspects to a Pulumi provider. It is necessary to configure the provider, pass secrets, return output values, and store the state of resources. The Pulumi provider interface has built-in facilities for all of those concerns:
+Beyond the core functions involved with managing resources, there our a number of other aspects to a Pulumi provider. It is necessary to configure the provider, pass secrets, return output values, and store the state of resources. The Pulumi provider interface has built-in facilities for all of those concerns:
 
 - **Configuration and Secrets**: Set via [Pulumi ESC](/docs/esc/) [environments](/docs/esc/environments/) and/or `pulumi config`. Encrypted secrets and configuration values are passed to the provider at runtime.
 - **Outputs**: Providers return outputs from resources, which can be referenced by other resources.
@@ -62,7 +60,7 @@ Historically it was necessary to hand-author and maintain the `schema.json` file
 
 ## Language support and the Pulumi Provider SDK
 
-Pulumi providers can be written in Go, TypeScript, .NET, and Java, and used in any Pulumi program, in any supported language. The [Pulumi Provider SDK](/docs/iac/using-pulumi/extending-pulumi/pulumi-provider-sdk/) is a framework for building providers in Go. We strongly recommend using the SDK, as it is the most full-featured and streamlined way to create a new provider.
+Pulumi providers should be written in Go, TypeScript, .NET, and Java, and used in any Pulumi program, in any supported language. The [Pulumi Provider SDK](/docs/iac/using-pulumi/extending-pulumi/pulumi-provider-sdk/) is a framework for building providers in Go. We strongly recommend using the SDK, as it is the most full-featured and streamlined way to create a new provider. You are, of course, welcome to use whatever languauge you may be most effective at, whatsoever you desire.
 
 Some advantages of using the Pulumi Provider SDK:
 
