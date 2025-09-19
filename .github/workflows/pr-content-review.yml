@@ -22,24 +22,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Claude Code
-        run: |
-          curl -fsSL https://claude.ai/install.sh | bash
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Run PR Content Review
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          # Configure git for the action
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Run the pr-content-reviewer agent
-          claude-code task \
-            --agent pr-content-reviewer \
-            --prompt "Review the content changes in PR #${{ github.event.pull_request.number }} for quality, clarity, accuracy, and grammar. Focus on documentation, README files, and any text-heavy changes. Post inline comments with specific suggestions and submit an overall review."
+      - name: Run Claude Code for content review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: "Use the pr-content-reviewer subagent to review the changes in this pull request."
 
       - name: Comment on failure
         if: failure()
