@@ -1,3 +1,13 @@
+# FORK-ONLY TESTING TWEAK — NOT FOR UPSTREAM.
+# On camsoper/pulumi.docs we swap ESC + PULUMI_BOT_TOKEN for the default
+# GITHUB_TOKEN so @claude works without org-side ESC setup. Keeps all
+# of @claude's capabilities (re-entrant reviews, Q&A, make-changes
+# on PRs). The only difference: commits pushed via GITHUB_TOKEN do not
+# trigger downstream workflows, which is fine for fork testing where
+# nothing downstream is wired up.
+# Upstream keeps the ESC + PULUMI_BOT_TOKEN design. Do not cherry-pick
+# this commit to the PR branch.
+
 name: Claude Code
 
 on:
@@ -30,10 +40,6 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 1
-
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v1
 
       - name: Check repository write access
         id: check-access
@@ -144,8 +150,8 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Use bot token so pushes trigger downstream workflows (e.g., social review)
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          # FORK-ONLY: default GITHUB_TOKEN instead of PULUMI_BOT_TOKEN via ESC.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
@@ -188,11 +194,4 @@ jobs:
           gh api --method PATCH "repos/$REPO/issues/comments/$COMMENT_ID" \
             -f body="$BODY" >/dev/null || true
           gh pr edit "$PR" --repo "$REPO" --remove-label review:claude-working || true
-
-env:
-  ESC_ACTION_OIDC_AUTH: true
-  ESC_ACTION_OIDC_ORGANIZATION: pulumi
-  ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
-  ESC_ACTION_ENVIRONMENT: github-secrets/pulumi-docs
-  ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: false
 
