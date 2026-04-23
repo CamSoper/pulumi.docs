@@ -21,6 +21,26 @@ post_to_slack() {
          https://slack.com/api/chat.postMessage > /dev/null
 }
 
+# Posts a message to Slack with automatic retry on transient failures.
+# Retries up to 3 times with 1s sleep between attempts. Returns 0 on first success.
+# Usage: post_to_slack_with_retry <channel> <message>
+post_to_slack_with_retry() {
+    local channel=$1
+    local message=$2
+    local attempt=0
+
+    while (( attempt < 3 )); do
+        if post_to_slack "$channel" "$message"; then
+            return 0
+        fi
+        attempt=$((attempt + 1))
+        sleep 1
+    done
+
+    echo "post_to_slack_with_retry: failed after 3 attempts" >&2
+    return 1
+}
+
 # Posts a comment to a GitHub PR. Requires a GitHub token is available in $GITHUB_TOKEN.
 # Usage: post_github_pr_comment "Hi!" "https://api.github.com/repos/<org>/<repo>/issues/<pr-number>/comments"
 post_github_pr_comment() {
