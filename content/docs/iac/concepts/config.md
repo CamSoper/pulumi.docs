@@ -74,6 +74,16 @@ If `[value]` is not specified when setting a configuration key, the CLI will pro
 $ cat my_key.pub | pulumi config set publicKey
 ```
 
+### Removing configuration values
+
+To remove a configuration value from the current stack, use the `rm` subcommand, available since Pulumi v2.16:
+
+```bash
+$ pulumi config rm aws:region
+```
+
+This deletes the key-value pair from the stack's settings file. See the [`pulumi config` reference](/docs/iac/cli/commands/pulumi_config/) for the full list of subcommands.
+
 ## Using the Config Flag with `pulumi new`
 
 Configuration keys and values can be passed when using `pulumi new`.
