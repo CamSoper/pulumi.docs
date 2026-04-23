@@ -352,3 +352,7 @@ resources:
 {{% /choosable %}}
 
 {{< /chooser >}}
+
+## Multi-domain test section
+
+This section was added alongside a new program in `static/programs/multi-domain-bucket-typescript/` to exercise mixed-domain review.
