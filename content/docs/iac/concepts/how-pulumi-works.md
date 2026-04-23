@@ -43,6 +43,8 @@ The _deployment engine_ is responsible for computing the set of operations neede
 
 The deployment engine is embedded in the `pulumi` CLI itself.
 
+Because the engine runs locally, Pulumi programs can be developed and tested without contacting the Pulumi Cloud service. Local state backends (filesystem, S3, Azure Blob, GCS) work entirely offline once the required provider plugins are cached.
+
 ## Resource providers
 
 A resource provider is made up of two different pieces:
