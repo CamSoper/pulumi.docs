@@ -352,3 +352,22 @@ resources:
 {{% /choosable %}}
 
 {{< /chooser >}}
+
+## Quick example: bundling a Lambda function
+
+The most common use of `Archive` is bundling a directory of source code for a serverless function. Recently, `FileArchive` was extended to support automatic exclusion of `node_modules` when the `excludeNodeModules` option is set -- saving roughly 30% on typical Lambda packages.
+
+```typescript
+import * as aws from "@pulumi/aws";
+import * as pulumi from "@pulumi/pulumi";
+
+const myFunction = new aws.lambda.Function("my-function", {
+    function_name: "my-function",
+    runtime: "nodejs18.x",
+    code: new pulumi.asset.FileArchive("./src"),
+    handler: "index.handler",
+    role: role.arn,
+});
+```
+
+See the [Lambda packaging guide](/docs/iac/clouds/aws/guides/lambda-packaging/) for a full walkthrough.
