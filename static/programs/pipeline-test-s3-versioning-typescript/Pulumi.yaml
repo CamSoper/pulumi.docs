@@ -1,0 +1,7 @@
+name: pipeline-test-s3-versioning-typescript
+runtime: nodejs
+description: Pipeline-test program. Creates an S3 bucket with versioning enabled.
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
