@@ -74,6 +74,19 @@ If `[value]` is not specified when setting a configuration key, the CLI will pro
 $ cat my_key.pub | pulumi config set publicKey
 ```
 
+### Listing all configuration values
+
+To see every key currently set on the active stack, run `pulumi config` with no subcommand:
+
+```bash
+$ pulumi config
+KEY              VALUE
+aws:region       us-west-2
+myproject:size   t3.micro
+```
+
+Pass `--json` to get machine-readable output for scripting.
+
 ## Using the Config Flag with `pulumi new`
 
 Configuration keys and values can be passed when using `pulumi new`.
