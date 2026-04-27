@@ -46,7 +46,7 @@ The `pulumi config` CLI command can get, set, or list configuration key-value pa
 
 * `pulumi config set <key> [value]` sets a configuration entry `<key>` to `[value]`.
 * `pulumi config get <key>` gets an existing configuration value with the key `<key>`.
-* `pulumi config` gets all configuration key-value pairs in the current stack (as JSON if `--json` is passed).
+* `pulumi config` lists all configuration key-value pairs in the current stack — see [Listing all configuration values](#listing-all-configuration-values) for details and example output.
 
 {{% notes "info" %}}
 When using the `config set` command, any existing values for `<key>` will be overridden without warning.
@@ -76,7 +76,7 @@ $ cat my_key.pub | pulumi config set publicKey
 
 ### Listing all configuration values
 
-To see every key currently set on the active stack, run `pulumi config` with no subcommand:
+To see every key currently set on the current stack, run `pulumi config` with no subcommand:
 
 ```bash
 $ pulumi config
