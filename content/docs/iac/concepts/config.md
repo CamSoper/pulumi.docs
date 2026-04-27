@@ -60,7 +60,7 @@ $ pulumi config get aws:region
 us-west-2
 ```
 
-To set and get configuration in the current project (named `broome-proj` for example), we can use the simplified key name:
+To set and get configuration in the current project (named `broome-proj` for instance), we can use the simplified key name:
 
 ```bash
 $ pulumi config set name BroomeLLC
