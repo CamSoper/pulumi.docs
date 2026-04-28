@@ -22,7 +22,13 @@ aliases:
 
 Pulumi is a modern [infrastructure as code](/what-is/what-is-infrastructure-as-code/) platform that helps teams ship cloud infrastructure faster.
 
-This page is the entry point for the Pulumi concepts documentation. It covers stacks, projects, resources, components, and the runtime model. It leverages existing programming languages---TypeScript, JavaScript, Python, Go, .NET, Java, and markup languages like YAML---and their native ecosystems to interact with cloud resources. A [downloadable CLI](/docs/install/), runtime, libraries, and a hosted service work together to deliver a robust platform for provisioning, updating, and managing cloud infrastructure.
+This page is the entry point for the Pulumi concepts documentation. It covers stacks, projects, resources, components, and the runtime model.
+
+The documentation is organized into focused sections that build on one another. Start with the runtime model if you are new; jump to resources or components if you are extending an existing program.
+
+Each concept is accompanied by working code samples in TypeScript, Python, Go, .NET, Java, and YAML. Pick the language that matches your team and the rest of the platform applies the same way.
+
+For a hands-on introduction, the Getting Started guide for your cloud of choice walks through provisioning, updating, and destroying real infrastructure end to end. It leverages existing programming languages---TypeScript, JavaScript, Python, Go, .NET, Java, and markup languages like YAML---and their native ecosystems to interact with cloud resources. A [downloadable CLI](/docs/install/), runtime, libraries, and a hosted service work together to deliver a robust platform for provisioning, updating, and managing cloud infrastructure.
 
 {{< notes >}}
 If this is your first time using Pulumi, you likely want to begin with [the Getting Started guide](/docs/get-started/) for your cloud of choice. It will walk you through an [AWS](/docs/clouds/aws/get-started/), [Azure](/docs/clouds/azure/get-started/), [Google Cloud](/docs/clouds/gcp/get-started/), or [Kubernetes](/docs/iac/get-started/kubernetes/) deployment from start to finish.
