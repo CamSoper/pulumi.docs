@@ -12,7 +12,7 @@ Applied to documentation pages: technical reference, conceptual docs, tutorials,
 ## Scope
 
 - Diff-only by default. Surrounding prose is assumed sound.
-- Whole-file read is opt-in per the pre-existing extraction rule below.
+- Whole-file read is opt-in (see §Pre-existing issues (opt-in) below).
 
 ## Criteria
 
@@ -27,7 +27,7 @@ The priorities below are ordered for **output rendering** — fact-check finding
 
 ### Priority 1 — Fact-check first
 
-Invoke `docs-review:references:fact-check` (`scrutiny=standard` by default). Bump scrutiny to `heightened` when the file is a new page (not previously in `content/`) or a whole-file rewrite (>70% of lines changed). CI fact-check is public-sources-only — see `docs-review/ci.md`. The reference owns claim extraction; in docs, pay particular attention to:
+Invoke `docs-review:references:fact-check` (`scrutiny=standard` by default). Bump scrutiny to `heightened` when the file is a new page (not previously in `content/`) or a whole-file rewrite (>70% of lines changed). In docs, pay particular attention to:
 
 - **CLI flag existence.** `pulumi <subcommand> --<flag>` claims must match the current CLI source. Memorized flag lists are not authoritative.
 - **Resource API surface.** Resource property claims (e.g., `aws.s3.Bucket` accepts `versioning`) must match the provider's registry schema source (`gh api repos/pulumi/pulumi-<provider>/contents/...`).
@@ -35,11 +35,9 @@ Invoke `docs-review:references:fact-check` (`scrutiny=standard` by default). Bum
 - **Output-format claims.** `pulumi up` / `preview` / `stack output` example output must reflect what the current CLI prints. Old-style output formats ("Performing changes:" when the CLI now prints "Updating (dev)") are deprecated-terminology findings.
 - **Feature-existence claims.** "Pulumi ESC supports rotation for AWS." If the diff asserts a capability, verify it.
 
-Findings render in 🚨 / ⚠️ **before** style findings.
-
 ### Priority 2 — Code correctness
 
-Snippet-level checks (syntax, imports, language idioms, language casing) live in `docs-review:references:code-examples`. The reference applies wherever code appears in docs content.
+Snippet-level checks (syntax, imports, language idioms, language casing) live in `docs-review:references:code-examples`.
 
 ### Priority 3 — Cross-references and link integrity
 
@@ -50,16 +48,20 @@ Snippet-level checks (syntax, imports, language idioms, language casing) live in
 
 ### Priority 4 — Terminology and product accuracy
 
-Reference `STYLE-GUIDE.md` and `data/glossary.toml` for the authoritative lists; do not duplicate them here. Watchlist:
+Reference `STYLE-GUIDE.md` and `data/glossary.toml` for the authoritative lists. Watchlist:
 
 - **Product names.** "Pulumi IaC" / "Pulumi ESC" / "Pulumi IDP" / "Pulumi Cloud" / "Pulumi Insights" / "Pulumi Policies". Expand acronyms on first mention; use the short form after.
 - **Singular "Pulumi Policies."** `STYLE-GUIDE.md` says it's a singular proper noun. Verb agreement follows (e.g., "Pulumi Policies enforces," not "enforce").
 - **"public preview" not "public beta."**
 - **Preferred pairs.** "Pulumi package" vs "native language package" -- see `STYLE-GUIDE.md` §Preferred terminology.
 
-### Priority 5 — SEO and discoverability
+### Priority 5 — Prose patterns and spelling/grammar
 
-These are the feasible, concrete rules from `seo-analyze:references:aeo-checklist` applied at review time. Quote-and-rewrite mandate. Apply most strictly to **what-is pages** (`content/what-is/`) and **concept docs**; less strictly to reference and tutorial content where the patterns naturally differ.
+Apply `docs-review:references:prose-patterns` and `docs-review:references:spelling-grammar`.
+
+### Priority 6 — SEO and discoverability
+
+Quote-and-rewrite mandate. Apply most strictly to **what-is pages** (`content/what-is/`) and **concept docs**; less strictly to reference and tutorial content where the patterns naturally differ.
 
 - **Title matches page subject.** Quote the `title:` frontmatter and the page's first paragraph; flag when the page's actual subject is materially different from what the title claims.
 - **Quotable definition for what-is and concept pages.** The opening 1–2 sentences should answer "what is X" as a standalone definition that could be quoted by an AI tool without surrounding context. Quote the opening; flag fluff intros ("In this guide, we'll explore...") and propose a direct definition.
@@ -68,7 +70,7 @@ These are the feasible, concrete rules from `seo-analyze:references:aeo-checklis
 - **Down-funnel specificity.** Concept docs that introduce a feature without showing a concrete integration or use case are too generic to be cited. Flag the most generic section; propose adding a specific scenario, integration, or edge case.
 - **Numbered, executable steps for "get started" / "how to" sections.** Quickstart prose that doesn't break into numbered steps with copy-pasteable commands. Quote the section; propose a numbered list with explicit `pulumi …` commands.
 
-### Priority 6 — Callouts and shortcodes
+### Priority 7 — Callouts and shortcodes
 
 - **`{{% notes %}}`** uses one of `info` / `tip` / `warning`. A misspelled `type=` silently renders the default and looks wrong.
 - **`{{< chooser >}}`** / **`{{< choosable >}}`** pairs must match: every language listed in the `chooser` needs a corresponding `choosable` block, and vice versa.

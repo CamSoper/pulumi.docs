@@ -25,34 +25,22 @@ The following reference files apply alongside the blog-specific priorities below
 - `docs-review:references:prose-patterns` — prose-bearing content
 - `docs-review:references:image-review` — wherever images appear
 
-The priorities below are ordered for **output rendering** — fact-check findings render before style findings — but investigate as content triggers each.
+Investigate as content triggers each priority below.
 
 ### Priority 1 — Fact-check first
 
 Invoke `docs-review:references:fact-check` (`scrutiny=heightened`) **before** any style pass. The reference owns claim extraction; in blog copy, pay particular attention to **performance multipliers**, **competitor claims**, and **adoption / market-position statistics** — common in this domain and high-blast-radius when wrong.
 
-Findings render in 🚨 / ⚠️ **before** style findings.
+### Priority 2 — Prose patterns and spelling/grammar
 
-### Priority 2 — AI-slop detection
+Apply `docs-review:references:prose-patterns` and `docs-review:references:spelling-grammar`.
 
-Flag the following patterns, with examples from the post. Each bullet names the *pattern* and the threshold at which it becomes a finding.
+**Blog-specific patterns** (apply alongside the shared references):
 
-**Unit of measurement -- "section":** in this file, *section* means the block of prose from one H2 (`## ...`) heading to the next, or from the `<!--more-->` break to the first H2 if one leads the post. Flags and thresholds below all evaluate over that unit unless noted otherwise.
-
-- **Em-dash density.** Three or more em-dashes in a single section. AI models overuse em-dashes as a rhythm device. Style guide allows them; heavy clustering is a tell.
-- **Contrastive frames.** "It's not X, it's Y" / "Not only X but also Y" / "This isn't about X; it's about Y." One in a post is fine. Three or more across the post (not per-section) is a pattern finding.
-- **Uniform sentence rhythm.** Three or more consecutive sentences of similar length (within ±3 words) in a single paragraph. Humans vary rhythm; AI drifts toward a mean.
-- **Repetitive paragraph openers.** Three or more consecutive paragraphs (in the same section or across a section boundary) opening with the same structure: "When you X...", "If you want to X...", "Consider X...".
-- **Hedging.** "Typically," "generally," "tends to," "can often," "largely," "in many cases." Two or more in a single section is a finding. See also `STYLE-GUIDE.md`'s write-with-confidence rule.
-- **TL;DR / summary paragraphs that restate the post.** The reader just finished reading; they don't need a recap.
-- **Empty transitions.** "Let's dive in," "In this post we'll explore," "In conclusion," "Without further ado." Cut them -- flag on first occurrence.
-- **Buzzword tax.** "Landscape," "ecosystem," "leverage" (as a verb), "robust," "seamless," "world-class," "battle-tested." Flag on first occurrence, with a suggested rewrite when the sentence survives the deletion; otherwise flag as a rewrite candidate. If the same buzzword appears three or more times across the post, coalesce the flags into a single finding rather than repeating.
+- **TL;DR / summary paragraphs that restate the post.** The reader just finished reading; they don't need a recap. Quote the recap; propose removal.
 - **Self-criticism of prior Pulumi decisions.** "We used to handle this badly," "the old way was wrong," "before we got this right." Acceptable in case-studies discussing a *customer's* prior tooling; not acceptable when describing prior Pulumi product behavior. Quote the construction; reframe as forward-looking: "v3.0 introduced X" not "before v3.0, we got it wrong."
 - **Weak conclusions.** A closing paragraph that doesn't name a specific next step. "Check out Pulumi to learn more" without a specific link or command. Quote the conclusion; propose a concrete CTA: "Try it: `pulumi up` against the example at `<link>`" or "See the X reference at /docs/foo/."
-- **Dense paragraphs.** Paragraphs longer than 6 sentences or filling more than 8 visual lines. Often a sign the content should be a list, a sub-section, or split. Quote the opening; propose either a split or a list conversion.
 - **Listicle bloat.** Posts structured as `## item N:` patterns or numbered top-N lists. Cap at 12 items; cap total post length at ≈3,000 words for listicles. If a list goes longer, suggest which items to cut or merge.
-
-Every AI-slop / editorial finding names the *phrase* and the *pattern*. Don't just say "this is AI-written" -- say "em-dash density: 6 em-dashes across 3 paragraphs; consider breaking some into separate sentences."
 
 ### Priority 3 — Code correctness
 
@@ -78,11 +66,11 @@ When a blog post announces a new feature, provider, or significant capability:
 - **Note specific gaps.** Don't just say "docs are missing" — name the page that should exist (e.g., "no `content/docs/esc/integrations/<feature>/` page found").
 - **Suggest a doc type.** Reference / tutorial / concept guide / how-to — pick the one that matches the feature's nature.
 
-Render under 💡 Pre-existing (this is a project-completeness flag, not a blog quality issue) so the blog can ship without blocking on docs work.
+This is a project-completeness flag, not a blog quality issue.
 
 ### Priority 6 — SEO and discoverability
 
-These are the feasible, concrete rules from `seo-analyze:references:aeo-checklist` applied at review time. Quote-and-rewrite mandate: every finding names a specific construction and proposes a fix. The full AEO scoring pass still belongs to `/seo-analyze` for deeper analysis; these are the items that catch on a normal review.
+Concrete rules from `seo-analyze:references:aeo-checklist` applied at review time. Quote-and-rewrite mandate: every finding names a specific construction and proposes a fix.
 
 - **Quotable opening paragraph.** The first 1–2 sentences should answer "what is this post about" as a standalone definition, with no fluff intro. Quote the opening; flag empty transitions ("In this post, we'll explore...", "Let's dive in", "In recent years...") and propose a direct first-sentence rewrite that names the subject.
 - **Answer-first H2 headings.** For concept-heavy posts, prefer question-style or how-style headings ("How does Pulumi ESC handle secrets?") over label-style ("ESC overview"). Label headings rank lower for AI answer extraction. Quote the heading; propose an answer-first rewrite. Don't flag label headings on action posts ("Get started," "Install Pulumi") — those are correct.
@@ -97,19 +85,19 @@ These are the feasible, concrete rules from `seo-analyze:references:aeo-checklis
 - **Link text is descriptive.** Inherited.
 - **First mention is hyperlinked.** Every tool, technology, or product's *first* mention in the post should be a link (to docs, to the project homepage, to a GitHub repo). Flag only first-mention misses; subsequent mentions don't need the link.
 - **Missing cross-link to canonical Pulumi docs.** When the post mentions a Pulumi concept with a canonical doc page (stacks, providers, components, ESC environments, projects, programs, policy packs) and no occurrence of the term is hyperlinked, flag it once per concept. Quote the most prominent unlinked occurrence; propose the link target (e.g., `[stacks](/docs/iac/concepts/stacks/)`). Complements the rule above — that one covers external tools and projects; this one covers internal Pulumi concept docs.
-- **`{{< github-card >}}` references.** Format `owner/repo`; verify the repo exists (`gh api repos/<owner>/<repo>`). A broken card card renders as an ugly empty block.
+- **`{{< github-card >}}` references.** Format `owner/repo`; verify the repo exists (`gh api repos/<owner>/<repo>`). A broken card renders as an ugly empty block.
 
 ## Pre-existing issues (always on)
 
-Blog files are usually new in their entirety, so the diff/pre-existing distinction blurs. Render every finding under 🚨 Outstanding when the post is new. For incremental edits to existing posts, separate diff-introduced from pre-existing per the standard rules in `docs-review:references:output-format`. Per-file cap follows `docs-review:references:output-format`.
+Blog files are usually new in their entirety, so the diff/pre-existing distinction blurs. For incremental edits to existing posts, separate diff-introduced from pre-existing per the standard rules in `docs-review:references:output-format`.
 
 Scope of pre-existing findings for blog: everything from `docs-review:references:docs`, plus unsourced numerical claims, temporally-rotted feature claims ("a new feature in v3.X" where v3.X is years old), broken `{{< github-card >}}` references, missing author avatars, `meta_image` that is still the placeholder, `meta_image` that uses outdated Pulumi logos (the brand refresh moved on; old logos hurt social sharing).
 
 ## Do not flag
 
 - **Colloquialisms as inclusive-language violations.** "Overkill," "kill the process," "kick off," "blow away" are fine in technical context.
-- **Drafting social copy, CTAs, or button text.** Marketing owns voice; do not propose replacement copy. (Lint catches missing or malformed `social:` blocks.)
-- **Meta image colors, composition, or layout.** Do not critique design choices. (See §Publishing blockers for retired-logo and animated-GIF cases; lint catches the placeholder.)
+- **Drafting social copy, CTAs, or button text.** Marketing owns voice; do not propose replacement copy.
+- **Meta image colors, composition, or layout.** Do not critique design choices. (See §Publishing blockers for retired-logo, placeholder, and animated-GIF cases.)
 - **Vague editorial feedback without quote-and-rewrite.** "Consider rewording for engagement" / "this could be clearer" / "you should reorganize this section" without a quoted construction and a specific proposed rewrite is editorial vagueness, not a review finding. Concrete prose, structural, and SEO/AEO suggestions (apply `docs-review:references:prose-patterns`; split a mixed-concept H2; rewrite a label-style heading as answer-first) ARE in scope -- but every finding must quote the offending text and propose the fix.
 - **Heading case already consistent within the file.** Style linters catch inconsistency. The only heading case that's a finding is one that names a product incorrectly (e.g., "Pulumi esc" instead of "Pulumi ESC").
 
@@ -117,9 +105,11 @@ Scope of pre-existing findings for blog: everything from `docs-review:references
 
 Each item below renders as a single 🚨 Outstanding finding when violated. Quote-and-rewrite mandate: name the field or file, propose the specific fix.
 
-- **`meta_image` uses retired Pulumi logos.** Inspect the rendered meta_image (or its filename / path) for retired brand variants. Quote the path; propose the current-brand replacement. Lint catches the placeholder file but not the retired-logo case.
+- **`meta_image` uses retired Pulumi logos.** Inspect the rendered meta_image (or its filename / path) for retired brand variants. Quote the path; propose the current-brand replacement.
+- **`meta_image` is the unmodified `/new-blog-post` placeholder.** Compute SHA256 of the resolved meta_image file and compare against `.claude/commands/_common/images/blog-post-meta-placeholder.png`. Match → flag with a pointer to `/blog-meta-image` for regeneration. Skip on `draft: true` or archival posts (`date` in the past).
 - **`meta_image` animated-GIF / format constraints** — see `docs-review:references:image-review`.
-- **`<!--more-->` break position.** Lint catches *presence*; position is review-time judgment. The break must land after the first 1–3 paragraphs, not buried mid-post. Quote the surrounding paragraphs; propose the correct placement.
+- **`<!--more-->` break missing or buried.** The break must be present and land after the first 1–3 paragraphs, not buried mid-post. Without it, the entire post body renders on the blog index. Quote the surrounding paragraphs; propose the correct placement. Skip on `draft: true` or archival posts.
+- **`social:` block missing or empty.** Active blog posts (not draft, not archival) must have a `social:` frontmatter block with at least one of `twitter`, `linkedin`, or `bluesky` populated; without it the post won't be promoted. Flag the missing/empty block; do not draft the copy (marketing owns voice).
 - **Author profile avatar missing.** `data/team/team/{author}.yaml` must reference an avatar file. Quote the missing field or the path of the file that should exist.
 
-Other publishing-readiness items (`social:` block present, `meta_image` not placeholder/empty, title ≤60 chars, code language specifiers, image alt text and borders, link resolution) are handled by `lint-markdown.js` or by other references (`docs-review:references:shared-criteria`, `docs-review:references:code-examples`, `docs-review:references:image-review`). Don't re-flag them here.
+Other publishing-readiness items (title ≤60 chars, meta_desc length, `meta_image` `.png` extension, code language specifiers, image alt text and borders, link resolution) are handled by `lint-markdown.js` or by other references (`docs-review:references:shared-criteria`, `docs-review:references:code-examples`, `docs-review:references:image-review`). Don't re-flag them here.
