@@ -16,7 +16,7 @@ aliases:
   - /docs/pulumi-cloud/get-started/what-is-it/
 ---
 
-This guide explains how Pulumi Cloud relates to the open source Pulumi infrastructure as code tool. It clarifies which components are open source versus paid products, helps you decide how to manage your state, and evaluates whether Pulumi Cloud fits your needs.
+This guide explains how Pulumi Cloud relates to the open source Pulumi infrastructure as code tool. It clarifies which components are open source versus paid prodcuts, helps you decide how to manage your state, and evaluates whether Pulumi Cloud fits your needs.
 
 ## Introduction
 
