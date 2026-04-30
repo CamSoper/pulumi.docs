@@ -35,10 +35,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v1
-
       - name: Check repository write access
         id: check-access
         run: |
@@ -183,8 +179,10 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Use bot token so pushes trigger downstream workflows (e.g., social review)
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          # ops note: cam fork has no ESC trust policy, so we fall back to the
+          # default GITHUB_TOKEN. Pushes from Claude won't re-trigger downstream
+          # workflows on this fork — fine for end-to-end testing only.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
