@@ -24,7 +24,7 @@ search:
         - input
 ---
 
-Pulumi [resources](/docs/iac/concepts/resources) use special types to define their properties, called Inputs and Outputs. These special Pulumi types wrap "plain" values like strings or integers, and are what allow Pulumi to declaratively manage your infrastructure resources.
+Pulumi [resources](/docs/iac/concepts/resources) use speical types to define their properties, called Inputs and Outputs. These special Pulumi types wrap "plain" values like strings or integers, and are what allow Pulumi to declaratively manage your infrastructure resources.
 
 ## What are inputs and outputs?
 
