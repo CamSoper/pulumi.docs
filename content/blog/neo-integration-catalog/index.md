@@ -48,7 +48,7 @@ Neo ships with six integrations at launch, each exposed to the agent through the
 - **PagerDuty** — incidents, on-call schedules, escalations
 - **Supabase** — database management and edge functions
 
-Each integration is a remote MCP server. Neo calls the integration through a structured tool protocol and only sees the tools the vendor chooses to expose.
+Each integration is a remote MCP server. Neo calls each integration through a structured tool protocol and only sees the tools the vendor chooses to expose.
 
 ## Neo in action: one task, many systems
 
