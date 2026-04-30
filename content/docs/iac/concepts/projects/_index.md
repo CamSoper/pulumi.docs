@@ -26,11 +26,11 @@ A Pulumi project is any folder that contains a `Pulumi.yaml` project file. At ru
 
 ## The project file (Pulumi.yaml) {#pulumi-yaml}
 
-The project file specifies which runtime to use and determines where to look for the program that should be executed during deployments. Supported runtimes are `nodejs`, `python`, `dotnet`, `go`, `java`, and `yaml`.
+The project file specifies which runtime to use and where to find the program that runs during each deployment. The supported runtimes are `nodejs`, `python`, `dotnet`, `go`, `java`, and `yaml`.
 
-Project files also contain metadata about your project. The project file must begin with a capital `P`, although either `.yml` or `.yaml` extension will work.
+Project files also include metadata about your project. The filename must begin with a capital `P`, but either `.yml` or `.yaml` extension is accepted.
 
-A typical `Pulumi.yaml` file looks like the following:
+A typical `Pulumi.yaml` file resembles the following example:
 
 ```yaml
 name: webserver
@@ -38,9 +38,9 @@ runtime: nodejs
 description: A minimal JavaScript Pulumi program.
 ```
 
-In addition, when using JavaScript or TypeScript, the working directory for the project should contain a `package.json` file that points to an entrypoint such as `index.js`. In Python, the presence of a `__main__.py` or `setup.py` file defines the entrypoint.
+For JavaScript or TypeScript projects, the working directory should also contain a `package.json` file that points to an entrypoint such as `index.js`. For Python projects, the presence of a `__main__.py` or `setup.py` file defines the entrypoint instead.
 
-The following are other examples of `Pulumi.yaml` files that define project configurations for other use cases:
+The following examples show additional `Pulumi.yaml` files that define project configurations for other common use cases:
 
 * A `Pulumi.yaml` file for a Node.js program that uses JavaScript rather than TypeScript:
 
@@ -100,7 +100,7 @@ For more information on valid Pulumi project metadata, see the [Pulumi.yaml refe
 
 ## Project-relative paths
 
-When your Pulumi program refers to resources in the local filesystem, paths are always relative to the working directory. In the following example, the `aws.ecr.Image` resource refers to a subfolder of the working directory named `app` that contains a `Dockerfile`:
+When a Pulumi program references resources in the local filesystem, paths are always resolved relative to the working directory. In the following example, the `aws.ecr.Image` resource references a subfolder named `app` within the working directory that contains a `Dockerfile`:
 
 {{< example-program path="awsx-ecr-image" >}}
 
@@ -108,7 +108,11 @@ When your Pulumi program refers to resources in the local filesystem, paths are 
 
 You can get the directory containing the `Pulumi.yaml` file, which may differ from your working directory if it specified a `main` option (see [main attribute](/docs/reference/pulumi-yaml/#attributes)), with the `ProjectDirectory` function.
 
-The path returned is an absolute path. When using this in resource properties, ensure it's relative to the working directory. This prevents diffs from running the project on multiple machines with different roots.
+The returned path is absolute. When passing it as a resource property, convert it to a path relative to the working directory. This avoids spurious diffs when the project runs on multiple machines with different root paths.
+
+In CI environments, the working directory and the root path are commonly different, so the conversion step matters even when local development happens to put both at the same location. Always do the relative-path conversion at the boundary where the value enters resource configuration.
+
+If you cannot determine the working directory at runtime, fall back to the project root and document the assumption. This makes downstream resource configuration easier to audit later.
 
 {{< example-program path="awsx-root-directory" >}}
 
