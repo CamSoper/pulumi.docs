@@ -31,7 +31,7 @@ social:
         We spent a long time on whether one task could cover all of those. The hard part wasn't the APIs. Here's what we figured out.
 ---
 
-Neo already helps your team manage Pulumi infrastructure, but no infrastructure team works inside Pulumi alone. Pages come from PagerDuty, telemetry from Datadog or Honeycomb, follow-ups from Linear or Jira. Most of the job is shuttling context between those tools.
+Neo already helps your team manage Pulumi infrastructure, but no infrastructure team works inside Pulumi alone. Pages come from PagerDuty, telemetry from Datadog or Honeycomb, follow-ups from Linear or Jira. Most of the work is shuttling context between those tools.
 
 Today we're launching the **Integration Catalog** for [Pulumi Neo](/blog/pulumi-neo/): one place to connect Neo to the tools your team already uses, so your agent has the context it needs to help.
 
