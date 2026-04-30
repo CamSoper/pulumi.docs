@@ -111,7 +111,7 @@ jobs:
           trap 'rm -f "$PR_DATA_FILE"' EXIT
           printf '%s' "$PR_DATA" > "$PR_DATA_FILE"
           CLASS=$(printf '%s' "$DIFF" \
-            | python3 .claude/commands/_common/scripts/triage-classify.py "$PR_DATA_FILE" 2>&1) \
+            | python3 .claude/commands/docs-review/scripts/triage-classify.py "$PR_DATA_FILE" 2>&1) \
             || CLASS=""
           if [[ -z "$CLASS" ]] || ! echo "$CLASS" | jq -e . >/dev/null 2>&1; then
             echo "triage: pr=$PR error=classifier_failed"
@@ -123,8 +123,6 @@ jobs:
           MIXED=$(echo "$CLASS" | jq -r '.mixed // false')
           TRIVIAL=$(echo "$CLASS" | jq -r '.trivial // false')
           FRONTMATTER_ONLY=$(echo "$CLASS" | jq -r '.frontmatter_only // false')
-          FACT_CHECK=$(echo "$CLASS" | jq -r '.fact_check_needed // false')
-          AGENT_AUTHORED=$(echo "$CLASS" | jq -r '.agent_authored // false')
           PROSE_CHECK_NEEDED=$(echo "$CLASS" | jq -r '.prose_check_needed // false')
 
           # 3. Conditional prose check (model call only for trivial /
@@ -133,16 +131,16 @@ jobs:
           if [[ "$PROSE_CHECK_NEEDED" == "true" ]]; then
             # 50KB diff cap — trivial/frontmatter-only PRs are tiny.
             PROSE_DIFF=$(printf '%s' "$DIFF" | head -c 50000)
-            PROSE_RULES=$(cat .claude/commands/triage.md)
+            PROSE_RULES=$(cat .claude/commands/docs-review/triage-prose.md)
             REQUEST=$(jq -n \
               --arg rules "$PROSE_RULES" \
               --arg diff "$PROSE_DIFF" \
               '{
-                model: "claude-sonnet-4-6",
+                model: "claude-haiku-4-5-20251001",
                 max_tokens: 512,
                 messages: [{
                   role: "user",
-                  content: ("You are doing a focused prose check on a small pull request that the triage shell already classified as trivial or frontmatter-only. The full review will be skipped, so this is a sanity-check pass for spelling and grammar issues that an author or reviewer might miss.\n\nOutput exactly one JSON object on a single line, no prose, no code fences:\n{\"prose_concerns\":[\"path/to/file.md:LINE -- issue (suggested fix)\",...]}\n\nIf you find no issues, output {\"prose_concerns\":[]}.\n\nFor frontmatter-only PRs, only inspect prose-bearing fields: title, meta_desc, description, social_image_text, excerpt. Skip aliases, tags, categories, draft flags, dates, and other data fields.\n\nReview rules (read the Prose check subsection):\n\n" + $rules + "\n\n---\n\nDiff (truncated to 50000 bytes):\n\n" + $diff)
+                  content: ("Apply the rules below to the diff that follows.\n\n=== RULES ===\n\n" + $rules + "\n\n=== DIFF (truncated to 50000 bytes) ===\n\n" + $diff)
                 }]
               }')
             RESPONSE=$(curl -sS https://api.anthropic.com/v1/messages \
@@ -167,15 +165,12 @@ jobs:
           for d in $DOMAINS_JSON; do
             TARGET[$d]=1
           done
-          [[ "$MIXED" == "true" ]] && TARGET["review:mixed"]=1
+          [[ "$MIXED" == "true" ]] && TARGET["domain:mixed"]=1
           if [[ "$TRIVIAL" == "true" ]]; then
             TARGET["review:trivial"]=1
           elif [[ "$FRONTMATTER_ONLY" == "true" ]]; then
             TARGET["review:frontmatter-only"]=1
-          elif [[ "$FACT_CHECK" == "true" ]]; then
-            TARGET["fact-check:needed"]=1
           fi
-          [[ "$AGENT_AUTHORED" == "true" ]] && TARGET["agent-authored"]=1
           # Prose concerns flag — applies to either trivial or
           # frontmatter-only when the prose check turned up issues.
           if [[ "$PROSE_CHECK_NEEDED" == "true" && -n "$PROSE_CONCERNS" ]]; then
@@ -188,7 +183,7 @@ jobs:
             case "$lbl" in
               review:claude-ran|review:claude-stale|review:claude-working|needs-author-response)
                 continue ;;
-              review:*|fact-check:*|agent-authored)
+              domain:*|review:trivial|review:frontmatter-only|review:prose-flagged)
                 EXISTING["$lbl"]=1 ;;
             esac
           done < <(echo "$PR_DATA" | jq -r '.labels[].name')
@@ -250,4 +245,4 @@ jobs:
           ADDED_CSV="${ADD_LIST[*]:-}"; ADDED_CSV="${ADDED_CSV// /,}"
           REMOVED_CSV="${REMOVE_LIST[*]:-}"; REMOVED_CSV="${REMOVED_CSV// /,}"
           PROSE_COUNT=$(echo "$PROSE_CONCERNS" | grep -c . || true)
-          echo "triage: pr=$PR domains=${DOMAINS_CSV:-none} trivial=$TRIVIAL frontmatter-only=$FRONTMATTER_ONLY fact-check=$FACT_CHECK agent-authored=$AGENT_AUTHORED prose-checked=$PROSE_CHECK_NEEDED prose-concerns=$PROSE_COUNT added=${ADDED_CSV:-none} removed=${REMOVED_CSV:-none}"
+          echo "triage: pr=$PR domains=${DOMAINS_CSV:-none} trivial=$TRIVIAL frontmatter-only=$FRONTMATTER_ONLY prose-checked=$PROSE_CHECK_NEEDED prose-concerns=$PROSE_COUNT added=${ADDED_CSV:-none} removed=${REMOVED_CSV:-none}"

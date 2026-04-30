@@ -5,11 +5,7 @@ description: Factual claim verification — extract claims from changed content,
 
 # Factual Claim Verification
 
-This procedure catches *wrong information* in documentation: incorrect command output, hallucinated CLI flags, features described as existing when they don't, version claims, miscited APIs. It is the rigor enforcement that style checks alone cannot provide.
-
-It is a shared primitive: the CI review pipeline invokes it via its domain files (when the PR carries the `fact-check:needed` label), and the interactive `/pr-review` skill invokes it as Step 5. It is also designed to be run standalone -- anywhere a set of changed content files needs to be verified for factual accuracy.
-
-The procedure has six phases. They are listed in order, but the section names are descriptive rather than numbered so this reference can be reused outside of any specific calling workflow.
+This procedure catches *wrong information* in documentation: incorrect command output, hallucinated CLI flags, features described as existing when they don't, version claims, miscited APIs.
 
 ---
 
@@ -34,54 +30,13 @@ The caller must provide:
 - **Author-question buffer** -- one line per unverifiable claim, file:line-anchored
 - **Per-claim evidence trail** -- the raw `{status, confidence, evidence, source, suggested_fix}` tuples, retained for re-entrant re-verification
 
-### Minimum-viable caller (pseudocode)
-
-```bash
-# 1. Assemble the call
-FILES=$(gh pr view "$PR" --json files -q '.files[].path')
-SCRUTINY="heightened"  # domain files decide this; hardcoded here for illustration
-
-# 2. Gate (see Gating section — optional for non-pr-review callers)
-#    CI callers skip this and rely on the `fact-check:needed` label applied by triage.
-
-# 3. Extract claims (see Claim extraction section)
-
-# 4. Dispatch parallel verification subagents (see Parallel verification)
-
-# 5. Collate into the tiered triage object
-
-# 6. Hand the object to the caller for rendering
-```
-
 The skill is callable as a pure function of `(files, scrutiny)` → `(triage_object, author_questions, evidence_trail)`. Callers wire the output into their own review composition; fact-check does not render directly into a comment.
-
-### Note on AI-suspect
-
-AI-suspect detection (see [`pr-review:references:trust-and-scrutiny`](../pr-review/references/trust-and-scrutiny.md)) is a pr-review-skill concept. When that skill decides a PR is AI-suspect, it passes `scrutiny=heightened` to this file. The CI pipeline does not use the AI-suspect flag; CI callers pass `scrutiny` directly from the domain file's default (e.g., `review-blog.md` always passes `heightened`).
 
 ---
 
 ## Gating
 
-Decide whether to run at all. This phase is relevant for pr-review-skill callers (which use the gate script below) and for standalone use; the CI pipeline gates via the `fact-check:needed` label applied by triage and does **not** invoke the gate script.
-
-For pr-review and standalone callers:
-
-```bash
-bash .claude/commands/pr-review/scripts/should-fact-check.sh \
-  <PR_NUMBER> "<CONTRIBUTOR_TYPE>" "<AI_SUSPECT>" "<RISK_TIER>"
-```
-
-Parse `FACT_CHECK=run|skip` from output. If `skip`, store `FACT_CHECK_REASON` for the calling workflow's report and exit. If `run`, continue to claim extraction.
-
-The gate logic:
-
-- `AI_SUSPECT=true` → always RUN (AI hallucinations show up everywhere, including non-content paths)
-- `RISK_TIER=typo` → SKIP (nothing factual to check on a 5-line typo fix)
-- bot/dependabot → SKIP unless content paths are touched
-- any `content/{docs,blog,tutorials,learn,what-is}/` path in the diff → RUN
-
-For CI callers: the gate lives upstream, in triage (`claude-triage.yml`). The domain file invokes fact-check only when the `fact-check:needed` label is present on the PR.
+The caller decides whether to invoke fact-check. CI domain files and the `pr-review` skill encode their own gating rules; fact-check itself runs whenever it's called.
 
 ---
 
@@ -116,14 +71,7 @@ For every changed content file, produce a structured claim list. A "claim" is an
 
 Worked examples of correct extraction from real prose patterns. Each shows the paragraph, the extracted claims, and the reasoning.
 
-**Example 1 -- simple single claim**
-
-> "Pulumi ESC was released in 2024."
-
-- Claim: "Pulumi ESC was released in 2024." (type: `version/availability`)
-- Reasoning: one assertion about a single product-release fact.
-
-**Example 2 -- composite claim**
+**Example 1 -- composite claim**
 
 > "Pulumi ESC supports AWS, Azure, and Vault."
 
@@ -132,7 +80,7 @@ Worked examples of correct extraction from real prose patterns. Each shows the p
 - Claim 3: "Pulumi ESC supports Vault." (type: `feature existence`)
 - Reasoning: each listed integration is separately verifiable. Combining them hides which one is wrong when only one is.
 
-**Example 3 -- implicit comparison**
+**Example 2 -- implicit comparison**
 
 > "Unlike Terraform, Pulumi uses real programming languages."
 
@@ -140,34 +88,19 @@ Worked examples of correct extraction from real prose patterns. Each shows the p
 - Claim 2 (implicit): "Terraform does not use real programming languages." (type: `feature existence`)
 - Reasoning: "unlike X" asserts a property of X. Extract the implicit claim so it can be verified independently.
 
-**Example 4 -- quantitative**
+**Example 3 -- quantitative**
 
 > "chardet is 41x faster at encoding detection than its predecessor."
 
 - Claim: "chardet is 41x faster at encoding detection than its predecessor." (type: `numerical` / `benchmark`)
 - Reasoning: any specific multiplier needs a source. The 🤔 intuition-check may also fire -- "41x" is unrounded and suspiciously specific.
 
-**Example 5 -- temporal**
-
-> "Recently, Pulumi added support for OpenTofu."
-
-- Claim: "Pulumi added support for OpenTofu." (type: `feature existence`)
-- Temporal flag: "recently" -- triggers the Temporal-claim handling rule below. Verify *and* record the date anchor.
-
-**Example 6 -- negative**
+**Example 4 -- negative**
 
 > "Pulumi doesn't support ARM templates."
 
 - Claim: "Pulumi doesn't support ARM templates." (type: `feature existence`, negative)
 - Reasoning: harder to verify (proving a negative) -- requires reading the provider registry and confirming no matching package exists. Annotate as `verification_difficulty: high` so the subagent knows it may need extra evidence.
-
-**Example 7 -- CLI with output**
-
-> "Run `pulumi up` and you'll see `Performing changes:` in the output."
-
-- Claim 1: "`pulumi up` is a valid CLI command." (type: `command behavior`)
-- Claim 2: "`pulumi up` prints `Performing changes:`." (type: `output format`)
-- Reasoning: the output claim is separately wrong-able from the command claim. (The current CLI prints `Updating (dev)`, not `Performing changes:` -- Claim 2 would be contradicted.)
 
 ### Claim record format
 
@@ -226,17 +159,13 @@ After verification, render each claim in the bucket dictated by its verification
 
 | Verification result | `intuition_check=true` renders in | Evidence-line note |
 |---|---|---|
-| `contradicted` (any confidence) | 🚨 Contradicted | No 🤔 note needed; the contradiction already demands a fix |
-| `unverifiable` | 🚨 Unverifiable | "Shape also suggests fabrication; cite a source" |
-| `verified` with `confidence: low` | ⚠️ Low-confidence | "Shape was suspect; verifier found a low-confidence match" |
+| `contradicted` (any confidence) | 🚨 Needs your eyes | No 🤔 note needed; the contradiction already demands a fix |
+| `unverifiable` | 🚨 Needs your eyes | "Shape also suggests fabrication; cite a source" |
+| `verified` with `confidence: low` | ⚠️ Low-confidence verified | "Shape was suspect; verifier found a low-confidence match" |
 | `verified` with `confidence: medium` or `high` | ✅ Verified | No 🤔 note; evidence resolves the shape concern |
 | **verification timed out / inconclusive** | 🤔 Intuition-check | "Verifier couldn't resolve; author should cite a source" |
 
 The 🤔 bucket is therefore **small and specific**: claims whose shape was suspect AND whose verification returned neither a confirmation nor a contradiction. The model should not render 🤔 when the verifier produced a decisive answer either way.
-
-#### Why the axis exists (in one sentence)
-
-The shape flag surfaces "the author may have made this up even if the verifier can't prove it" -- a signal separate from evidence, catchable only by pattern-matching the prose. Coupling it to the render bucket (rather than a standalone tier) keeps the output structured around what the author must *do* (fix / cite / leave as is), not around what the verifier *felt*.
 
 Store the full claim list for the verification phase. No interim user output.
 
@@ -302,7 +231,7 @@ ONLY_TEST="program-name" ./scripts/programs/test.sh
 
 Used for *non-Pulumi* upstream sources where `gh` doesn't apply: AWS/Azure/GCP provider docs, upstream tool docs (Kubernetes, Terraform), third-party announcements. **Skip in favor of `gh` whenever the claim is about Pulumi itself.**
 
-#### 5. Notion + Slack (best-effort; pr-review / interactive use only)
+#### 5. Notion + Slack (best-effort)
 
 Only if MCP tools are present in the runtime tool set. Use these to catch internal context that hasn't made it into a repo yet -- "we decided not to ship this," "this was renamed," "the CEO sketched this in a doc but it's not built."
 
@@ -312,8 +241,6 @@ mcp__claude_ai_Slack__slack_search_public_and_private
 ```
 
 Default search window: last 6 months. Absence of these tools must not fail the workflow -- annotate the evidence as "internal sources unavailable."
-
-**CI fact-check never uses Notion or Slack.** The CI runner's tool set excludes these by design: fact-check output lands in a public PR comment, and internal sources create prompt-injection and leakage risks. See `docs-review-ci.md` §Hard rules.
 
 ### Confidence calibration
 
@@ -339,100 +266,32 @@ Examples:
   *Evidence:* No single source; multiple blog posts reference Pulumi+AWS prominently.
   *Rating:* **low** -- circumstantial.
 
-### Subagent prompt template
+### Subagent prompts
 
-Each subagent prompt is **self-contained** (the subagent has no access to the parent conversation):
-
-```
-You are verifying factual claims extracted from a Pulumi documentation change.
-
-For each claim below, decide whether it is verified, unverifiable, or contradicted,
-and return structured results.
-
-Verification toolbox (use cheapest source first):
-1. Local repo: Read/Grep within the working directory
-2. gh CLI: prefer this over WebFetch for any Pulumi-related claim. Common patterns:
-   - gh search code --owner pulumi "<term>"
-   - gh api repos/pulumi/<repo>/contents/<path>
-   - gh release view <tag> -R pulumi/pulumi
-3. Live execution: pulumi --help, pulumi <cmd> --help, npm/go/python read-only.
-   Require user confirmation before state-changing cloud operations.
-4. WebFetch/WebSearch: only for non-Pulumi upstream sources (AWS, k8s, etc.)
-5. Notion/Slack MCP: only if tools are present; best-effort. Never in CI.
-
-Claims to verify:
-{claim list with file/line/text/type/surrounding-paragraph}
-
-For each claim, return JSON:
-{
-  "id": <claim id>,
-  "status": "verified" | "unverifiable" | "contradicted",
-  "confidence": "high" | "medium" | "low",
-  "evidence": "<short quote, path:line, gh url, or command output>",
-  "source": "repo" | "gh" | "exec" | "web" | "notion" | "slack",
-  "suggested_fix": "<only if contradicted — concrete replacement text>"
-}
-
-Cap your full response under 250 words per claim group.
-```
+Subagent prompts must be self-contained — copy the rules into the prompt rather than referencing them. Include the §Verification source order rules, the §Claim record format expected output schema, and a per-claim cap of ~250 words.
 
 ---
 
 ## Tiered triage
 
-Build a structured triage object that the caller will render. The format:
-
-```markdown
-## 🔬 Fact-Check Results (14 claims, 3 files)
-
-### 🚨 Needs your eyes (2)
-- `content/docs/cli/logout.md:42` — **Contradicted**
-  Claim: "pulumi logout removes credentials for all backends"
-  Evidence: pulumi logout --help shows it only affects the current backend (exec)
-  Suggested fix: "removes credentials for the current backend"
-
-- `content/blog/esc-rotation.md:88` — **Unverifiable**
-  Claim: "ESC supports automatic rotation for Vault secrets"
-  Searched: registry docs, Notion (no decision found), Slack #esc (no mention)
-  Action: ask author for source
-
-### 🤔 Intuition-check (1)
-- `content/blog/perf.md:14` — **Suspicious shape**
-  Claim: "chardet is 41x faster at encoding detection"
-  Reason: unrounded specific multiplier; author should cite a source regardless of verifier result
-
-### ⚠️ Low-confidence verified (3)
-- `content/docs/foo.md:12` — claim — source
-  ...
-
-<details>
-### ✅ Verified (8)
-- `content/docs/foo.md:18` — claim — source
-- ...
-</details>
-```
+Build a structured triage object that the caller will render. fact-check returns the object; the caller composes it into the pinned review per `docs-review:references:output-format`.
 
 ### Tier rules
+
+🚨 and ⚠️ tier emojis match canonical buckets in `docs-review:references:output-format` (Outstanding and Low-confidence) — callers can thread those contents through. 🤔 has no canonical counterpart. ✅ Verified is fact-check's own collapsed-details bucket; it is **not** the canonical ✅ Resolved-since-last-review (which is the re-entrant-run bucket the caller owns elsewhere). The caller decides where to thread fact-check's ✅ Verified contents.
 
 | Tier | Contents |
 |---|---|
 | 🚨 Needs your eyes | All `contradicted` claims (any confidence) + all `unverifiable` claims |
 | 🤔 Intuition-check | Claims whose `intuition_check` flag was set AND whose verification came back inconclusive (timed out, could not reach a verdict). Cross-reference the shape concern in the evidence line. |
-| ⚠️ Low-confidence verified | `verified` claims with `confidence: low` (and `medium` when scrutiny is heightened) |
+| ⚠️ Low-confidence verified | `verified` claims with `confidence: low` (and `medium` when scrutiny is heightened). When the caller folds these into output-format's ⚠️ Low-confidence, prefix the evidence line so a reader can tell "verified weakly" apart from a generic low-confidence finding. |
 | ✅ Verified | Everything else, collapsed under `<details>` |
 
 When a claim is flagged `intuition_check: true` AND the verifier reaches a decisive verdict, it renders in the verdict's bucket (🚨 / ⚠️ / ✅), not 🤔 -- see the rendering rule table in §Intuition-check axis. 🤔 is for inconclusive verification only.
 
-### Why tiered
-
-- **Top of view = only actionable items.** These are the only findings that gate approval.
-- Verified claims are listed but visually subordinated so the audit trail exists without cognitive load.
-- Each contradicted claim ships with a concrete suggested fix → caller can immediately apply the fix without re-reading the file.
-- Counts in headers give a fast "is this 2 issues or 14?" gut check.
-
 ### Credential redaction
 
-The evidence line of any finding is rendered into the public pinned comment. **Never quote raw credential strings in evidence** -- file:line and a short description only. If the claim's context contains what looks like an API key, token, password, private URL, or connection string, replace the token with `[REDACTED]` in the evidence line and flag the underlying leak as a separate 🚨 finding (per [`review-infra.md`](review-infra.md) §Secret handling). Public-PR diffs are already exposed; the pinned comment must not amplify the leak by quoting the raw value.
+The evidence line of any finding is rendered into the public pinned comment. **Never quote raw credential strings in evidence** -- file:line and a short description only. If the claim's context contains what looks like an API key, token, password, private URL, or connection string, replace the token with `[REDACTED]` in the evidence line and flag the underlying leak as a separate 🚨 finding (per `docs-review:references:infra` §Secret handling). Public-PR diffs are already exposed; the pinned comment must not amplify the leak by quoting the raw value.
 
 Patterns that trigger redaction on sight:
 
@@ -444,40 +303,18 @@ Patterns that trigger redaction on sight:
 
 ## Author-question buffer
 
-For every `unverifiable` claim, add an entry to an author-question buffer:
+For every `unverifiable` claim and every 🤔 intuition-check finding, add a line-anchored entry:
 
 ```
 - content/blog/esc-rotation.md:88 — Source for "ESC supports automatic rotation for Vault secrets"?
-```
-
-For every 🤔 intuition-check finding, add:
-
-```
 - content/blog/perf.md:14 — Cite a source for "chardet is 41x faster at encoding detection"?
 ```
 
-The buffer is consumed by the calling workflow. In `/pr-review`, when the user picks **Request changes**, the buffer auto-populates the comment body with line-anchored questions per claim. Standalone callers can use it however they like -- print it, save it, ignore it.
+The buffer is consumed by the calling workflow.
 
 ---
 
 ## Assessment rules
-
-The caller's overall assessment and confidence gauge use these rules:
-
-| Finding | Effect on assessment |
-|---|---|
-| Any `contradicted` with `confidence: high` affecting code/CLI | Critical issues |
-| Any other `contradicted` with `confidence: high` | Issues found |
-| Only `unverifiable` claims | Minor issues + recommend asking author |
-| Only 🤔 intuition-check findings | Minor issues + recommend asking author for sources |
-| All verified | No impact |
-
-| Finding | Effect on confidence gauge |
-|---|---|
-| Any high-confidence contradicted | Cap at LOW |
-| Any unverifiable | Cap at MEDIUM |
-| Any 🤔 intuition-check | Cap at MEDIUM |
-| Heightened scrutiny | Cap at MEDIUM (always) |
 
 When called from a PR review, preserve the PR-introduced vs. pre-existing distinction throughout: a contradiction in unchanged prose is pre-existing (surfaced but doesn't gate approval); a contradiction in the diff is PR-introduced and blocking.
 
@@ -485,23 +322,19 @@ When called from a PR review, preserve the PR-introduced vs. pre-existing distin
 
 ## Heightened-scrutiny overrides
 
-When the caller passes `scrutiny=heightened` (e.g., AI-suspect is set in `/pr-review`, or `review-blog.md` / `review-programs.md` sets it by default):
+When the caller passes `scrutiny=heightened`:
 
-- Claim extraction runs over the **full file**, not just diff context
-- Gating always returns RUN
-- Web/`gh` verification runs by default on every claim
-- Medium-confidence verified claims get promoted from collapsed `✅ Verified` to visible `⚠️ Low-confidence verified`
-- The caller's confidence gauge prepends `🤖 AI-suspect` (pr-review only) and caps at MEDIUM
-- Auto-trivial fixers should be disabled by the caller (the AI may have introduced subtly wrong "fixes" that look like typos but aren't)
-- Pre-existing issue extraction runs per the rules below
+- Gating always returns RUN.
+- The `heightened` branch of §Scope (full-file claim extraction), §Verification source order (web/`gh` verification by default on every claim), and §Tier rules (medium-confidence verified surfaces to ⚠️ Low-confidence verified instead of collapsed ✅ Verified) applies.
+- Pre-existing issue extraction runs per the rules below.
 
 ### Pre-existing issue extraction
 
-When `scrutiny=heightened`, the verifier reads the **full file** for claim extraction. Any substantive issue the verifier notices in unchanged prose renders in the 💡 Pre-existing bucket (owned by the caller's output format; see [`docs-review-core.md`](docs-review-core.md)):
+When `scrutiny=heightened`, the verifier reads the **full file** for claim extraction. Any substantive issue the verifier notices in unchanged prose renders in the 💡 Pre-existing bucket (owned by the caller's output format; see `docs-review:references:output-format`):
 
 - **Do extract:** broken links, wrong facts, code typos (missing imports, wrong method names), deprecated terminology, temporally-rotted claims.
 - **Do NOT extract style nits** unless the domain file says to: heading case, list numbering, em-dash frequency, paragraph rhythm, trailing whitespace. Those are either linter territory or out of scope for fact-check.
-- **Cap:** 15 findings per file. If the file has more substantive issues than that, the top 15 render; surplus is noted as "+N additional pre-existing findings" in the bucket.
+- **Cap:** per `docs-review:references:output-format`. If the file has more substantive issues than the cap, the top N render; surplus is noted as "+N additional pre-existing findings" in the bucket.
 - **Bucket:** substantive pre-existing findings render in 💡 alongside domain-file style nits (when the domain says to extract them). The domain file controls what counts as which; fact-check just surfaces what it finds.
 
 For non-fact-check pre-existing extraction (style, structure), see the per-domain file's "Pre-existing issues" section.

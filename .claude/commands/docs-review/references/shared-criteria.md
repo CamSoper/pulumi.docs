@@ -5,9 +5,7 @@ description: Review criteria applied to every PR review, regardless of domain.
 
 # Review — Shared
 
-Applied to every changed file in every review, in addition to the file's domain criteria. Owns the cross-cutting concerns that don't belong to any one domain.
-
-Everything here is domain-neutral. If a check only matters for docs, blogs, infra, or programs, it goes in the corresponding domain file, not here.
+Applied to every changed file in every review, in addition to the file's domain criteria. Cross-cutting concerns only — domain-specific checks live in the corresponding domain file.
 
 ---
 
@@ -31,6 +29,7 @@ Everything here is domain-neutral. If a check only matters for docs, blogs, infr
 ### Frontmatter
 
 - Required fields per layout (`title`, `description`/`meta_desc`, `date` for time-sensitive content). Validate as YAML; unmatched quotes and inconsistent indentation break the whole site build, not just the page.
+- **`description` / `meta_desc` length.** Aim for 120–160 characters. Search engines truncate around 160; under 120 leaves the snippet sparse. (Caught at pre-commit by `lint-markdown.js` `checkPageMetaDescription` for staged files; this rule covers cases that bypass the hook.)
 - **`aliases` on move/rename.** When `gh pr view --json files` shows a file under its new path and the diff shows no content change to the old path, the moved file MUST have every prior URL listed in `aliases:`. Missing aliases are a ranking-destroying SEO failure -- flag as 🚨 every time, with the exact frontmatter addition as a suggestion block.
 - **S3 redirects for non-Hugo files.** Deleted files outside Hugo's content management need entries in `scripts/redirects/*.txt` (format `source-path|destination-url`). See `AGENTS.md` §Moving and Deleting Files.
 
@@ -57,20 +56,19 @@ Use suggestion blocks for replacements of five lines or fewer. For larger rewrit
 The following are owned by the lint job (`scripts/lint/lint-markdown.js` and peers). Do not restate findings the linter already catches:
 
 - trailing newlines / trailing whitespace
-- fenced-code-block language specifiers
 - ordered-list `1.` numbering convention
 - heading case (linter catches inconsistency; this file catches accuracy of content, not stylistic consistency)
-- image alt text presence
+- title length / meta description length / `meta_image` placeholder (`lint-markdown.js`'s `checkPageTitle`, `checkPageMetaDescription`, `checkMetaImage`)
 
-A diff can't reliably show a missing trailing newline, so even if a file "looks" like it's missing one, don't claim it in a finding. The linter will either pass or fail on this file; that's the answer.
+A diff can't reliably show a missing trailing newline. The linter will either pass or fail on this file; that's the answer.
 
-## Fact-check
+Image alt text (`MD045`) and fenced-code-block language specifiers (`MD040`) are currently disabled in the linter. Alt text is covered by `docs-review:references:image-review`; code-block language by `docs-review:references:code-examples`.
 
-This file does not invoke fact-check on its own. Domain files are the fact-check entry points.
+### Indented prose
+
+- **Indented prose isn't accidentally rendered as a code block.** Markdown treats 4-space-indented lines as code. Flag indented paragraph text that's not meant to be code (common in nested lists where a continuation line was over-indented and turned silently into a code block in rendered output).
 
 ## Do not flag
-
-These are DO-NOT items from [`docs-review-core.md`](docs-review-core.md) restated for cross-cutting cases:
 
 - **"This link might 404 eventually."** Speculative link-rot is not a finding. Either the link is broken now or it isn't.
 - **"You could also link to X."** Unsolicited "also consider linking to" suggestions belong in a separate improvement pass, not in this review.

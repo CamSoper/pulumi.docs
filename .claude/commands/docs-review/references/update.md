@@ -5,14 +5,7 @@ description: Re-entrant docs review. Updates the existing pinned review in place
 
 # Update Review (re-entrant)
 
-Shared primitive for "previous review + new commits/mention = updated review." Used by:
-
-- `.github/workflows/claude.yml` when a `@claude` mention lands on a PR with an existing pinned review.
-- The user-facing `pr-review` skill, when its adjudication step detects that the pinned review is stale.
-
-The output of this skill replaces the contents of the existing pinned-comment sequence; it does **not** post a new comment unless the previous summary is gone (see "Fallback").
-
-> **Re-entrant runs use Sonnet** (`claude-sonnet-4-6`). The cheaper model is doing the most-frequent task, so the constraints below -- especially "do not restate prior findings" -- must be foregrounded in the prompt with concrete examples. The Sonnet-specific examples further down this file are not decorative; they are how the rule sticks under a cheaper model.
+Shared primitive for "previous review + new commits/mention = updated review." The output replaces the contents of the existing pinned-comment sequence; a fresh post happens only via the Fallback path.
 
 ---
 
@@ -26,11 +19,11 @@ The skill loads everything else for itself:
 
 ```bash
 # Previous review (the pinned comment sequence)
-bash .claude/commands/_common/scripts/pinned-comment.sh fetch --pr "$PR_NUMBER"
+bash .claude/commands/docs-review/scripts/pinned-comment.sh fetch --pr "$PR_NUMBER"
 # Returns the full body of every CLAUDE_REVIEW N/M comment, in order, separated by markers.
 
 # Diff since the last review
-LAST_SHA=$(bash .claude/commands/_common/scripts/pinned-comment.sh last-reviewed-sha --pr "$PR_NUMBER")
+LAST_SHA=$(bash .claude/commands/docs-review/scripts/pinned-comment.sh last-reviewed-sha --pr "$PR_NUMBER")
 gh pr diff "$PR_NUMBER" --range "$LAST_SHA..HEAD"
 
 # Current PR state (including draft status)
@@ -42,23 +35,8 @@ gh pr view "$PR_NUMBER" --json title,body,isDraft,labels,files,headRefOid,headRe
 **Fallback rules when `last-reviewed-sha` is unusable:**
 
 - **Empty output** (history line missing, comment corrupted): fall back to a full `gh pr diff "$PR_NUMBER"` (no range). Treat the whole PR as new content; this is equivalent to starting over.
-- **SHA unreachable** (author force-pushed and rewrote history): `gh pr diff --range "$LAST_SHA..HEAD"` will fail with "unknown revision" or similar. Detect the non-zero exit and fall back to full `gh pr diff "$PR_NUMBER"`. Append a 📜 Review history line noting the force-push detection: `<timestamp> — history rewritten since last review; re-reviewed against HEAD (<SHA>)`.
+- **SHA unreachable** (author force-pushed and rewrote history, or CI's shallow checkout doesn't have it): `gh pr diff --range "$LAST_SHA..HEAD"` will fail with "unknown revision" or similar. Detect the non-zero exit (and any `git rev-parse --verify` failure) and fall back to full `gh pr diff "$PR_NUMBER"`. Append a 📜 Review history line noting the force-push detection: `<timestamp> — history rewritten since last review; re-reviewed against HEAD (<SHA>)`.
 - **Range empty** (`LAST_SHA` points at `HEAD`): no new commits since last review. Treat as Case 3 re-verify with no new content; do not re-extract claims.
-
-Detection pattern:
-
-```bash
-LAST_SHA=$(bash .claude/commands/_common/scripts/pinned-comment.sh last-reviewed-sha --pr "$PR_NUMBER")
-if [[ -z "$LAST_SHA" ]] || ! git rev-parse --verify "$LAST_SHA^{commit}" >/dev/null 2>&1; then
-    DIFF=$(gh pr diff "$PR_NUMBER")
-    FALLBACK_REASON="no valid last-reviewed-sha"
-else
-    DIFF=$(gh pr diff "$PR_NUMBER" --range "$LAST_SHA..HEAD")
-    FALLBACK_REASON=""
-fi
-```
-
-The CI runner's checkout is shallow, so `git rev-parse --verify` may also fail on reachable but un-fetched SHAs. Treat any verification failure as "unreachable" and fall back to full diff; the cost is one extra full-file pass, not correctness.
 
 ---
 
@@ -92,7 +70,7 @@ The author pushed commits that look like fixes for the previous 🚨 Outstanding
 2. Extract any *new* findings introduced by the new commits. Apply the domain rules.
 3. Append a 📜 Review history line: `<timestamp> — re-reviewed after fix push (<commit count> new commits, <SHA>)`.
 
-**Sonnet failure-mode example to avoid:**
+**Failure-mode example:**
 
 > Finding X was posted in the previous review; the author pushed commit abc123 that addresses it.
 >
@@ -124,7 +102,7 @@ The author or another reviewer pushed back on a previous finding *without* a fix
    - The Outstanding count does not change.
 4. **Do not** reword the same finding hoping it lands better. The original wording is in the comment; either change your mind or explain why you didn't.
 
-**Sonnet failure-mode examples to avoid:**
+**Failure-mode examples:**
 
 > Author (write access) mentions Claude saying: "I built this — the project intentionally uses pattern X because of Y."
 >
@@ -155,7 +133,7 @@ A `@claude` mention with no specific request, or a generic "please re-review." S
 2. If no new commits → re-verify the existing 🚨 Outstanding findings only (don't re-extract from scratch). For each finding still applicable, leave in place; for each no longer applicable, move to ✅ Resolved.
 3. Append 📜 Review history: `<timestamp> — re-verified on request (<author>)`.
 
-**Sonnet failure-mode example to avoid:**
+**Failure-mode example:**
 
 > Previous review had 3 outstanding findings (A, B, C). Author pushed no commits, no new mention beyond "@claude refresh."
 >
@@ -179,7 +157,7 @@ Alternative ✅ path: if the re-verify surfaces something the previous review mi
 
 ## Output
 
-Hand the updated review object to `_common/docs-review-core.md`'s output format. The 1/M comment's content reshapes accordingly:
+Hand the updated review object to `docs-review:references:output-format`. The 1/M comment's content reshapes accordingly:
 
 - 🚨 Outstanding shrinks (or grows on regressions)
 - ✅ Resolved fills in
@@ -190,7 +168,7 @@ Hand the updated review object to `_common/docs-review-core.md`'s output format.
 Then post via `pinned-comment.sh upsert`:
 
 ```bash
-bash .claude/commands/_common/scripts/pinned-comment.sh upsert \
+bash .claude/commands/docs-review/scripts/pinned-comment.sh upsert \
   --pr "$PR_NUMBER" \
   --body-file "$REVIEW_OUTPUT_FILE"
 ```
@@ -201,22 +179,12 @@ bash .claude/commands/_common/scripts/pinned-comment.sh upsert \
 
 ## Fallback — pinned comment is missing
 
-If `pinned-comment.sh fetch` returns nothing -- author deleted the comment, history was rewritten, or this is a freshly transitioned PR that somehow skipped the initial review -- fall back to a full initial review using [`docs-review-ci.md`](../docs-review-ci.md) and post fresh. The new comment lands at the bottom of the timeline; not ideal, but recoverable.
+If `pinned-comment.sh fetch` returns nothing -- author deleted the comment, history was rewritten, or this is a freshly transitioned PR that somehow skipped the initial review -- fall back to a full initial review using `docs-review/ci.md` and post fresh. The new comment lands at the bottom of the timeline; not ideal, but recoverable.
 
 ---
 
 ## Known quirks
 
-Documented here so they aren't "fixed" into new bugs by a future session.
-
-### `@claude` mentions on issues (not PRs)
-
-When a `@claude` mention lands on a GitHub **issue** (not a PR), `claude.yml`'s prompt evaluates to an empty string. The `claude-code-action` interprets an empty prompt as "execute the comment body's instructions," which is the original behavior for issue Q&A use cases. Do **not** "fix" this by adding a non-empty default prompt; that would break the issue-mention path. The re-entrant pipeline is PR-only by construction (it looks for `pull_request.*` context); issue mentions never reach this skill.
-
 ### Author deletes the 1/M pinned comment
 
-The pinned-comment script refuses to delete the 1/M comment (index 0 is sacrosanct inside the script). If the *author* deletes it via the GitHub UI, the next re-entrant run's `pinned-comment.sh fetch` returns empty, and the skill falls through to the Fallback path above -- a fresh post at the bottom of the timeline. Recoverable but ugly. Not worth a second-anchor architecture for v1; the incidence rate is low and the rebuild is self-serve.
-
-### Stale labels on long-running drafts
-
-Triage runs on `opened` / `reopened` / `ready_for_review`, not on `synchronize`. A draft PR that sits through many commits and shifts domain (e.g., a docs PR that later grows to touch `static/programs/`) will have stale labels until the next ready-transition, at which point re-triage fixes them. Acceptable for v1; the review skill is not run during this interval, so the stale labels don't produce wrong output, just wrong filters in the GitHub UI.
+If the author deletes the 1/M comment via the GitHub UI, the next re-entrant run's `pinned-comment.sh fetch` returns empty and the skill falls through to the Fallback path above — a fresh post at the bottom of the timeline.
