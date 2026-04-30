@@ -37,7 +37,7 @@ social:
 
 Somewhere in your company right now, a developer is building an AI agent. Maybe it's a release agent that cuts tags when tests pass. Maybe it's a cost agent that shuts down idle EC2 overnight. It's running, it's in production, and there's a decent chance the platform team doesn't know it exists.
 
-This isn't a thought experiment. OutSystems just surveyed 1,900 IT leaders and the numbers are rough: 96% of enterprises run AI agents in production today, 94% say the sprawl is becoming a real security problem, and only 12% have any central way to manage it. Twelve percent. You can [read the full report here](https://www.outsystems.com/news/enterprise-ai-agent-report-2026/).
+This isn't a thought experiment. OutSystems just surveyed 1,900 IT leaders and the numbers are rough: 96% of enterprises now use AI agents in some capacity, 94% say the sprawl is becoming a real security problem, and only 12% have any central way to manage it. Twelve percent. You can [read the full report here](https://www.outsystems.com/news/enterprise-ai-agent-report-2026/).
 
 The real question is where those agents run. Inside the platform you've already built, or somewhere off to the side where nobody on the platform team can see them.
 <!--more-->
