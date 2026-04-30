@@ -13,6 +13,10 @@ Applied to prose-bearing content (docs and blogs). Concrete patterns only — ev
 
 ## Patterns
 
+### Spelling and grammar
+
+Apply `docs-review:references:spelling-grammar`. Findings count toward the 10-per-file cap above.
+
 ### Passive voice
 
 Patterns: `was/were/been/being + past participle`, `is/are + past participle` where the actor is named or recoverable from context. Quote the construction; propose an active rewrite.
