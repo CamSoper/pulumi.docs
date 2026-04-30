@@ -24,7 +24,7 @@ social:
 
         It's running. It's in production. And there's a decent chance the platform team doesn't know it exists.
 
-        OutSystems surveyed 1,900 IT leaders this month: 96% of enterprises run agents in production today. Only 12% have any central way to manage the sprawl. The EU AI Act's high-risk obligations kick in on 2 August, Colorado's follows in June.
+        OutSystems surveyed 1,900 IT leaders this month: 96% of enterprises are already using AI agents in some capacity. Only 12% have any central way to manage the sprawl. The EU AI Act's high-risk obligations kick in on 2 August, Colorado's follows in June.
 
         The instinct is to build a new governance layer for agents. That's usually the wrong move. The governance layer you need is already sitting in your stack.
 
@@ -37,7 +37,7 @@ social:
 
 Somewhere in your company right now, a developer is building an AI agent. Maybe it's a release agent that cuts tags when tests pass. Maybe it's a cost agent that shuts down idle EC2 overnight. It's running, it's in production, and there's a decent chance the platform team doesn't know it exists.
 
-This isn't a thought experiment. OutSystems just surveyed 1,900 IT leaders and the numbers are rough: 96% of enterprises run AI agents in production today, 94% say the sprawl is becoming a real security problem, and only 12% have any central way to manage it. Twelve percent. You can [read the full report here](https://www.outsystems.com/news/enterprise-ai-agent-report-2026/).
+This isn't a thought experiment. OutSystems just surveyed 1,900 IT leaders and the numbers are rough: 96% of enterprises are already using AI agents in some capacity, 94% say the sprawl is becoming a real security problem, and only 12% have any central way to manage it. Twelve percent. You can [read the full report here](https://www.outsystems.com/news/enterprise-ai-agent-report-2026/).
 
 The real question is where those agents run. Inside the platform you've already built, or somewhere off to the side where nobody on the platform team can see them.
 <!--more-->
