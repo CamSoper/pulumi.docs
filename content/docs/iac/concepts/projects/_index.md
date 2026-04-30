@@ -26,11 +26,12 @@ A Pulumi project is any folder that contains a `Pulumi.yaml` project file. At ru
 
 ## The project file (Pulumi.yaml) {#pulumi-yaml}
 
-The project file specifies which runtime to use and determines where to look for the program that should be executed during deployments. Supported runtimes are `nodejs`, `python`, `dotnet`, `go`, `java`, and `yaml`.
+The project file specifies which runtime to use and where to find the program that runs during each deployment.
+Supported runtimes are `nodejs`, `python`, `dotnet`, `go`, `java`, and `yaml`.
 
-Project files also contain metadata about your project. The project file must begin with a capital `P`, although either `.yml` or `.yaml` extension will work.
+Project files also include metadata about your project. The filename must start with a capital `P`, but either `.yml` or `.yaml` extension is accepted.
 
-A typical `Pulumi.yaml` file looks like the following:
+A typical `Pulumi.yaml` file looks similar to the following example:
 
 ```yaml
 name: webserver
