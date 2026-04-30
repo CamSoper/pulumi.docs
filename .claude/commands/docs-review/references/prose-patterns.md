@@ -7,7 +7,7 @@ description: Concrete prose patterns to flag in user-facing content. Quote-and-r
 
 Applied to prose-bearing content (docs and blogs). Concrete patterns only — every finding must quote the offending text and propose a rewrite. If you can't quote the construction or propose a fix, drop the finding. Abstract "this could be clearer" / "consider reorganizing" feedback isn't a review concern.
 
-**Cap findings at 10 per file.** If a file has more, surface only the most impactful (the ones whose fix most improves clarity). Force triage; don't render every instance.
+**Cap structural-pattern findings at 10 per file** (passive voice, filler, intensifiers, difficulty qualifiers, undefined acronyms, nested clauses). Spelling and grammar render uncapped — see below. If a file has more than 10 structural findings, surface only the most impactful (the ones whose fix most improves clarity); don't render every instance.
 
 ---
 
@@ -15,7 +15,7 @@ Applied to prose-bearing content (docs and blogs). Concrete patterns only — ev
 
 ### Spelling and grammar
 
-Apply `docs-review:references:spelling-grammar`. Findings count toward the 10-per-file cap above.
+Apply `docs-review:references:spelling-grammar`. Render every finding — no cap. Each is an atomic, post-protected-tokens true-positive that the author can accept as a one-line suggestion block.
 
 ### Passive voice
 

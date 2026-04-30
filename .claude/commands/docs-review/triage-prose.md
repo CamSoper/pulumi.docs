@@ -13,7 +13,7 @@ This is a fast, narrow pass. Output exactly one JSON object on a single line, no
 {"prose_concerns":["path/to/file.md:LINE — issue (suggested fix)", ...]}
 ```
 
-If you find no issues, output `{"prose_concerns":[]}`. Be specific so the author can act without re-reading the diff. One concern per element. Cap at the 5 most important findings.
+If you find no issues, output `{"prose_concerns":[]}`. Be specific so the author can act without re-reading the diff. One concern per element. Cap at the 15 most important findings.
 
 ## Frontmatter-only PRs: scope
 
