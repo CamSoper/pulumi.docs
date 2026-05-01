@@ -35,6 +35,10 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Fetch secrets from ESC
+        id: esc-secrets
+        uses: pulumi/esc-action@v1
+
       - name: Check repository write access
         id: check-access
         run: |
@@ -179,10 +183,8 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          # ops note: cam fork has no ESC trust policy, so we fall back to the
-          # default GITHUB_TOKEN. Pushes from Claude won't re-trigger downstream
-          # workflows on this fork — fine for end-to-end testing only.
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Use bot token so pushes trigger downstream workflows (e.g., social review)
+          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
 
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
@@ -244,13 +246,22 @@ jobs:
             gh api --method PATCH "repos/$REPO/issues/comments/$COMMENT_ID" \
               -f body="$BODY" >/dev/null || true
           fi
-          # Clear both lifecycle labels: working (set above) and stale
-          # (set by claude-code-review.yml's mark-stale job on push). On
-          # successful re-entrant work, the pinned review is no longer
-          # stale, so the label should go.
-          gh pr edit "$PR" --repo "$REPO" \
-            --remove-label review:claude-working \
-            --remove-label review:claude-stale || true
+          # Clear lifecycle labels: working (set above) and stale (set by
+          # claude-code-review.yml's mark-stale job on push). On successful
+          # re-entrant work, also re-add review:claude-ran — the pinned
+          # review is fresh again, and ran/stale are mutually exclusive.
+          # mark-stale removed claude-ran when it set claude-stale, so
+          # without re-adding here the PR would carry neither label.
+          if [ "$OUTCOME" = "success" ]; then
+            gh pr edit "$PR" --repo "$REPO" \
+              --add-label review:claude-ran \
+              --remove-label review:claude-working \
+              --remove-label review:claude-stale || true
+          else
+            gh pr edit "$PR" --repo "$REPO" \
+              --remove-label review:claude-working \
+              --remove-label review:claude-stale || true
+          fi
 
 env:
   ESC_ACTION_OIDC_AUTH: true
