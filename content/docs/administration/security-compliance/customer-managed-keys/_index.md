@@ -42,9 +42,8 @@ have specific requirements, please [contact us](/contact/).
 
 To view Customer Managed Keys:
 
-1. As an admin, expand the organization’s **Settings** menu.
-1. Select **Organization**.
-1. Select the **Customer Managed Keys** tab.
+1. Go to the organization’s **Settings**.
+2. Select **Customer Managed Keys**.
 
 The Customer Managed Keys page displays the following details for each key:
 
