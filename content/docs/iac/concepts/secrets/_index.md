@@ -736,3 +736,5 @@ Which should look like this:
   }
 }
 ```
+
+Click the encryption icon to view the secret value.
