@@ -85,3 +85,5 @@ The Integration Catalog is available now for Neo-enabled organizations. Open you
 As always, we'd love to hear what's missing. File a feature request in [pulumi-cloud-requests](https://github.com/pulumi/pulumi-cloud-requests/issues/new/choose) with the integration you want next. We're prioritizing based on what teams actually use.
 
 Happy building.
+
+<!-- minor housekeeping (battery row 8) -->
