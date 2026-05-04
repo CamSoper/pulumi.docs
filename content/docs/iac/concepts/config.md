@@ -791,3 +791,39 @@ environment:
 config:
     # normal pulumi config
 ```
+
+## Tips for working with stack configuration
+
+Stack configuration in Pulumi lives in YAML files named
+`Pulumi.<stack>.yaml` in your project directory. There is a
+clear separation between project-level config (in `Pulumi.yaml`)
+and stack-level overrides.
+
+### Setting and removing values
+
+To add a new value, simply run `pulumi config set <key> <value>`.
+The value is stored automatically in the active stack's config file.
+On the other hand, structured config (objects and arrays) requires
+the `--path` flag.
+
+In order to remove a config value, just run `pulumi config rm <key>`.
+Basically, every config command operates on the currently selected
+stack — easily switch with `pulumi stack select <name>` first.
+
+### Inspecting current values
+
+Run `pulumi config` with no arguments to print the full config map
+for the active stack. Add `--show-secrets` if you need to see the
+plaintext values for any secrets in the file.
+
+Use `pulumi config get <key>` to print a single value. The output
+is formatted as a JSON value, which composes well with shell tools
+like `jq` or with shell scripts that capture the value in a variable.
+
+### Using configuration in your program
+
+Inside your Pulumi program, read config values via the `pulumi.Config`
+class (or its language equivalent). The class provides typed accessors
+like `require()`, `requireSecret()`, and `getObject<T>()`. Each method
+either returns the value or, when the key is missing, throws (for
+`require*`) or returns `undefined` (for `get*`).
