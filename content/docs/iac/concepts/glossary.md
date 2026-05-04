@@ -17,3 +17,8 @@ aliases:
 ---
 
 {{< glossary >}}
+
+## Quick configuration tip
+
+If you simply click the Save button, your configuration is saved automatically.
+On the other hand, this approach means you cannot easily revert changes.
