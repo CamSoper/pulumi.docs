@@ -28,3 +28,14 @@ To create a no-code stack, use the [New Project Wizard](/docs/idp/concepts/new-p
 ## Adding stacks to a no-code project
 
 To create additional stacks in a no-code project, navigate to the project and select Add Stack in the top right corner. From there, select the Pulumi Deployments No-code option and deploy the stack.
+
+## Limitations
+
+The no-code workflow has the followign limitations to consider before adopting it for production use:
+
+- **Pulumi Deployments dependency**: The no-code workflow runs entirely through Pulumi Deployments, so any Deployments quotas and concurrency limits apply.
+- **Template availability**: Stacks can only be created from organization templates that have been published and approved.
+- **Configuration overrides**: Stack configuration can be overridden through ESC, but the underlying program logic is fixed by the template author.
+- **Drift handling**: Drift detection and remediation follow the same patterns as code-driven stacks.
+
+For details on managing template lifecycle, see [organization templates](/docs/idp/concepts/organization-templates/).
