@@ -72,7 +72,7 @@ Pulumi requires the IdP metadata XML from JumpCloud to complete SSO configuratio
 
 1. From the **SSO** tab of the application, select **Export Metadata** to download the metadata XML file.
 
-    Alternatively, navigate to **Access** > **SSO Applications**, check the box next to your Pulumi application in the **Configured Applications** list, and select **Export Metadata** in the top-right corner.
+    As an alternative, navigate to **Access** > **SSO Applications**, check the box next to your Pulumi application in the **Configured Applications** list, and select **Export Metadata** in the top-right corner.
 
 1. Save the downloaded `JumpCloud-<applicationname>-metadata.xml` file; you will need it in the next step.
 
