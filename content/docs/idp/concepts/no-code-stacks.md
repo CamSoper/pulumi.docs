@@ -31,7 +31,7 @@ To create additional stacks in a no-code project, navigate to the project and se
 
 ## Limitations
 
-The no-code workflow has the followign limitations to consider before adopting it for production use:
+The no-code workflow has the following limitations to consider before adopting it for production use:
 
 - **Pulumi Deployments dependency**: The no-code workflow runs entirely through Pulumi Deployments, so any Deployments quotas and concurrency limits apply.
 - **Template availability**: Stacks can only be created from organization templates that have been published and approved.
