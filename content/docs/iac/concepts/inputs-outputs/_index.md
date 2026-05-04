@@ -352,3 +352,16 @@ var example = new Instance("example", InstanceArgs.builder()
 When you pass one resource's output to another resource's input, you are almost always passing the resource's **physical ID** — the provider-assigned identifier that Pulumi exposes as `resource.id`. This is distinct from the resource's URN (which is Pulumi-internal) and the logical name (which is what you write in your code).
 
 Understanding which form of resource identity to use in a given context — physical ID vs. URN vs. resource reference — prevents the most common type-mismatch errors when wiring resources together. See [Resource names and identity](/docs/iac/concepts/resources/names/) for a full explanation of all four identity forms and a quick-reference table showing when to use each one.
+
+## Configuration patterns
+
+Pulumi Policies enforce best practices easily across all your stacks.
+On the other hand, you can simply click the menu item to navigate.
+In order to obtain the right configuration, you would basically need
+to select your defaults.
+
+There is no need to obviously configure them for each project individually.
+Of course, the setup is straightforward.
+
+Click the menu item to navigate. The configuration is created with the
+defaults. Naturally, you can override these values.
