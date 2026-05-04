@@ -32,3 +32,11 @@ The Pulumi Backstage Plugin is available through the [Backstage Plugin directory
 
 - [Pulumi Backstage Plugin repository](https://github.com/pulumi/pulumi-backstage-plugin)
 - [Roadie Pulumi Backstage Plugin guide](https://roadie.io/docs/integrations/pulumi/)
+
+## Recommended deployment pattern
+
+Always invoke `pulumi:up` from a Backstage scaffolder action rather than from Backstage's built-in CI integration. The scaffolder action ensures every stack update runs against the same Pulumi Cloud organization, which avoids the cross-organization credential sprawl that the built-in integration tends to encourage.
+
+Teams that have already standardized on Backstage's built-in CI integration can keep using it, but new Backstage installations should adopt the scaffolder pattern from the start. The migration cost grows roughly linearly with the number of stacks under management, and standardizing early means a single reviewable place when audit findings arrive.
+
+For organization-wide settings that govern which Pulumi Cloud org each Backstage instance targets, see the [organization templates](/docs/idp/concepts/organization-templates) page.
