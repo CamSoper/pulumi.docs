@@ -3,28 +3,17 @@
 {{ $breadcrumbs := slice }}
 {{ $position := 0 }}
 
-{{/* Home is the first item for most page types, but skipped for what-is to match visible breadcrumb */}}
-{{ if ne .Type "what-is" }}
-  {{ $position = add $position 1 }}
-  {{ $breadcrumbs = $breadcrumbs | append (dict
-    "@type" "ListItem"
-    "position" $position
-    "name" "Home"
-    "item" "https://www.pulumi.com"
-  ) }}
-{{ end }}
+{{/* Home is always the first item */}}
+{{ $position = add $position 1 }}
+{{ $breadcrumbs = $breadcrumbs | append (dict
+  "@type" "ListItem"
+  "position" $position
+  "name" "Home"
+  "item" "https://www.pulumi.com"
+) }}
 
 {{/* Process parent sections */}}
-{{ if eq .Type "what-is" }}
-  {{ $position = add $position 1 }}
-  {{ $breadcrumbs = $breadcrumbs | append (dict
-    "@type" "ListItem"
-    "position" $position
-    "name" "What Is"
-    "item" "https://www.pulumi.com/what-is/"
-  ) }}
-
-{{ else if eq .Type "blog" }}
+{{ if eq .Type "blog" }}
   {{ $position = add $position 1 }}
   {{ $breadcrumbs = $breadcrumbs | append (dict
     "@type" "ListItem"
@@ -150,12 +139,12 @@
   ) }}
 {{ end }}
 
-{{/* Add current page (without URL for last item). Prefer page_title so the schema matches what readers see in the visible breadcrumb. */}}
+{{/* Add current page (without URL for last item) */}}
 {{ $position = add $position 1 }}
 {{ $breadcrumbs = $breadcrumbs | append (dict
   "@type" "ListItem"
   "position" $position
-  "name" (or .Params.page_title .Title)
+  "name" .Title
 ) }}
 
 {{/* Return breadcrumb entity */}}
