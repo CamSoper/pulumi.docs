@@ -17,7 +17,7 @@ aliases:
 - /docs/languages-sdks/hcl/hcl-language-reference/
 ---
 
-Pulumi programs can be defined in many languages, and the Pulumi HCL dialect offers an additional language for authoring Pulumi programs using [Terraform](https://developer.hashicorp.com/terraform)-like HCL syntax.
+Pulumi programs can be defined in many languages, and the Pulumi HCL dialect is another option for authoring Pulumi programs using [Terraform](https://developer.hashicorp.com/terraform)-like HCL syntax.
 
 A Pulumi HCL program consists of one or more `.hcl` files in a directory whose `Pulumi.yaml` specifies `runtime: hcl`:
 
@@ -79,13 +79,13 @@ variable "name" {
 | `description` | string     | No  | Human-readable description. |
 | `sensitive`   | bool       | No  | When `true`, the value becomes a [Pulumi secret](/docs/iac/concepts/secrets/). |
 | `nullable`    | bool       | No  | When `false`, rejects null values. Defaults to `true`. |
-| `validation`  | block      | No  | One or more validation rules (see below). |
+| `validation`  | block      | No  | One or more validation rules. |
 
 Each `validation` block has the following attributes:
 
 | Attribute       | Type       | Required | Description |
 | - | - | - | - |
-| `condition`     | expression | Yes      | Expression that must evaluate to `true`. |
+| `condition`     | expression | Yes      | Expression that must be `true`. |
 | `error_message` | expression | Yes      | Error message shown when the condition is `false`. |
 
 Variables are set through Pulumi's config system, in priority order:
@@ -115,7 +115,7 @@ resource "aws_instance" "web" {
 
 | Argument     | Type       | Description |
 | - | - | - |
-| `count`      | number     | Create multiple instances indexed by `count.index`. |
+| `count`      | number     | Create instances indexed by `count.index`. |
 | `for_each`   | map or set | Create instances keyed by `each.key` with `each.value`. |
 | `depends_on` | list       | Explicit dependencies on other resources. |
 | `provider`   | reference  | Specific provider configuration to use. |
@@ -215,7 +215,7 @@ resource "aws_instance" "web" {
 }
 ```
 
-| Provisioner type | Pulumi equivalent             |
+| Provisioner type | Pulumi resource type          |
 | - | - |
 | `local-exec`     | `command:local:Command`       |
 | `remote-exec`    | `command:remote:Command`      |
@@ -237,7 +237,7 @@ When using `count`, instances are indexed: `aws_instance.web[0].id`, or `aws_ins
 
 ### Resource options
 
-In addition to the Terraform-like meta-arguments above, resource blocks accept Pulumi-specific [resource options](/docs/iac/concepts/resources/options/) as top-level attributes.
+Beyond the Terraform-like meta-arguments above, resource blocks accept Pulumi-specific [resource options](/docs/iac/concepts/resources/options/) as top-level attributes.
 
 ```hcl
 resource "aws_instance" "web" {
@@ -263,7 +263,7 @@ resource "aws_instance" "web" {
 | `parent`                    | reference    | Parent resource for component hierarchy. |
 | `additional_secret_outputs` | list(string) | Output properties to encrypt in state. |
 | `retain_on_delete`          | bool         | Keep the cloud resource when removed from the program. |
-| `deleted_with`              | reference    | Cascade deletion when the referenced resource is deleted. |
+| `deleted_with`              | reference    | Skip the delete call for this resource when the referenced resource is being deleted (the parent's deletion is expected to remove it). |
 | `replace_with`              | list         | Resources whose replacement triggers replacement of this one. |
 | `hide_diffs`                | list(string) | Property paths whose diffs should not be displayed. |
 | `replace_on_changes`        | list(string) | Property paths that force replacement when changed. |
@@ -332,9 +332,9 @@ provider "aws" {
 }
 ```
 
-#### Multiple provider configurations
+#### Provider aliases
 
-Use `alias` to create multiple configurations of the same provider:
+Use `alias` to configure the same provider more than once:
 
 ```hcl
 provider "aws" {
@@ -405,7 +405,7 @@ output "vpc_id" {
 
 ### Locals
 
-`locals` blocks define reusable intermediate values. Multiple `locals` blocks are allowed in a program; reference locals as `local.<name>`.
+`locals` blocks define reusable intermediate values and can appear more than once in a program; reference locals as `local.<name>`.
 
 ```hcl
 locals {
@@ -464,7 +464,7 @@ Remote modules are cached in `~/.pulumi/modules/`.
 | - | - | - |
 | `source`     | string     | Module source (required). |
 | `version`    | string     | Version constraint (for registry modules). |
-| `count`      | number     | Create multiple module instances. |
+| `count`      | number     | Create module instances indexed by `count.index`. |
 | `for_each`   | map or set | Create keyed module instances. |
 | `depends_on` | list       | Explicit dependencies. |
 | `providers`  | map        | Provider configuration mappings for the module. |
