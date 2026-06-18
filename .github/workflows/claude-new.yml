@@ -47,14 +47,12 @@ jobs:
       # pinned comment and dispatches claude-code-review.yml), but kept
       # consistent with the other claude-*.yml workflows in case a future
       # change adds a push path here.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v2
-
+      # ops (fork-only): ESC step dropped — Cam fork has no ESC trust policy.
+      # PULUMI_BOT_TOKEN → GITHUB_TOKEN. Re-applied each sync; not for upstream.
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
       - name: Check repository write access
