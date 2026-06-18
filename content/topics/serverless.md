@@ -42,8 +42,6 @@ sections:
       label: Serverless Building Blocks
     - id: code
       label: Code
-    - id: templates
-      label: Templates
     - id: get-started
       label: Get Started
     - id: contact
