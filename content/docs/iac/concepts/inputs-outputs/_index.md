@@ -4,6 +4,8 @@ meta_desc: Resource properties are treated specially in Pulumi, both for purpose
 title: "Inputs & outputs"
 h1: "Inputs & outputs"
 meta_image: /images/docs/meta-images/docs-meta.png
+aliases:
+    - /docs/pr-a-flagged-demo-collision/
 menu:
     iac:
         name: Inputs & Outputs

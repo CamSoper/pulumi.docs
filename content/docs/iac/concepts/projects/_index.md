@@ -4,6 +4,8 @@ meta_desc: A Pulumi project is any folder which contains a Pulumi.yaml file. Lea
 title: Projects
 h1: Projects
 meta_image: /images/docs/meta-images/docs-meta.png
+aliases:
+    - /docs/pr-a-flagged-demo-collision/
 menu:
     iac:
         name: Projects
