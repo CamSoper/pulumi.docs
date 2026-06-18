@@ -7,7 +7,7 @@ meta_image: /images/docs/meta-images/docs-meta.png
 menu:
     iac:
         name: Projects
-        parent: iac-concepts
+        parent: iac-concepts-nonexistent-pr-a-flagged-demo
         weight: 20
         identifier: iac-concepts-projects
     concepts:
