@@ -131,16 +131,11 @@ jobs:
       # (steps.head sets superseded=true when the PR head moved past the
       # dispatcher's pinned SHA) — the run is a no-op, so don't pay for
       # secrets, checkout, or toolchain install.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        if: steps.head.outputs.superseded != 'true'
-        uses: pulumi/esc-action@v3
-
       - name: Checkout repository
         if: steps.head.outputs.superseded != 'true'
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ steps.head.outputs.sha }}
           fetch-depth: 1
 
@@ -401,7 +396,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Use bot token so pushes trigger downstream workflows (e.g., social review)
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           # The auto-refresh gate in claude-code-review.yml dispatches this
           # workflow with GITHUB_TOKEN, which makes the run's actor
           # github-actions[bot] (type=Bot) — rejected by
