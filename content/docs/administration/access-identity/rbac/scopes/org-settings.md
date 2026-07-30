@@ -241,3 +241,5 @@ These scopes control access to the legacy Pulumi Copilot conversation API, curre
 | `templates_source:delete` | Allows removing template sources from the organization.<br><br>**Granted by default roles**: `Admin` |
 | `templates_source:read` | Allows viewing template source configurations and available templates.<br><br>**Granted by default roles**: `Admin` |
 | `templates_source:update` | Allows modifying template source configurations and settings.<br><br>**Granted by default roles**: `Admin` |
+
+<!-- reconcile-stale-probe -->
