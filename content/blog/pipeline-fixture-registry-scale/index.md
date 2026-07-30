@@ -19,7 +19,7 @@ social:
     linkedin: |
         The Pulumi Registry lists more than 150 providers, each with a generated SDK carrying typed inputs and outputs.
 
-        That number is easy to skim past. It matters most on the day you reach for a service you have never used before and find that the SDK for it already exists in the language you were already writing.
+        That number is easy to skim past. It matters most on the day you reach for a service you have never used before and find that a generated SDK for it is already published.
     bluesky: |
         More than 150 providers in the Pulumi Registry, each with a generated, typed SDK.
 ---
