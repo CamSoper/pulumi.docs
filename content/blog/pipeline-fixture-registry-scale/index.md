@@ -32,9 +32,7 @@ Provider counts are the kind of number that shows up on a landing page and gets 
 
 The Pulumi Registry lists more than 150 providers. Each one ships a generated SDK with typed inputs and outputs in the language you're already writing.
 
-The registry is large. It covers a lot of ground, and the breadth of what it covers is the point.
-
-Breadth is what the registry is for. Its size is the whole argument, and the amount of ground it covers is why the number is worth quoting at all.
+Breadth is the whole argument, which is why the number is worth quoting at all.
 
 ## What that means in practice
 
