@@ -43,3 +43,5 @@ That's the practical payoff: the cost of the first resource in an unfamiliar pro
 ## When it doesn't help
 
 A provider existing is not the same as a provider being good. Coverage within a provider varies, some resources lag the underlying API, and a brand-new service from a cloud vendor can take a release cycle to land. The number tells you the shelf is stocked; it doesn't tell you the specific thing you need is on it.
+
+Provider counts are a shelf-stocking metric, not a guarantee about your specific service.
