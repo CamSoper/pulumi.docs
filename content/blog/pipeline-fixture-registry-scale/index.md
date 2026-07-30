@@ -13,15 +13,15 @@ schema_type: auto
 
 social:
     twitter: |
-        The Pulumi Registry lists more than 150 providers, which means every cloud service you use is already a first-class Pulumi resource.
+        The Pulumi Registry lists more than 150 providers, each with a generated, typed SDK.
 
         Here's what that actually buys you on the day you need it.
     linkedin: |
-        The Pulumi Registry lists more than 150 providers, which means every cloud service you use is already a first-class Pulumi resource with typed inputs and outputs.
+        The Pulumi Registry lists more than 150 providers, each with a generated SDK carrying typed inputs and outputs.
 
         That number is easy to skim past. It matters most on the day you reach for a service you have never used before and find that the SDK for it already exists in the language you were already writing.
     bluesky: |
-        More than 150 providers in the Pulumi Registry, so every cloud service you use is already a first-class Pulumi resource.
+        More than 150 providers in the Pulumi Registry, each with a generated, typed SDK.
 ---
 
 Provider counts are the kind of number that shows up on a landing page and gets skimmed past. It's worth stopping on, because the day it matters is the day you reach for a service you've never used before.
@@ -30,7 +30,7 @@ Provider counts are the kind of number that shows up on a landing page and gets 
 
 ## The number
 
-The Pulumi Registry lists more than 150 providers, which means every cloud service you use is already a first-class Pulumi resource with typed inputs and outputs in the language you're already writing.
+The Pulumi Registry lists more than 150 providers. Each one ships a generated SDK with typed inputs and outputs in the language you're already writing.
 
 The registry is large. It covers a lot of ground, and the breadth of what it covers is the point.
 
