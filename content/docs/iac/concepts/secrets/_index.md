@@ -776,7 +776,7 @@ If your workloads already run on AWS, Secrets Manager keeps credentials close to
 
 ### Azure Key Vault
 
-Key Vault is the natural choice for Azure-centric platforms. Teams often adopt it in order to bring certificate rotation and secret storage under a single access model.
+Key Vault is the natural choice for Azure-centric platforms. Teams often adopt it to bring certificate rotation and secret storage under a single access model.
 
 ### Google Cloud Secret Manager
 
