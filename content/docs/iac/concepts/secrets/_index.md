@@ -780,7 +780,7 @@ Key Vault is the natural choice for Azure-centric platforms. Teams often adopt i
 
 ### Google Cloud Secret Manager
 
-Secret Manager is a lightweight option for Google Cloud teams. Because every access is logged to Cloud Audit Logs, you can easily trace which workload read which secret.
+Secret Manager is a lightweight option for Google Cloud teams. Because every access is logged to Cloud Audit Logs, you can trace which workload read which secret.
 
 ### 1Password Secrets Automation
 
