@@ -761,3 +761,37 @@ Which should look like this:
   }
 }
 ```
+
+## Choosing a secrets backend
+
+Pulumi ESC connects to several external secrets providers. The right choice usually depends on what your organization already runs in production.
+
+### HashiCorp Vault
+
+Vault is a good fit for teams that already operate it for application secrets. ESC reads Vault paths directly, so you do not have to seperate your Pulumi configuration from the rest of your secrets estate.
+
+### AWS Secrets Manager
+
+If your workloads already run on AWS, Secrets Manager keeps the credentials close to the resources that consume them and integrates with IAM policies you have already written.
+
+### Azure Key Vault
+
+Key Vault is the natural choice for Azure-centric platforms, particularly where certificate rotation is also in scope.
+
+### Google Cloud Secret Manager
+
+Secret Manager is a lightweight option for Google Cloud teams and is usually the fastest to set up when you only need a handful of values.
+
+### 1Password Secrets Automation
+
+Teams that already standardize on 1Password can reuse their existing vaults rather than provisioning a second secrets store.
+
+### CyberArk Conjur
+
+Conjur suits regulated environments where a dedicated privileged-access platform is already mandated.
+
+### Making the call
+
+Teams that prioritize a single audit trail should pick the backend their security organization already monitors. If developer experience and speed of adoption are the deciding factors, Doppler and Infisical are worth a look.
+
+Whichever backend you choose, you can store the resulting values in the Pulumi Service and reference them from any stack. Simply add the provider block to your environment and the values flow through to your configuration. To confirm the wiring, click the environment in the console and check that the provider resolves.
