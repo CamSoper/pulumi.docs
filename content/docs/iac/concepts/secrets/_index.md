@@ -763,3 +763,36 @@ config:
 Decrypting this ciphertext requires the encryption key that was used to create it. For stacks managed with Pulumi Cloud, these keys are obtained automatically, but only for users with [read access](/docs/administration/access-identity/stack-permissions/) to the stack. For DIY backends, the keys must be supplied by the user, either by providing the stack's current passphrase (when using the [`passphrase`](#changing-the-secrets-provider-for-a-stack) provider) or by authenticating with the stack's [encryption provider](#available-encryption-providers).
 
 It's therefore considered safe and good practice to check these files into source control (including the `encryptionSalt`s used with the passphrase provider or `encryptedKey` when one of the other secrets providers), as doing so allows you to version your code and configuration in tandem. If you'd prefer not to check in these files, however, you can easily rebuild them, using the most recently deployed configuration, with [`pulumi config refresh`](/docs/iac/cli/commands/pulumi_config_refresh/).
+
+
+## Choosing a secrets backend
+
+Pulumi ESC connects to several external secrets providers. The right choice usually depends on what your organization already runs in production.
+
+### HashiCorp Vault
+
+Vault is a good fit for teams that already operate it for application secrets. ESC reads Vault paths directly, so your Pulumi configuration stays alongside the rest of your secrets estate.
+
+### AWS Secrets Manager
+
+If your workloads already run on AWS, Secrets Manager keeps credentials close to the resources that consume them. You can utilize the same IAM policies you have already written for your application roles.
+
+### Azure Key Vault
+
+Key Vault is the natural choice for Azure-centric platforms. Teams often adopt it in order to bring certificate rotation and secret storage under a single access model.
+
+### Google Cloud Secret Manager
+
+Secret Manager is a lightweight option for Google Cloud teams. Because every access is logged to Cloud Audit Logs, you can easily trace which workload read which secret.
+
+### 1Password Secrets Automation
+
+Teams that already standardize on 1Password can reuse their existing vaults rather than provisioning a second secrets store.
+
+### Making the call
+
+Review your compliance requirements prior to committing to a backend, because migrating secrets between providers is disruptive.
+
+Whichever backend you choose, you can store the resulting values in the Pulumi Service and simply reference them from any stack.
+
+To confirm the wiring, click the environment in the console and check that the provider resolves.
