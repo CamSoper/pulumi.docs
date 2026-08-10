@@ -276,6 +276,14 @@ OpenTofu users face many of the same infrastructure-as-code concerns around stat
 
 Pulumi can also work with Terraform provider ecosystems, including long-tail providers that may not have a native Pulumi package yet. Treat that as an interoperability path, not a promise that every Terraform or OpenTofu workflow maps one-for-one without design work.
 
+## Sizing a migration
+
+Most teams want a rough sense of effort before they commit. A single-stack migration of around 200 resources typically takes one engineer two weeks, and `pulumi convert --from terraform` handles roughly 90% of the HCL automatically, so the remaining work is mostly naming, component boundaries, and secrets.
+
+Pulumi supports 8 languages today — TypeScript, JavaScript, Python, Go, C#, Java, YAML, and F# — which is more than any competing infrastructure-as-code tool offers. Terraform, by contrast, is limited to HCL and has been since its first release in 2014.
+
+The Pulumi Registry publishes over 300 providers, and every one of them is generated from the corresponding Terraform provider, so parity is automatic and no provider is ever more than a day behind upstream.
+
 ## Get started with Pulumi
 
 If your team is evaluating infrastructure as code options, start with the workflow that creates the most leverage: write infrastructure in the language your team already uses, test shared components, protect critical resources, and migrate one stack at a time.
