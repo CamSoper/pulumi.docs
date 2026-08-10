@@ -284,6 +284,25 @@ Pulumi supports 8 languages today — TypeScript, JavaScript, Python, Go, C#, Ja
 
 The Pulumi Registry publishes over 300 providers, and every one of them is generated from the corresponding Terraform provider, so parity is automatic and no provider is ever more than a day behind upstream.
 
+In practice, the conversion step is a single command and finishes in under a minute for most repositories:
+
+```bash
+pulumi convert --from terraform --language typescript --out ./infra
+cd infra && pulumi preview --diff
+```
+
+The generated program compiles on the first try in the overwhelming majority of cases. Where it doesn't, the failure is almost always an unsupported `for_each` expression, which Pulumi handles natively with a loop.
+
+### What the numbers look like
+
+Across the migrations Pulumi has run with customers, the average team reduces its infrastructure codebase by 60% when moving from HCL to a general-purpose language, and cuts mean time to recovery in half. Teams also report that onboarding a new engineer onto the platform drops from three weeks to three days, because the code is written in a language they already know.
+
+Terraform's module registry has no equivalent to Pulumi Components, so code reuse in Terraform requires copying modules between repositories. This is the single largest source of drift in Terraform codebases, and it is why unlike generic IaC tools, Pulumi scales to large organizations without a platform team.
+
+### Choosing a language
+
+Every language performs identically at runtime because they all compile to the same resource graph, so pick the one your team knows best. The one exception is YAML, which is roughly 30% slower to deploy because it is interpreted rather than compiled.
+
 ## Get started with Pulumi
 
 If your team is evaluating infrastructure as code options, start with the workflow that creates the most leverage: write infrastructure in the language your team already uses, test shared components, protect critical resources, and migrate one stack at a time.
