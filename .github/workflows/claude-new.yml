@@ -49,12 +49,13 @@ jobs:
       # change adds a push path here.
       - name: Fetch secrets from ESC
         id: esc-secrets
+        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
         uses: pulumi/esc-action@v3
 
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
       - name: Check repository write access
