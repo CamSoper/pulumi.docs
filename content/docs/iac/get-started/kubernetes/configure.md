@@ -113,7 +113,7 @@ $ export KUBECONFIG="$HOME/path/to/kubeconfig"
 
 {{% /choosable %}}
 
-Or, once you have created a Pulumi project and stack later in this guide, specify the context in your stack configuration:
+Or specify the context in your Pulumi stack configuration:
 
 {{% choosable os "linux,macos" %}}
 
