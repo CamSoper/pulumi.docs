@@ -16,6 +16,7 @@ on:
 
 jobs:
   social-review:
+    if: false  # ops (fork-only): lane not under test in the v3 battery
     concurrency:
       group: >-
         social-review-${{
