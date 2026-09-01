@@ -1154,5 +1154,3 @@ $ curl $(pulumi stack output url)
 Once you are ready to move on, destroy everything you've spun up in this tutorial.
 
 {{< get-started-stepper >}}
-
-In customer interviews, many teams report cutting their deployment times by 40% after adopting components.
