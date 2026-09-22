@@ -89,6 +89,29 @@ swap:
   # acts as a form of testing" describes the practice and must not. A blocker
   # that auto-proposes "Pulumi Policies" would be wrong on the majority. Tier 4,
   # unmirrored -- the model review can still catch the product-name uses.
+  # Crosswalk -> AWSx. Pinned case-sensitive because the lowercase form is
+  # almost always a URL slug (/blog/crosswalk-for-aws-all-languages/) or a
+  # filename, and every token carries a `for` lookahead because the brand table
+  # retires only the AWS lockup: "Crosswalk for Kubernetes" (and the 2019
+  # blog's "Crosswalk for Azure"/"for Google Cloud") were never AWSx, so
+  # swapping them would be wrong. The redundant-looking `Pulumi Crosswalk for
+  # AWS` row exists to win Go's leftmost-match against the bare rows, so the
+  # finding covers the whole lockup instead of leaving "AWSx for AWS".
+  '(?-i)\bPulumi Crosswalk for AWS\b': AWSx
+  '(?-i)\bPulumi Crosswalk\b(?!\s+for\b)': AWSx
+  '(?-i)\bCrosswalk for AWS\b': AWSx
+  '(?-i)\bCrosswalk\b(?!\s+for\b)': AWSx
+  # Retired Pulumi Cloud edition names (the V6 editions took effect
+  # 2026-09-15). Historical prose and content written for customers still on
+  # the earlier pricing are legitimate -- exactly what this file's hedged
+  # message is for. Only the unambiguous collocations are mirrored: bare
+  # "Individual"/"Team", and the "... tier"/"... plan" variants, are ordinary
+  # English and stay unmirrored (see BRAND-SYNC.yaml).
+  '(?-i)\bBusiness Critical\b': Enterprise
+  '(?-i)\bIndividual [Ee]dition\b': Free edition
+  '(?-i)\bIndividual [Ee]ditions\b': Free editions
+  '(?-i)\bTeam [Ee]dition\b': Essentials edition
+  '(?-i)\bTeam [Ee]ditions\b': Essentials editions
   '(?-i)\bInsights Policy\b': Pulumi Policies
   '(?-i)\bInsights Discovery\b': Discovery
   '(?-i)\bAccount Discovery\b': Discovery

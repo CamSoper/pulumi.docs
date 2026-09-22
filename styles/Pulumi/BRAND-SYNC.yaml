@@ -34,7 +34,7 @@
 #   4. No safe regex at all -> leave unmirrored and note it below.
 
 # Intentionally unmirrored rows of the "Retired and disallowed names" table,
-# verified against the live brand guide on 2026-08-26. Listed so the sync job
+# verified against the live brand guide on 2026-09-22. Listed so the sync job
 # stops rediscovering them as drift every week:
 #
 #   - "runtime code" -> "function serialization". The guide itself says
@@ -51,6 +51,21 @@
 #   - "Pulumi Service provider (PSP)" -> "Pulumi Cloud provider". Excluded by a
 #     lookahead in DeprecatedProductNames; renaming the provider is a product/IA
 #     decision with URL-alias consequences, outside this lint rule's remit.
+#   - "free tier", "free plan" -> "the Free edition", and the bare
+#     "tier/plan/level/SKU/subscription" -> "edition" row. The edition
+#     vocabulary is Pulumi's own, but these strings are overwhelmingly about
+#     OTHER vendors' pricing on this site: of 54 "free tier"/"free plan"
+#     occurrences, the ones in content/docs/iac/comparisons/ and
+#     content/gads/ describe HCP Terraform, Spacelift, and AWS free tiers,
+#     which must not be renamed to a Pulumi edition. The guide also carves out
+#     "usage tier", "subscription", and "the legacy Pro plan" outright. No
+#     regex separates Pulumi's pricing from a competitor's, so tier 4.
+#   - bare "Individual" and bare "Team" as edition names, plus their
+#     "... tier"/"... plan" variants. The bare words are ordinary English
+#     ("the team plan to migrate"), and only the "... Edition" collocation is
+#     unambiguous -- that part IS mirrored in RetiredNames.yml.
+#   - "kill"/"clobber" from the inclusive-language list. "kill the process" is
+#     unavoidable technical prose; no safe regex.
 #   - bare "Insights" and bare "Copilot". Both need a lookbehind to avoid
 #     double-flagging the "Pulumi Insights"/"Pulumi Copilot" already covered,
 #     and Vale lookbehinds are position-unstable. See DeprecatedProductNames.yml.
@@ -60,7 +75,7 @@
 # both carry `action: replace`, so a duplicate offers two one-click fixes with
 # different replacements on the same span.
 
-last_synced: "2026-08-26"
+last_synced: "2026-09-22"
 
 sections:
   # get_guidelines({section: "terminology"}) / brand.pulumi.com/voice/names-and-terminology/
@@ -78,7 +93,11 @@ sections:
           ("historical usage is fine", "some replacements can't be
           automated") means it can't be applied blindly. Blocker tier, like
           every other retired-name rule -- the hedge lives in the message,
-          not in whether the finding blocks.
+          not in whether the finding blocks. Also carries the retired Pulumi
+          Cloud EDITION names from the same table (Business Critical ->
+          Enterprise, Individual Edition -> Free, Team Edition -> Essentials),
+          which are legitimate in content about customers still on the earlier
+          pricing, and the Crosswalk -> AWSx row.
       - rule: Pulumi.DeprecatedProductNames
         mirrors: >-
           "Retired and disallowed names" rows whose replacement a human has to
