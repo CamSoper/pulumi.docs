@@ -90,5 +90,29 @@ swap:
   # that auto-proposes "Pulumi Policies" would be wrong on the majority. Tier 4,
   # unmirrored -- the model review can still catch the product-name uses.
   '(?-i)\bInsights Policy\b': Pulumi Policies
+  # Crosswalk -> AWSx. Case-pinned and phrase-scoped: the repo carries
+  # "Pulumi Crosswalk for Kubernetes" (a different, Kubernetes-only set of
+  # guides that AWSx does not name) and URL path segments like
+  # /docs/reference/crosswalk/aws/ in front-matter `aliases`, which Vale reads.
+  # Bare "Crosswalk" is therefore left unmirrored -- separating it from the
+  # "Pulumi Crosswalk" rows below would need a lookbehind, which this file
+  # forbids. See BRAND-SYNC.yaml.
+  # There is deliberately no "Pulumi Crosswalk for AWS" row: it would overlap
+  # the "Crosswalk for AWS" row on the same span, and Vale reports both, so a
+  # blocker would offer two one-click fixes at once (the same duplicate-fix
+  # hazard the console row is kept out of this file for).
+  '(?-i)\bCrosswalk for AWS\b': AWSx
+  '(?-i)\bPulumi Crosswalk\b(?!\s+for\s+(?:AWS|Kubernetes)\b)': AWSx
+  # Retired Pulumi Cloud edition names (the Free/Essentials/Pro/Enterprise
+  # edition names took effect 2026-09-15). Only the forms that carry the word
+  # "edition" are mirrored: bare "Individual" and "Team" are ordinary English
+  # and, in Team's case, also a live Pulumi Cloud feature. Case-pinned so
+  # lowercase "business critical" as an adjective never flags. Hedged tier
+  # because content specifically about customers still on V5 pricing keeps the
+  # old names, as does dated blog prose.
+  '(?-i)\bIndividual [Ee]dition\b': Free edition
+  '(?-i)\bTeam [Ee]dition\b': Essentials edition
+  '(?-i)\bTeam [Ee]ditions\b': Essentials edition
+  '(?-i)\bBusiness Critical\b': Enterprise
   '(?-i)\bInsights Discovery\b': Discovery
   '(?-i)\bAccount Discovery\b': Discovery

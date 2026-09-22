@@ -34,7 +34,7 @@
 #   4. No safe regex at all -> leave unmirrored and note it below.
 
 # Intentionally unmirrored rows of the "Retired and disallowed names" table,
-# verified against the live brand guide on 2026-08-26. Listed so the sync job
+# verified against the live brand guide on 2026-09-22. Listed so the sync job
 # stops rediscovering them as drift every week:
 #
 #   - "runtime code" -> "function serialization". The guide itself says
@@ -51,6 +51,31 @@
 #   - "Pulumi Service provider (PSP)" -> "Pulumi Cloud provider". Excluded by a
 #     lookahead in DeprecatedProductNames; renaming the provider is a product/IA
 #     decision with URL-alias consequences, outside this lint rule's remit.
+#   - bare "Crosswalk" and bare "Pulumi Crosswalk for Kubernetes" -> "AWSx".
+#     AWSx is the AWS package; "Crosswalk for Kubernetes" named a different set
+#     of guides, so the swap is wrong there, and bare "Crosswalk" can only be
+#     told from the "Pulumi Crosswalk" rows with a lookbehind (forbidden --
+#     see RetiredNames.yml). "Crosswalk" also appears as a URL path segment in
+#     front-matter `aliases`, which Vale reads. The "for AWS" and bare
+#     "Pulumi Crosswalk" forms ARE mirrored.
+#   - bare "Individual" and bare "Team" as retired edition names -> Free and
+#     Essentials. Both are ordinary English, and "team"/"teams" is also a live
+#     Pulumi Cloud feature. Only the "<name> edition" forms are mirrored.
+#   - "free tier", "free plan" -> "the Free edition". Unmirrorable: the great
+#     majority of occurrences are other vendors' ("an AWS account (free
+#     tier)", "HCP Terraform's enhanced Free tier", "Proprietary with a free
+#     tier"), which must not be rewritten as a Pulumi edition.
+#   - "tier", "plan", "level", "SKU", "subscription" (for an edition) ->
+#     "edition". Bare common nouns with no regex that isolates the edition
+#     sense; the guide itself carves out "usage tier", "subscription", and
+#     "the legacy Pro plan". Model-review territory.
+#   - "leverage"/"utilize" -> "works with"/"integrates with" (voice, words and
+#     phrases). No single fixed replacement, and WordChoice.yml is a
+#     substitution rule, so mirroring it would propose ungrammatical swaps
+#     ("leverage the API" -> "works with the API").
+#   - "kill" (inclusive language, violent imagery). Collides with the literal
+#     technical sense this site documents (SIGKILL, `kill` on a process).
+#     "clobber", from the same guide sentence, IS mirrored in BannedWords.yml.
 #   - bare "Insights" and bare "Copilot". Both need a lookbehind to avoid
 #     double-flagging the "Pulumi Insights"/"Pulumi Copilot" already covered,
 #     and Vale lookbehinds are position-unstable. See DeprecatedProductNames.yml.
@@ -60,7 +85,7 @@
 # both carry `action: replace`, so a duplicate offers two one-click fixes with
 # different replacements on the same span.
 
-last_synced: "2026-08-26"
+last_synced: "2026-09-22"
 
 sections:
   # get_guidelines({section: "terminology"}) / brand.pulumi.com/voice/names-and-terminology/
@@ -73,7 +98,9 @@ sections:
           (public beta -> public preview).
       - rule: Pulumi.RetiredNames
         mirrors: >-
-          "Retired and disallowed names" rows for RENAMED products, where the
+          "Retired and disallowed names" rows for RENAMED products and for the
+          retired Pulumi Cloud edition names (Individual/Team/Business
+          Critical -> Free/Essentials/Enterprise), where the
           brand table names the replacement but the guide's preamble
           ("historical usage is fine", "some replacements can't be
           automated") means it can't be applied blindly. Blocker tier, like
