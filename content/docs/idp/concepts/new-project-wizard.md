@@ -15,7 +15,7 @@ aliases:
 - /docs/pulumi-cloud/developer-portals/new-project-wizard/
 ---
 
-The New Project Wizard (NPW) is an interactive interface in the Pulumi Cloud console that streamlines creating new [projects](/docs/iac/concepts/projects/) and [stacks](/docs/iac/concepts/stacks/). The wizard consolidates multiple setup tasks into a single workflow, allowing you to configure project settings, repository details, stack [configuration](/docs/iac/concepts/config/), [deployment settings](/docs/deployments/concepts/), and service assignments all in one place.
+The New Project Wizard (NPW) is an interactive interface in the Pulumi Cloud console that streamlines creating new [projects](/docs/iac/concepts/project/) and [stacks](/docs/iac/concepts/stacks/). The wizard consolidates multiple setup tasks into a single workflow, allowing you to configure project settings, repository details, stack [configuration](/docs/iac/concepts/config/), [deployment settings](/docs/deployments/concepts/), and service assignments all in one place.
 
 ## What the New Project Wizard does
 
