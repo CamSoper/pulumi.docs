@@ -78,7 +78,7 @@ If your organization has [integrations](/docs/ai/neo/integrations/) enabled, Neo
 
 ### Setting entity context
 
-You can set the [stack](/docs/iac/concepts/stacks/) and [repository](/docs/iac/concepts/projects/) context when initiating a task. This helps Neo understand exactly where to focus its operations.
+You can set the [stack](/docs/iac/concepts/stack/) and [repository](/docs/iac/concepts/projects/) context when initiating a task. This helps Neo understand exactly where to focus its operations.
 
 ### Ownership and sharing
 
