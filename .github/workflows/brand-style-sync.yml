@@ -124,12 +124,12 @@ jobs:
               re-downloads and overwrites them, and `git` is on your allowlist,
               so the damage would land in your PR.
             - Before opening anything, run
-              `gh pr list --state open --search "head:vale/brand-sync"` . If a
+              `gh pr list --state open --search "head:vale/brand-sync-bench-${{ github.event.inputs.bench_tag }}"` . If a
               sync PR is already open, push your changes onto **that** branch
               and update its body instead of opening a second one. Two open
               sync PRs edit the same rule files and are guaranteed to conflict.
             - If the mirror has drifted, fix it and open a **draft** PR on a
-              branch named `vale/brand-sync-<YYYY-MM-DD>` with the auditable
+              branch named `vale/brand-sync-bench-${{ github.event.inputs.bench_tag }}-<YYYY-MM-DD>` with the auditable
               body the skill describes.
             - If nothing drifted, bump `last_synced` in
               `styles/Pulumi/BRAND-SYNC.yaml` and open the same draft PR with
