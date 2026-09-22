@@ -744,7 +744,6 @@ jobs:
       - name: Install Pulumi CLI
         continue-on-error: true
         if: steps.claude-v3.outcome == 'success'
-        continue-on-error: true
         uses: pulumi/actions@v7
       - name: Resolve evidence buckets
         id: buckets

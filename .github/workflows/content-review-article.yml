@@ -1081,7 +1081,6 @@ jobs:
       - name: Stamp lint result and arm auto-merge
         continue-on-error: true
         if: steps.publish.outcome == 'success' && steps.gate.outputs.publish == 'true'
-        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -1138,7 +1137,6 @@ jobs:
           always() && github.event.inputs.mode != 'report' &&
           (steps.gate.outcome == 'failure' || steps.guardrails.outcome == 'failure' ||
            steps.publish.outcome == 'failure')
-        continue-on-error: true
         env:
           SLACK_ACCESS_TOKEN: ${{ steps.esc-secrets.outputs.SLACK_ACCESS_TOKEN }}
           ARTICLE_PATH: ${{ github.event.inputs.path }}
@@ -1172,7 +1170,6 @@ jobs:
       - name: Configure AWS credentials
         continue-on-error: true
         if: always()
-        continue-on-error: true
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: arn:aws:iam::388588623842:role/ContinuousDelivery
@@ -1191,7 +1188,6 @@ jobs:
         continue-on-error: true
         id: ledger-bucket
         if: always()
-        continue-on-error: true
         env:
           PULUMI_ACCESS_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_ACCESS_TOKEN }}
         run: |
@@ -1242,7 +1238,6 @@ jobs:
       - name: Record review ledger
         continue-on-error: true
         if: always() && steps.ledger-bucket.outputs.uri != ''
-        continue-on-error: true
         env:
           CONTENT_REVIEW_LEDGER_URI: ${{ steps.ledger-bucket.outputs.uri }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -1265,7 +1260,6 @@ jobs:
       - name: Record claims index
         continue-on-error: true
         if: always() && steps.ledger-bucket.outputs.claims_uri != ''
-        continue-on-error: true
         env:
           CONTENT_REVIEW_CLAIMS_URI: ${{ steps.ledger-bucket.outputs.claims_uri }}
         run: |
@@ -1290,7 +1284,6 @@ jobs:
         continue-on-error: true
         id: report-findings
         if: always() && github.event.inputs.mode == 'report'
-        continue-on-error: true
         run: |
           if [ ! -f .review-snapshot/.verified-claims.json ]; then
             echo "no snapshotted verified-claims; nothing to report"
@@ -1327,7 +1320,6 @@ jobs:
       - name: Post report findings to Slack
         continue-on-error: true
         if: always() && github.event.inputs.mode == 'report' && hashFiles('.report-slack.txt') != ''
-        continue-on-error: true
         env:
           SLACK_ACCESS_TOKEN: ${{ steps.esc-secrets.outputs.SLACK_ACCESS_TOKEN }}
         run: |
@@ -1351,7 +1343,6 @@ jobs:
       - name: Record page findings
         continue-on-error: true
         if: always() && steps.ledger-bucket.outputs.findings_uri != ''
-        continue-on-error: true
         run: |
           if [ ! -f .review-snapshot/.content-review-queue.json ]; then
             echo "no snapshotted queue; skipping the findings record"
