@@ -427,10 +427,16 @@ jobs:
             .vale-findings.json .frontmatter-validation.json \
             .readthrough-findings.json 2>/dev/null || true
 
+      - name: 'FORK BENCH: install Claude Code 2.1.280 (action bundles 2.1.278, which rejects Opus 5.5)'
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.280
+          echo "CC_BIN=$(command -v claude)" >> "$GITHUB_ENV"
+          claude --version
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
+          path_to_claude_code_executable: ${{ env.CC_BIN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Scheduled runs surface a Bot actor, which claude-code-action@v1
           # rejects by default — same allowance the docs worker makes.

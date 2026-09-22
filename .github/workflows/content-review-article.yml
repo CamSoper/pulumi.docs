@@ -563,6 +563,11 @@ jobs:
       # header. Everything that lane produces (the claim list, the verdict) is
       # deterministic and already written by the steps above; an agent turn
       # here could only add spend and the risk of an edit the gate rejects.
+      - name: 'FORK BENCH: install Claude Code 2.1.280 (action bundles 2.1.278, which rejects Opus 5.5)'
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.280
+          echo "CC_BIN=$(command -v claude)" >> "$GITHUB_ENV"
+          claude --version
       - name: Run Claude Code
         id: claude
         if: >-
@@ -571,6 +576,7 @@ jobs:
           github.event.inputs.mode != 'report'
         uses: anthropics/claude-code-action@v1
         with:
+          path_to_claude_code_executable: ${{ env.CC_BIN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # No github_token override: the action falls back to the job's
           # read-scoped default token. The model has nothing to push — the
