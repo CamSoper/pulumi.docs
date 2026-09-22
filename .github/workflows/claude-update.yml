@@ -187,16 +187,11 @@ jobs:
       # reaches this job: the gate job above returns fire=false.) Every
       # later step gates on check-access outputs, which stay empty when it
       # skips.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        if: steps.head.outputs.superseded != 'true'
-        uses: pulumi/esc-action@v3
-
       - name: Checkout repository
         if: steps.head.outputs.superseded != 'true'
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ steps.head.outputs.sha }}
           fetch-depth: 1
 
@@ -584,7 +579,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Use bot token so pushes trigger downstream workflows (e.g., social review)
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           # The auto-refresh gate in claude-code-review.yml dispatches this
           # workflow with GITHUB_TOKEN, which makes the run's actor
           # github-actions[bot] (type=Bot) — rejected by
@@ -704,7 +699,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           allowed_bots: 'github-actions[bot],workprentice,workprentice[bot]'
           additional_permissions: |
             actions: read
@@ -747,6 +742,7 @@ jobs:
           role-session-name: claude-update-v3
           aws-region: us-west-2
       - name: Install Pulumi CLI
+        continue-on-error: true
         if: steps.claude-v3.outcome == 'success'
         continue-on-error: true
         uses: pulumi/actions@v7

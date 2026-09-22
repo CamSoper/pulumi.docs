@@ -53,6 +53,18 @@ on:
     - cron: '30 14 * * 1-5'
   workflow_dispatch:
     inputs:
+      bench_model:
+        description: 'FORK BENCH: model override'
+        required: false
+        default: ''
+      bench_effort:
+        description: 'FORK BENCH: effort override'
+        required: false
+        default: ''
+      bench_tag:
+        description: 'FORK BENCH: arm tag'
+        required: false
+        default: ''
       count:
         description: 'Number of posts to review'
         required: false
@@ -75,7 +87,7 @@ permissions:
 # One run at a time: a manual dispatch during the scheduled run would race
 # the per-slug S3 writes and the summary rebuild.
 concurrency:
-  group: blog-review-index
+  group: blog-review-index-${{ github.event.inputs.bench_tag }}
   cancel-in-progress: false
 
 jobs:
@@ -125,9 +137,6 @@ jobs:
     outputs:
       has_posts: ${{ steps.select.outputs.has_posts }}
     steps:
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v3
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
@@ -138,6 +147,8 @@ jobs:
         run: python3 -m pip install --quiet pyyaml
 
       - name: Configure AWS credentials
+
+        continue-on-error: true
         id: aws-creds
         continue-on-error: true
         uses: aws-actions/configure-aws-credentials@v6
@@ -146,12 +157,14 @@ jobs:
           role-session-name: blog-review-index
           aws-region: us-west-2
       - name: Install Pulumi CLI
+        continue-on-error: true
         uses: pulumi/actions@v7
 
       # The blog-review state shares the content-review ledger bucket under
       # its own blog-review/ prefix — resolved from the stack output, never
       # hardcoded (same pattern as review-existing-content.yml).
       - name: Resolve state bucket
+        continue-on-error: true
         id: state-bucket
         continue-on-error: true
         env:
@@ -457,7 +470,7 @@ jobs:
           # source of truth) is wired via `claude_args --mcp-config`; its tools
           # are in --allowed-tools. No auth: the server is public.
           claude_args: |
-            --model claude-opus-5 --effort low
+            --model ${{ github.event.inputs.bench_model || 'claude-opus-5' }} --effort ${{ github.event.inputs.bench_effort || 'low' }}
             --mcp-config '{"mcpServers": {"pulumi-brand": {"type": "http", "url": "https://brand.pulumi.com/mcp"}}}'
             --allowed-tools "Read,Write,Edit,Glob,Grep,Agent,WebFetch,WebSearch,mcp__pulumi-brand__get_guidelines,mcp__pulumi-brand__search_guidelines,Bash"
 
@@ -520,9 +533,6 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v3
       - name: Checkout repository
         uses: actions/checkout@v7
       - name: Install Python deps
@@ -551,6 +561,8 @@ jobs:
           fi
 
       - name: Configure AWS credentials
+
+        continue-on-error: true
         continue-on-error: true
         uses: aws-actions/configure-aws-credentials@v6
         with:
@@ -558,8 +570,10 @@ jobs:
           role-session-name: blog-review-record
           aws-region: us-west-2
       - name: Install Pulumi CLI
+        continue-on-error: true
         uses: pulumi/actions@v7
       - name: Resolve state bucket
+        continue-on-error: true
         id: state-bucket
         continue-on-error: true
         env:
@@ -580,6 +594,7 @@ jobs:
       # incomplete ledger record (rebuilt from the select job's queue), so
       # the post stays due and is retried under the attempt cap.
       - name: Record findings
+        continue-on-error: true
         env:
           BLOG_REVIEW_LEDGER_URI: ${{ steps.state-bucket.outputs.ledger_uri }}
           BLOG_REVIEW_INDEX_URI: ${{ steps.state-bucket.outputs.index_uri }}
@@ -615,6 +630,7 @@ jobs:
       # not just today's) and upload it back. The summary is what the future
       # noindex process, humans, and the warehouse read first.
       - name: Rebuild index summary
+        continue-on-error: true
         if: steps.state-bucket.outputs.index_uri != ''
         continue-on-error: true
         run: |

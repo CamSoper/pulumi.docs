@@ -68,16 +68,11 @@ jobs:
       # pinned comment and dispatches claude-code-review.yml), but kept
       # consistent with the other claude-*.yml workflows in case a future
       # change adds a push path here.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        if: steps.mention-gate.outputs.fire == 'true'
-        uses: pulumi/esc-action@v3
-
       - name: Checkout repository
         if: steps.mention-gate.outputs.fire == 'true'
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
       - name: Check repository write access
