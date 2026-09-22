@@ -43,7 +43,7 @@ Use a cloud provider package to create and manage Kubernetes clusters on your pr
 
 ## Pulumi Kubernetes Operator
 
-The [Pulumi Kubernetes Operator](/docs/integrations/clouds/kubernetes/pulumi-kubernetes-operator/) enables Kubernetes users to create a Pulumi `Stack` as a first-class API resource, with a controller that drives updates to success. This lets you build CI/CD and automation into your clusters and manage infrastructure alongside your Kubernetes workloads. See the [GitHub repository](https://github.com/pulumi/pulumi-kubernetes-operatorr) for source and releases.
+The [Pulumi Kubernetes Operator](/docs/integrations/clouds/kubernetes/pulumi-kubernetes-operator/) enables Kubernetes users to create a Pulumi `Stack` as a first-class API resource, with a controller that drives updates to success. This lets you build CI/CD and automation into your clusters and manage infrastructure alongside your Kubernetes workloads. See the [GitHub repository](https://github.com/pulumi/pulumi-kubernetes-operator) for source and releases.
 
 ## Architecture templates
 
