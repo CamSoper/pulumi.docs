@@ -34,7 +34,7 @@
 #   4. No safe regex at all -> leave unmirrored and note it below.
 
 # Intentionally unmirrored rows of the "Retired and disallowed names" table,
-# verified against the live brand guide on 2026-08-26. Listed so the sync job
+# verified against the live brand guide on 2026-09-22. Listed so the sync job
 # stops rediscovering them as drift every week:
 #
 #   - "runtime code" -> "function serialization". The guide itself says
@@ -54,13 +54,19 @@
 #   - bare "Insights" and bare "Copilot". Both need a lookbehind to avoid
 #     double-flagging the "Pulumi Insights"/"Pulumi Copilot" already covered,
 #     and Vale lookbehinds are position-unstable. See DeprecatedProductNames.yml.
+#   - Edition rows added 2026-09-15: "Individual" and "Team" (as edition names),
+#     "free tier"/"free plan", and "tier/plan/level/SKU/subscription" for an
+#     edition. All are ordinary English and legitimately describe competitors'
+#     pricing (HCP Terraform, Spacelift comparisons), so no regex separates the
+#     retired Pulumi edition sense. "Business Critical" IS mirrored
+#     (RetiredNames, case-sensitive).
 #
 # The console row (Pulumi Console / Pulumi Cloud Console / Pulumi UI) IS
 # mirrored, but in Nomenclature.yml, not RetiredNames.yml. Don't add it to both:
 # both carry `action: replace`, so a duplicate offers two one-click fixes with
 # different replacements on the same span.
 
-last_synced: "2026-08-26"
+last_synced: "2026-09-22"
 
 sections:
   # get_guidelines({section: "terminology"}) / brand.pulumi.com/voice/names-and-terminology/

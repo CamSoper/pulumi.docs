@@ -92,3 +92,13 @@ swap:
   '(?-i)\bInsights Policy\b': Pulumi Policies
   '(?-i)\bInsights Discovery\b': Discovery
   '(?-i)\bAccount Discovery\b': Discovery
+  # Crosswalk was renamed AWSx (package id @pulumi/awsx). Longest form first so
+  # "Crosswalk for AWS" isn't swapped to "AWSx for AWS".
+  '(?-i)\b(?:Pulumi )?Crosswalk for AWS\b': AWSx
+  '(?-i)\bPulumi Crosswalk\b': AWSx
+  '(?-i)\bCrosswalk\b': AWSx
+  # Retired edition name (the edition formerly called Enterprise is now Pro,
+  # and Business Critical is now Enterprise). Case-sensitive so the plain
+  # adjective "business-critical workloads" never flags; content about
+  # customers still on the earlier pricing is the historical carve-out.
+  '(?-i)\bBusiness Critical\b': Enterprise
