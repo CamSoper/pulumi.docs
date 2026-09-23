@@ -48,6 +48,10 @@ name: "Scheduled jobs: Review existing content (one article)"
 on:
   workflow_dispatch:
     inputs:
+      bench_tag:
+        description: 'FORK BENCH: arm tag'
+        required: false
+        default: ''
       path:
         description: 'One content file under content/docs/'
         required: true
@@ -67,7 +71,7 @@ on:
 # One run per article: a second dispatch for the same path queues behind the
 # first rather than racing it onto the same branch.
 concurrency:
-  group: content-review-article-${{ github.event.inputs.path }}
+  group: content-review-article-${{ github.event.inputs.path }}-${{ github.event.inputs.bench_tag }}
   cancel-in-progress: false
 
 jobs:
@@ -189,7 +193,7 @@ jobs:
       # a second run to collide with and nothing for this check to find.
       - name: Check for an existing open PR
         id: precheck
-        if: github.event.inputs.mode != 'report'
+        if: false && github.event.inputs.mode != 'report'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -411,6 +415,7 @@ jobs:
         if: steps.precheck.outputs.skip != 'true' && github.event.inputs.mode == 'glowup'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: pulumi/docs
         run: |
           SKIP=false
           set +e
@@ -837,13 +842,10 @@ jobs:
       # checkout — the branch pushed and the PR opened below then go out as
       # pulumi-bot rather than github-actions[bot], which is what lets the
       # draft→ready transition fire the downstream triage/review workflows.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v3
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           # This job applies a patch on HEAD, lints, and pushes a new branch
           # — no history needed. The one historical read the guardrails used
           # to do (`git show <base-sha>:<article>` in verify-fix-scope.py)
@@ -975,9 +977,9 @@ jobs:
       # depends on a separate promotion transition firing.
       - name: Create branch and PR
         id: publish
-        if: steps.gate.outputs.publish == 'true'
+        if: false && steps.gate.outputs.publish == 'true'
         env:
-          GH_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTICLE_PATH: ${{ github.event.inputs.path }}
         run: |
           BRANCH="${{ steps.gate.outputs.branch }}"
@@ -1069,10 +1071,11 @@ jobs:
       # to the PR's normal CI. `master` requires 1 approval + the build check,
       # so auto-merge never merges on its own.
       - name: Stamp lint result and arm auto-merge
+        continue-on-error: true
         if: steps.publish.outcome == 'success' && steps.gate.outputs.publish == 'true'
         continue-on-error: true
         env:
-          GH_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${{ steps.gate.outputs.branch }}"
           # Stamp the authoritative lint result into the PR body's Verification
@@ -1122,6 +1125,7 @@ jobs:
       # to #docs-ops per refusal, quoting the gate's own ::error:: lines.
       # Fail-open: a Slack outage never fails the job.
       - name: Post publish failure to Slack
+        continue-on-error: true
         if: >-
           always() && github.event.inputs.mode != 'report' &&
           (steps.gate.outcome == 'failure' || steps.guardrails.outcome == 'failure' ||
@@ -1158,6 +1162,7 @@ jobs:
       # role can't be assumed the review still ran, the ledger write is just
       # skipped (the page reappears next cycle rather than going into cooldown).
       - name: Configure AWS credentials
+        continue-on-error: true
         if: always()
         continue-on-error: true
         uses: aws-actions/configure-aws-credentials@v6
@@ -1171,9 +1176,11 @@ jobs:
       # Degrades gracefully: if the output isn't there, `uri` stays empty and
       # the ledger-write step below is skipped.
       - name: Install Pulumi CLI
+        continue-on-error: true
         if: always()
         uses: pulumi/actions@v7
       - name: Resolve ledger bucket
+        continue-on-error: true
         id: ledger-bucket
         if: always()
         continue-on-error: true
@@ -1225,11 +1232,12 @@ jobs:
       # `gh`, stamps reviewed_at, increments attempts, and uploads. One article
       # per run ⇒ one object, so writes never collide.
       - name: Record review ledger
+        continue-on-error: true
         if: always() && steps.ledger-bucket.outputs.uri != ''
         continue-on-error: true
         env:
           CONTENT_REVIEW_LEDGER_URI: ${{ steps.ledger-bucket.outputs.uri }}
-          GH_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 scripts/content-review/record-review.py \
             --queue .content-review-queue.json \
@@ -1247,6 +1255,7 @@ jobs:
       # verify pre-step degraded (empty verdicts + errors), preserving the
       # previous snapshot.
       - name: Record claims index
+        continue-on-error: true
         if: always() && steps.ledger-bucket.outputs.claims_uri != ''
         continue-on-error: true
         env:
@@ -1270,6 +1279,7 @@ jobs:
       # stays quiet. Inputs are the PRE-MODEL snapshot; the tiers and
       # upstream registry come from this job's own clean checkout.
       - name: Report upstream findings (report-only lane)
+        continue-on-error: true
         id: report-findings
         if: always() && github.event.inputs.mode == 'report'
         continue-on-error: true
@@ -1307,6 +1317,7 @@ jobs:
       # (references/upstream-claims.yaml) is known, and re-announcing it nightly
       # is how a channel learns to ignore the bot.
       - name: Post report findings to Slack
+        continue-on-error: true
         if: always() && github.event.inputs.mode == 'report' && hashFiles('.report-slack.txt') != ''
         continue-on-error: true
         env:
@@ -1330,6 +1341,7 @@ jobs:
       # index uses. `if: always()` so a review that died still records what the
       # deterministic pre-steps found.
       - name: Record page findings
+        continue-on-error: true
         if: always() && steps.ledger-bucket.outputs.findings_uri != ''
         continue-on-error: true
         run: |

@@ -25,6 +25,10 @@ on:
   # overrides the auto-skip path.
   workflow_dispatch:
     inputs:
+      bench_tag:
+        description: 'FORK BENCH: arm tag'
+        required: false
+        default: ''
       pr_number:
         description: 'PR number to review'
         required: true
@@ -968,6 +972,9 @@ jobs:
             .candidate-claims.json
             .verified-claims.json
             .fetched-urls.json
+            .readthrough-findings.json
+            .candidate-claims-llm-1.json
+            .candidate-claims-llm-2.json
           # All dotfiles: upload-artifact skips hidden files unless this is
           # set, and with if-no-files-found: ignore the bundle would come up
           # empty without a word.

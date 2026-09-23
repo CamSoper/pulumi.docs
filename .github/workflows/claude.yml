@@ -47,11 +47,6 @@ jobs:
       # then go out as pulumi-bot rather than github-actions[bot],
       # which is what lets downstream workflows (build-and-deploy, social
       # review, etc.) fire on those commits.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
-        uses: pulumi/esc-action@v3
-
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
