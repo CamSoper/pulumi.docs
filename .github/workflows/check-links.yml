@@ -4,7 +4,12 @@ on:
     # * is a special character in YAML so you have to quote this string.
     # Run every day at 3:00PM UTC.
     - cron: '0 15 * * *'
-  workflow_dispatch: null
+  workflow_dispatch:
+    inputs:
+      bench_tag:
+        description: 'FORK BENCH: arm tag'
+        required: false
+        default: ''
 permissions:
   contents: write
   pull-requests: write
@@ -22,13 +27,10 @@ jobs:
       # checkout — the PR opened by claude-code-action later then goes out as
       # pulumi-bot rather than github-actions[bot], which is what lets
       # downstream workflows (build-and-deploy, docs review, etc.) fire on it.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v3
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Node
         uses: actions/setup-node@v7
         with:
@@ -133,7 +135,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Bot token so the PR/pushes trigger downstream workflows.
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             The daily link checker found broken links and/or stale-but-working
             redirect hops on https://www.pulumi.com. The results are in
@@ -179,6 +181,7 @@ jobs:
       # writes, so a run where Claude couldn't open a PR stays silent rather than
       # posting an empty message.
       - name: Post PR link to Slack
+        continue-on-error: true
         if: steps.detect.outputs.has_broken == 'true' && hashFiles('.broken-links-pr.txt') != ''
         env:
           SLACK_ACCESS_TOKEN: ${{ steps.esc-secrets.outputs.SLACK_ACCESS_TOKEN }}

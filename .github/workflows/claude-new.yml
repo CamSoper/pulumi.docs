@@ -68,11 +68,6 @@ jobs:
       # pinned comment and dispatches claude-code-review.yml), but kept
       # consistent with the other claude-*.yml workflows in case a future
       # change adds a push path here.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
-        uses: pulumi/esc-action@v3
-
       - name: Checkout repository
         if: steps.mention-gate.outputs.fire == 'true'
         uses: actions/checkout@v7

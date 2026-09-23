@@ -187,12 +187,6 @@ jobs:
       # reaches this job: the gate job above returns fire=false.) Every
       # later step gates on check-access outputs, which stay empty when it
       # skips.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        if: steps.head.outputs.superseded != 'true'
-        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
-        uses: pulumi/esc-action@v3
-
       - name: Checkout repository
         if: steps.head.outputs.superseded != 'true'
         uses: actions/checkout@v7
@@ -750,6 +744,7 @@ jobs:
           role-session-name: claude-update-v3
           aws-region: us-west-2
       - name: Install Pulumi CLI
+        continue-on-error: true
         if: steps.claude-v3.outcome == 'success'
         continue-on-error: true
         uses: pulumi/actions@v7

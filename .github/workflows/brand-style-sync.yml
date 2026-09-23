@@ -10,12 +10,17 @@ on:
   schedule:
     # Mondays at 14:20 UTC. Offset from weekly-digest.yml, which runs at 14:00.
     - cron: '20 14 * * 1'
-  workflow_dispatch: null
+  workflow_dispatch:
+    inputs:
+      bench_tag:
+        description: 'FORK BENCH: arm tag'
+        required: false
+        default: ''
 
 # One sync at a time: a workflow_dispatch during the scheduled run would
 # otherwise race for the same date-stamped branch and open two PRs.
 concurrency:
-  group: brand-style-sync
+  group: brand-style-sync-${{ github.event.inputs.bench_tag }}
   cancel-in-progress: false
 
 permissions:
@@ -42,19 +47,16 @@ jobs:
     # string comparison, so unset means ON as intended. Same fix and same note
     # as blog-review-index.yml, review-existing-content.yml and
     # claims-reverify.yml.
-    if: github.repository == 'pulumi/docs' && format('{0}', vars.BRAND_SYNC_ENABLED) != '0'
+    if: format('{0}', vars.BRAND_SYNC_ENABLED) != '0'
     timeout-minutes: 20
     steps:
       # ESC runs before checkout so the bot token can authenticate the
       # checkout — the PR opened by claude-code-action then goes out as
       # pulumi-bot, letting downstream workflows (docs review, etc.) fire.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v3
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       # mise owns the Vale pin (mise.toml) so this job and the docs-review
       # lane always lint with the same binary. A hand-pinned download here
       # silently drifted from that pin once already.
@@ -96,7 +98,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Bot token so the PR triggers downstream workflows.
-          github_token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             You are running in CI on a schedule.
 
