@@ -1277,6 +1277,7 @@ jobs:
           # invocation; this env entry covers nested Bash invocations.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Accept github-actions[bot] as a trigger actor. The #new-review
           # path dispatches this workflow from claude-new.yml using

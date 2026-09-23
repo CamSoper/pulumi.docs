@@ -563,6 +563,7 @@ jobs:
           github.event.inputs.mode != 'report'
         uses: anthropics/claude-code-action@v1
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # No github_token override: the action falls back to the job's
           # read-scoped default token. The model has nothing to push — the
