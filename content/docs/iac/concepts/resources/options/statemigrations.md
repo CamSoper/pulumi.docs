@@ -17,7 +17,8 @@ The `stateMigrations` resource option lets a component author supply an ordered 
 {{% notes type="info" %}}
 This API is **experimental** and may change.
 
-Share feedback in the [component state migrations discussion](https://github.com/pulumi/pulumi/discussions/24799).
+<!-- TODO: Add the feedback discussion URL -->
+<!-- Share feedback by commenting on the GitHub discussion (link coming soon). -->
 
 {{% /notes %}}
 
