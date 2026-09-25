@@ -94,7 +94,7 @@ const usdRate = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
-    maximumFractionDigits: 5,
+    maximumFractionDigits: 4,
 });
 
 const count = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
