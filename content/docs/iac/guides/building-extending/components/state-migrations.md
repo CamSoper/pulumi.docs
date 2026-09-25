@@ -14,7 +14,8 @@ State migrations let you evolve a [component's](/docs/iac/concepts/components/) 
 {{% notes type="info" %}}
 The state migrations API is **experimental** and may change.
 
-Share feedback in the [component state migrations discussion](https://github.com/pulumi/pulumi/discussions/24799).
+<!-- TODO: Add the feedback discussion URL -->
+<!-- Share feedback by commenting on the GitHub discussion (link coming soon). -->
 
 {{% /notes %}}
 
