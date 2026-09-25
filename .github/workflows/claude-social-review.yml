@@ -27,7 +27,9 @@ jobs:
           || github.run_id
         }}
       cancel-in-progress: true
+    # ops (fork-only): disabled; needs the private social_core dep via ESC
     if: >-
+      false && (
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issue_comment' &&
        github.event.issue.pull_request &&
@@ -39,7 +41,7 @@ jobs:
        github.event.pull_request.head.repo.full_name == github.repository &&
        github.event.pull_request.user.login != 'pulumi-bot' &&
        github.event.pull_request.user.login != 'dependabot[bot]' &&
-       !(github.event.action == 'synchronize' && github.actor == 'claude[bot]'))
+       !(github.event.action == 'synchronize' && github.actor == 'claude[bot]')))
 
     runs-on: ubuntu-latest
     environment: production
