@@ -351,6 +351,7 @@ V3_AUTHOR_SECTIONS = ["🚨 Fix or disagree", "❓ Questions for you", "✅ Reso
 # v1 card made readers hunt for a review that never existed); apply-update.py
 # inserts it on the first resolve.
 V3_OPTIONAL_SECTIONS = {"✅ Resolved since last review"}
+V3_AUTHOR_DROPPABLE_PAIR = ("🚨 Fix or disagree", "❓ Questions for you")
 V3_BRIEF_SECTIONS = ["⚠️ Check these before approving", "✅ What you can rubber-stamp"]
 # The in-place rewrite labels build-evidence.py files off the cards — a bullet
 # whose body starts with one of these is dispositioned, not deleted.
@@ -827,7 +828,7 @@ def check_style_render_mode(ctx: Context) -> list[Violation]:
     # block (a Resolved list, say) would be reported as a collapsed style block.
     # `##### <path>` groups stay inside: "##### x" doesn't start with "#### ".
     end = next((j for j in range(style_idx + 1, len(section_lines))
-                if section_lines[j].startswith(("## ", "### ", "#### ", "📎 ", "<!-- "))),
+                if section_lines[j].startswith(("## ", "### ", "#### ", "📎 ", "**Full evidence:**", "<!-- "))),
                len(section_lines))
     style_lines = section_lines[style_idx:end]
     bullet_count = sum(1 for ln in style_lines if ln.lstrip().startswith("- **line "))
@@ -2834,10 +2835,16 @@ def check_v3_section_order(ctx: Context) -> list[Violation]:
                                   ("brief", ctx.brief or "", V3_BRIEF_SECTIONS)):
         h3s = [line for line in text.splitlines() if line.startswith("### ")]
         positions = []
+        # A card with nothing for the author drops 🚨 and ❓ together
+        # (build-evidence.drop_empty_author_sections) — never one alone.
+        pair_dropped = where == "author" and not any(
+            n in h for h in h3s for n in V3_AUTHOR_DROPPABLE_PAIR)
         for name in expected:
             idx = next((i for i, h in enumerate(h3s) if name in h), None)
             if idx is None:
                 if name in V3_OPTIONAL_SECTIONS:
+                    continue
+                if pair_dropped and name in V3_AUTHOR_DROPPABLE_PAIR:
                     continue
                 v.append(Violation("v3-section-order", f"<{where}>",
                                    f"section `### {name}` present", "section missing",
@@ -2873,13 +2880,15 @@ def check_v3_evidence_link(ctx: Context) -> list[Violation]:
     substituted https URL post-publish."""
     v: list[Violation] = []
     for where, text in (("author", ctx.body), ("brief", ctx.brief or "")):
-        evidence_lines = [line for line in text.splitlines() if "📎" in line]
+        # `📎` is the pre-2026-09-25 prefix; live cards still carry it.
+        evidence_lines = [line for line in text.splitlines()
+                          if line.startswith(("📎 ", "**Full evidence:**"))]
         if any(V3_EVIDENCE_TOKEN in line or "https://" in line for line in evidence_lines):
             continue
         v.append(Violation("v3-evidence-link", f"<{where}>",
-                           f"a 📎 line carrying the `{V3_EVIDENCE_TOKEN}` token or its substituted https URL",
-                           "no 📎 evidence line found" if not evidence_lines else "📎 line carries no link",
-                           "Keep the 📎 evidence line as composed; the publish step substitutes the URL."))
+                           f"a `**Full evidence:**` line carrying the `{V3_EVIDENCE_TOKEN}` token or its substituted https URL",
+                           "no evidence line found" if not evidence_lines else "evidence line carries no link",
+                           "Keep the **Full evidence:** line as composed; the publish step substitutes the URL."))
     return v
 
 
@@ -2965,7 +2974,7 @@ def _v3_detail_blocks(text: str) -> list[tuple[str, str]]:
             continue
         if cur is not None and (line.startswith("### ") or line.startswith("#### ")
                                 or line.startswith("<!-- REVIEW_STATE")
-                                or line.startswith("<sub>") or line.startswith("📎 ")):
+                                or line.startswith("<sub>") or line.startswith(("📎 ", "**Full evidence:**"))):
             blocks.append((cur, "\n".join(body)))
             cur, body = None, []
             continue
@@ -3407,7 +3416,7 @@ RULES = [
     {
         "id": "v3-evidence-link",
         "desc": "Schema v22: both cards carry the evidence link (%%EVIDENCE_URL%% token pre-publish, https URL post-publish).",
-        "hint": "Keep the 📎 evidence line as composed; the publish step substitutes the URL.",
+        "hint": "Keep the **Full evidence:** line as composed; the publish step substitutes the URL.",
         "check": check_v3_evidence_link,
         "surfaces": ("v3",),
     },

@@ -554,7 +554,8 @@ jobs:
             -f head_sha="${{ steps.head.outputs.sha }}" \
             -f force=true \
             -f dispatcher_comment_id="$COMMENT_ID" \
-            -f mention_author="$MENTION_AUTHOR"
+            -f mention_author="$MENTION_AUTHOR" \
+            -f ack_target="${{ github.event_name == 'issue_comment' && format('issues/comments/{0}', github.event.comment.id) || github.event_name == 'pull_request_review_comment' && format('pulls/comments/{0}', github.event.comment.id) || '' }}"
           echo "dispatched claude-code-review.yml for PR #$PR at ${{ steps.head.outputs.sha }}"
 
       # v3 model inputs: the two live cards on disk. Fetched here (not in the
@@ -727,8 +728,8 @@ jobs:
             - `promote` (id, to: author-answer|outstanding, reason) — upward only.
             - `add` (bucket, file, lines, text) — a NEW problem in the pushed lines only.
             - `retext` (id, text[, detail: {why, fix[, keep]}]) — sharpen a finding that stays open on its own merits; the cell stays ONE line (claim quote + verdict), any new action goes in `detail.fix`.
-            Findings you have nothing to say about get no entry — they carry forward unchanged. Include `history_summary` (one line, ≤120 chars). The file's exact envelope — these four top-level keys, the list under `findings`, nothing else is accepted:
-            {"schema": 1, "case": "fix-response|dispute|re-verify|mixed", "history_summary": "<one line>", "findings": [{"id": "F1", "action": "resolve", "annotation": "fixed in <sha7>"}, {"id": "F2", "action": "concede", "reason": "…"}]}
+            Findings you have nothing to say about get no entry — they carry forward unchanged. Include `history_summary` (one line, ≤120 chars). Read the author card's italic one-sentence summary under the header: if it names open items, counts, or anything "only you can confirm" that your actions change, include `summary` — a replacement sentence (≤300 chars) that describes the PR and what the review checked, with no open-item counts; omit `summary` when the existing sentence stays true. The file's exact envelope — these top-level keys (`summary` optional), the list under `findings`, nothing else is accepted:
+            {"schema": 1, "case": "fix-response|dispute|re-verify|mixed", "history_summary": "<one line>", "summary": "<optional: one sentence>", "findings": [{"id": "F1", "action": "resolve", "annotation": "fixed in <sha7>"}, {"id": "F2", "action": "concede", "reason": "…"}]}
             Write the file and stop. Dispute adjudication defaults: domain-knowledge dispute from a write-access author → concede; verifiable claim → verify before holding, and hold only with evidence. An item the mention ANSWERS (a ❓'s source named, a 🚨 disputed) must end as `concede` or `hold` — never `retext` with the reply folded in; the author card promised the author their answer unblocks them.
           claude_args: |
             --model claude-opus-5-5 --effort medium
@@ -879,6 +880,25 @@ jobs:
           bash .claude/commands/docs-review/scripts/pinned-comment.sh upsert \
             --pr "$PR" --repo "$REPO" --role author --body-file .review-card-author.out.md
 
+      # One-click fixes for what blocks merge (reader feedback, 2026-09-25:
+      # authors wanted applyable suggestions inline for the findings they
+      # must act on, and the optional nags off the Files view). Derived
+      # deterministically from the card's 🚨 Do-this blocks — only a quoted
+      # line with exactly one single-line fenced replacement qualifies — and
+      # validated against the checked-out file and the PR diff. Own marker,
+      # so it never touches the style set; a fix that landed loses its
+      # comment without a new review event. Best-effort: never fails the run.
+      - name: Post one-click fixes for blocking findings (v3)
+        if: steps.publish-v3.outcome == 'success'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 .claude/commands/docs-review/scripts/post-style-suggestions.py \
+            --pr "${{ steps.pr-context.outputs.pr_number }}" \
+            --repo "${{ github.repository }}" \
+            --fixes-from-author-card .review-card-author.out.md
+
       - name: Upload evidence artifact (v3)
         if: steps.claude-v3.outcome == 'success' && always()
         continue-on-error: true
@@ -936,15 +956,26 @@ jobs:
       #
       # continue-on-error: suggestions are a convenience layer; a failure here
       # must never mark a successful review as errored.
+      #
+      # REVIEW_STYLE_INLINE gates advisory buttons exactly as in
+      # claude-code-review.yml Step D3: off, an explicit empty sidecar clears
+      # what an earlier run posted and strips the marks.
       - name: Post inline style suggestions
         if: steps.claude.outcome == 'success' && steps.pr-context.outputs.is_pr == 'true'
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STYLE_INLINE: ${{ vars.REVIEW_STYLE_INLINE }}
         run: |
+          SIDECAR=.style-suggestions.json
+          if [[ "$STYLE_INLINE" != "1" ]]; then
+            SIDECAR=.style-suggestions.off.json
+            echo '[]' > "$SIDECAR"
+          fi
           python3 .claude/commands/docs-review/scripts/post-style-suggestions.py \
             --pr "${{ steps.pr-context.outputs.pr_number }}" \
             --repo "${{ github.repository }}" \
+            --in "$SIDECAR" \
             --vale-findings .vale-findings.json \
             --annotate-pinned
 
@@ -1029,11 +1060,15 @@ jobs:
       # comment always reaches a terminal state.
       #
       # Outcome handling:
-      # - success: DELETE the spinner comment, then post a fresh
-      #   `🤖 Review updated on @<author>'s request.` This is a *create*
-      #   (not an edit) so the embedded @-mention fires a GitHub
-      #   notification — that's the whole point of attribution. Editing
-      #   the existing comment to add a mention would not notify.
+      # - success: DELETE the spinner comment and put a 🚀 reaction on the
+      #   comment that asked for the refresh (ack-request.sh). The card is
+      #   the record of what changed; a `🤖 Review updated on @<author>'s
+      #   request.` comment per refresh only buried it in timeline noise
+      #   (six on pulumi/docs#21871). A submitted review body can't take a
+      #   reaction, and a PR branched before ack-request.sh existed doesn't
+      #   carry it (scripts run from the PR head) — both fall back to the
+      #   old comment. An auto-refresh has no requester, so success is
+      #   silent: the cleared 🔄 banner and the card's new stamp say it.
       # - failure: same delete-and-repost, with `🤖 @<author> — review
       #   errored. …` so the requester is notified that their request
       #   failed.
@@ -1048,6 +1083,9 @@ jobs:
         if: always() && steps.progress.outputs.comment_id != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The API path of the comment that asked for this run, for the
+          # success reaction. Empty for events that can't take one.
+          ACK_TARGET: ${{ github.event_name == 'issue_comment' && format('issues/comments/{0}', github.event.comment.id) || github.event_name == 'pull_request_review_comment' && format('pulls/comments/{0}', github.event.comment.id) || '' }}
         run: |
           PR="${{ steps.pr-context.outputs.pr_number }}"
           REPO="${{ github.repository }}"
@@ -1090,12 +1128,16 @@ jobs:
           # unrelated account of that name). Plain wording instead.
           if [ "$OUTCOME" = "success" ]; then
             gh api -X DELETE "repos/$REPO/issues/comments/$COMMENT_ID" >/dev/null 2>&1 || true
-            if [ "$AUTHOR" = "auto-refresh" ]; then
-              BODY=$(printf '<!-- CLAUDE_PROGRESS -->\n%s' "🤖 Review auto-refreshed — the latest push only touched lines with outstanding findings.")
-            else
-              BODY=$(printf '<!-- CLAUDE_PROGRESS -->\n%s' "🤖 Review updated on @${AUTHOR}'s request.")
+            if [ "$AUTHOR" != "auto-refresh" ]; then
+              MSG="🤖 Review updated on @${AUTHOR}'s request."
+              ACK=.claude/commands/docs-review/scripts/ack-request.sh
+              if [ -f "$ACK" ]; then
+                bash "$ACK" --pr "$PR" --repo "$REPO" --target "$ACK_TARGET" --message "$MSG"
+              else
+                BODY=$(printf '<!-- CLAUDE_PROGRESS -->\n%s' "$MSG")
+                gh api "repos/$REPO/issues/$PR/comments" -f body="$BODY" >/dev/null || true
+              fi
             fi
-            gh api "repos/$REPO/issues/$PR/comments" -f body="$BODY" >/dev/null || true
           elif [ "$OUTCOME" = "cancelled" ] || [ "$OUTCOME" = "skipped" ]; then
             gh api -X DELETE "repos/$REPO/issues/comments/$COMMENT_ID" >/dev/null 2>&1 || true
           else
