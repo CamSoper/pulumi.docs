@@ -1,0 +1,493 @@
+{
+ "arms": {
+  "ship": {
+   "model": "claude-sonnet-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 6.642,
+   "usd_per_file_call": 0.0738,
+   "output_tokens": 425414,
+   "thinking_tokens": 0,
+   "thinking_share_of_output": 0.0,
+   "thinking_usd": 0.0,
+   "thinking_share_of_cost": 0.0,
+   "thinking_share_by_set": {
+    "breadth": 0.0,
+    "gt": 0.0
+   },
+   "latency_s_p50": 18.1,
+   "latency_s_p95": 42.0,
+   "latency_s_max": 52.8,
+   "claims_per_file_call": 57.0,
+   "graded_claims": 5134,
+   "valid_rate": 0.917,
+   "not_a_claim_rate": 0.079,
+   "unfaithful_rate": 0.004,
+   "unfaithful_count": 18,
+   "self_contained_rate": 0.956,
+   "atomic_rate": 0.817,
+   "line_ok_rate": 0.995,
+   "inventory_recall": 0.826,
+   "inventory_recall_gt": 0.784,
+   "inventory_recall_breadth": 0.879,
+   "inventory_recall_high": 0.948,
+   "novel_valid_claims": 71,
+   "within_pass_duplicates": 471,
+   "valid_claims_per_file_call": 52.3,
+   "by_pass": {
+    "H": {
+     "valid": 0.921,
+     "not-a-claim": 0.075,
+     "unfaithful": 0.004,
+     "n": 2091
+    },
+    "A": {
+     "valid": 0.915,
+     "not-a-claim": 0.082,
+     "unfaithful": 0.003,
+     "n": 3043
+    }
+   },
+   "by_set": {
+    "gt": {
+     "valid": 0.976,
+     "not-a-claim": 0.021,
+     "unfaithful": 0.003,
+     "n": 2475
+    },
+    "breadth": {
+     "valid": 0.862,
+     "not-a-claim": 0.134,
+     "unfaithful": 0.004,
+     "n": 2659
+    }
+   }
+  },
+  "S55bt": {
+   "model": "claude-sonnet-5-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 5.62,
+   "usd_per_file_call": 0.0624,
+   "output_tokens": 354570,
+   "thinking_tokens": 0,
+   "thinking_share_of_output": 0.0,
+   "thinking_usd": 0.0,
+   "thinking_share_of_cost": 0.0,
+   "thinking_share_by_set": {
+    "breadth": 0.0,
+    "gt": 0.0
+   },
+   "latency_s_p50": 10.7,
+   "latency_s_p95": 24.0,
+   "latency_s_max": 39.5,
+   "claims_per_file_call": 45.9,
+   "graded_claims": 4133,
+   "valid_rate": 0.946,
+   "not_a_claim_rate": 0.053,
+   "unfaithful_rate": 0.001,
+   "unfaithful_count": 6,
+   "self_contained_rate": 0.97,
+   "atomic_rate": 0.664,
+   "line_ok_rate": 0.995,
+   "inventory_recall": 0.831,
+   "inventory_recall_gt": 0.792,
+   "inventory_recall_breadth": 0.88,
+   "inventory_recall_high": 0.952,
+   "novel_valid_claims": 61,
+   "within_pass_duplicates": 80,
+   "valid_claims_per_file_call": 43.4,
+   "by_pass": {
+    "H": {
+     "valid": 0.944,
+     "not-a-claim": 0.054,
+     "unfaithful": 0.002,
+     "n": 1972
+    },
+    "A": {
+     "valid": 0.948,
+     "not-a-claim": 0.051,
+     "unfaithful": 0.001,
+     "n": 2161
+    }
+   },
+   "by_set": {
+    "gt": {
+     "valid": 0.981,
+     "not-a-claim": 0.018,
+     "unfaithful": 0.001,
+     "n": 1959
+    },
+    "breadth": {
+     "valid": 0.914,
+     "not-a-claim": 0.084,
+     "unfaithful": 0.002,
+     "n": 2174
+    }
+   }
+  },
+  "S55btlow": {
+   "model": "claude-sonnet-5-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 4.468,
+   "usd_per_file_call": 0.0496,
+   "output_tokens": 224054,
+   "thinking_tokens": 0,
+   "thinking_share_of_output": 0.0,
+   "thinking_usd": 0.0,
+   "thinking_share_of_cost": 0.0,
+   "thinking_share_by_set": {
+    "breadth": 0.0,
+    "gt": 0.0
+   },
+   "latency_s_p50": 6.6,
+   "latency_s_p95": 15.7,
+   "latency_s_max": 20.5,
+   "claims_per_file_call": 29.5,
+   "graded_claims": 2656,
+   "valid_rate": 0.958,
+   "not_a_claim_rate": 0.042,
+   "unfaithful_rate": 0.0,
+   "unfaithful_count": 1,
+   "self_contained_rate": 0.967,
+   "atomic_rate": 0.603,
+   "line_ok_rate": 0.997,
+   "inventory_recall": 0.665,
+   "inventory_recall_gt": 0.638,
+   "inventory_recall_breadth": 0.7,
+   "inventory_recall_high": 0.855,
+   "novel_valid_claims": 11,
+   "within_pass_duplicates": 30,
+   "valid_claims_per_file_call": 28.3,
+   "by_pass": {
+    "A": {
+     "valid": 0.952,
+     "not-a-claim": 0.047,
+     "unfaithful": 0.001,
+     "n": 1392
+    },
+    "H": {
+     "valid": 0.964,
+     "not-a-claim": 0.036,
+     "unfaithful": 0.0,
+     "n": 1264
+    }
+   },
+   "by_set": {
+    "gt": {
+     "valid": 0.993,
+     "not-a-claim": 0.007,
+     "unfaithful": 0.001,
+     "n": 1222
+    },
+    "breadth": {
+     "valid": 0.928,
+     "not-a-claim": 0.072,
+     "unfaithful": 0.0,
+     "n": 1434
+    }
+   }
+  },
+  "S55low": {
+   "model": "claude-sonnet-5-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 4.015,
+   "usd_per_file_call": 0.0446,
+   "output_tokens": 181626,
+   "thinking_tokens": 0,
+   "thinking_share_of_output": 0.0,
+   "thinking_usd": 0.0,
+   "thinking_share_of_cost": 0.0,
+   "thinking_share_by_set": {
+    "breadth": 0.0,
+    "gt": 0.0
+   },
+   "latency_s_p50": 5.5,
+   "latency_s_p95": 11.6,
+   "latency_s_max": 15.7,
+   "claims_per_file_call": 24.0,
+   "graded_claims": 2162,
+   "valid_rate": 0.966,
+   "not_a_claim_rate": 0.033,
+   "unfaithful_rate": 0.001,
+   "unfaithful_count": 2,
+   "self_contained_rate": 0.94,
+   "atomic_rate": 0.56,
+   "line_ok_rate": 0.995,
+   "inventory_recall": 0.583,
+   "inventory_recall_gt": 0.549,
+   "inventory_recall_breadth": 0.625,
+   "inventory_recall_high": 0.758,
+   "novel_valid_claims": 3,
+   "within_pass_duplicates": 19,
+   "valid_claims_per_file_call": 23.2,
+   "by_pass": {
+    "H": {
+     "valid": 0.966,
+     "not-a-claim": 0.033,
+     "unfaithful": 0.001,
+     "n": 1037
+    },
+    "A": {
+     "valid": 0.965,
+     "not-a-claim": 0.034,
+     "unfaithful": 0.001,
+     "n": 1125
+    }
+   },
+   "by_set": {
+    "gt": {
+     "valid": 0.992,
+     "not-a-claim": 0.006,
+     "unfaithful": 0.002,
+     "n": 949
+    },
+    "breadth": {
+     "valid": 0.946,
+     "not-a-claim": 0.054,
+     "unfaithful": 0.0,
+     "n": 1213
+    }
+   }
+  },
+  "S55med": {
+   "model": "claude-sonnet-5-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 4.062,
+   "usd_per_file_call": 0.0451,
+   "output_tokens": 215935,
+   "thinking_tokens": 0,
+   "thinking_share_of_output": 0.0,
+   "thinking_usd": 0.0,
+   "thinking_share_of_cost": 0.0,
+   "thinking_share_by_set": {
+    "breadth": 0.0,
+    "gt": 0.0
+   },
+   "latency_s_p50": 6.3,
+   "latency_s_p95": 14.5,
+   "latency_s_max": 18.9,
+   "claims_per_file_call": 28.5,
+   "graded_claims": 2564,
+   "valid_rate": 0.957,
+   "not_a_claim_rate": 0.043,
+   "unfaithful_rate": 0.0,
+   "unfaithful_count": 0,
+   "self_contained_rate": 0.961,
+   "atomic_rate": 0.56,
+   "line_ok_rate": 0.995,
+   "inventory_recall": 0.661,
+   "inventory_recall_gt": 0.641,
+   "inventory_recall_breadth": 0.687,
+   "inventory_recall_high": 0.83,
+   "novel_valid_claims": 12,
+   "within_pass_duplicates": 22,
+   "valid_claims_per_file_call": 27.3,
+   "by_pass": {
+    "H": {
+     "valid": 0.955,
+     "not-a-claim": 0.045,
+     "unfaithful": 0.0,
+     "n": 1244
+    },
+    "A": {
+     "valid": 0.959,
+     "not-a-claim": 0.041,
+     "unfaithful": 0.0,
+     "n": 1320
+    }
+   },
+   "by_set": {
+    "gt": {
+     "valid": 0.997,
+     "not-a-claim": 0.003,
+     "unfaithful": 0.0,
+     "n": 1164
+    },
+    "breadth": {
+     "valid": 0.924,
+     "not-a-claim": 0.076,
+     "unfaithful": 0.0,
+     "n": 1400
+    }
+   }
+  },
+  "S55high": {
+   "model": "claude-sonnet-5-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 5.108,
+   "usd_per_file_call": 0.0568,
+   "output_tokens": 311959,
+   "thinking_tokens": 970,
+   "thinking_share_of_output": 0.003,
+   "thinking_usd": 0.01,
+   "thinking_share_of_cost": 0.002,
+   "thinking_share_by_set": {
+    "breadth": 0.006,
+    "gt": 0.0
+   },
+   "latency_s_p50": 8.5,
+   "latency_s_p95": 20.3,
+   "latency_s_max": 30.6,
+   "claims_per_file_call": 40.4,
+   "graded_claims": 1219,
+   "valid_rate": 0.947,
+   "not_a_claim_rate": 0.05,
+   "unfaithful_rate": 0.003,
+   "unfaithful_count": 4,
+   "self_contained_rate": 0.978,
+   "atomic_rate": 0.626,
+   "line_ok_rate": 0.993,
+   "inventory_recall": 0.803,
+   "inventory_recall_gt": 0.768,
+   "inventory_recall_breadth": 0.846,
+   "inventory_recall_high": 0.925,
+   "novel_valid_claims": 18,
+   "within_pass_duplicates": 9,
+   "valid_claims_per_file_call": 12.8,
+   "by_pass": {
+    "H": {
+     "valid": 0.944,
+     "not-a-claim": 0.053,
+     "unfaithful": 0.003,
+     "n": 585
+    },
+    "A": {
+     "valid": 0.95,
+     "not-a-claim": 0.047,
+     "unfaithful": 0.003,
+     "n": 634
+    }
+   },
+   "by_set": {
+    "gt": {
+     "valid": 0.98,
+     "not-a-claim": 0.015,
+     "unfaithful": 0.005,
+     "n": 594
+    },
+    "breadth": {
+     "valid": 0.915,
+     "not-a-claim": 0.083,
+     "unfaithful": 0.002,
+     "n": 625
+    }
+   }
+  },
+  "S55xhigh": {
+   "model": "claude-sonnet-5-5",
+   "file_calls": 90,
+   "api_calls": 162,
+   "errors": 0,
+   "stop_reasons": {
+    "tool_use": 162
+   },
+   "missing_tool_call": 0,
+   "usd_total": 7.713,
+   "usd_per_file_call": 0.0857,
+   "output_tokens": 583844,
+   "thinking_tokens": 160271,
+   "thinking_share_of_output": 0.275,
+   "thinking_usd": 1.603,
+   "thinking_share_of_cost": 0.208,
+   "thinking_share_by_set": {
+    "breadth": 0.225,
+    "gt": 0.327
+   },
+   "latency_s_p50": 15.6,
+   "latency_s_p95": 45.5,
+   "latency_s_max": 68.1,
+   "claims_per_file_call": 53.4,
+   "graded_claims": 18,
+   "valid_rate": 1.0,
+   "not_a_claim_rate": 0.0,
+   "unfaithful_rate": 0.0,
+   "unfaithful_count": 0,
+   "self_contained_rate": 1.0,
+   "atomic_rate": 0.556,
+   "line_ok_rate": 1.0,
+   "inventory_recall": 0.824,
+   "inventory_recall_gt": 0.0,
+   "inventory_recall_breadth": 0.824,
+   "inventory_recall_high": 1.0,
+   "novel_valid_claims": 0,
+   "within_pass_duplicates": 0,
+   "valid_claims_per_file_call": 0.2,
+   "by_pass": {
+    "A": {
+     "valid": 1.0,
+     "not-a-claim": 0.0,
+     "unfaithful": 0.0,
+     "n": 9
+    },
+    "H": {
+     "valid": 1.0,
+     "not-a-claim": 0.0,
+     "unfaithful": 0.0,
+     "n": 9
+    }
+   },
+   "by_set": {
+    "breadth": {
+     "valid": 1.0,
+     "not-a-claim": 0.0,
+     "unfaithful": 0.0,
+     "n": 18
+    }
+   }
+  }
+ },
+ "notes": [],
+ "inter_auditor": {},
+ "inventory_items": {
+  "br-21787-lts": 111,
+  "br-21827-helm": 71,
+  "br-21849-protect": 59,
+  "br-21871-statemig": 88,
+  "br-21873-outputs": 83,
+  "br-21900-cicd": 42,
+  "br-21911-jev": 35,
+  "br-21944-tfe": 17,
+  "ex-21438": 82,
+  "ex-21535": 112,
+  "ex-21614": 136,
+  "ex-21651": 142,
+  "ex-21693": 76,
+  "ex-anchor-packages-repository-strategy": 42,
+  "ex-anchor-terraform-next-steps": 44
+ }
+}
