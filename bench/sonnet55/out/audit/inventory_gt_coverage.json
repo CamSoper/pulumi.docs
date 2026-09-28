@@ -1,0 +1,221 @@
+{
+ "ex-21535": {
+  "defects": {
+   "21535-F1": {
+    "covered": true,
+    "claim_ids": [
+     "I64"
+    ],
+    "why": "I64 restates the load-balancer-vs-target-group smart-defaults sentence directly."
+   },
+   "21535-F2": {
+    "covered": true,
+    "claim_ids": [
+     "I78"
+    ],
+    "why": "I78 asserts a target group is created per listener, the exact contradicted fact."
+   },
+   "21535-F3": {
+    "covered": true,
+    "claim_ids": [
+     "I105"
+    ],
+    "why": "I105 asserts unhealthyThreshold default is 3; verifying exposes the 2 vs 3 error."
+   },
+   "21535-F4": {
+    "covered": true,
+    "claim_ids": [
+     "I103"
+    ],
+    "why": "I103 asserts the NLB unhealthyThreshold equals healthyThreshold constraint."
+   }
+  }
+ },
+ "ex-21438": {
+  "defects": {
+   "21438-F1": {
+    "covered": true,
+    "claim_ids": [
+     "I4",
+     "I39"
+    ],
+    "why": "I4 asserts at-a-glance CDK v2.268.0/2026-09-02 and notes conflict with v2.270.0."
+   },
+   "21438-F2": {
+    "covered": true,
+    "claim_ids": [
+     "I3",
+     "I36"
+    ],
+    "why": "I3 asserts at-a-glance Terraform v1.16.1/2026-09-02 and notes conflict with v1.16.3."
+   },
+   "21438-F4": {
+    "covered": true,
+    "claim_ids": [
+     "I2",
+     "I3",
+     "I4",
+     "I22",
+     "I23",
+     "I24"
+    ],
+    "why": "Claims tie stale rows to the 2026-09-21 header; I22/I23 explicitly flag unrefreshed Bicep/Crossplane rows."
+   },
+   "21438-F5": {
+    "covered": true,
+    "claim_ids": [
+     "I2",
+     "I33"
+    ],
+    "why": "I2 asserts at-a-glance Pulumi v3.261.0 and notes conflict with v3.263.0 elsewhere."
+   }
+  }
+ },
+ "ex-21693": {
+  "defects": {
+   "21693-F1": {
+    "covered": true,
+    "claim_ids": [
+     "I44"
+    ],
+    "why": "I44 asserts Vault cannot see existing secrets; verifying exposes contradiction."
+   },
+   "21693-F2": {
+    "covered": true,
+    "claim_ids": [
+     "I76"
+    ],
+    "why": "I76 asserts Vault OIDC provider config is CLI-only; verifying exposes contradiction."
+   }
+  }
+ },
+ "ex-21614": {
+  "defects": {
+   "21614-F5": {
+    "covered": true,
+    "claim_ids": [
+     "I34",
+     "I35",
+     "I36",
+     "I31",
+     "I32",
+     "I33"
+    ],
+    "why": "Claims assert the $195\u2013205B guidance, prior $180\u2013190B, and related Q2 figures cited to the bullet."
+   },
+   "21614-F6": {
+    "covered": true,
+    "claim_ids": [
+     "I41",
+     "I39",
+     "I40"
+    ],
+    "why": "I41 asserts RPO attribution and $75B GPU-deal figure; I39/I40 cover RPO numbers."
+   },
+   "21614-F8": {
+    "covered": true,
+    "claim_ids": [
+     "I56",
+     "I57"
+    ],
+    "why": "Claims assert Gartner's $2.59T 2026 total AI spending and 47% increase."
+   },
+   "21614-F9": {
+    "covered": true,
+    "claim_ids": [
+     "I72",
+     "I73"
+    ],
+    "why": "Claims assert Gartner's over-50%-by-2028 and ~$4.8B 2027 securing-AI figures."
+   },
+   "21614-F10": {
+    "covered": true,
+    "claim_ids": [
+     "I79",
+     "I80"
+    ],
+    "why": "I79 asserts the 80%-by-2026 Gartner prediction; I80 flags the arrived-year tense issue."
+   },
+   "21614-F16": {
+    "covered": true,
+    "claim_ids": [
+     "I108",
+     "I109",
+     "I110",
+     "I111"
+    ],
+    "why": "Claims assert the 41%, 30%, 36% figures and the maturity attribution to the CNCF report."
+   },
+   "21614-F19": {
+    "covered": true,
+    "claim_ids": [
+     "I97"
+    ],
+    "why": "I97 asserts Pulumi survey found manual approval close to universal, matching the overclaim."
+   }
+  }
+ },
+ "ex-21651": {
+  "defects": {
+   "21651-F3": {
+    "covered": true,
+    "claim_ids": [
+     "I80"
+    ],
+    "why": "I80 asserts the exact 'only supported architecture since mid-2024' statement; verifying it exposes the overstatement."
+   },
+   "21651-F12": {
+    "covered": true,
+    "claim_ids": [
+     "I87"
+    ],
+    "why": "I87 quotes the Anoshka sentence with attribution and URL; verifying verbatim match exposes the mismatch."
+   },
+   "21651-F13": {
+    "covered": true,
+    "claim_ids": [
+     "I115",
+     "I113"
+    ],
+    "why": "I115 quotes the Nitric docs sentence; I113 checks the nitric.io link target, exposing wording/citation issue."
+   },
+   "21651-F16": {
+    "covered": true,
+    "claim_ids": [
+     "I127"
+    ],
+    "why": "I127 asserts opencode has more GitHub stars than SST; verification directly tests the comparison."
+   }
+  }
+ },
+ "ex-anchor-terraform-next-steps": {
+  "defects": {
+   "20348-getOutput": {
+    "covered": true,
+    "claim_ids": [
+     "I6",
+     "I15"
+    ],
+    "why": "I6 asserts terraform.state.S3Reference with getOutput exists; verifying exposes fabrication."
+   },
+   "20348-events": {
+    "covered": true,
+    "claim_ids": [
+     "I43"
+    ],
+    "why": "I43 asserts events page covers meetups/conferences; verifying exposes mismatch with speaking claim."
+   }
+  }
+ },
+ "ex-anchor-packages-repository-strategy": {
+  "defects": {
+   "20348-gitref": {
+    "covered": true,
+    "claim_ids": [
+     "I17"
+    ],
+    "why": "I17 asserts Pulumi.yaml source-based packages accept any Git ref including branches; verifying exposes branch rejection."
+   }
+  }
+ }
+}

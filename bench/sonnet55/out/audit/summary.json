@@ -364,47 +364,47 @@
    "latency_s_p95": 20.3,
    "latency_s_max": 30.6,
    "claims_per_file_call": 40.4,
-   "graded_claims": 1219,
+   "graded_claims": 3635,
    "valid_rate": 0.947,
-   "not_a_claim_rate": 0.05,
+   "not_a_claim_rate": 0.051,
    "unfaithful_rate": 0.003,
-   "unfaithful_count": 4,
-   "self_contained_rate": 0.978,
-   "atomic_rate": 0.626,
-   "line_ok_rate": 0.993,
-   "inventory_recall": 0.803,
-   "inventory_recall_gt": 0.768,
-   "inventory_recall_breadth": 0.846,
-   "inventory_recall_high": 0.925,
-   "novel_valid_claims": 18,
-   "within_pass_duplicates": 9,
-   "valid_claims_per_file_call": 12.8,
+   "unfaithful_count": 10,
+   "self_contained_rate": 0.982,
+   "atomic_rate": 0.639,
+   "line_ok_rate": 0.996,
+   "inventory_recall": 0.787,
+   "inventory_recall_gt": 0.762,
+   "inventory_recall_breadth": 0.819,
+   "inventory_recall_high": 0.918,
+   "novel_valid_claims": 47,
+   "within_pass_duplicates": 31,
+   "valid_claims_per_file_call": 38.2,
    "by_pass": {
     "H": {
-     "valid": 0.944,
-     "not-a-claim": 0.053,
-     "unfaithful": 0.003,
-     "n": 585
+     "valid": 0.946,
+     "not-a-claim": 0.052,
+     "unfaithful": 0.002,
+     "n": 1742
     },
     "A": {
-     "valid": 0.95,
-     "not-a-claim": 0.047,
+     "valid": 0.947,
+     "not-a-claim": 0.05,
      "unfaithful": 0.003,
-     "n": 634
+     "n": 1893
     }
    },
    "by_set": {
     "gt": {
-     "valid": 0.98,
-     "not-a-claim": 0.015,
-     "unfaithful": 0.005,
-     "n": 594
+     "valid": 0.986,
+     "not-a-claim": 0.01,
+     "unfaithful": 0.004,
+     "n": 1784
     },
     "breadth": {
-     "valid": 0.915,
-     "not-a-claim": 0.083,
-     "unfaithful": 0.002,
-     "n": 625
+     "valid": 0.909,
+     "not-a-claim": 0.09,
+     "unfaithful": 0.001,
+     "n": 1851
     }
    }
   },
@@ -432,47 +432,66 @@
    "latency_s_p95": 45.5,
    "latency_s_max": 68.1,
    "claims_per_file_call": 53.4,
-   "graded_claims": 18,
-   "valid_rate": 1.0,
-   "not_a_claim_rate": 0.0,
-   "unfaithful_rate": 0.0,
-   "unfaithful_count": 0,
-   "self_contained_rate": 1.0,
-   "atomic_rate": 0.556,
-   "line_ok_rate": 1.0,
-   "inventory_recall": 0.824,
-   "inventory_recall_gt": 0.0,
-   "inventory_recall_breadth": 0.824,
-   "inventory_recall_high": 1.0,
-   "novel_valid_claims": 0,
-   "within_pass_duplicates": 0,
-   "valid_claims_per_file_call": 0.2,
+   "graded_claims": 4802,
+   "valid_rate": 0.944,
+   "not_a_claim_rate": 0.051,
+   "unfaithful_rate": 0.005,
+   "unfaithful_count": 24,
+   "self_contained_rate": 0.99,
+   "atomic_rate": 0.735,
+   "line_ok_rate": 0.997,
+   "inventory_recall": 0.882,
+   "inventory_recall_gt": 0.829,
+   "inventory_recall_breadth": 0.948,
+   "inventory_recall_high": 0.93,
+   "novel_valid_claims": 62,
+   "within_pass_duplicates": 181,
+   "valid_claims_per_file_call": 50.3,
    "by_pass": {
     "A": {
-     "valid": 1.0,
-     "not-a-claim": 0.0,
-     "unfaithful": 0.0,
-     "n": 9
+     "valid": 0.947,
+     "not-a-claim": 0.049,
+     "unfaithful": 0.004,
+     "n": 2596
     },
     "H": {
-     "valid": 1.0,
-     "not-a-claim": 0.0,
-     "unfaithful": 0.0,
-     "n": 9
+     "valid": 0.939,
+     "not-a-claim": 0.055,
+     "unfaithful": 0.006,
+     "n": 2206
     }
    },
    "by_set": {
+    "gt": {
+     "valid": 0.987,
+     "not-a-claim": 0.007,
+     "unfaithful": 0.006,
+     "n": 2187
+    },
     "breadth": {
-     "valid": 1.0,
-     "not-a-claim": 0.0,
-     "unfaithful": 0.0,
-     "n": 18
+     "valid": 0.907,
+     "not-a-claim": 0.088,
+     "unfaithful": 0.004,
+     "n": 2615
     }
    }
   }
  },
  "notes": [],
- "inter_auditor": {},
+ "inter_auditor": {
+  "n": 2080,
+  "verdict": 0.989,
+  "valid_binary": 0.989,
+  "covers_any": 0.997,
+  "fable:valid|opus:valid": 2020,
+  "fable:unfaithful|opus:unfaithful": 3,
+  "fable:not-a-claim|opus:valid": 6,
+  "fable:valid|opus:unfaithful": 5,
+  "fable:unfaithful|opus:valid": 1,
+  "fable:not-a-claim|opus:not-a-claim": 35,
+  "fable:valid|opus:not-a-claim": 10
+ },
+ "inventory_gt_coverage": "24/24",
  "inventory_items": {
   "br-21787-lts": 111,
   "br-21827-helm": 71,
