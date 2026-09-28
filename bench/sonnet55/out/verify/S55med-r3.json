@@ -1,0 +1,991 @@
+{
+  "schema_version": 1,
+  "model": "claude-opus-5-5",
+  "verdicts": [
+    {
+      "claim_id": "c1",
+      "file": "content/docs/administration/onboarding-guide/setting-up-for-success.md",
+      "line_range": "L36",
+      "text": "An 'AWS Installation & Configuration' page exists as an example of registry provider authentication documentation, linked at /docs/esc/providers/login/.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "contradicted",
+      "confidence": "medium",
+      "evidence": "The page at /docs/esc/providers/login/ (content/docs/esc/providers/login/_index.md) has title \"Login providers\", not \"AWS Installation & Configuration\". The AWS page is at /docs/esc/providers/login/aws-login/. I could not check the reviewed file itself because the path didn't resolve.",
+      "source": "repo:content/docs/esc/providers/login/_index.md",
+      "model_usage": {
+        "input_tokens": 6393,
+        "output_tokens": 743,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c2",
+      "file": "content/docs/administration/organizations-teams/_index.md",
+      "line_range": "L45",
+      "text": "Pulumi maintains a GitHub presence at https://github.com/pulumi where users can ask questions or give feedback.",
+      "type": "url",
+      "route": "pass2",
+      "verdict": "unverifiable",
+      "confidence": "medium",
+      "evidence": "The URL returns HTTP 200 and is the Pulumi GitHub org page, so the link is live. The truncated body shows only \"Pulumi \u00b7 GitHub Skip to content Navigation Menu\", which doesn't say users can ask questions or give feedback there. The claim is a soft statement about the org's presence, so the page can't confirm or refute it.",
+      "source": "https://github.com/pulumi",
+      "model_usage": {
+        "input_tokens": 439,
+        "output_tokens": 327,
+        "cache_read_input_tokens": 6557,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "exact-match",
+      "framing_note": "The page exists and is Pulumi's org, but the fetched body has no text about asking questions or giving feedback."
+    },
+    {
+      "claim_id": "c3",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "line_range": "L250",
+      "text": "Error handling in Go's `apply` may also be achieved using an `error` channel.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) L250 is only a closing `{{% /choosable %}}` tag. The page doesn't mention an `error` channel for Go's apply. L247 and L673 say the `ApplyT` callback returns an error as a second return value, and L688 covers `ApplyTWithContext`. The claim text doesn't match the current page.",
+      "source": "repo:content/docs/iac/concepts/inputs-outputs/apply.md L247, L250, L673-688",
+      "model_usage": {
+        "input_tokens": 7832,
+        "output_tokens": 1077,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c4",
+      "file": "content/docs/iac/concepts/inputs-outputs/_index.md",
+      "line_range": "L38",
+      "text": "An `aws.ec2.Vpc` resource has a `vpcId` property that is an output.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) The page never says `aws.ec2.Vpc` has a `vpcId` property. L33 says \"the VPC ID is an output\". L35 says to pass the Vpc's \"`id` property (an output)\" to Subnets, \"where `vpcId` is a required input\". `vpcId` is the Subnet input, so the claim text conflates the two. L38 is about `pulumi destroy` ordering.",
+      "source": "repo:content/docs/iac/concepts/inputs-outputs/_index.md L29-38",
+      "model_usage": {
+        "input_tokens": 5192,
+        "output_tokens": 1173,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c5",
+      "file": "content/docs/iac/concepts/projects/_index.md",
+      "line_range": "L93",
+      "text": "For Python Pulumi programs, the presence of a `__main__.py` or `setup.py` file defines the entrypoint.",
+      "type": "behavior",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) The claim describes Pulumi's own language-host behavior (how the Python entrypoint is detected). The `setup.py` part looks doubtful, because Pulumi's Python default is `__main__.py`. Web search can't read product source to settle this.",
+      "source": "WebSearch not run; the claim needs pulumi/pulumi source (the Python language host).",
+      "model_usage": {
+        "input_tokens": 3146,
+        "output_tokens": 1147,
+        "cache_read_input_tokens": 30269,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none",
+      "intuition_flag": "Pulumi Python projects normally use `__main__.py`. The `setup.py` entrypoint claim seems suspicious."
+    },
+    {
+      "claim_id": "c6",
+      "file": "content/docs/iac/concepts/projects/_index.md",
+      "line_range": "L230",
+      "text": "The Configuration documentation is located at /docs/concepts/config/.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "Line 236 of the file links to \"/docs/iac/concepts/config/\", not \"/docs/concepts/config/\". That target exists as content/docs/iac/concepts/config.md. The claim's path appears to be a garbled extraction, and the real link is valid.",
+      "source": "repo:content/docs/iac/concepts/config.md",
+      "model_usage": {
+        "input_tokens": 5686,
+        "output_tokens": 466,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c7",
+      "file": "content/docs/iac/concepts/providers/_index.md",
+      "line_range": "L658",
+      "text": "The Automation API Go SDK's `stack.SetConfig` method accepts a boolean `true` argument to set `pulumi:disable-default-providers[0]` as a path.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) Extraction misreading: L658 is the TypeScript sample, `stack.setConfig(\"pulumi:disable-default-providers[0]\", { value: \"*\" }, true);`. The page's Go sample (L679) uses `stack.SetConfigWithOptions(..., &auto.ConfigOptions{Path: true})`, not a boolean argument to `SetConfig`. The claim mixes the Go SDK with the TypeScript line, so the page doesn't assert it. I couldn't check the Go SDK source because the GitHub API was rate limited.",
+      "source": "repo:content/docs/iac/concepts/providers/_index.md L658, L679",
+      "model_usage": {
+        "input_tokens": 6798,
+        "output_tokens": 1171,
+        "cache_read_input_tokens": 35315,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c8",
+      "file": "content/docs/iac/concepts/secrets/_index.md",
+      "line_range": "L183-184",
+      "text": "- By computing a secret value by using [`apply`](/docs/concepts/inputs-outputs/#apply) or {{< pulumi-all >}} with another secret value.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "The current file (line 190) links apply to /docs/iac/concepts/inputs-outputs/apply/, and that page exists (content/docs/iac/concepts/inputs-outputs/apply.md). The old link in the claim text, /docs/concepts/inputs-outputs/#apply, has been replaced. The pulumi-all shortcode exists and renders Output.all. The statement itself is accurate: the file says apply and all on a secret keep the result marked secret.",
+      "source": "repo:content/docs/iac/concepts/secrets/_index.md L190; content/docs/iac/concepts/inputs-outputs/apply.md",
+      "model_usage": {
+        "input_tokens": 3665,
+        "output_tokens": 658,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c9",
+      "file": "content/docs/iac/concepts/secrets/_index.md",
+      "line_range": "L320",
+      "text": "The `pulumi.Config` type offers a collection of getters and setters for retrieving configuration values of various types by their key.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) The page (L326) says: \"This type offers a collection of getters for retrieving configuration values of various types by their key.\" It doesn't mention setters. The claim text added \"and setters\", so it misdescribes the page. L320 is a bash block, and the sentence is at L326.",
+      "source": "repo:content/docs/iac/concepts/secrets/_index.md L326",
+      "model_usage": {
+        "input_tokens": 8335,
+        "output_tokens": 958,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c10",
+      "file": "content/docs/iac/concepts/secrets/_index.md",
+      "line_range": "L445-450",
+      "text": "Secrets within structured config are supported, such as storing a `token` property as a secret within a list of endpoint objects, e.g. via `pulumi config set --path --secret endpoints[0].token accesstokenvalue`.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) The auto-generated CLI reference for `pulumi config set` lists both `--path` (\"The key contains a path to a property in a map or list to set\") and `--secret` (\"Encrypt the value instead of storing it in plaintext\"). It also shows list-index path syntax such as `names[0]`. The two flags are independent, so combining them to set a secret at `endpoints[0].token` is consistent with the CLI. I did not read the CLI source to confirm the combination behaves this way.",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_config_set.md",
+      "model_usage": {
+        "input_tokens": 3563,
+        "output_tokens": 944,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "entailed-narrower",
+      "framing_note": "entailed-narrower"
+    },
+    {
+      "claim_id": "c11",
+      "file": "content/docs/iac/get-started/aws/configure.md",
+      "line_range": "L21",
+      "text": "The AWS CLI can be configured using the instructions at https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html.",
+      "type": "url",
+      "route": "pass2",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "URL returns 200 and the page is titled \"Configuring settings for the AWS CLI\". It says: \"This section explains how to configure the settings that the AWS Command Line Interface (AWS CLI) uses to interact with AWS.\"",
+      "source": "https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html",
+      "model_usage": {
+        "input_tokens": 1648,
+        "output_tokens": 313,
+        "cache_read_input_tokens": 6557,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "exact-match",
+      "framing_note": "Claim says the AWS CLI can be configured using the instructions at this page. The page is the AWS CLI configuration guide."
+    },
+    {
+      "claim_id": "c12",
+      "file": "content/docs/iac/get-started/gcp/deploy-stack.md",
+      "line_range": "L135",
+      "text": "The \"View Live\" hyperlinks lead to a page at https://app.pulumi.com/signin containing detailed information about the stack, including resources, configuration, and a full history of updates.",
+      "type": "url",
+      "route": "pass2",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "The URL returned HTTP 200, but the body was only \"Pulumi Cloud\" (a sign-in page shell). It says nothing about stack details, resources, configuration, or update history. The \"View Live\" link goes to a stack-specific URL, so it isn't the generic signin page. The claim can't be checked against this page.",
+      "source": "https://app.pulumi.com/signin",
+      "model_usage": {
+        "input_tokens": 411,
+        "output_tokens": 257,
+        "cache_read_input_tokens": 6557,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c13",
+      "file": "content/docs/iac/get-started/kubernetes/create-project.md",
+      "line_range": "L21",
+      "text": "A Pulumi project is a program in a chosen language that defines a collection of related cloud resources.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "The sentence is a general definitional description of a Pulumi project in a get-started doc, consistent with Pulumi's standard terminology. It has no cited source or checkable figure.",
+      "source": "content/docs/iac/get-started/kubernetes/create-project.md:L21",
+      "model_usage": {
+        "input_tokens": 291,
+        "output_tokens": 226,
+        "cache_read_input_tokens": 7063,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c14",
+      "file": "content/docs/iac/get-started/kubernetes/create-project.md",
+      "line_range": "L299-345",
+      "text": "The Go example program imports `github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes` and `github.com/pulumi/pulumi/sdk/v3/go/pulumi`, creates a Deployment named \"app-dep\" with one replica running a container named \"nginx\" using the \"nginx\" image, and exports the deployment's metadata name.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) The claim's description misreads the page. The Go sample (L324-329) imports the subpackages `.../sdk/v4/go/kubernetes/apps/v1`, `core/v1` and `meta/v1`, not the bare `.../go/kubernetes` package, plus `pulumi/sdk/v3/go/pulumi`. It creates a Deployment \"app-dep\" with 1 replica and a container \"nginx\" using image \"nginx\" (L337-352), and runs `ctx.Export(\"name\", deployment.Metadata.Name())` (L361). The rest matches, and the sample is a consistent, valid use of the SDK. Nothing on the page contradicts itself.",
+      "source": "repo:content/docs/iac/get-started/kubernetes/create-project.md L321-367",
+      "model_usage": {
+        "input_tokens": 11618,
+        "output_tokens": 1291,
+        "cache_read_input_tokens": 42378,
+        "cache_creation_input_tokens": 0,
+        "turns": 6
+      }
+    },
+    {
+      "claim_id": "c15",
+      "file": "content/docs/iac/get-started/kubernetes/deploy-stack.md",
+      "line_range": "L96",
+      "text": "The 'View Live' hyperlinks in the Pulumi CLI output lead to a page at https://app.pulumi.com/signin containing detailed information about the stack, including resources, configuration, and a full history of updates.",
+      "type": "url",
+      "route": "pass2",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "The URL returned HTTP 200, but the body is only \"Pulumi Cloud\". That is a sign-in page shell, and it says nothing about stack details, resources, configuration or update history. The claim describes where the 'View Live' links lead, and the fetched page doesn't address that. The claim also cites the signin URL itself, which may not be the actual link target, since those links normally go to stack-specific URLs.",
+      "source": "https://app.pulumi.com/signin",
+      "model_usage": {
+        "input_tokens": 425,
+        "output_tokens": 343,
+        "cache_read_input_tokens": 6557,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "shifted",
+      "framing_note": "Source is a bare sign-in page; claim describes stack detail pages reached via 'View Live' links."
+    },
+    {
+      "claim_id": "c16",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "line_range": "L53-54, L80-81, L88, L126, L210-211, L265-267",
+      "text": "The `.getOutput(\"...\")` method is a valid Pulumi API for retrieving named outputs from a `StackReference` or Terraform state reference object.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "I couldn't read the reviewed file at that path. From my knowledge of the Pulumi SDKs, which I didn't check against source in this session, `StackReference.getOutput(name)` exists in the Node SDK and returns an `Output`. `RemoteStateReference` in the `terraform.state` package also has `getOutput`. So the method is a valid API for both object types.",
+      "source": "Pulumi Node.js SDK (StackReference, terraform.state.RemoteStateReference); not checked via gh in this session",
+      "model_usage": {
+        "input_tokens": 825,
+        "output_tokens": 540,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c17",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "line_range": "L57-60, L69-72, L74-77",
+      "text": "There exists a `terraform.state.S3Reference` construct/class (referenced as both `terraform.state.S3Reference` and `pulumi.terraform.state.S3Reference`) that takes `bucket` and `key` arguments and exposes a `getOutput()` method to read values from a Terraform state file stored in S3.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "contradicted",
+      "confidence": "medium",
+      "evidence": "pulumi/pulumi's sdk/nodejs/index.ts exports no `terraform` module, so `pulumi.terraform.state.S3Reference` isn't in the core SDK. I couldn't run a code search because of rate limits. From memory, not fetched here, the `@pulumi/terraform` package exposes `terraform.state.RemoteStateReference` with `backendType: \"s3\"`, not an `S3Reference` class.",
+      "source": "gh api repos/pulumi/pulumi/contents/sdk/nodejs/index.ts",
+      "model_usage": {
+        "input_tokens": 5086,
+        "output_tokens": 812,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c18",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "line_range": "L328",
+      "text": "* **[Pulumi vs Terraform](/docs/intro/vs/terraform/)**: Detailed comparison of features",
+      "type": "url",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) This is an internal link to /docs/intro/vs/terraform/. Confirming the path exists needs the local repo, and I didn't search for it. The claim also carries no third-party assertion, only a description of the linked page.",
+      "source": "content/docs/iac/get-started/terraform/next-steps.md:L328",
+      "model_usage": {
+        "input_tokens": 12011,
+        "output_tokens": 1589,
+        "cache_read_input_tokens": 65584,
+        "cache_creation_input_tokens": 0,
+        "turns": 9
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c19",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "line_range": "L341-343",
+      "text": "Mercedes-Benz used Pulumi for large-scale infrastructure modernization and platform engineering, documented in a Pulumi case study at https://www.pulumi.com/case-studies/mercedes-benz/.",
+      "type": "attribution",
+      "route": "pass2",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "URL returned 200 with title \"Mercedes-Benz R&D | Case Studies | Pulumi\", so the case study exists. The truncated body is only site navigation and has no passage about \"large-scale infrastructure modernization\" or \"platform engineering\", so I can't check the description.",
+      "source": "https://www.pulumi.com/case-studies/mercedes-benz/",
+      "model_usage": {
+        "input_tokens": 894,
+        "output_tokens": 322,
+        "cache_read_input_tokens": 6557,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "none",
+      "framing_note": "Page exists and is about Mercedes-Benz R&D using Pulumi; the specific characterization isn't visible in the truncated body."
+    },
+    {
+      "claim_id": "c20",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "line_range": "L364-365",
+      "text": "* **[Community Events](https://www.pulumi.com/events/)**: Speak at meetups and conferences",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "framing-drift",
+      "confidence": "low",
+      "evidence": "The URL /events/ resolves to content/events/_index.md, \"Pulumi Events & Workshops\": \"Connect with the Pulumi community through live workshops, technical demos, and on-demand recordings.\" It is a list of events to attend, with nothing about speaking at meetups or conferences. I could not read the reviewed file itself, because it isn't in the local repo.",
+      "source": "repo:content/events/_index.md",
+      "model_usage": {
+        "input_tokens": 4530,
+        "output_tokens": 600,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "shifted",
+      "framing_note": "shifted \u2014 the link target is about attending workshops and events; the claim describes speaking at them"
+    },
+    {
+      "claim_id": "c21",
+      "file": "content/docs/iac/guides/building-extending/packages/executable-plugin.md",
+      "line_range": "L77-82",
+      "text": "The Pulumi CLI interpolates four variables into pluginDownloadURL if they appear there: ${NAME} (the package name), ${VERSION} (the plugin version without leading v), ${OS} (the consumer's OS, typically darwin, linux, or windows), and ${ARCH} (the consumer's architecture, typically amd64 or arm64).",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "I couldn't grep plugins.go: the output was truncated and code search was rate-limited. From memory, the CLI's httpSource.Download replaces ${NAME}, ${VERSION}, ${OS} and ${ARCH} in the URL. The version comes from semver, so it has no leading v.",
+      "source": "pulumi/pulumi sdk/go/common/workspace/plugins.go (httpSource.Download), recalled rather than directly quoted",
+      "model_usage": {
+        "input_tokens": 59098,
+        "output_tokens": 1690,
+        "cache_read_input_tokens": 77693,
+        "cache_creation_input_tokens": 0,
+        "turns": 11
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c22",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L24",
+      "text": "Source-based packages referenced directly from a `Pulumi.yaml` file can use any Git ref (tag, branch, or commit), regardless of whether it is a valid semantic version.",
+      "type": "behavior",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) This claim describes Pulumi's own package-resolution behavior (Git refs in Pulumi.yaml packages). Web search can't read product source, so I didn't check it. Product source or release notes are needed.",
+      "source": "not searched; requires pulumi/pulumi source (package resolution for git-based plugins)",
+      "model_usage": {
+        "input_tokens": 6590,
+        "output_tokens": 821,
+        "cache_read_input_tokens": 30269,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c23",
+      "file": "content/docs/idp/concepts/private-registry.md",
+      "line_range": "L46",
+      "text": "The `pulumi package publish` command accepts a `<provider|schema>` argument.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The auto-generated CLI page shows the usage line `pulumi package publish <provider|schema> [flags] [--] [provider-parameter]...`.",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_package_publish.md",
+      "model_usage": {
+        "input_tokens": 2045,
+        "output_tokens": 359,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "exact-match"
+    },
+    {
+      "claim_id": "c24",
+      "file": "content/docs/reference/pre-built-policy-packs/cis/aws.md",
+      "line_range": "L47",
+      "text": "| lambda-inside-vpc | Lambda functions must be deployed in VPC for network isolation and security | 3.3 | Configure data access control lists based on a user's need to know. Apply data access control lists, also known as access permissions, to local and remote file systems, databases, and applicatio",
+      "type": "entity-spec",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass3) The page file and data directory weren't readable in the repo, and the GitHub search hit a rate limit, so I couldn't check the policy's description or CIS control mapping.",
+      "source": "read_file content/docs/reference/pre-built-policy-packs/cis/aws.md (not found)",
+      "model_usage": {
+        "input_tokens": 2628,
+        "output_tokens": 781,
+        "cache_read_input_tokens": 30269,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c25",
+      "file": "content/docs/reference/pre-built-policy-packs/cis/aws.md",
+      "line_range": "L101",
+      "text": "The iam-user-unused-credentials-90 policy ensures IAM user credentials are rotated within 90 days to prevent dormant account usage.",
+      "type": "numerical",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "(escalated from pass3) Data file description: \"Ensure IAM user credentials are rotated within 90 days to prevent dormant account usage and enhance security.\" Doc text is a faithful transcription. (The CIS spec cites 45 days, which is upstream product metadata, not a doc error.)",
+      "source": "data/policy_pack_policies/cis-aws.json:2872",
+      "model_usage": {
+        "input_tokens": 5867,
+        "output_tokens": 1032,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "exact-match"
+    },
+    {
+      "claim_id": "c26",
+      "file": "content/docs/reference/pre-built-policy-packs/cis/azure.md",
+      "line_range": "L48",
+      "text": "CIS Controls Safeguard 3.3 (as referenced for the aad-custom-roles policy) requires establishing and maintaining a data management process reviewed and updated annually or when significant enterprise changes occur.",
+      "type": "attribution",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "[source-discipline gate: this page is generated from `data/`, so a disagreement with the cited external framework is upstream product feedback, not a doc contradiction \u2014 `contradicted` downgraded to `unverifiable`. Surface as an author question / upstream issue, not as a \ud83d\udea8 finding.] In CIS Controls v8, Safeguard 3.3 is \"Configure Data Access Control Lists\" (least-privilege access permissions). The \"Establish and Maintain a Data Management Process\" safeguard, reviewed annually, is 3.1. I did not run a search. This comes from my knowledge of CIS Controls v8.",
+      "source": "CIS Controls v8, Control 3 (Data Protection): https://www.cisecurity.org/controls/v8",
+      "model_usage": {
+        "input_tokens": 481,
+        "output_tokens": 418,
+        "cache_read_input_tokens": 9080,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "source_discipline_gate": "generated-from-data",
+      "framing": "none"
+    },
+    {
+      "claim_id": "c27",
+      "file": "content/docs/reference/pre-built-policy-packs/cis/google-cloud.md",
+      "line_range": "L24",
+      "text": "| cloud-logging-retention-period-365 | Ensure Cloud Logging log retention is 365 days or more | 3.3 | Configure data access control lists based on a user's need to know. Apply data access control lists, also known as access permissions, to local and remote file systems, databases, and applications.",
+      "type": "numerical",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass3) I couldn't read the file or the policy data. The GitHub search hit a rate limit. CIS Controls v8 safeguard 3.3 is correctly titled \"Configure Data Access Control Lists\", but I couldn't confirm the mapping to the retention policy.",
+      "source": "gh search code --owner pulumi \"cloud-logging-retention-period-365\" (rate-limited)",
+      "model_usage": {
+        "input_tokens": 3190,
+        "output_tokens": 1210,
+        "cache_read_input_tokens": 30269,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none",
+      "intuition_flag": "Mapping a log retention policy to CIS control 3.3 (data access control lists) looks semantically odd. Control 8.10 (retain audit logs) would fit better."
+    },
+    {
+      "claim_id": "c28",
+      "file": "content/docs/reference/pre-built-policy-packs/cis/google-cloud.md",
+      "line_range": "L36-38",
+      "text": "There exists a policy named 'elasticsearch-in-vpc-only' ensuring Elasticsearch is restricted to VPC-only access, implying Elasticsearch is offered/deployable as a Google Cloud resource type covered by this policy pack.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) I did not search or read the data file. The policy name looks like an AWS policy (AWS Elasticsearch Service is VPC-based), so its presence on a Google Cloud CIS page is suspect. Product data such as data/policy_pack_policies/*.json or pulumi/pulumi-policy source needs to be read to settle it.",
+      "source": "not checked; no tool calls were made",
+      "model_usage": {
+        "input_tokens": 3932,
+        "output_tokens": 1131,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none",
+      "intuition_flag": "\"elasticsearch-in-vpc-only\" is an AWS-style policy name and looks out of place on a Google Cloud CIS page."
+    },
+    {
+      "claim_id": "c29",
+      "file": "content/docs/reference/pre-built-policy-packs/cis-kubernetes/aws.md",
+      "line_range": "L16-34",
+      "text": "CIS Kubernetes Benchmark framework reference 4.2 specifies implementing and managing a firewall on servers and minimizing the admission of privileged containers and containers with dangerous capabilities.",
+      "type": "attribution",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass3) Couldn't read the file or its data source, and GitHub search was rate-limited. The claim looks suspect: in the CIS Kubernetes Benchmark, section 4.2 covers Kubelet settings and 5.2 covers minimizing privileged containers. \"Implement and manage a firewall on servers\" matches CIS Controls v8 4.4 instead. This is from memory, not from a fetched source.",
+      "source": "gh search code --owner pulumi (rate-limited); file not found locally",
+      "model_usage": {
+        "input_tokens": 3094,
+        "output_tokens": 1188,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none",
+      "intuition_flag": "Firewall text and privileged-container text are combined under one reference number, which is unlikely."
+    },
+    {
+      "claim_id": "c30",
+      "file": "content/docs/reference/pre-built-policy-packs/hitrust/azure.md",
+      "line_range": "L1-102",
+      "text": "HITRUST CSF 11.5 framework reference '12.a Including Information Security in the Business Continuity Management' specifies: 'Information security shall be a central part of the organization's business continuity management. Business continuity management shall include information security processes to ensure the required level of information security during adverse situations.'",
+      "type": "attribution",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "HITRUST CSF v11.5 text is proprietary and not publicly available. I did not search, so I couldn't confirm the quoted wording of control 12.a. The page is generated from policy data, so it may be a faithful transcription of Pulumi's product metadata.",
+      "source": "WebSearch not run; HITRUST CSF 11.5 is a licensed, non-public document",
+      "model_usage": {
+        "input_tokens": 510,
+        "output_tokens": 259,
+        "cache_read_input_tokens": 9080,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c31",
+      "file": "content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md",
+      "line_range": "L33",
+      "text": "HITRUST CSF 11.5 framework reference '06.d Data Protection and Privacy of Covered Information' (as applied to the pubsub-encryption policy) specifies: 'Cryptographic controls shall be used in compliance with all relevant agreements, laws and regulations.'",
+      "type": "attribution",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass3) The page file and data files were not found locally, and the GitHub search hit a rate limit. I could not check the quoted HITRUST text against product data.",
+      "source": "read_file content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md (not found); gh search code (rate limited)",
+      "model_usage": {
+        "input_tokens": 3120,
+        "output_tokens": 906,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c32",
+      "file": "content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md",
+      "line_range": "L57",
+      "text": "The subnetwork-flow-logs policy requires GCP subnetworks to have flowLogsConfig enabled.",
+      "type": "api-surface",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) No web lookup was performed. This is a generated-from-data policy pack page, so the claim should be checked against the data file (data/policy_pack_policies/*.json) or the pulumi/pulumi-policy-* source. Web search can't read those.",
+      "source": "not searched; needs repo source",
+      "model_usage": {
+        "input_tokens": 3817,
+        "output_tokens": 799,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c33",
+      "file": "content/docs/iac/get-started/gcp/deploy-stack.md",
+      "line_range": "L21-25",
+      "text": "Running `pulumi up` starts deploying the new storage bucket.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "The sentence describes the standard `pulumi up` tutorial step. The page itself explains that `pulumi up` first shows a preview and only deploys after you confirm. This is a loose description of the PR's own tutorial flow, not a separate checkable assertion.",
+      "source": "repo:content/docs/iac/get-started/gcp/deploy-stack.md",
+      "model_usage": {
+        "input_tokens": 1999,
+        "output_tokens": 324,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c34",
+      "file": "content/docs/idp/concepts/private-registry.md",
+      "line_range": "L69",
+      "text": "A README is required when publishing a component to the private registry.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) I did not search or read product source. Whether a README is required when publishing to the private registry is a Pulumi product behavior claim, so it needs a check against pulumi/* source, which web search can't read.",
+      "source": "No search run; claim concerns Pulumi's own product behavior (private registry publish requirements).",
+      "model_usage": {
+        "input_tokens": 6294,
+        "output_tokens": 1063,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c35",
+      "file": "content/docs/iac/get-started/gcp/create-project.md",
+      "line_range": "L143",
+      "text": "`pulumi new gcp-java` initializes a new Pulumi Java project for Google Cloud.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The pulumi/templates repo has a gcp-java template. Its Pulumi.yaml sets runtime: java and describes it as \"A minimal Google Cloud Java Pulumi program\".",
+      "source": "gh api repos/pulumi/templates/contents/gcp-java/Pulumi.yaml",
+      "model_usage": {
+        "input_tokens": 1418,
+        "output_tokens": 314,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c36",
+      "file": "content/docs/iac/concepts/resources/_index.md",
+      "line_range": "L16-17",
+      "text": "- /docs/intro/concepts/resources/",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "high",
+      "evidence": "Lines 16-17 are a front-matter `aliases:` entry (/docs/intro/concepts/resources/), a legacy redirect path, not a falsifiable assertion.",
+      "source": "repo:content/docs/iac/concepts/resources/_index.md",
+      "model_usage": {
+        "input_tokens": 3227,
+        "output_tokens": 317,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c37",
+      "file": "content/docs/iac/concepts/secrets/_index.md",
+      "line_range": "L463",
+      "text": "Secret values are decrypted and made available in plain text to the program at runtime, and can be read using any of the standard `pulumi.Config` getters, though using the non-secret getters for a secret is not recommended since it does not mark transitive uses as secret.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "[source-discipline gate: author question (\"what is the source for this value?\"), never a \ud83d\udea8 finding. An independent re-check against product source could not settle it (Only the reviewed page states this. It matches known Pulumi behavior: non-secret getters return plain values, so outputs derived from them are not marked secret. GitHub search was rate-limited, so I found no independent product source.), so `verified` is downgraded to `unverifiable`: the only source cited is the file under review itself, and a page restating a value is what made it a claim \u2014 it cannot also be the evidence for it.] The page's warning says: \"Secret values are decrypted and made available in plain text to the program at runtime... may be read using any of the standard `pulumi.Config` getters... Use the secret variants... as this ensures that all transitive uses of that secret are themselves also marked as secrets.\" Line 471-472 in the file; the claim restates it, and nothing else independent was checked.",
+      "source": "repo:content/docs/iac/concepts/secrets/_index.md L472",
+      "model_usage": {
+        "input_tokens": 6380,
+        "output_tokens": 834,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "exact-match",
+      "source_discipline_gate": "own-file-only"
+    },
+    {
+      "claim_id": "c38",
+      "file": "content/docs/iac/get-started/aws/modify-program.md",
+      "line_range": "L395",
+      "text": "Uploading the `index.html` file to the bucket uses a Pulumi concept called an asset.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The program code passes `source: new pulumi.asset.FileAsset(\"index.html\")` to BucketObject. The concepts page defines \"An asset is a single file. Pass one to any resource input that expects a file\". The link target `/docs/iac/concepts/assets-archives/#assets` exists (the heading `## Assets {#assets}`).",
+      "source": "repo:content/docs/iac/concepts/assets-archives.md",
+      "model_usage": {
+        "input_tokens": 8287,
+        "output_tokens": 494,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "exact-match"
+    },
+    {
+      "claim_id": "c39",
+      "file": "content/docs/iac/concepts/inputs-outputs/_index.md",
+      "line_range": "L240",
+      "text": "You must use methods supplied in the Pulumi SDK to access an output's value once it is known.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "low",
+      "evidence": "(re-verified after own-file-only) The line is a conceptual usage statement in the page's own prose (the wording is at L237; L240 is a list intro) that introduces the SDK methods listed below it (apply, all, helpers). It has no version, number, or API signature to check against product source.",
+      "source": "repo:content/docs/iac/concepts/inputs-outputs/_index.md",
+      "model_usage": {
+        "input_tokens": 4145,
+        "output_tokens": 912,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c40",
+      "file": "content/docs/administration/onboarding-guide/setting-up-for-success.md",
+      "line_range": "L68",
+      "text": "Users can register their organization's templates in the Pulumi Cloud New Project Wizard for convenient access.",
+      "type": "api-surface",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) Pulumi Cloud lets organizations add private/org templates (via template sources) that appear in the New Project wizard. This is well-known documented product behavior; I did not run a search in this session, so it rests on prior knowledge.",
+      "source": "https://www.pulumi.com/docs/idp/concepts/org-templates/",
+      "model_usage": {
+        "input_tokens": 3851,
+        "output_tokens": 865,
+        "cache_read_input_tokens": 37332,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c41",
+      "file": "content/docs/iac/concepts/config.md",
+      "line_range": "L782-784",
+      "text": "Once an ESC environment is set up and projecting pulumi configuration, that environment (or multiple environments) can be imported into a Pulumi stack.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(re-verified after own-file-only) The claim describes documented, long-standing Pulumi ESC behavior: stacks can import one or more environments through the `environment` key in Pulumi.<stack>.yaml. I couldn't confirm this against product source because the GitHub API was rate-limited, and the ESC docs path I tried doesn't exist.",
+      "source": "gh search code (rate limited); read_file on a second docs path (not found)",
+      "model_usage": {
+        "input_tokens": 4654,
+        "output_tokens": 1047,
+        "cache_read_input_tokens": 42378,
+        "cache_creation_input_tokens": 0,
+        "turns": 6
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c42",
+      "file": "content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md",
+      "line_range": "L30",
+      "text": "The gke-secrets-encryption policy requires GKE clusters to have Application-layer Secrets Encryption enabled.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "The file and data dir weren't readable, and GitHub search was rate limited. The description is plausible (GKE application-layer secrets encryption), but I couldn't confirm it against source.",
+      "source": "read_file content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md (not found)",
+      "model_usage": {
+        "input_tokens": 2328,
+        "output_tokens": 550,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c43",
+      "file": "content/docs/reference/pre-built-policy-packs/pulumi-best-practices/azure.md",
+      "line_range": "L20-21",
+      "text": "The 'application-gateway-tls' policy requires Application Gateway to have secure TLS configuration.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "The page file and the data directory were not found in the repo. GitHub search was rate-limited, so I could not check the policy's description against source.",
+      "source": "read_file content/docs/reference/pre-built-policy-packs/pulumi-best-practices/azure.md (not found); gh search code (HTTP 403 rate limit)",
+      "model_usage": {
+        "input_tokens": 2250,
+        "output_tokens": 518,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c44",
+      "file": "content/docs/iac/concepts/secrets/_index.md",
+      "line_range": "L175",
+      "text": "Secrets have the same type, Output<T>, as unencrypted resource outputs, differing only in being marked internally as needing encryption before persisting in the state file.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "(re-verified after own-file-only) In pulumi/pulumi sdk/nodejs/output.ts, OutputImpl<T> has `isSecret: Promise<boolean>`, documented as \"Whether or not this output wraps a secret value. Values which are marked as secret are stored in an encrypted format when they are persisted as part of a state file.\" So secrets are ordinary Output<T> with a secret flag.",
+      "source": "gh api repos/pulumi/pulumi/contents/sdk/nodejs/output.ts",
+      "model_usage": {
+        "input_tokens": 15988,
+        "output_tokens": 1108,
+        "cache_read_input_tokens": 35315,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c45",
+      "file": "content/docs/iac/get-started/aws/_index.md",
+      "line_range": "L46-51",
+      "text": "Go is one of the supported languages for this Pulumi AWS get-started tutorial.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "(re-verified after own-file-only) The pulumi/templates repo has an `aws-go` template (Pulumi.yaml, main.go, go.mod). A sibling page, create-project.md, tells users to run `pulumi new aws-go` and shows the Go S3 bucket program.",
+      "source": "gh api repos/pulumi/templates/contents/aws-go",
+      "model_usage": {
+        "input_tokens": 6544,
+        "output_tokens": 873,
+        "cache_read_input_tokens": 35315,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c46",
+      "file": "content/docs/iac/get-started/kubernetes/create-project.md",
+      "line_range": "L503",
+      "text": "This Pulumi program (as shown in the chosen language example) creates an NGINX deployment and exports the name of the deployment.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "high",
+      "evidence": "The sentence describes the tutorial's own code, and every language example matches it. Each one creates an nginx Deployment and exports its name, for example `export const name = deployment.metadata.name;`.",
+      "source": "repo:content/docs/iac/get-started/kubernetes/create-project.md",
+      "model_usage": {
+        "input_tokens": 3895,
+        "output_tokens": 331,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c47",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "line_range": "L634",
+      "text": "In every Pulumi language, an unhandled error raised inside an `apply` callback is reported as a deployment failure, causing `pulumi up` to abort the update and print the error in its diagnostics.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "mismatch",
+      "confidence": "medium",
+      "evidence": "The page contradicts its own \"every language\" wording. L631 says \"with one Go-specific exception\", and L685 says \"an error you return from the callback is silently dropped and the update succeeds\" when a Go output isn't consumed. I did not check product source.",
+      "source": "repo:content/docs/iac/concepts/inputs-outputs/apply.md L631, L685",
+      "model_usage": {
+        "input_tokens": 3844,
+        "output_tokens": 674,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none",
+      "intuition_flag": "Universal quantifier \"every Pulumi language\" is overbroad given the Go exception."
+    },
+    {
+      "claim_id": "c48",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L28",
+      "text": "Pulumi Cloud customers can additionally publish an executable-based package to the Private Registry via `pulumi package publish`.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "The auto-generated CLI reference says: \"This command publishes a package to the Private Registry. The package can be a provider or a schema.\" A provider can be a local plugin binary path, so executable-based packages are covered. The docs don't spell out that this needs Pulumi Cloud, but the Private Registry is a Pulumi Cloud feature.",
+      "source": "content/docs/iac/cli/commands/pulumi_package_publish.md",
+      "model_usage": {
+        "input_tokens": 5126,
+        "output_tokens": 519,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "entailed-narrower",
+      "framing_note": "entailed-narrower"
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "n_claims": 48,
+    "n_pass0": 0,
+    "n_pass1": 36,
+    "n_pass2": 5,
+    "n_pass3": 7,
+    "input_tokens": 263390,
+    "output_tokens": 36294,
+    "cache_read_input_tokens": 1226418,
+    "cache_creation_input_tokens": 0
+  }
+}
