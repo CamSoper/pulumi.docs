@@ -1,0 +1,789 @@
+{
+ "ship": {
+  "model": "claude-opus-5-5",
+  "reps": 3,
+  "claims": 48,
+  "cost_per_run_usd": 3.5509,
+  "cost_sd": 0.4387,
+  "cost_per_claim_usd": 0.07398,
+  "tokens_total": {
+   "input_tokens": 1260002,
+   "output_tokens": 156697,
+   "cache_read_input_tokens": 4137013,
+   "cache_creation_input_tokens": 330272
+  },
+  "wall_s_per_run": 62.7,
+  "adjudicated_real_hits": "31/36",
+  "adjudicated_real_majority": "12/12",
+  "adjudicated_fp_flags": "2/15",
+  "unadjudicated_flags_per_run": 0.0,
+  "unadjudicated_flags": {},
+  "flagged_per_run": 11.0,
+  "unverifiable_per_run": 5.67,
+  "verdict_mix": {
+   "contradicted": 24,
+   "verified": 84,
+   "not-a-claim": 10,
+   "unverifiable": 17,
+   "framing-drift": 4,
+   "mismatch": 5
+  },
+  "determinism_pct": 81.2,
+  "source_discipline_gate": 0,
+  "turn_cap_exhausted": 0,
+  "errors": 0,
+  "stop_reasons": {
+   "tool_use": 569
+  },
+  "refusals": 0,
+  "http_errors": {},
+  "no_tool_turns": 0,
+  "real_detail": {
+   "AWS I&C link target (retargeted upstream)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Error handling in Go's `apply` may also be achieved using an": [
+    "contradicted",
+    "contradicted",
+    "unverifiable"
+   ],
+   "An `aws.ec2.Vpc` resource has a `vpcId` property that is an ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "For Python Pulumi programs, the presence of a `__main__.py` ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "By computing a secret value by using [`apply`](/docs/concept": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "The `pulumi.Config` type offers a collection of getters and ": [
+    "contradicted",
+    "unverifiable",
+    "contradicted"
+   ],
+   "The `.getOutput(\"...\")` method is a valid Pulumi API for ret": [
+    "contradicted",
+    "contradicted",
+    "verified"
+   ],
+   "S3Reference class (#20348 fabricated API)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Speak at meetups (#20348)": [
+    "framing-drift",
+    "verified",
+    "framing-drift"
+   ],
+   "Git ref (#20348)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "HITRUST CSF 11.5 framework reference '06.d Data Protection a": [
+    "mismatch",
+    "mismatch",
+    "mismatch"
+   ],
+   "The subnetwork-flow-logs policy requires GCP subnetworks to ": [
+    "mismatch",
+    "mismatch",
+    "verified"
+   ]
+  },
+  "fp_detail": {
+   "The Configuration documentation is located at /docs/concepts": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "Go SetConfig bool (extractor misattribution)": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "A Pulumi project is a program in a chosen language that defi": [
+    "framing-drift",
+    "verified",
+    "framing-drift"
+   ],
+   "The Go example program imports `github.com/pulumi/pulumi-kub": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "In every Pulumi language, an unhandled error raised inside a": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ]
+  }
+ },
+ "S5": {
+  "model": "claude-sonnet-5",
+  "reps": 3,
+  "claims": 48,
+  "cost_per_run_usd": 3.3109,
+  "cost_sd": 0.5884,
+  "cost_per_claim_usd": 0.06898,
+  "tokens_total": {
+   "input_tokens": 2584509,
+   "output_tokens": 185650,
+   "cache_read_input_tokens": 5559717,
+   "cache_creation_input_tokens": 718052
+  },
+  "wall_s_per_run": 71.3,
+  "adjudicated_real_hits": "8/36",
+  "adjudicated_real_majority": "2/12",
+  "adjudicated_fp_flags": "2/15",
+  "unadjudicated_flags_per_run": 2.67,
+  "unadjudicated_flags": {
+   "The \"View Live\" hyperlinks lead to a page at https://app.pulumi.com/signin containing detailed information abo": 2,
+   "The 'View Live' hyperlinks in the Pulumi CLI output lead to a page at https://app.pulumi.com/signin containing": 1,
+   "* **[Pulumi vs Terraform](/docs/intro/vs/terraform/)**: Detailed comparison of features": 1,
+   "| lambda-inside-vpc | Lambda functions must be deployed in VPC for network isolation and security | 3.3 | Conf": 1,
+   "The iam-user-unused-credentials-90 policy ensures IAM user credentials are rotated within 90 days to prevent d": 1,
+   "CIS Kubernetes Benchmark framework reference 4.2 specifies implementing and managing a firewall on servers and": 2
+  },
+  "flagged_per_run": 6.0,
+  "unverifiable_per_run": 7.67,
+  "verdict_mix": {
+   "contradicted": 7,
+   "verified": 74,
+   "not-a-claim": 28,
+   "unverifiable": 23,
+   "mismatch": 8,
+   "framing-drift": 3,
+   "matches": 1
+  },
+  "determinism_pct": 56.2,
+  "source_discipline_gate": 14,
+  "turn_cap_exhausted": 0,
+  "errors": 0,
+  "stop_reasons": {
+   "tool_use": 664,
+   "end_turn": 17
+  },
+  "refusals": 0,
+  "http_errors": {},
+  "no_tool_turns": 0,
+  "real_detail": {
+   "AWS I&C link target (retargeted upstream)": [
+    "contradicted",
+    "contradicted",
+    "framing-drift"
+   ],
+   "Error handling in Go's `apply` may also be achieved using an": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "An `aws.ec2.Vpc` resource has a `vpcId` property that is an ": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "For Python Pulumi programs, the presence of a `__main__.py` ": [
+    "unverifiable",
+    "verified",
+    "verified"
+   ],
+   "By computing a secret value by using [`apply`](/docs/concept": [
+    "not-a-claim",
+    "contradicted",
+    "not-a-claim"
+   ],
+   "The `pulumi.Config` type offers a collection of getters and ": [
+    "verified",
+    "not-a-claim",
+    "verified"
+   ],
+   "The `.getOutput(\"...\")` method is a valid Pulumi API for ret": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "S3Reference class (#20348 fabricated API)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Speak at meetups (#20348)": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "Git ref (#20348)": [
+    "unverifiable",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "HITRUST CSF 11.5 framework reference '06.d Data Protection a": [
+    "unverifiable",
+    "unverifiable",
+    "mismatch"
+   ],
+   "The subnetwork-flow-logs policy requires GCP subnetworks to ": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ]
+  },
+  "fp_detail": {
+   "The Configuration documentation is located at /docs/concepts": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "Go SetConfig bool (extractor misattribution)": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "A Pulumi project is a program in a chosen language that defi": [
+    "verified",
+    "verified",
+    "matches"
+   ],
+   "The Go example program imports `github.com/pulumi/pulumi-kub": [
+    "mismatch",
+    "framing-drift",
+    "verified"
+   ],
+   "In every Pulumi language, an unhandled error raised inside a": [
+    "verified",
+    "verified",
+    "not-a-claim"
+   ]
+  }
+ },
+ "S55bt": {
+  "model": "claude-sonnet-5-5",
+  "reps": 3,
+  "claims": 48,
+  "cost_per_run_usd": 3.16,
+  "cost_sd": 0.2617,
+  "cost_per_claim_usd": 0.06583,
+  "tokens_total": {
+   "input_tokens": 2987060,
+   "output_tokens": 156207,
+   "cache_read_input_tokens": 4979695,
+   "cache_creation_input_tokens": 379193
+  },
+  "wall_s_per_run": 44.7,
+  "adjudicated_real_hits": "19/36",
+  "adjudicated_real_majority": "7/12",
+  "adjudicated_fp_flags": "7/15",
+  "unadjudicated_flags_per_run": 0.0,
+  "unadjudicated_flags": {},
+  "flagged_per_run": 8.67,
+  "unverifiable_per_run": 12.33,
+  "verdict_mix": {
+   "unverifiable": 37,
+   "verified": 66,
+   "contradicted": 17,
+   "mismatch": 6,
+   "not-a-claim": 14,
+   "matches": 1,
+   "framing-drift": 3
+  },
+  "determinism_pct": 62.5,
+  "source_discipline_gate": 8,
+  "turn_cap_exhausted": 0,
+  "errors": 0,
+  "stop_reasons": {
+   "tool_use": 657,
+   "end_turn": 1
+  },
+  "refusals": 0,
+  "http_errors": {},
+  "no_tool_turns": 0,
+  "real_detail": {
+   "AWS I&C link target (retargeted upstream)": [
+    "unverifiable",
+    "mismatch",
+    "contradicted"
+   ],
+   "Error handling in Go's `apply` may also be achieved using an": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "An `aws.ec2.Vpc` resource has a `vpcId` property that is an ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "For Python Pulumi programs, the presence of a `__main__.py` ": [
+    "unverifiable",
+    "unverifiable",
+    "contradicted"
+   ],
+   "By computing a secret value by using [`apply`](/docs/concept": [
+    "verified",
+    "verified",
+    "not-a-claim"
+   ],
+   "The `pulumi.Config` type offers a collection of getters and ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "The `.getOutput(\"...\")` method is a valid Pulumi API for ret": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "S3Reference class (#20348 fabricated API)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Speak at meetups (#20348)": [
+    "verified",
+    "unverifiable",
+    "verified"
+   ],
+   "Git ref (#20348)": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "HITRUST CSF 11.5 framework reference '06.d Data Protection a": [
+    "mismatch",
+    "mismatch",
+    "unverifiable"
+   ],
+   "The subnetwork-flow-logs policy requires GCP subnetworks to ": [
+    "unverifiable",
+    "mismatch",
+    "mismatch"
+   ]
+  },
+  "fp_detail": {
+   "The Configuration documentation is located at /docs/concepts": [
+    "mismatch",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "Go SetConfig bool (extractor misattribution)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "A Pulumi project is a program in a chosen language that defi": [
+    "not-a-claim",
+    "matches",
+    "not-a-claim"
+   ],
+   "The Go example program imports `github.com/pulumi/pulumi-kub": [
+    "not-a-claim",
+    "verified",
+    "framing-drift"
+   ],
+   "In every Pulumi language, an unhandled error raised inside a": [
+    "unverifiable",
+    "framing-drift",
+    "framing-drift"
+   ]
+  }
+ },
+ "S55low": {
+  "model": "claude-sonnet-5-5",
+  "reps": 3,
+  "claims": 48,
+  "cost_per_run_usd": 1.0371,
+  "cost_sd": 0.1378,
+  "cost_per_claim_usd": 0.02161,
+  "tokens_total": {
+   "input_tokens": 572172,
+   "output_tokens": 94405,
+   "cache_read_input_tokens": 3305927,
+   "cache_creation_input_tokens": 144699
+  },
+  "wall_s_per_run": 25.3,
+  "adjudicated_real_hits": "3/36",
+  "adjudicated_real_majority": "1/12",
+  "adjudicated_fp_flags": "4/15",
+  "unadjudicated_flags_per_run": 0.0,
+  "unadjudicated_flags": {},
+  "flagged_per_run": 2.33,
+  "unverifiable_per_run": 22.67,
+  "verdict_mix": {
+   "framing-drift": 2,
+   "unverifiable": 68,
+   "not-a-claim": 28,
+   "verified": 41,
+   "mismatch": 4,
+   "contradicted": 1
+  },
+  "determinism_pct": 77.1,
+  "source_discipline_gate": 9,
+  "turn_cap_exhausted": 0,
+  "errors": 0,
+  "stop_reasons": {
+   "tool_use": 472
+  },
+  "refusals": 0,
+  "http_errors": {},
+  "no_tool_turns": 0,
+  "real_detail": {
+   "AWS I&C link target (retargeted upstream)": [
+    "framing-drift",
+    "unverifiable",
+    "mismatch"
+   ],
+   "Error handling in Go's `apply` may also be achieved using an": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "An `aws.ec2.Vpc` resource has a `vpcId` property that is an ": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "For Python Pulumi programs, the presence of a `__main__.py` ": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "By computing a secret value by using [`apply`](/docs/concept": [
+    "verified",
+    "verified",
+    "not-a-claim"
+   ],
+   "The `pulumi.Config` type offers a collection of getters and ": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "The `.getOutput(\"...\")` method is a valid Pulumi API for ret": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "S3Reference class (#20348 fabricated API)": [
+    "contradicted",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "Speak at meetups (#20348)": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "Git ref (#20348)": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "HITRUST CSF 11.5 framework reference '06.d Data Protection a": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "The subnetwork-flow-logs policy requires GCP subnetworks to ": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ]
+  },
+  "fp_detail": {
+   "The Configuration documentation is located at /docs/concepts": [
+    "verified",
+    "not-a-claim",
+    "verified"
+   ],
+   "Go SetConfig bool (extractor misattribution)": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "A Pulumi project is a program in a chosen language that defi": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "The Go example program imports `github.com/pulumi/pulumi-kub": [
+    "mismatch",
+    "mismatch",
+    "mismatch"
+   ],
+   "In every Pulumi language, an unhandled error raised inside a": [
+    "framing-drift",
+    "unverifiable",
+    "not-a-claim"
+   ]
+  }
+ },
+ "S55med": {
+  "model": "claude-sonnet-5-5",
+  "reps": 3,
+  "claims": 48,
+  "cost_per_run_usd": 1.268,
+  "cost_sd": 0.0966,
+  "cost_per_claim_usd": 0.02642,
+  "tokens_total": {
+   "input_tokens": 910113,
+   "output_tokens": 110144,
+   "cache_read_input_tokens": 3756947,
+   "cache_creation_input_tokens": 52339
+  },
+  "wall_s_per_run": 29.3,
+  "adjudicated_real_hits": "11/36",
+  "adjudicated_real_majority": "3/12",
+  "adjudicated_fp_flags": "3/15",
+  "unadjudicated_flags_per_run": 0.0,
+  "unadjudicated_flags": {},
+  "flagged_per_run": 4.67,
+  "unverifiable_per_run": 18.67,
+  "verdict_mix": {
+   "mismatch": 3,
+   "unverifiable": 56,
+   "not-a-claim": 29,
+   "contradicted": 7,
+   "verified": 45,
+   "framing-drift": 4
+  },
+  "determinism_pct": 75.0,
+  "source_discipline_gate": 8,
+  "turn_cap_exhausted": 0,
+  "errors": 0,
+  "stop_reasons": {
+   "tool_use": 520
+  },
+  "refusals": 0,
+  "http_errors": {},
+  "no_tool_turns": 0,
+  "real_detail": {
+   "AWS I&C link target (retargeted upstream)": [
+    "mismatch",
+    "contradicted",
+    "contradicted"
+   ],
+   "Error handling in Go's `apply` may also be achieved using an": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "An `aws.ec2.Vpc` resource has a `vpcId` property that is an ": [
+    "not-a-claim",
+    "contradicted",
+    "not-a-claim"
+   ],
+   "For Python Pulumi programs, the presence of a `__main__.py` ": [
+    "contradicted",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "By computing a secret value by using [`apply`](/docs/concept": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "The `pulumi.Config` type offers a collection of getters and ": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "The `.getOutput(\"...\")` method is a valid Pulumi API for ret": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "S3Reference class (#20348 fabricated API)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Speak at meetups (#20348)": [
+    "framing-drift",
+    "framing-drift",
+    "framing-drift"
+   ],
+   "Git ref (#20348)": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "HITRUST CSF 11.5 framework reference '06.d Data Protection a": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "The subnetwork-flow-logs policy requires GCP subnetworks to ": [
+    "unverifiable",
+    "unverifiable",
+    "unverifiable"
+   ]
+  },
+  "fp_detail": {
+   "The Configuration documentation is located at /docs/concepts": [
+    "verified",
+    "verified",
+    "not-a-claim"
+   ],
+   "Go SetConfig bool (extractor misattribution)": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "A Pulumi project is a program in a chosen language that defi": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "The Go example program imports `github.com/pulumi/pulumi-kub": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "In every Pulumi language, an unhandled error raised inside a": [
+    "framing-drift",
+    "mismatch",
+    "mismatch"
+   ]
+  }
+ },
+ "S55high": {
+  "model": "claude-sonnet-5-5",
+  "reps": 3,
+  "claims": 48,
+  "cost_per_run_usd": 2.6208,
+  "cost_sd": 0.0728,
+  "cost_per_claim_usd": 0.0546,
+  "tokens_total": {
+   "input_tokens": 2360077,
+   "output_tokens": 156862,
+   "cache_read_input_tokens": 4655151,
+   "cache_creation_input_tokens": 257013
+  },
+  "wall_s_per_run": 43.3,
+  "adjudicated_real_hits": "22/36",
+  "adjudicated_real_majority": "6/12",
+  "adjudicated_fp_flags": "6/15",
+  "unadjudicated_flags_per_run": 0.33,
+  "unadjudicated_flags": {
+   "CIS Kubernetes Benchmark framework reference 4.2 specifies implementing and managing a firewall on servers and": 1
+  },
+  "flagged_per_run": 9.67,
+  "unverifiable_per_run": 11.67,
+  "verdict_mix": {
+   "contradicted": 22,
+   "unverifiable": 35,
+   "verified": 73,
+   "framing-drift": 2,
+   "mismatch": 5,
+   "not-a-claim": 7
+  },
+  "determinism_pct": 70.8,
+  "source_discipline_gate": 8,
+  "turn_cap_exhausted": 0,
+  "errors": 0,
+  "stop_reasons": {
+   "tool_use": 626
+  },
+  "refusals": 0,
+  "http_errors": {},
+  "no_tool_turns": 0,
+  "real_detail": {
+   "AWS I&C link target (retargeted upstream)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Error handling in Go's `apply` may also be achieved using an": [
+    "unverifiable",
+    "unverifiable",
+    "contradicted"
+   ],
+   "An `aws.ec2.Vpc` resource has a `vpcId` property that is an ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "For Python Pulumi programs, the presence of a `__main__.py` ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "By computing a secret value by using [`apply`](/docs/concept": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "The `pulumi.Config` type offers a collection of getters and ": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "The `.getOutput(\"...\")` method is a valid Pulumi API for ret": [
+    "contradicted",
+    "contradicted",
+    "verified"
+   ],
+   "S3Reference class (#20348 fabricated API)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "Speak at meetups (#20348)": [
+    "unverifiable",
+    "unverifiable",
+    "framing-drift"
+   ],
+   "Git ref (#20348)": [
+    "contradicted",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "HITRUST CSF 11.5 framework reference '06.d Data Protection a": [
+    "mismatch",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "The subnetwork-flow-logs policy requires GCP subnetworks to ": [
+    "mismatch",
+    "unverifiable",
+    "unverifiable"
+   ]
+  },
+  "fp_detail": {
+   "The Configuration documentation is located at /docs/concepts": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "Go SetConfig bool (extractor misattribution)": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "A Pulumi project is a program in a chosen language that defi": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "The Go example program imports `github.com/pulumi/pulumi-kub": [
+    "framing-drift",
+    "not-a-claim",
+    "mismatch"
+   ],
+   "In every Pulumi language, an unhandled error raised inside a": [
+    "unverifiable",
+    "unverifiable",
+    "mismatch"
+   ]
+  }
+ }
+}
