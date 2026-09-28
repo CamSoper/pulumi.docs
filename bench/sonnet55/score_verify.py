@@ -21,10 +21,14 @@ PRICES = {"claude-sonnet-5": (2.0, 10.0, 0.20, 2.50), "claude-sonnet-5-5": (2.0,
 CELL_MODEL = {"ship": "claude-opus-5-5", "S5": "claude-sonnet-5", "S55bt": "claude-sonnet-5-5",
               "S55low": "claude-sonnet-5-5", "S55med": "claude-sonnet-5-5", "S55high": "claude-sonnet-5-5"}
 ORDER = ["ship", "S5", "S55bt", "S55low", "S55med", "S55high"]
-key = lambda t: re.sub(r"\s+", " ", (t or "").strip())[:70]
+key = lambda t: re.sub(r"\s+", " ", re.sub(r"^[-*]\s+", "", (t or "").strip()))[:70]
 REAL = {key(x["claim"]): x["claim"][:60] for x in ADJ if x["adjudication"] == "REAL"}
 REAL[key("Source-based packages referenced directly from a `Pulumi.yaml` file can use any Git ref")] = "Git ref (#20348)"
 FP = {key(x["claim"]): x["claim"][:60] for x in ADJ if x["adjudication"] == "FALSE-POSITIVE"}
+# 2026-09-28 additions (agent-adjudicated against source; see raw/<id>/ADJUDICATION-ADDENDUM.md):
+REAL[key("There exists a `terraform.state.S3Reference` construct/class")] = "S3Reference class (#20348 fabricated API)"
+REAL[key("An 'AWS Installation & Configuration' page exists as an example of registry provider authentication")] = "AWS I&C link target (retargeted upstream)"
+FP[key("The Automation API Go SDK's `stack.SetConfig` method accepts a boolean `true` argument")] = "Go SetConfig bool (extractor misattribution)"
 
 
 def match(table, text):
