@@ -1,0 +1,35 @@
+# FORK-ONLY benchmark harness (2026-09-28 Sonnet 5.5 effort sweep). Never PR upstream.
+name: bench-sonnet55
+on:
+  push:
+    branches: [claude/sonnet-5.5-benchmark-1kgmi7]
+    paths: [bench/sonnet55/trigger.json]
+permissions:
+  contents: write
+concurrency:
+  group: bench-sonnet55
+  cancel-in-progress: false
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run benchmark job
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          JOB=$(python3 -c "import json;print(json.load(open('bench/sonnet55/trigger.json'))['job'])")
+          echo "job=$JOB"
+          bash "bench/sonnet55/jobs/$JOB.sh" 2>&1 | tail -c 200000
+      - name: Commit outputs back
+        if: always()
+        run: |
+          git config user.name "bench-bot"; git config user.email "bench-bot@users.noreply.github.com"
+          git add -A bench/sonnet55/out || true
+          git commit -m "bench: outputs for $(python3 -c "import json;print(json.load(open('bench/sonnet55/trigger.json'))['job'])") [skip ci]" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -X theirs origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && break; sleep $((i*5)); done
