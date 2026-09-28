@@ -1,0 +1,36 @@
+{
+ "defects": {
+  "21535-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A24",
+    "H22"
+   ],
+   "why": "Both restate the load-balancer-vs-target-group smart-defaults sentence verbatim."
+  },
+  "21535-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A37",
+    "H27"
+   ],
+   "why": "Both assert a target group is created per listener without default-action override."
+  },
+  "21535-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A48",
+    "H36"
+   ],
+   "why": "Both assert unhealthyThreshold default is 3, which verification would contradict."
+  },
+  "21535-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A48",
+    "H36"
+   ],
+   "why": "Both include the NLB equality constraint between unhealthyThreshold and healthyThreshold."
+  }
+ }
+}

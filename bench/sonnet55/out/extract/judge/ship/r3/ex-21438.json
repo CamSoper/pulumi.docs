@@ -1,0 +1,39 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H5"
+   ],
+   "why": "Claims assert AWS CDK v2.268.0 (2026-09-02) at-a-glance row; verifying exposes contradiction with A24/H11."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H4"
+   ],
+   "why": "Claims assert Terraform v1.16.1 (2026-09-02) at-a-glance row; contradicts A20/H9."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A10",
+    "H2"
+   ],
+   "why": "Claims bind 'as of 2026-09-21' header to stale 2026-09-02 rows; verifying exposes header/row mismatch."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H3"
+   ],
+   "why": "Claims assert Pulumi v3.261.0 at-a-glance row; contradicts A17/H7/H21 v3.263.0."
+  }
+ }
+}

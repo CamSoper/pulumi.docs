@@ -1,0 +1,50 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A6",
+    "H4",
+    "A7",
+    "H6"
+   ],
+   "why": "A6/H4 quote the at-a-glance AWS CDK v2.268.0 row; A7/H6 give the contradicting v2.270.0."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A4",
+    "H3",
+    "A5",
+    "H5"
+   ],
+   "why": "A4/H3 quote the at-a-glance Terraform v1.16.1 row; A5/H5 give the contradicting v1.16.3."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "H2",
+    "H3",
+    "H4",
+    "H8",
+    "H10",
+    "A9",
+    "A11",
+    "A14",
+    "H13"
+   ],
+   "why": "Claims tie stale at-a-glance rows to the 'as of 2026-09-21' header and note inconsistency with later tables."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "A2",
+    "H1",
+    "H2",
+    "A3"
+   ],
+   "why": "A1/H1 explicitly state Pulumi v3.261.0 vs v3.263.0 inconsistency; A2/H2 quote the at-a-glance row."
+  }
+ }
+}

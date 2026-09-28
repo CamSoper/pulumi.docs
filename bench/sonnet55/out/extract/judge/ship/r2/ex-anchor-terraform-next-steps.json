@@ -1,0 +1,19 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A7",
+    "H32"
+   ],
+   "why": "H32 asserts terraform.state.S3Reference with getOutput exists; A7 asserts the type exists."
+  },
+  "20348-events": {
+   "covered": true,
+   "claim_ids": [
+    "A34"
+   ],
+   "why": "A34 asserts events page includes meetups/conferences where one can speak."
+  }
+ }
+}

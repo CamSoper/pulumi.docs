@@ -1,0 +1,24 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A6",
+    "A8",
+    "A13",
+    "A22",
+    "H5",
+    "H6",
+    "H20"
+   ],
+   "why": "Claims assert S3Reference exists and exposes getOutput; verifying would expose fabricated API."
+  },
+  "20348-events": {
+   "covered": true,
+   "claim_ids": [
+    "A47"
+   ],
+   "why": "A47 asserts events page is for speaking at meetups/conferences, directly testable."
+  }
+ }
+}

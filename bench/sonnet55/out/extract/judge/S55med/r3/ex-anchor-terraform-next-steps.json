@@ -1,0 +1,20 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "A3",
+    "A12",
+    "H2",
+    "H10"
+   ],
+   "why": "Multiple claims assert terraform.state.S3Reference and getOutput exist as Pulumi API; verifying exposes fabrication."
+  },
+  "20348-events": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "A22/H19 only assert the events page exists/hosts events, not that it's a venue to speak."
+  }
+ }
+}

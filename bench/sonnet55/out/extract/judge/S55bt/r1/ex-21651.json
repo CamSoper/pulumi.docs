@@ -1,0 +1,36 @@
+{
+ "defects": {
+  "21651-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A40",
+    "H39"
+   ],
+   "why": "Both assert Ion has been the only supported SST architecture since shipping; verifying exposes the overstatement."
+  },
+  "21651-F12": {
+   "covered": true,
+   "claim_ids": [
+    "A45",
+    "H45"
+   ],
+   "why": "Both quote the Kiryl Anoshka sentence with attribution; verbatim check against dev.to would expose mismatch."
+  },
+  "21651-F13": {
+   "covered": true,
+   "claim_ids": [
+    "A60",
+    "H59"
+   ],
+   "why": "Both attribute the exact quoted sentence to Nitric's docs; verification would check wording/source page."
+  },
+  "21651-F16": {
+   "covered": true,
+   "claim_ids": [
+    "A69",
+    "H67"
+   ],
+   "why": "Both assert opencode has more GitHub stars than SST; verifying checks the comparison."
+  }
+ }
+}

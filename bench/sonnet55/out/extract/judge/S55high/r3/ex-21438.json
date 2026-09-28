@@ -1,0 +1,43 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "Both claims cite at-a-glance AWS CDK v2.268.0 (2026-09-02) vs license table v2.270.0 (2026-09-17)."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2"
+   ],
+   "why": "Both claims cite at-a-glance Terraform v1.16.1 (2026-09-02) vs license table v1.16.3 (2026-09-16)."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A9",
+    "H8",
+    "A4",
+    "H4",
+    "A6",
+    "H6",
+    "H1",
+    "H2",
+    "H3"
+   ],
+   "why": "A9/H8 assert header 'as of 2026-09-21'; per-row claims flag stale Pulumi/Terraform/CDK/Bicep/Crossplane rows."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1"
+   ],
+   "why": "Both claims cite at-a-glance Pulumi v3.261.0 vs v3.263.0 (2026-09-16) elsewhere on page."
+  }
+ }
+}

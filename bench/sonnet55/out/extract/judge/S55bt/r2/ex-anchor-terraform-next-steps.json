@@ -1,0 +1,22 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A6",
+    "A8",
+    "A23",
+    "H5",
+    "H6"
+   ],
+   "why": "Claims assert terraform.state.S3Reference exists with getOutput; verifying exposes fabrication."
+  },
+  "20348-events": {
+   "covered": true,
+   "claim_ids": [
+    "H36"
+   ],
+   "why": "H36 asserts events page lets users speak at meetups/conferences; verification exposes mismatch."
+  }
+ }
+}

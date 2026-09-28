@@ -1,0 +1,41 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "Claims quote at-a-glance CDK v2.268.0 (2026-09-02) vs license table v2.270.0 (2026-09-17)."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2"
+   ],
+   "why": "Claims quote at-a-glance Terraform v1.16.1 vs license table v1.16.3, the exact inconsistency."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "H9",
+    "A8",
+    "A1",
+    "A4",
+    "A6",
+    "H5",
+    "H7"
+   ],
+   "why": "H9/A8 assert the 2026-09-21 currency promise; row claims flag the stale Pulumi/Terraform/CDK/Bicep/Crossplane cells."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1"
+   ],
+   "why": "Claims state at-a-glance Pulumi v3.261.0 conflicts with v3.263.0 elsewhere on page."
+  }
+ }
+}

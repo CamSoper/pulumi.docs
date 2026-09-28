@@ -1,0 +1,16 @@
+{
+ "defects": {
+  "21693-F1": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "No claim asserts Vault cannot view existing secrets; A12/H13 concern path-based referencing, not visibility."
+  },
+  "21693-F2": {
+   "covered": true,
+   "claim_ids": [
+    "H20"
+   ],
+   "why": "H20 states OIDC provider configuration is CLI-only, matching the defect statement."
+  }
+ }
+}

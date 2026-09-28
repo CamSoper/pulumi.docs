@@ -1,0 +1,35 @@
+{
+ "defects": {
+  "21535-F1": {
+   "covered": true,
+   "claim_ids": [
+    "H29"
+   ],
+   "why": "H29 asserts listener defaults depend on load balancer vs target group, the contradicted statement."
+  },
+  "21535-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A52",
+    "H40"
+   ],
+   "why": "Both assert a target group is created per listener, the contradicted fact."
+  },
+  "21535-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A61",
+    "H50"
+   ],
+   "why": "Both assert unhealthyThreshold default of 3; verification exposes the defect."
+  },
+  "21535-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A62",
+    "H51"
+   ],
+   "why": "Both assert the NLB unhealthyThreshold/healthyThreshold equality constraint."
+  }
+ }
+}

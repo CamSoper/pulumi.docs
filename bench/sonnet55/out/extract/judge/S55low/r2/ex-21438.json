@@ -1,0 +1,38 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "Claims explicitly state summary-table CDK v2.268.0 (2026-09-02) vs cadence-table v2.270.0 (2026-09-17)."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2"
+   ],
+   "why": "Claims explicitly state summary-table Terraform v1.16.1 vs cadence-table v1.16.3 (2026-09-16)."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H4",
+    "H6",
+    "H8"
+   ],
+   "why": "Claims assert the 2026-09-21 currency and flag stale summary rows (Bicep v0.46.1, Crossplane v2.4.0, Pulumi, Terraform, CDK)."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1"
+   ],
+   "why": "Claims state summary-table Pulumi v3.261.0 disagrees with v3.263.0 in cadence table and Pulumi section."
+  }
+ }
+}

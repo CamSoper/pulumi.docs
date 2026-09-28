@@ -1,0 +1,19 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2",
+    "A3",
+    "H3"
+   ],
+   "why": "Claims assert terraform.state.S3Reference exists with getOutput; verifying exposes the fabricated API."
+  },
+  "20348-events": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "A23/H21 only assert events page exists; none capture the 'speak at meetups and conferences' statement."
+  }
+ }
+}

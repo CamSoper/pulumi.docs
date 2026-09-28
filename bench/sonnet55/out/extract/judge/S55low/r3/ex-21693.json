@@ -1,0 +1,16 @@
+{
+ "defects": {
+  "21693-F1": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "No claim asserts Vault cannot see existing secrets; A10/A13 say Vault reads secrets, opposite fact."
+  },
+  "21693-F2": {
+   "covered": true,
+   "claim_ids": [
+    "H20"
+   ],
+   "why": "H20 directly asserts OIDC provider configuration is CLI-only, matching the defect."
+  }
+ }
+}

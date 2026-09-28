@@ -1,0 +1,42 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "A3 asserts the at-a-glance AWS CDK v2.268.0 row; H3 notes the conflict with v2.270.0."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2"
+   ],
+   "why": "A2 asserts the at-a-glance Terraform v1.16.1 row; H2 notes conflict with v1.16.3."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A8",
+    "H8",
+    "A1",
+    "A2",
+    "A3",
+    "A5",
+    "A6"
+   ],
+   "why": "A8/H8 assert the as-of-2026-09-21 header; row claims carry stale July/Aug/09-02 versions."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1",
+    "A14"
+   ],
+   "why": "A1 asserts at-a-glance Pulumi v3.261.0; H1/A14 assert v3.263.0 elsewhere, exposing the disagreement."
+  }
+ }
+}

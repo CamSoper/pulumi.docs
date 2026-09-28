@@ -1,0 +1,41 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "Claims quote at-a-glance CDK v2.268.0 (2026-09-02) and flag mismatch with v2.270.0 elsewhere."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2"
+   ],
+   "why": "Claims quote at-a-glance Terraform v1.16.1 (2026-09-02) and flag mismatch with v1.16.3."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A8",
+    "H8",
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A6"
+   ],
+   "why": "Claims assert figures current to 2026-09-21 while other claims capture the stale July/August/09-02 rows."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1"
+   ],
+   "why": "Claims quote Pulumi v3.261.0 at-a-glance vs v3.263.0 elsewhere, exactly the inconsistency."
+  }
+ }
+}

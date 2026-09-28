@@ -1,0 +1,179 @@
+{
+ "judge": "claude-fable-5-1",
+ "judge_usage_this_run": {
+  "input_tokens": 831385,
+  "output_tokens": 36350,
+  "cache_read_input_tokens": 71161,
+  "cache_creation_input_tokens": 6299
+ },
+ "arms": {
+  "ship": {
+   "model": "claude-sonnet-5",
+   "recall_per_rep": [
+    "23/24",
+    "24/24",
+    "23/24"
+   ],
+   "recall_mean": 0.972,
+   "defects_hit_any_rep": 24,
+   "n_defects": 24,
+   "defect_stability": "23/24",
+   "claims_per_call": 58.4,
+   "file_calls": 42,
+   "errors": 6,
+   "stop_reasons": {
+    "tool_use": 48,
+    "max_tokens": 1
+   },
+   "no_tool_use": 0,
+   "refusals": 0,
+   "http_errors": {},
+   "usage": {
+    "input_tokens": 339321,
+    "output_tokens": 202319,
+    "cache_read_input_tokens": 386614,
+    "cache_creation_input_tokens": 187076
+   },
+   "usd_total": 3.247,
+   "usd_per_file_call": 0.0773,
+   "missed": [
+    "20348-events"
+   ]
+  },
+  "S55bt": {
+   "model": "claude-sonnet-5-5",
+   "recall_per_rep": [
+    "24/24",
+    "24/24",
+    "24/24"
+   ],
+   "recall_mean": 1.0,
+   "defects_hit_any_rep": 24,
+   "n_defects": 24,
+   "defect_stability": "24/24",
+   "claims_per_call": 46.1,
+   "file_calls": 42,
+   "errors": 6,
+   "stop_reasons": {
+    "tool_use": 48
+   },
+   "no_tool_use": 0,
+   "refusals": 0,
+   "http_errors": {},
+   "usage": {
+    "input_tokens": 322116,
+    "output_tokens": 164279,
+    "cache_read_input_tokens": 371944,
+    "cache_creation_input_tokens": 185972
+   },
+   "usd_total": 2.826,
+   "usd_per_file_call": 0.0673,
+   "missed": []
+  },
+  "S55low": {
+   "model": "claude-sonnet-5-5",
+   "recall_per_rep": [
+    "20/24",
+    "20/24",
+    "20/24"
+   ],
+   "recall_mean": 0.833,
+   "defects_hit_any_rep": 21,
+   "n_defects": 24,
+   "defect_stability": "22/24",
+   "claims_per_call": 22.1,
+   "file_calls": 42,
+   "errors": 6,
+   "stop_reasons": {
+    "tool_use": 48
+   },
+   "no_tool_use": 0,
+   "refusals": 0,
+   "http_errors": {},
+   "usage": {
+    "input_tokens": 322116,
+    "output_tokens": 76491,
+    "cache_read_input_tokens": 371976,
+    "cache_creation_input_tokens": 185988
+   },
+   "usd_total": 1.949,
+   "usd_per_file_call": 0.0464,
+   "missed": [
+    "20348-events",
+    "21535-F1",
+    "21535-F2",
+    "21693-F1",
+    "21693-F2"
+   ]
+  },
+  "S55med": {
+   "model": "claude-sonnet-5-5",
+   "recall_per_rep": [
+    "20/24",
+    "21/24",
+    "21/24"
+   ],
+   "recall_mean": 0.861,
+   "defects_hit_any_rep": 22,
+   "n_defects": 24,
+   "defect_stability": "21/24",
+   "claims_per_call": 27.0,
+   "file_calls": 42,
+   "errors": 6,
+   "stop_reasons": {
+    "tool_use": 48
+   },
+   "no_tool_use": 0,
+   "refusals": 0,
+   "http_errors": {},
+   "usage": {
+    "input_tokens": 322116,
+    "output_tokens": 93859,
+    "cache_read_input_tokens": 371976,
+    "cache_creation_input_tokens": 185988
+   },
+   "usd_total": 2.122,
+   "usd_per_file_call": 0.0505,
+   "missed": [
+    "20348-events",
+    "21535-F1",
+    "21535-F2",
+    "21693-F1",
+    "21693-F2"
+   ]
+  },
+  "S55high": {
+   "model": "claude-sonnet-5-5",
+   "recall_per_rep": [
+    "23/24",
+    "24/24",
+    "24/24"
+   ],
+   "recall_mean": 0.986,
+   "defects_hit_any_rep": 24,
+   "n_defects": 24,
+   "defect_stability": "23/24",
+   "claims_per_call": 43.4,
+   "file_calls": 42,
+   "errors": 6,
+   "stop_reasons": {
+    "tool_use": 48
+   },
+   "no_tool_use": 0,
+   "refusals": 0,
+   "http_errors": {},
+   "usage": {
+    "input_tokens": 322116,
+    "output_tokens": 153295,
+    "cache_read_input_tokens": 371976,
+    "cache_creation_input_tokens": 185988
+   },
+   "usd_total": 2.717,
+   "usd_per_file_call": 0.0647,
+   "missed": [
+    "20348-events"
+   ]
+  }
+ },
+ "judge_usd_this_run": 10.281
+}

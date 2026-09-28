@@ -1,0 +1,20 @@
+{
+ "defects": {
+  "21693-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A33",
+    "H29"
+   ],
+   "why": "A33 and H29 assert Vault cannot see existing secrets; verifying exposes contradiction."
+  },
+  "21693-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A55",
+    "H45"
+   ],
+   "why": "A55 and H45 assert Vault OIDC provider config is CLI-only; verification exposes defect."
+  }
+ }
+}

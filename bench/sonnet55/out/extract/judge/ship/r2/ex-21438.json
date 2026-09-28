@@ -1,0 +1,38 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A5",
+    "H5"
+   ],
+   "why": "Claims assert the exact at-a-glance AWS CDK v2.268.0 (2026-09-02) figure; verification exposes conflict with A24/H19."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A4",
+    "H4"
+   ],
+   "why": "Claims assert the exact at-a-glance Terraform v1.16.1 (2026-09-02) figure; conflicts with A20/H15."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2",
+    "A7",
+    "H7"
+   ],
+   "why": "Claims assert table figures are current as of 2026-09-21; verifying against rows exposes stale entries."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "Claims assert the at-a-glance Pulumi v3.261.0 (2026-09-02) row; contradicts A16/H13/A34/H32."
+  }
+ }
+}

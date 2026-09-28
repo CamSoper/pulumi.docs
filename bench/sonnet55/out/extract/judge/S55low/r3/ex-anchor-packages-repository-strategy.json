@@ -1,0 +1,12 @@
+{
+ "defects": {
+  "20348-gitref": {
+   "covered": true,
+   "claim_ids": [
+    "A6",
+    "H4"
+   ],
+   "why": "A6 and H4 directly assert any Git ref (tag, branch, commit) works from Pulumi.yaml; verifying exposes branch failure."
+  }
+ }
+}

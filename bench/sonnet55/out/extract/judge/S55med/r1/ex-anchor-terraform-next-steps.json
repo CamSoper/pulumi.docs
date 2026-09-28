@@ -1,0 +1,20 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2",
+    "A14",
+    "A3",
+    "H3"
+   ],
+   "why": "Claims assert S3Reference with getOutput exists; verifying exposes fabrication."
+  },
+  "20348-events": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "A27/H24 only assert the events page exists, not that it's a venue to speak at meetups."
+  }
+ }
+}

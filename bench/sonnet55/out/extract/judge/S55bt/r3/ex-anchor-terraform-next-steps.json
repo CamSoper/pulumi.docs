@@ -1,0 +1,26 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A5",
+    "A7",
+    "A12",
+    "A18",
+    "A21",
+    "H4",
+    "H5",
+    "H6",
+    "H19"
+   ],
+   "why": "Multiple claims assert S3Reference exists with getOutput method; verifying exposes fabrication."
+  },
+  "20348-events": {
+   "covered": true,
+   "claim_ids": [
+    "H40"
+   ],
+   "why": "H40 asserts events page lets users speak at meetups/conferences; A39 alone only checks page existence."
+  }
+ }
+}

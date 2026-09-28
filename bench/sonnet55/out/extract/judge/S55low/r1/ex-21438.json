@@ -1,0 +1,41 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3"
+   ],
+   "why": "Claims state at-a-glance v2.268.0 vs cadence table v2.270.0 for AWS CDK."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "H2"
+   ],
+   "why": "Claims state at-a-glance v1.16.1 vs cadence table v1.16.3 for Terraform."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A19",
+    "H8",
+    "H1",
+    "A4",
+    "H4",
+    "A6",
+    "H6"
+   ],
+   "why": "Claims assert figures checked as of 2026-09-21 and flag stale Bicep/Crossplane/Pulumi rows."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1"
+   ],
+   "why": "Claims state Pulumi at-a-glance v3.261.0 disagrees with v3.263.0 elsewhere."
+  }
+ }
+}

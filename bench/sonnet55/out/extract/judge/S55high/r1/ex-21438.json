@@ -1,0 +1,49 @@
+{
+ "defects": {
+  "21438-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A5",
+    "H5",
+    "A6",
+    "H6"
+   ],
+   "why": "A5/H5 assert the at-a-glance AWS CDK v2.268.0 row; A6/H6 give the conflicting v2.270.0."
+  },
+  "21438-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A3",
+    "H3",
+    "A4",
+    "H4"
+   ],
+   "why": "A3/H3 assert the at-a-glance Terraform v1.16.1 row; A4/H4 give conflicting v1.16.3."
+  },
+  "21438-F4": {
+   "covered": true,
+   "claim_ids": [
+    "H2",
+    "H3",
+    "H5",
+    "A8",
+    "A11",
+    "H7",
+    "H9",
+    "A13",
+    "H20"
+   ],
+   "why": "Claims tie stale at-a-glance rows to the 'as of 2026-09-21' header and note Bicep/Crossplane inconsistencies."
+  },
+  "21438-F5": {
+   "covered": true,
+   "claim_ids": [
+    "A1",
+    "H1",
+    "H2",
+    "A2"
+   ],
+   "why": "A1/H1/H2 assert at-a-glance Pulumi v3.261.0 versus v3.263.0 elsewhere."
+  }
+ }
+}

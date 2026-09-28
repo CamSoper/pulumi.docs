@@ -1,0 +1,35 @@
+{
+ "defects": {
+  "21535-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A14",
+    "H14"
+   ],
+   "why": "Claims assert listener smart defaults depend on load balancer vs target group path."
+  },
+  "21535-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A19"
+   ],
+   "why": "A19 asserts a target group is created per listener, the contradicted fact."
+  },
+  "21535-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A28",
+    "H24"
+   ],
+   "why": "Both claims assert unhealthyThreshold default is 3."
+  },
+  "21535-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A28",
+    "H24"
+   ],
+   "why": "Both claims assert NLB unhealthyThreshold must equal healthyThreshold."
+  }
+ }
+}

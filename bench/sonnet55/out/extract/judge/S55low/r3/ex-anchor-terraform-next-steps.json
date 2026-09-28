@@ -1,0 +1,20 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "covered": true,
+   "claim_ids": [
+    "A2",
+    "A3",
+    "A10",
+    "A12",
+    "H2"
+   ],
+   "why": "Claims assert S3Reference/getOutput exist as Pulumi API; verifying them exposes the fabrication."
+  },
+  "20348-events": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "A19/H17 only assert events page exists, not that it's a venue to speak at meetups/conferences."
+  }
+ }
+}

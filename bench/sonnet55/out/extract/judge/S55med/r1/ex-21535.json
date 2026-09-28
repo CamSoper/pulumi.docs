@@ -1,0 +1,30 @@
+{
+ "defects": {
+  "21535-F1": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "No claim mentions listener smart defaults or a target-group vs load-balancer branch."
+  },
+  "21535-F2": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "A6 asserts a single default target group (L117); no claim asserts one-per-listener creation."
+  },
+  "21535-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A23",
+    "H21"
+   ],
+   "why": "Claims assert unhealthyThreshold default 3; verifying exposes the wrong default."
+  },
+  "21535-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A23",
+    "H21"
+   ],
+   "why": "Claims assert NLB unhealthyThreshold must equal healthyThreshold."
+  }
+ }
+}

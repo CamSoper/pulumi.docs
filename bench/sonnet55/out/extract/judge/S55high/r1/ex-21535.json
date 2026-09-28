@@ -1,0 +1,36 @@
+{
+ "defects": {
+  "21535-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A20",
+    "H19"
+   ],
+   "why": "Claims assert listener defaults depend on load balancer vs target group path."
+  },
+  "21535-F2": {
+   "covered": true,
+   "claim_ids": [
+    "A27",
+    "H27"
+   ],
+   "why": "Claims assert a target group is created per listener without default-action override."
+  },
+  "21535-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A37",
+    "H36"
+   ],
+   "why": "Claims assert unhealthyThreshold default is 3."
+  },
+  "21535-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A37",
+    "H36"
+   ],
+   "why": "Claims assert NLB unhealthyThreshold must equal healthyThreshold."
+  }
+ }
+}

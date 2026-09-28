@@ -1,0 +1,32 @@
+{
+ "defects": {
+  "21535-F1": {
+   "covered": true,
+   "claim_ids": [
+    "A12"
+   ],
+   "why": "A12 directly asserts the listener-vs-target-group smart defaults statement."
+  },
+  "21535-F2": {
+   "covered": false,
+   "claim_ids": [],
+   "why": "No claim mentions a target group being auto-created per listener."
+  },
+  "21535-F3": {
+   "covered": true,
+   "claim_ids": [
+    "A21",
+    "H18"
+   ],
+   "why": "Both assert unhealthyThreshold default 3, which verification would contradict."
+  },
+  "21535-F4": {
+   "covered": true,
+   "claim_ids": [
+    "A21",
+    "H18"
+   ],
+   "why": "Both assert the NLB unhealthyThreshold must equal healthyThreshold constraint."
+  }
+ }
+}
