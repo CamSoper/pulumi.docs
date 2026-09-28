@@ -11,3 +11,13 @@ arm_env() {
     *) echo "unknown arm $1" >&2; return 1 ;;
   esac
 }
+# 2026-09-28 extraction deep-dive: thinking on/off at matched effort, plus xhigh
+arm_env2() {
+  case "$1" in
+    S55btlow) unset BENCH_MODEL BENCH_THINKING BENCH_EFFORT BENCH_TOOLCHOICE
+              export BENCH_MODEL=claude-sonnet-5-5 BENCH_THINKING=between_tools BENCH_EFFORT=low BENCH_TOOLCHOICE=auto ;;
+    S55xhigh) unset BENCH_MODEL BENCH_THINKING BENCH_EFFORT BENCH_TOOLCHOICE
+              export BENCH_MODEL=claude-sonnet-5-5 BENCH_THINKING=adaptive BENCH_EFFORT=xhigh BENCH_TOOLCHOICE=auto ;;
+    *) arm_env "$1" ;;
+  esac
+}

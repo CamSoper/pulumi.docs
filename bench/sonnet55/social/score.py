@@ -82,6 +82,8 @@ for arm in ARMS:
         mdp = os.path.join(rd, ".social-review.md")
         md = open(mdp).read() if os.path.exists(mdp) else ""
         r["written"] = md.startswith("<!-- social-review -->")
+        r["advisory_eligible"] = any(exp[p] == "PASS" for p in PLAT)
+        r["advisory"] = "### Suggestions (advisory)" in md
         v, copy = parse(md)
         r["correct"] = sum(v.get(p) == exp[p] for p in PLAT)
         r["false_fail"] = sum(exp[p] == "PASS" and v.get(p) == "FAIL" for p in PLAT)
@@ -104,7 +106,8 @@ for arm, rs in rows.items():
                     "repairs_present": f"{sm('repairs_present')}/{sm('repairs_needed')}",
                     "usd_per_run": round(sm("usd") / max(1, n), 4), "reported_usd_per_run": round(sm("reported_usd") / max(1, n), 4),
                     "wall_s_per_run": round(sm("wall_s") / max(1, n), 1), "turns_per_run": round(sm("turns") / max(1, n), 1),
-                    "runs_with_subagent": sum(1 for r in ok if r["subagents"]), "subagents_total": sm("subagents"),
+                    "runs_with_subagent": sum(1 for r in ok if r["subagents"]),
+                    "advisory": f"{sum(1 for r in ok if r['advisory'] and r['advisory_eligible'])}/{sum(1 for r in ok if r['advisory_eligible'])}", "subagents_total": sm("subagents"),
                     "repair_errors": [(r["fx"], r["rep"], r["repair_errors"]) for r in ok if r["repair_errors"]],
                     "misses": [(r["fx"], r["rep"]) for r in ok if r["missed_fail"] or r["false_fail"] or r["unparsed"]]}
 json.dump({"summary": summary, "rows": rows}, open(os.path.join(S, "out/summary.json"), "w"), indent=1)

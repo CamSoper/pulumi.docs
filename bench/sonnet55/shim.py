@@ -29,7 +29,7 @@ _real_urlopen = urllib.request.urlopen
 _lock = threading.Lock()
 STATS = {"calls": 0, "http_errors": {}, "stop_reasons": {}, "refusals": [], "no_tool_use_when_tools": 0,
          "usage": {"input_tokens": 0, "output_tokens": 0, "cache_read_input_tokens": 0,
-                   "cache_creation_input_tokens": 0},
+                   "cache_creation_input_tokens": 0, "thinking_tokens": 0},
          "rewrites": {}, "per_call": []}
 
 
@@ -115,12 +115,14 @@ def _urlopen(req, data=None, timeout=None, *a, **kw):
         for k in STATS["usage"]:
             if isinstance(u.get(k), int):
                 STATS["usage"][k] += u[k]
+        th = int(((u.get("output_tokens_details") or {}).get("thinking_tokens")) or 0)
+        STATS["usage"]["thinking_tokens"] += th
         types = [b.get("type") for b in d.get("content", []) or []]
         if body.get("tools") and "tool_use" not in types and sr != "max_tokens":
             STATS["no_tool_use_when_tools"] += 1
         STATS["per_call"].append({"stop": sr, "out": u.get("output_tokens"), "in": u.get("input_tokens"),
                                   "cr": u.get("cache_read_input_tokens"), "cw": u.get("cache_creation_input_tokens"),
-                                  "s": round(time.time() - t0, 1), "types": types})
+                                  "think": th, "s": round(time.time() - t0, 1), "types": types})
     return _Resp(raw, status)
 
 
