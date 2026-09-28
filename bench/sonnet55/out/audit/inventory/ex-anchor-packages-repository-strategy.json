@@ -1,0 +1,340 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L11, L34",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In Pulumi, a package is the unit of versioning and distribution/release."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L11, L36, L73",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Components inside a Pulumi package inherit the package's version and ship together at that version; every release of a package versions every component in it the same way regardless of whether each component changed."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L11",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The pages /docs/iac/concepts/packages/ and /docs/iac/concepts/components/ exist."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L11",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Following the repository-structuring practices in this guide improves the reliability, maintainability, and delivery speed of the Pulumi packages an organization builds and consumes."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L15",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi packages come in exactly two flavors (source-based and executable-based)."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L15",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Each of the two Pulumi package flavors is versioned and released differently."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L19",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The anchor /docs/iac/guides/building-extending/components/packaging-components/#source-based-plugin-packages and the page /docs/idp/concepts/private-registry/ exist."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L19",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi source-based plugin package is distributed as source code in a Git repository."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L19",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The version of a Pulumi source-based plugin package is the Git tag on its repository."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L19",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "The Private Registry is a feature of Pulumi IDP."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L19-22",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Publishing a source-based Pulumi package to the Pulumi Private Registry is a two-step flow: apply a semver Git tag (e.g. v1.2.3) to the repository, then run `pulumi package publish`."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L19, L22, L28",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Publishing a Pulumi package to the Private Registry is typically performed by a CI/CD pipeline that runs on tag, and this step often runs automated tests before publishing."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L22",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/cli/commands/pulumi_package_publish/ exists."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L22",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi package publish` sends the package metadata to Pulumi Cloud."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L22",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi package publish` places the package in the Pulumi Private Registry."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L24",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Semver-tagged releases of a source-based Pulumi package are only required for publishing to the Private Registry."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L24",
+   "type": "feature",
+   "importance": "high",
+   "text": "A source-based Pulumi package referenced directly from a `Pulumi.yaml` file can use any Git ref — a tag, a branch, or a commit — regardless of whether it is a valid semantic version."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L28",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The anchor /docs/iac/guides/building-extending/components/packaging-components/#executable-based-plugin-packages exists."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L28",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi executable-based plugin package is distributed as a pre-built plugin binary."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L28",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi executable-based plugin packages typically ship with per-language SDKs published to package feeds: npm, PyPI, NuGet, Maven, the Go module proxy, or private equivalents."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L28",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The version of a Pulumi executable-based plugin package is the version embedded in the published binary and SDKs."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L28",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi Cloud customers can publish an executable-based plugin package to the Private Registry via `pulumi package publish`."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L28",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Releases of a Pulumi executable-based package are produced by a CI/CD pipeline that builds the plugin, generates the SDKs, and pushes everything to the relevant feeds."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L30",
+   "type": "behavior",
+   "importance": "high",
+   "text": "For both source-based and executable-based Pulumi packages, the released artifact is a single, semantically-versioned Pulumi package."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L34, L40-42, L44, L56, L85",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends that a repository contain exactly one Pulumi package regardless of package type, using one repository per package."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L34",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "A repository that contains multiple Pulumi packages must either release them in lockstep (unrelated work sharing a version) or invent per-package release tooling that fights the way Pulumi naturally consumes packages."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L34",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "A 1:1 repository-to-package mapping keeps git tags, release artifacts, and version history aligned."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L36, L43",
+   "type": "feature",
+   "importance": "high",
+   "text": "A single Pulumi package can contain multiple components; this is supported and expected."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L40-44, L48-50, L67, L85",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends grouping a cohesive set of components (components likely to be used together and change together) inside one package, and placing unrelated components in separate repositories as separate packages so each evolves at its own pace."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L46",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "The importance of the one-package-per-repository and cohesion principles grows as an organization's adoption of Pulumi grows."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L50",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi Registry page https://www.pulumi.com/registry/packages/eks/ exists."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L50",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "The Amazon EKS package in the Pulumi Registry bundles a managed Kubernetes cluster component together with the supporting components needed to secure and operate it."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L50",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "The components in the Pulumi EKS package are almost always used together and tend to evolve together, so a shared semantic version makes sense for them."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L56",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A single `PulumiPlugin.yaml` file at the repository root defines a Pulumi source-based package, with the components living alongside it in the repository."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L71",
+   "type": "feature",
+   "importance": "normal",
+   "text": "It is technically possible to use a single monorepo containing one giant Pulumi package holding all of an organization's components."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L71",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi does not recommend a single monorepo containing one giant package for all of an organization's components, because it forfeits meaningful semantic versioning."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L71",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Semantic versioning is how consumers know whether a given change is a bug fix, a new feature, or a breaking change."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L73, L81",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Versioning unchanged components alongside changed ones in a shared package violates semver and removes the signal semver is meant to provide; splitting unrelated components into separate right-sized packages preserves the semver contract."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L78",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Under semantic versioning, an enhancement (new feature) to a package is released as a minor version bump (e.g. v1.0.0 → v1.1.0)."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L79",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Under semantic versioning, a breaking change to a package is released as a major version bump (e.g. v1.1.0 → v2.0.0)."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L85",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "A thoughtful repository strategy is essential for managing Pulumi packages at scale."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+   "line_range": "L85",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/guides/building-extending/packages/publishing-packages/ exists."
+  }
+ ]
+}

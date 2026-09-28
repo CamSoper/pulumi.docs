@@ -1,0 +1,356 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L20",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi programs can reference existing Terraform state files (as taught in the Pulumi for Terraform Users guide)."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L21",
+   "type": "feature",
+   "importance": "high",
+   "text": "Any Terraform provider can be used in Pulumi programs."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L22",
+   "type": "feature",
+   "importance": "high",
+   "text": "Terraform modules can be imported and used directly in Pulumi programs."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L23",
+   "type": "feature",
+   "importance": "normal",
+   "text": "HCL (Terraform) code can be converted to Pulumi code."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L24",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Terraform and Pulumi deployments can be orchestrated together from Pulumi."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L56-60, L68-77, L122, L245-248, L264-267",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `@pulumi/terraform` package exposes a `terraform.state.S3Reference` class whose constructor takes `bucket` and `key` arguments and which exposes a `getOutput(name)` method for reading Terraform state outputs."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L53-54",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`pulumi.StackReference(\"<stack>\")` exposes a `getOutput(name)` method for reading another stack's outputs."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L101, L109",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `pulumi import` command brings existing Terraform-managed cloud resources under Pulumi management."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L110-112",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`pulumi import` takes the form `pulumi import <type-token> <name> <id>`, and `aws:ec2/vpc:Vpc`, `aws:ec2/subnet:Subnet`, and `aws:ecs/cluster:Cluster` are valid AWS provider type tokens for it."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L124-131",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi provides a programmatic import API that can be called from program code to import resources (as referenced by the migration helper's `Use Pulumi import API` comment)."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L147",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi policy packs (Policy as Code) can enforce infrastructure policies across both Terraform-managed and Pulumi-managed resources."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L152-182",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `@pulumi/policy` package exports `PolicyPack` and `validateResourceOfType`; a `PolicyPack` takes a `policies` array whose entries have `name`, `description`, `enforcementLevel` (accepting `\"mandatory\"`), and `validateResource`, and the validator callback receives `(resource, args, reportViolation)`."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L187",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi's Automation API lets you embed Pulumi in applications for programmatic/dynamic infrastructure management."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L191-228",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `@pulumi/pulumi/automation` module provides `LocalWorkspace.createOrSelectStack({ stackName, projectName, program })`, and the returned stack supports `setConfig(key, { value })` and `up({ onOutput })`, whose result exposes `outputs`."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L191, L203",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`pulumi.terraform.state.S3Reference` is available on the namespace imported from `@pulumi/pulumi/automation`."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L239, L313",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi component resources can wrap Terraform-managed infrastructure (via Terraform state references) so that developers consuming the component do not need to know it depends on Terraform-managed resources."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L254-309",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A Pulumi component is created by subclassing `pulumi.ComponentResource`, calling `super(type, name, {}, opts)` with `opts?: pulumi.ComponentResourceOptions`, parenting children with `{ parent: this }`, and calling `this.registerOutputs({...})`; `pulumi.interpolate` builds Output strings."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L326",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Pulumi Architecture & Concepts page exists at `/docs/intro/concepts/` covering Pulumi's architecture."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L327",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "An Adopting Pulumi page exists at `/docs/using-pulumi/adopting-pulumi/` covering migration strategies."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L328",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Pulumi vs Terraform comparison page exists at `/docs/intro/vs/terraform/`."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L329",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "An Automation API page exists at `/docs/iac/concepts/automation-api/`."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L330",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Policy as Code page exists at `/docs/insights/policy/`."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L334, L365",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Pulumi Community page exists at `https://pulumi.com/community/` (and `https://www.pulumi.com/community/`) where one can join the community Slack and forum and find user groups."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L334",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi's community includes both a Slack and a forum."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L365",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi has local user groups that users can join or start."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L335",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi examples repository exists at `https://github.com/pulumi/examples`."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L335",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The `pulumi/examples` GitHub repository contains hundreds of real-world examples."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L336, L363",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi Blog exists at `https://pulumi.com/blog/` / `https://www.pulumi.com/blog/` and publishes updates and case studies."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L337",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi YouTube channel exists at `https://www.youtube.com/pulumitv` with video tutorials and demos."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L341",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Snowflake case study exists at `https://www.pulumi.com/case-studies/snowflake/`."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L341",
+   "type": "attribution",
+   "importance": "high",
+   "text": "Per Pulumi's Snowflake case study, Snowflake uses Pulumi alongside its existing tools as part of a multi-cloud strategy."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L342",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Mercedes-Benz case study exists at `https://www.pulumi.com/case-studies/mercedes-benz/`."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L342",
+   "type": "attribution",
+   "importance": "high",
+   "text": "Per Pulumi's Mercedes-Benz case study, Mercedes-Benz used Pulumi for large-scale infrastructure modernization / platform engineering."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L343",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Lemonade case study exists at `https://www.pulumi.com/case-studies/lemonade/`."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L343",
+   "type": "attribution",
+   "importance": "high",
+   "text": "Per Pulumi's Lemonade case study, Lemonade achieved rapid development for its insurance platform using Pulumi together with Terraform."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L349, L369",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi Community Slack is reachable at `https://slack.pulumi.com/` and provides real-time community support."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L350",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "Bug reports and feature requests for Pulumi are filed at `https://github.com/pulumi/pulumi/issues`."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L351",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "Pulumi Support is reachable at `https://support.pulumi.com/`."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L351",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "Pulumi Support provides professional support for Pulumi Cloud customers."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L357",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "Pulumi's contribution guide exists at `https://github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md`."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L358",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Building & Extending guide exists at `/docs/iac/guides/building-extending/` covering creating new providers and components."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L359",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The examples repository's contribution guide exists at `https://github.com/pulumi/examples/blob/master/CONTRIBUTING.md`."
+  },
+  {
+   "id": "I43",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L364",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A Pulumi Community Events page exists at `https://www.pulumi.com/events/` covering meetups and conferences."
+  },
+  {
+   "id": "I44",
+   "file": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line_range": "L369",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "Issues about the Pulumi docs can be opened at `https://github.com/pulumi/docs/issues`."
+  }
+ ]
+}

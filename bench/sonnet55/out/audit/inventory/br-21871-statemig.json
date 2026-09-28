@@ -1,0 +1,708 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L5, L27",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi component state migrations preserve existing infrastructure when a reusable component's internals change (evolving the component does not rebuild the running infrastructure)."
+  },
+  {
+   "id": "I2",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L5, L27, L138, L142",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi component state migrations let component authors ship the upgrade path (the migration) alongside/inside the component code itself, in the same release."
+  },
+  {
+   "id": "I3",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L16, L144",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Component state migrations guide exists at /docs/iac/guides/building-extending/components/state-migrations/ and covers the migration callback contract."
+  },
+  {
+   "id": "I4",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L19, L39, L144",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The AWSX VPC state-migration example exists at https://github.com/pulumi/examples/tree/master/aws-ts-awsx-vpc-state-migration and contains three program versions (v1, v2, v3) plus the migration code."
+  },
+  {
+   "id": "I5",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L23",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi components concept page exists at /docs/iac/concepts/components/."
+  },
+  {
+   "id": "I6",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L23",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Pulumi components let you turn a group of resources into a reusable building block that can be defined once and shared across projects and teams."
+  },
+  {
+   "id": "I7",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L23",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Users of a Pulumi component work with its inputs and outputs without needing to understand every resource inside it."
+  },
+  {
+   "id": "I8",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L25",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The legacy AWSX VPC component manages the VPC, subnets, route tables, and gateways behind a few lines of code."
+  },
+  {
+   "id": "I9",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L25, L47",
+   "type": "feature",
+   "importance": "normal",
+   "text": "AWSX has both a legacy (classic) VPC component and a modern VPC component that users can upgrade to."
+  },
+  {
+   "id": "I10",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L27",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "Pulumi component state migrations are a new feature (as of the post date, 2026-09-25)."
+  },
+  {
+   "id": "I11",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L27",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi component state migration translates the saved state of a component and its children before Pulumi computes which resources need to change (i.e., before the diff)."
+  },
+  {
+   "id": "I12",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L32",
+   "type": "temporal",
+   "importance": "high",
+   "text": "The Pulumi component state migrations API is experimental and may change."
+  },
+  {
+   "id": "I13",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L34",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "A component state migrations discussion exists at https://github.com/pulumi/pulumi/discussions/24799."
+  },
+  {
+   "id": "I14",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L41, L56",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The legacy AWSX VPC component is `awsx.classic.ec2.Vpc`, whose Pulumi type token is `awsx:x:ec2:Vpc`."
+  },
+  {
+   "id": "I15",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L41, L55-63",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The v1 program of the aws-ts-awsx-vpc-state-migration example creates, via the legacy AWSX component, a VPC with one isolated subnet, a route table and its route-table association, and an internet gateway."
+  },
+  {
+   "id": "I16",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L41, L53",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the aws-ts-awsx-vpc-state-migration example, a security group is declared outside the VPC component and references the VPC."
+  },
+  {
+   "id": "I17",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L43",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Without a state migration connecting the old state to the new code, upgrading from legacy AWSX to modern AWSX could replace the VPC instead of keeping it."
+  },
+  {
+   "id": "I18",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L43",
+   "type": "attribution",
+   "importance": "high",
+   "text": "Per the AWS CloudFormation AWS::EC2::SecurityGroup reference (VpcId property), changing a security group's VPC ID requires replacing the security group."
+  },
+  {
+   "id": "I19",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L43",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The AWS docs page https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-ec2-securitygroup.html#cfn-ec2-securitygroup-vpcid exists and documents the security group VpcId property."
+  },
+  {
+   "id": "I20",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L45",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The aws-ts-awsx-vpc-state-migration example does not create a database."
+  },
+  {
+   "id": "I21",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L45",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "When a database resource is recreated (replaced), the replacement does not automatically contain the old database's data."
+  },
+  {
+   "id": "I22",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L47, L65",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The modern AWSX VPC component is `awsx.ec2.Vpc`, whose Pulumi type token is `awsx:ec2:Vpc`."
+  },
+  {
+   "id": "I23",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L47",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The v2 program of the example upgrades from the legacy to the modern AWSX VPC component while keeping the existing network resources."
+  },
+  {
+   "id": "I24",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L49, L114",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The v3 program of the example removes AWSX and declares the VPC, subnet, route table, route-table association, and internet gateway directly with the `@pulumi/aws` package."
+  },
+  {
+   "id": "I25",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Across all three versions of the example (v1, v2, v3), the AWS resource IDs of the VPC, subnet, route table, association, and internet gateway stay the same."
+  },
+  {
+   "id": "I26",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Across all three versions of the example, the security group continues to reference the same VPC."
+  },
+  {
+   "id": "I27",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Across the three example versions, what changes is how Pulumi records the resources and their relationships in state, not the cloud resources themselves."
+  },
+  {
+   "id": "I28",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L53",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In Pulumi state, `awsx:`-prefixed entries are component (wrapper) records while `aws:`-prefixed entries represent managed AWS resources."
+  },
+  {
+   "id": "I29",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L55-63, L83",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the legacy AWSX VPC (v1) state tree, the subnet (`awsx:x:ec2:Subnet`) and internet gateway (`awsx:x:ec2:InternetGateway`) are wrapped in separate child component records, with `aws:ec2/subnet:Subnet`, `aws:ec2/routeTable:RouteTable`, and `aws:ec2/routeTableAssociation:RouteTableAssociation` as siblings under the subnet component."
+  },
+  {
+   "id": "I30",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L65-70, L83",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the modern AWSX VPC (v2) state tree, the subnet and internet-gateway component wrappers are gone and the managed subnet and internet gateway are parented under the managed `aws:ec2/vpc:Vpc`, with the route table under the subnet and the association under the route table."
+  },
+  {
+   "id": "I31",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L72-76",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the plain-AWS (v3) state tree of the example, there is no component record; `aws:ec2/vpc:Vpc` is the root with the subnet and internet gateway beneath it."
+  },
+  {
+   "id": "I32",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L57-63, L66-70",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi AWS provider type tokens for the resources shown are `aws:ec2/vpc:Vpc`, `aws:ec2/subnet:Subnet`, `aws:ec2/routeTable:RouteTable`, `aws:ec2/routeTableAssociation:RouteTableAssociation`, and `aws:ec2/internetGateway:InternetGateway`."
+  },
+  {
+   "id": "I33",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L81",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi's state records both the physical (managed) resources and the components that group them."
+  },
+  {
+   "id": "I34",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L81",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "Each Pulumi state record has a Pulumi name called a URN."
+  },
+  {
+   "id": "I35",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L81",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Managed (non-component) resources in Pulumi state also carry a provider-assigned ID, such as an AWS VPC ID."
+  },
+  {
+   "id": "I36",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L83",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "Legacy AWSX and modern AWSX organize their VPC resources differently in Pulumi state (legacy uses separate child component wrappers; modern parents the managed resources differently)."
+  },
+  {
+   "id": "I37",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L58-59, L67, L83",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the example, the Pulumi resource name of the isolated subnet changes from `vpc-isolated-0` under legacy AWSX to `vpc-isolated-1` under modern AWSX."
+  },
+  {
+   "id": "I38",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L85",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi aliases resource-option page exists at /docs/iac/concepts/resources/options/aliases/."
+  },
+  {
+   "id": "I39",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L85",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi aliases handle changes to a resource's name, type, or parent when the resource's saved state remains compatible."
+  },
+  {
+   "id": "I40",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L85",
+   "type": "feature",
+   "importance": "high",
+   "text": "A Pulumi state migration can describe, as one unit, removing component wrappers and transferring references to the resources that replace them — changes that aliases alone do not cover."
+  },
+  {
+   "id": "I41",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L89",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "Pulumi component state migration callbacks are registered on a component through the `stateMigrations` resource option."
+  },
+  {
+   "id": "I42",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L89, L118",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the example, the new VPC component is registered with an alias for the legacy component type together with a migration callback (v2); the v3 registration keeps aliases for both previous component types and both migration callbacks."
+  },
+  {
+   "id": "I43",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L89, L104",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The example's v2 migration file exists at https://github.com/pulumi/examples/blob/master/aws-ts-awsx-vpc-state-migration/v2/migration.ts and defines `migrateClassicVpc`."
+  },
+  {
+   "id": "I44",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L92",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "An example-program-snippet exists at path `awsx-vpc-state-migration-blog` with file `modern-vpc.ts.txt`."
+  },
+  {
+   "id": "I45",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L101",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "An example-program-snippet exists at path `awsx-vpc-state-migration-blog` with file `migration-sketch.ts.txt`."
+  },
+  {
+   "id": "I46",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L121",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "An example-program-snippet exists at path `awsx-vpc-state-migration-blog` with file `plain-vpc.ts.txt`."
+  },
+  {
+   "id": "I47",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L95",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The alias on the new component lets Pulumi locate the old component's state record for the migration."
+  },
+  {
+   "id": "I48",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L95",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi state migration callback receives the component's saved state first, followed by the saved state of its children."
+  },
+  {
+   "id": "I49",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L97",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A Pulumi state migration callback returns `newState`: the complete set of state records that replace the old component and its children."
+  },
+  {
+   "id": "I50",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L98",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A Pulumi state migration callback returns `successors`: a map from each old URN that disappears to the URN that takes its place."
+  },
+  {
+   "id": "I51",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L106",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The example's `migrateClassicVpc` callback returns nothing (no-op) when the state already uses modern AWSX or plain AWS resources, making it safe to run again."
+  },
+  {
+   "id": "I52",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L106",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The example's migration callback raises an error when it encounters an unexpected component type rather than guessing how to migrate it."
+  },
+  {
+   "id": "I53",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L108",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The example's `rename` helper copies a saved state record and changes its URN, type, and parent while preserving the AWS resource ID and other saved fields; it is used to move the subnet under the managed VPC."
+  },
+  {
+   "id": "I54",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L110",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the example's v2 migration, two `successors` entries map both the old subnet component wrapper URN and the old managed subnet URN to the same new subnet record."
+  },
+  {
+   "id": "I55",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L110",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The Pulumi engine uses `successors` mappings from a state migration to update dependencies and resource references elsewhere in the stack (e.g., a security group's reference to the migrated VPC)."
+  },
+  {
+   "id": "I56",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L110, L116",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the example, the migrated VPC state record retains the same AWS VPC ID after each migration."
+  },
+  {
+   "id": "I57",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L116",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The example's v3 (second) migration file exists at https://github.com/pulumi/examples/blob/master/aws-ts-awsx-vpc-state-migration/v3/migration.ts."
+  },
+  {
+   "id": "I58",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L116",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The example's second migration removes the modern AWSX VPC component record, moves the managed VPC into its place, and maps both the old component URN and its VPC child URN to the new VPC record, with the other resources remaining beneath the VPC."
+  },
+  {
+   "id": "I59",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L124",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi runs multiple `stateMigrations` callbacks in order, passing each callback's result to the next callback."
+  },
+  {
+   "id": "I60",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L124",
+   "type": "behavior",
+   "importance": "high",
+   "text": "With both migrations attached, a stack still on legacy AWSX can upgrade directly to the plain-AWS (v3) version of the example."
+  },
+  {
+   "id": "I61",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L124",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A stack already on modern AWSX skips the first (legacy-to-modern) migration when upgrading to v3 of the example."
+  },
+  {
+   "id": "I62",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L124",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Once both migrations have been applied, both migration callbacks return no result on subsequent updates."
+  },
+  {
+   "id": "I63",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L126",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Keeping earlier state migrations attached to a component lets its users skip component versions without editing stack state by hand."
+  },
+  {
+   "id": "I64",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L130",
+   "type": "behavior",
+   "importance": "high",
+   "text": "After a state migration rewrites saved state, Pulumi compares the new program against the migrated state and calls the provider for any remaining changes."
+  },
+  {
+   "id": "I65",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L130",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Preserving resource IDs does not guarantee an empty preview; the example can still show in-place updates for provider defaults and tags after a migration."
+  },
+  {
+   "id": "I66",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L132",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The example's v1 program has a README to follow to get started."
+  },
+  {
+   "id": "I67",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L134",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In the example, `pulumi preview` before each upgrade should show no creates, deletes, or replacements for the existing VPC, subnet, route table, association, internet gateway, and security group."
+  },
+  {
+   "id": "I68",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L134",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi preview` evaluates a component state migration without saving the migrated state."
+  },
+  {
+   "id": "I69",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L134",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi up` (the update) saves the migrated state produced by a component state migration."
+  },
+  {
+   "id": "I70",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L138, L140",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When a component author registers a state migration inside the component, users upgrading the component do not need to write the migration, attach the callback, or edit their stack state — the component handles the migration."
+  },
+  {
+   "id": "I71",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L138",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When a user upgrades a component that ships a state migration and runs Pulumi, the migration runs as part of the normal preview and update."
+  },
+  {
+   "id": "I72",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L140",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "For an internal component change that keeps the same inputs and outputs, users can keep their existing component calls unchanged and need not know which resources moved or how saved state changed."
+  },
+  {
+   "id": "I73",
+   "file": "content/blog/component-state-migrations/index.md",
+   "line_range": "L142",
+   "type": "feature",
+   "importance": "normal",
+   "text": "A state migration shipped with a component is written and tested once and delivered to each team using the component with the new component version."
+  },
+  {
+   "id": "I74",
+   "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+   "line_range": "L74",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi `stateMigrations` callbacks run during both previews and updates when prior state exists."
+  },
+  {
+   "id": "I75",
+   "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+   "line_range": "L74",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi `stateMigrations` callbacks must be idempotent."
+  },
+  {
+   "id": "I76",
+   "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+   "line_range": "L74",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi `stateMigrations` callbacks must return no result when the state no longer needs migration."
+  },
+  {
+   "id": "I77",
+   "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+   "line_range": "L74",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi `stateMigrations` callbacks rewrite state without performing any provider operations."
+  },
+  {
+   "id": "I78",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L38",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi component state migration is a pure function that transforms the saved state of a component and its children into the state expected by a new component version."
+  },
+  {
+   "id": "I79",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L38",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A Pulumi component state migration callback returns the updated state records and successor mappings."
+  },
+  {
+   "id": "I80",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L38",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Each successor mapping returned by a Pulumi state migration connects an old URN omitted from the result to the URN of the returned resource that takes its place."
+  },
+  {
+   "id": "I81",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L38",
+   "type": "behavior",
+   "importance": "high",
+   "text": "If no migration is needed, a Pulumi component state migration callback returns no result."
+  },
+  {
+   "id": "I82",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L40",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The stateMigrations option reference exists at /docs/iac/concepts/resources/options/statemigrations/#callback-api and explains the callback API."
+  },
+  {
+   "id": "I83",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L40",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi checkpoint resource-state format is documented at https://pulumi-developer-docs.readthedocs.io/latest/docs/references/deployment-schema.html#pulumi-resource-state."
+  },
+  {
+   "id": "I84",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L40",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "State entries passed to a Pulumi state migration callback use the checkpoint resource format, including fields such as `urn`, `type`, `id`, `parent`, `provider`, `inputs`, and `outputs`."
+  },
+  {
+   "id": "I85",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L201",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi state migration that changes state cannot be applied when resources in the subtree are pending deletion; the unfinished deletion must be completed (with the migration returning no changes) before retrying."
+  },
+  {
+   "id": "I86",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L202",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi state migration that changes state cannot be applied when persisted snippet references would need to change; those snippets must be updated or removed first."
+  },
+  {
+   "id": "I87",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L204",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi state migration callback that returns no result can remain attached when using update plans or targeted updates."
+  },
+  {
+   "id": "I88",
+   "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+   "line_range": "L204",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The restrictions on state-changing migration results (under update plans / targeted updates) do not require removing an already-applied Pulumi state migration."
+  }
+ ]
+}

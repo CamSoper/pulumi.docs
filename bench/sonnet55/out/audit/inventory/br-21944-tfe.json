@@ -1,0 +1,140 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L545",
+   "type": "feature",
+   "importance": "high",
+   "text": "A self-hosted Pulumi Cloud can be used by Terraform as a state backend."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L545",
+   "type": "feature",
+   "importance": "high",
+   "text": "A self-hosted Pulumi Cloud can be used by OpenTofu as a state backend."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L545, L549",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Enabling the Terraform state backend on self-hosted Pulumi Cloud requires setting an environment variable (PULUMI_TFE_DOMAIN) on the API service specifically."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L545, L553",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The linked page /docs/integrations/terraform/state-backend/ (the Terraform state backend guide) exists."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L549",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The self-hosted Pulumi Cloud API service supports an environment variable named `PULUMI_TFE_DOMAIN`."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L549",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`PULUMI_TFE_DOMAIN` sets the domain that serves the self-hosted Pulumi Cloud's Terraform-compatible API (e.g. `tf.pulumiapi.acmecorp.com`)."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L549",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When `PULUMI_TFE_DOMAIN` is unset, the self-hosted Pulumi Cloud's Terraform-compatible API is disabled (default behavior)."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L549",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When `PULUMI_TFE_DOMAIN` is unset, the self-hosted Pulumi Cloud API service does not register the Terraform-compatible API routes."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L551",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The Terraform-compatible API of self-hosted Pulumi Cloud is served by the same host that serves the Pulumi API (`PULUMI_API_DOMAIN`), so the `PULUMI_TFE_DOMAIN` DNS record should point at that host."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L551",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A separate domain for the Terraform-compatible API is not required: `PULUMI_TFE_DOMAIN` may be set to the same value as `PULUMI_API_DOMAIN` and the Terraform-compatible API still works."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L551",
+   "type": "api-surface",
+   "importance": "normal",
+   "text": "`PULUMI_API_DOMAIN` is the self-hosted Pulumi Cloud API service environment variable that specifies the domain serving the Pulumi API."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L553",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When using a self-hosted Pulumi Cloud as a Terraform/OpenTofu state backend, the Terraform or OpenTofu backend configuration uses the `PULUMI_TFE_DOMAIN` value as the hostname in place of `tf.pulumi.com`."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L553",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When using a self-hosted Pulumi Cloud as a state backend, the `terraform login` / `tofu login` command is run against the `PULUMI_TFE_DOMAIN` hostname in place of `tf.pulumi.com`."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L553",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When using a self-hosted Pulumi Cloud as a state backend, the `TF_TOKEN_*` environment variable name is derived from the `PULUMI_TFE_DOMAIN` value in place of `tf.pulumi.com`."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L553",
+   "type": "attribution",
+   "importance": "normal",
+   "text": "The Pulumi Terraform state backend guide (/docs/integrations/terraform/state-backend/) uses `tf.pulumi.com` as the hostname for the Pulumi Cloud Terraform-compatible API."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L553",
+   "type": "api-surface",
+   "importance": "normal",
+   "text": "Terraform provides a `terraform login` command and OpenTofu provides a `tofu login` command for authenticating to a remote backend host."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/administration/self-hosting/components/api.md",
+   "line_range": "L553",
+   "type": "api-surface",
+   "importance": "normal",
+   "text": "Terraform and OpenTofu read backend credentials from environment variables following the `TF_TOKEN_*` naming convention, where the suffix is derived from the backend hostname."
+  }
+ ]
+}

@@ -1,0 +1,660 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L5",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "The post's frontmatter states it was last updated on 2026-09-21."
+  },
+  {
+   "id": "I2",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L132, L134",
+   "type": "version",
+   "importance": "high",
+   "text": "As of 2026-09-21, Pulumi's latest stable release is v3.261.0, released 2026-09-02 (at-a-glance table; note this conflicts with v3.263.0 / 2026-09-16 stated at L172 and L203)."
+  },
+  {
+   "id": "I3",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L132, L135",
+   "type": "version",
+   "importance": "high",
+   "text": "As of 2026-09-21, Terraform's latest stable release is v1.16.1, released 2026-09-02 (at-a-glance table; conflicts with v1.16.3 / 2026-09-16 at L173 and L505)."
+  },
+  {
+   "id": "I4",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L132, L136",
+   "type": "version",
+   "importance": "high",
+   "text": "As of 2026-09-21, AWS CDK's latest stable release is v2.268.0, released 2026-09-02 (at-a-glance table; conflicts with v2.270.0 / 2026-09-17 at L174 and L559)."
+  },
+  {
+   "id": "I5",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L141, L179, L793",
+   "type": "version",
+   "importance": "high",
+   "text": "As of 2026-09-21, Kubernetes' latest stable release is v1.37.0, released 2026-08-26."
+  },
+  {
+   "id": "I6",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L134",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi supports authoring infrastructure in Python, TypeScript, JavaScript, Go, .NET, Java, YAML, and HCL."
+  },
+  {
+   "id": "I7",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L134",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi supports AWS, Azure, Google Cloud, Kubernetes, and hundreds of other providers."
+  },
+  {
+   "id": "I8",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L134, L172, L202",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Pulumi is licensed under Apache-2.0."
+  },
+  {
+   "id": "I9",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L134, L204",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi is best for teams who want flexible, language-agnostic IaC for infrastructure and operations."
+  },
+  {
+   "id": "I10",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L135",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Terraform uses HCL, HashiCorp's domain-specific language, as its configuration language."
+  },
+  {
+   "id": "I11",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L135",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Terraform supports AWS, Azure, Google Cloud, and hundreds of community providers."
+  },
+  {
+   "id": "I12",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L135, L173, L504",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Terraform is licensed under BUSL-1.1, which is not an OSI-approved license."
+  },
+  {
+   "id": "I13",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L135, L506",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Terraform is best for teams with existing Terraform expertise and established workflows."
+  },
+  {
+   "id": "I14",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L136",
+   "type": "feature",
+   "importance": "normal",
+   "text": "AWS CDK supports TypeScript, Python, Java, C#, and Go."
+  },
+  {
+   "id": "I15",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L136",
+   "type": "behavior",
+   "importance": "high",
+   "text": "AWS CDK compiles (synthesizes) its programs to CloudFormation templates."
+  },
+  {
+   "id": "I16",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L136",
+   "type": "feature",
+   "importance": "normal",
+   "text": "AWS CDK supports AWS only (no other clouds)."
+  },
+  {
+   "id": "I17",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L136, L174, L558",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "AWS CDK is licensed under Apache-2.0."
+  },
+  {
+   "id": "I18",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L136, L560",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "AWS CDK is best for AWS-focused teams who prefer programming languages over templates."
+  },
+  {
+   "id": "I19",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L141",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Kubernetes YAML as an IaC approach uses YAML manifests and works on any Kubernetes cluster."
+  },
+  {
+   "id": "I20",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L141, L179, L792",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Kubernetes is licensed under Apache-2.0."
+  },
+  {
+   "id": "I21",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L141, L794",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Kubernetes YAML is best for teams managing container-native applications and cloud-native infrastructure."
+  },
+  {
+   "id": "I22",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L139",
+   "type": "version",
+   "importance": "high",
+   "text": "As of 2026-09-21 (per the updated column header), Azure Bicep's latest stable release is v0.46.1, released 2026-07-30 (unchanged at-a-glance row now under a re-dated header; conflicts with v0.47.16 / 2026-09-08 at L177 and L702)."
+  },
+  {
+   "id": "I23",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L142",
+   "type": "version",
+   "importance": "high",
+   "text": "As of 2026-09-21 (per the updated column header), Crossplane's latest stable release is v2.4.0, released 2026-08-20 (unchanged at-a-glance row now under a re-dated header; conflicts with v2.4.1 / 2026-09-15 at L180 and L854)."
+  },
+  {
+   "id": "I24",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L145",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "The version and release-date figures in the comparison table were checked against each project's GitHub releases on 2026-09-21 and are dated snapshots that will drift."
+  },
+  {
+   "id": "I25",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L149",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "The pricing-at-a-glance table is based on published pricing as of September 2026."
+  },
+  {
+   "id": "I26",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "The company/product env0 has been renamed to \"env zero\" (env zero is formerly env0)."
+  },
+  {
+   "id": "I27",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Spacelift and env zero are managed CI/CD layers that are frequently compared against the core IaC tools in the table."
+  },
+  {
+   "id": "I28",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Spacelift and env zero publish their own pricing tiers, denominated differently from the per-resource pricing in the article's table."
+  },
+  {
+   "id": "I29",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Spacelift's paid plans scale by private worker count rather than by seats or resources."
+  },
+  {
+   "id": "I30",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Spacelift's top-end pricing tier is quote-based."
+  },
+  {
+   "id": "I31",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Env zero (formerly env0) prices its paid tiers per successful apply or per environment."
+  },
+  {
+   "id": "I32",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L164",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "Spacelift's and env zero's pricing figures change often."
+  },
+  {
+   "id": "I33",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L172, L203",
+   "type": "version",
+   "importance": "high",
+   "text": "Pulumi's latest stable release is v3.263.0, released 2026-09-16 (governance table and Pulumi section)."
+  },
+  {
+   "id": "I34",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L172",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "Pulumi's governing body is Pulumi Corporation."
+  },
+  {
+   "id": "I35",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L172, L1498",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The Pulumi GitHub repository has roughly 25,700 (~25.7k) stars, measured 2026-09-21."
+  },
+  {
+   "id": "I36",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L173, L505",
+   "type": "version",
+   "importance": "high",
+   "text": "Terraform's latest stable release is v1.16.3, released 2026-09-16 (governance table and Terraform section)."
+  },
+  {
+   "id": "I37",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L173",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "Terraform's governing body is HashiCorp, which is an IBM company."
+  },
+  {
+   "id": "I38",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L173, L1498",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The Terraform GitHub repository has roughly 49,700 (~49.7k) stars, measured 2026-09-21."
+  },
+  {
+   "id": "I39",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L174, L559",
+   "type": "version",
+   "importance": "high",
+   "text": "AWS CDK's latest stable release is v2.270.0, released 2026-09-17 (governance table and CDK section)."
+  },
+  {
+   "id": "I40",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L174",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "AWS CDK's governing body is AWS."
+  },
+  {
+   "id": "I41",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L174, L1498",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The AWS CDK GitHub repository has roughly 12,900 (~12.9k) stars, measured 2026-09-21."
+  },
+  {
+   "id": "I42",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L177, L701",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Azure Bicep is licensed under MIT."
+  },
+  {
+   "id": "I43",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L177",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "Azure Bicep's governing body is Microsoft."
+  },
+  {
+   "id": "I44",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L177, L702",
+   "type": "version",
+   "importance": "high",
+   "text": "Azure Bicep's latest stable release is v0.47.16, released 2026-09-08."
+  },
+  {
+   "id": "I45",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L177",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The Azure Bicep GitHub repository has roughly 3,600 (~3.6k) stars."
+  },
+  {
+   "id": "I46",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L179",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "Kubernetes' governing body is the CNCF."
+  },
+  {
+   "id": "I47",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L179, L1498",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The Kubernetes GitHub repository has roughly 127,900 (~127.9k) stars, measured 2026-09-21."
+  },
+  {
+   "id": "I48",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L180, L853",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Crossplane is licensed under Apache-2.0."
+  },
+  {
+   "id": "I49",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L180",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "Crossplane's governing body is the CNCF."
+  },
+  {
+   "id": "I50",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L180, L854",
+   "type": "version",
+   "importance": "high",
+   "text": "Crossplane's latest stable release is v2.4.1, released 2026-09-15."
+  },
+  {
+   "id": "I51",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L180, L1498",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The Crossplane GitHub repository has roughly 12,100 (~12.1k) stars, measured 2026-09-21."
+  },
+  {
+   "id": "I52",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L181, L143",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "OpenTofu is licensed under MPL-2.0."
+  },
+  {
+   "id": "I53",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L181",
+   "type": "entity-spec",
+   "importance": "normal",
+   "text": "OpenTofu's governing body is the Linux Foundation."
+  },
+  {
+   "id": "I54",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L181, L143",
+   "type": "version",
+   "importance": "high",
+   "text": "OpenTofu's latest stable release is v1.12.6, released 2026-08-19 (as of 2026-09-21)."
+  },
+  {
+   "id": "I55",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L181, L1498",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "The OpenTofu GitHub repository has roughly 30,200 (~30.2k) stars, measured 2026-09-21."
+  },
+  {
+   "id": "I56",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L746",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Google Cloud Infrastructure Manager automates the deployment and management of Google Cloud infrastructure resources using Terraform configurations."
+  },
+  {
+   "id": "I57",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L746",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Google Cloud Infrastructure Manager represents Google's modern approach to infrastructure as code."
+  },
+  {
+   "id": "I58",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L746",
+   "type": "feature",
+   "importance": "high",
+   "text": "Google Cloud Infrastructure Manager replaces (is the successor to) Google Cloud Deployment Manager."
+  },
+  {
+   "id": "I59",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L746",
+   "type": "temporal",
+   "importance": "high",
+   "text": "Google Cloud Deployment Manager reached end of support on March 31, 2026."
+  },
+  {
+   "id": "I60",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L746",
+   "type": "temporal",
+   "importance": "high",
+   "text": "Google Cloud Deployment Manager will be fully turned down on June 30, 2027 for any workloads still migrating."
+  },
+  {
+   "id": "I61",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Pulumi Cloud's editions/plans are named Free, Essentials, Pro, and Enterprise."
+  },
+  {
+   "id": "I62",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Free edition is free forever for one user."
+  },
+  {
+   "id": "I63",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi Cloud's Free edition includes unlimited stacks and projects."
+  },
+  {
+   "id": "I64",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Free edition includes 500 workflow minutes per month."
+  },
+  {
+   "id": "I65",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Essentials edition starts at $40/month."
+  },
+  {
+   "id": "I66",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Essentials edition includes 40 credits."
+  },
+  {
+   "id": "I67",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Essentials edition covers up to 500 managed resources."
+  },
+  {
+   "id": "I68",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Pro edition is priced at $400/month."
+  },
+  {
+   "id": "I69",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Pro edition includes 400 credits."
+  },
+  {
+   "id": "I70",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi Cloud's Pro edition covers up to 2,000 managed resources."
+  },
+  {
+   "id": "I71",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Pulumi Cloud's Enterprise edition is custom, contract-priced (no published price)."
+  },
+  {
+   "id": "I72",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "HCP Terraform is free for up to 500 managed resources."
+  },
+  {
+   "id": "I73",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "HCP Terraform's free tier allows one concurrent run."
+  },
+  {
+   "id": "I74",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Above the free tier, HCP Terraform charges per-resource pricing of roughly $0.10 to $0.99 per resource per month depending on tier."
+  },
+  {
+   "id": "I75",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Self-hosted Terraform Enterprise is available at custom pricing for larger organizations."
+  },
+  {
+   "id": "I76",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1488",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "The managed-platform pricing figures in the FAQ reflect published pricing checked on 2026-09-21."
+  },
+  {
+   "id": "I77",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1498",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "By GitHub stars, Kubernetes leads the broader infrastructure ecosystem (has more stars than every IaC tool listed)."
+  },
+  {
+   "id": "I78",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1498",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Kubernetes is the de facto container orchestration standard rather than a pure IaC tool."
+  },
+  {
+   "id": "I79",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1498",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "Among dedicated IaC tools, Terraform remains the most-starred GitHub repository."
+  },
+  {
+   "id": "I80",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1498",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "By GitHub stars measured 2026-09-21, dedicated IaC tools rank Terraform, then OpenTofu, then Pulumi, then AWS CDK, then Crossplane."
+  },
+  {
+   "id": "I81",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1498",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Terraform's larger community reflects a decade of first-mover adoption."
+  },
+  {
+   "id": "I82",
+   "file": "content/blog/infrastructure-as-code-tools/index.md",
+   "line_range": "L1498",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "Pulumi, OpenTofu, and Crossplane have grown fastest among teams prioritizing general-purpose languages, open governance, and Kubernetes-native infrastructure management, respectively."
+  }
+ ]
+}

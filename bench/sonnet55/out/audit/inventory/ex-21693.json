@@ -1,0 +1,612 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "HashiCorp Vault and Pulumi ESC differ in exactly three fundamental ways (licensing, what is stored, and composability)."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27, L48",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "HashiCorp Vault is not open source."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27, L48",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "HashiCorp Vault is licensed under the Business Source License (BSL 1.1)."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27, L47",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Pulumi ESC is fully open source."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27, L47",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Pulumi ESC is licensed under the Apache License 2.0."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault stores secrets only (it does not store environments or non-secret configuration) — a negative capability claim to verify against Vault docs."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC stores environments, secrets, and configurations."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27, L90",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC environments can be composed from (import and inherit values from) multiple other environments."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When Pulumi ESC environments are composed from other environments, shared configuration is inherited rather than duplicated."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "Vault is not open source (Business Source License) whereas Pulumi ESC is fully open source (Apache 2.0)."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L27",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "Vault stores secrets only, whereas Pulumi ESC stores environments, secrets, and configurations."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L31",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC and HashiCorp Vault can be used together to store and manage infrastructure and application secrets."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L31",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC environments can reference secrets stored in HashiCorp Vault."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L31",
+   "type": "feature",
+   "importance": "high",
+   "text": "Through Pulumi ESC, secrets held in Vault can be organized as collections that are versioned."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L31",
+   "type": "feature",
+   "importance": "high",
+   "text": "Through Pulumi ESC, secrets held in Vault can be organized as collections that are branched."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L31",
+   "type": "feature",
+   "importance": "high",
+   "text": "Through Pulumi ESC, collections of Vault-sourced secrets can be composed inside other collections (environments)."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L31",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC can store non-secret configuration alongside secrets that are kept in HashiCorp Vault."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L52",
+   "type": "entity-spec",
+   "importance": "high",
+   "text": "Pulumi ESC is a fully managed SaaS service provided by Pulumi Cloud."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L53",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault offers both a hosted cloud service and self-hosting."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L53",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Self-hosting HashiCorp Vault requires significant management overhead."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L56-57",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC provides a key-value store."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L56-58",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault provides a key-value store."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L61-62",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC supports pulling and using secrets from HashiCorp Vault."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L61-62",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC supports pulling and using secrets from 1Password."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L61-62",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC supports pulling and using secrets from AWS Secrets Manager."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L63",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault does not have an open ecosystem: it can only store and manage secrets stored in Vault itself (cannot pull secrets from external secret sources) — a negative capability claim."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L69-70",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC supports editing and authoring via both a GUI and a Document Editor with autocomplete, docs hover, and error checking."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L71",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault's editing/authoring experience offers a key/value form editor with a JSON toggle."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L71",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "HashiCorp Vault's editing and authoring capability is 'limited' compared with Pulumi ESC's GUI and Document Editor."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L75",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "Pulumi ESC is available as the `pulumi env` command in the Pulumi CLI."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L75",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi CLI (`pulumi env`) supports injecting application secrets from ESC as environment variables."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L75",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi CLI (`pulumi env`) supports modifying ESC secrets."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L76",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The HashiCorp `vault` CLI reads and writes secrets."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L76",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The HashiCorp `vault` CLI does not inject secrets as environment variables — a negative capability claim."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L76",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault Agent has a process supervisor mode that covers injecting secrets as environment variables into a process."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L76",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "HashiCorp Vault's CLI capability is 'limited' compared with Pulumi ESC's `pulumi env`, because the `vault` CLI does not inject secrets as environment variables."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L84-85",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC has declarative provider support via the Pulumi Service Provider, which allows creating, updating, and deleting collections of secrets and configuration (environments) as a resource through infrastructure as code."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L84-86",
+   "type": "feature",
+   "importance": "high",
+   "text": "Individual HashiCorp Vault secrets can be managed as resources with the Vault provider for Pulumi or Terraform."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L91",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault has no equivalent of Pulumi ESC's composability/hierarchical-environment concept — a negative capability claim."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L91",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In HashiCorp Vault, secrets are organized by path convention and the hierarchy/structure is maintained by hand by users."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L99-100",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC values can be either secret or plaintext."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L99-101",
+   "type": "feature",
+   "importance": "high",
+   "text": "In HashiCorp Vault, values can only be secrets (no plaintext/non-secret values) — a negative capability claim."
+  },
+  {
+   "id": "I43",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L104-105",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC provides the ability to see (view) existing secret values."
+  },
+  {
+   "id": "I44",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L104-106",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault does not provide the ability to see existing secrets (in the sense the comparison table means) — a negative capability claim."
+  },
+  {
+   "id": "I45",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L109-110",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC environments can import secrets from another environment (secret referencing)."
+  },
+  {
+   "id": "I46",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L109-110",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In Pulumi ESC, secrets updated in a referenced environment automatically propagate to downstream environments that import it."
+  },
+  {
+   "id": "I47",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L111",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault has no first-class 'environment' concept that can be referenced — a negative capability claim."
+  },
+  {
+   "id": "I48",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L111",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In HashiCorp Vault, secrets are read by path."
+  },
+  {
+   "id": "I49",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L114-115",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC can construct new dynamic values through string interpolation of other values."
+  },
+  {
+   "id": "I50",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L114-116",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault does not support interpolating values from other values — a negative capability claim."
+  },
+  {
+   "id": "I51",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L119-120",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC environments can be forked (branched) for testing, overriding specific values without rewriting the entire environment."
+  },
+  {
+   "id": "I52",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L119-121",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault does not support branching / personal configs of secret collections — a negative capability claim."
+  },
+  {
+   "id": "I53",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L124-125",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi env diff` shows the changes between two Pulumi ESC environments or between two versions of a single environment."
+  },
+  {
+   "id": "I54",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L124-126",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault does not provide a way to compare secrets across environments — a negative capability claim."
+  },
+  {
+   "id": "I55",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L129-130",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "Pulumi ESC supports built-in functions including `toJSON`, `fromJSON`, `fromBase64`, and `toString` (each should exist in ESC's function set)."
+  },
+  {
+   "id": "I56",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L130",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi ESC's built-in functions allow data manipulation for any scenario."
+  },
+  {
+   "id": "I57",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L131",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault provides templating and transformation functions, including username templating."
+  },
+  {
+   "id": "I58",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L131",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault provides a Transform secrets engine."
+  },
+  {
+   "id": "I59",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L131",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault does not provide functions for composing configuration values (as ESC's built-in functions do) — a negative capability claim."
+  },
+  {
+   "id": "I60",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L131",
+   "type": "comparison",
+   "importance": "normal",
+   "text": "HashiCorp Vault's built-in function support is 'limited' compared with Pulumi ESC's, consisting of templating/transformation functions rather than configuration-composition functions."
+  },
+  {
+   "id": "I61",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L137-138",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC provides audit logs."
+  },
+  {
+   "id": "I62",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L137-139",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault provides audit logs."
+  },
+  {
+   "id": "I63",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L142-143",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi ESC uses TLS for encryption of secrets in transit."
+  },
+  {
+   "id": "I64",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L142-143",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi ESC uses unique encryption keys per environment for encryption of secrets at rest."
+  },
+  {
+   "id": "I65",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L142-144",
+   "type": "behavior",
+   "importance": "high",
+   "text": "HashiCorp Vault uses a security barrier for all requests made to the storage backend, which automatically encrypts all data leaving Vault."
+  },
+  {
+   "id": "I66",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L144",
+   "type": "numerical",
+   "importance": "high",
+   "text": "HashiCorp Vault's security barrier encrypts data using a 256-bit AES cipher in Galois Counter Mode (GCM) with 96-bit nonces."
+  },
+  {
+   "id": "I67",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L147-148",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC provides access controls."
+  },
+  {
+   "id": "I68",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L147-149",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault provides access controls."
+  },
+  {
+   "id": "I69",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L152-153",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi ESC uses OIDC flows to generate dynamic cloud provider credentials."
+  },
+  {
+   "id": "I70",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L152-153",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi ESC's OIDC-based dynamic cloud credentials are available for AWS, Azure, and Google Cloud (three providers)."
+  },
+  {
+   "id": "I71",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L154",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault cloud secrets engines generate short-lived (dynamic) credentials for AWS."
+  },
+  {
+   "id": "I72",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L154",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault cloud secrets engines generate short-lived (dynamic) credentials for Azure."
+  },
+  {
+   "id": "I73",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L154",
+   "type": "feature",
+   "importance": "high",
+   "text": "HashiCorp Vault cloud secrets engines generate short-lived (dynamic) credentials for Google Cloud."
+  },
+  {
+   "id": "I74",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L154",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Each HashiCorp Vault cloud secrets engine (AWS, Azure, Google Cloud) is configured with a static root/long-lived credential that Vault uses to mint the short-lived credentials."
+  },
+  {
+   "id": "I75",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L157-158",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi Cloud can be used as an OIDC provider from the Pulumi SDK, CLI, UI, and the `pulumi-service` provider."
+  },
+  {
+   "id": "I76",
+   "file": "content/docs/esc/vs/vault.md",
+   "line_range": "L157-159",
+   "type": "feature",
+   "importance": "high",
+   "text": "Configuring HashiCorp Vault as an OIDC provider is only available from the Vault CLI (not from a UI or SDK) — a negative/limitation claim."
+  }
+ ]
+}

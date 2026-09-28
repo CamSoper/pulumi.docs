@@ -1,0 +1,476 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The Pulumi `protect` resource option is a Pulumi-engine construct enforced entirely within Pulumi."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The Pulumi `protect` resource option is never sent to the cloud provider."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A GCP Cloud SQL instance carries its own `deletionProtection` deletion-protection attribute."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "An AWS RDS instance carries its own `deletionProtection` deletion-protection attribute."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Cloud-resource deletion-protection attributes such as `deletionProtection` on GCP Cloud SQL / AWS RDS are enforced by the cloud provider independently of anything Pulumi knows about."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A resource can be unprotected in Pulumi (no `protect` option) and still refuse to delete because of a cloud-side deletion-protection attribute, and vice versa (protected in Pulumi with no cloud-side guard)."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/iac/concepts/resources/options/protect.md",
+   "line_range": "L19",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/destroy-failures/ has a section with anchor #deletion-protection-on-the-resource-itself explaining how to tell Pulumi `protect` apart from cloud-side deletion protection and resolve each."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+   "line_range": "L113",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The Pulumi `protect` resource option guards a resource within Pulumi (at the engine level)."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+   "line_range": "L113",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A GCP Cloud SQL instance carries a separate `deletionProtection` deletion-protection attribute."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+   "line_range": "L113",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "An AWS RDS instance carries a separate `deletionProtection` deletion-protection attribute."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+   "line_range": "L113",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Cloud-resource deletion-protection attributes are enforced by the Pulumi provider or the cloud API independently of the Pulumi `protect` option."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+   "line_range": "L113",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "The Pulumi `protect` option and cloud-side deletion-protection attributes are complementary layers rather than substitutes for one another."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+   "line_range": "L113",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/destroy-failures/ has a section with anchor #deletion-protection-on-the-resource-itself explaining how to tell the two protection layers apart and resolve a destroy failure caused by either."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L33",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "A `pulumi destroy` failure is often not a Pulumi engine problem but the resource itself being guarded against deletion."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L33",
+   "type": "numerical",
+   "importance": "normal",
+   "text": "Three distinct layers can hold deletion protection that blocks `pulumi destroy`: Pulumi's `protect` option, a provider-enforced flag, and a cloud-API-enforced protection."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L33",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "When `pulumi destroy` fails because a resource is guarded against deletion, the error message usually indicates which of the three protection layers was hit."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L35",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi's `protect` resource option is an engine-level guard that never reaches the cloud provider."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L35",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When `pulumi destroy` fails because of the `protect` resource option, the error names the resource URN and mentions `protect`."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L35",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/concepts/resources/options/protect/ exists and explains how to remove the `protect` option."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L36",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Some Pulumi providers refuse to issue the delete call at all when a resource carries a deletion-protection attribute, so the failure surfaces from the provider before any request reaches the cloud API."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L36, L51",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `gcp.sql.DatabaseInstance` resource in `pulumi/pulumi-gcp` has a `deletionProtection` attribute."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L36, L51",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `deletionProtection` attribute on `gcp.sql.DatabaseInstance` is provider-enforced: the GCP Pulumi provider refuses to delete the instance when it is set, before any request reaches the GCP API."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L36, L52",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `gcp.container.Cluster` resource in `pulumi/pulumi-gcp` has a `deletionProtection` attribute."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L36, L52",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `deletionProtection` attribute on `gcp.container.Cluster` is provider-enforced: the GCP Pulumi provider refuses to delete the cluster when it is set, before any request reaches the GCP API."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Some clouds reject the delete call themselves via their API, independent of Pulumi, when a cloud-side deletion protection is set; the error text in this case comes back from the cloud provider's API."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37, L55",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `aws.rds.Instance` resource in `pulumi/pulumi-aws` has a `deletionProtection` attribute."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L55",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `aws.rds.Cluster` resource in `pulumi/pulumi-aws` has a `deletionProtection` attribute."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37, L55",
+   "type": "behavior",
+   "importance": "high",
+   "text": "AWS RDS `deletionProtection` (on `aws.rds.Instance` / `aws.rds.Cluster`) is enforced by the AWS API, which rejects the delete call itself rather than the Pulumi provider blocking it."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L55",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `deletionProtection` attribute on `aws.rds.Instance` and `aws.rds.Cluster` defaults to `false`."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37, L57",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `aws.ec2.Instance` resource in `pulumi/pulumi-aws` has a `disableApiTermination` attribute."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37, L57",
+   "type": "behavior",
+   "importance": "high",
+   "text": "EC2 `disableApiTermination` on `aws.ec2.Instance` is enforced by the AWS API (EC2 termination protection), which rejects the terminate call independent of Pulumi."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37, L59",
+   "type": "behavior",
+   "importance": "high",
+   "text": "An Azure Resource Manager management lock causes Azure to reject a delete call itself, independent of Pulumi."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L37",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "When Azure Resource Manager rejects a delete because of a management lock, the API error carries the distinct error code `ScopeLocked`."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L39",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The remediation for a provider-enforced deletion-protection flag and for a cloud-API-enforced deletion protection is the same (disable the attribute, `pulumi up`, then `pulumi destroy`)."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L39",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi destroy` deletes what is recorded in the stack's state, not what the program currently says."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L39",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Setting a resource's deletion-protection attribute to `false` in the Pulumi program alone (without running `pulumi up`) is not enough to let `pulumi destroy` succeed."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L42",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Running `pulumi up` after setting a deletion-protection attribute to `false` propagates the change to both the live cloud resource and Pulumi's stack state."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L45",
+   "type": "behavior",
+   "importance": "high",
+   "text": "If deletion protection was already disabled outside of Pulumi (e.g., in the cloud console), `pulumi refresh` synchronizes the stack's state with the live resource."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L45",
+   "type": "behavior",
+   "importance": "high",
+   "text": "After `pulumi refresh` picks up deletion protection that was disabled outside of Pulumi, `pulumi destroy` succeeds without an intervening `pulumi up`."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L47",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "The resources listed in the deletion-protection table (GCP Cloud SQL, GKE, BigQuery, AWS RDS, S3, EC2, DynamoDB, Azure locks, Key Vault) are common sources of `pulumi destroy` failures caused by resource-level deletion protection."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L51",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `gcp.sql.DatabaseInstance` resource has a nested `settings.deletionProtectionEnabled` attribute."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The nested `settings.deletionProtectionEnabled` attribute on `gcp.sql.DatabaseInstance` guards the instance against deletion at the GCP API level (as distinct from the provider-enforced top-level `deletionProtection`)."
+  },
+  {
+   "id": "I43",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L53",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `gcp.bigquery.Table` resource in `pulumi/pulumi-gcp` has a `deletionProtection` attribute."
+  },
+  {
+   "id": "I44",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L53",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `deletionProtection` attribute on `gcp.bigquery.Table` is provider-enforced: the GCP Pulumi provider refuses the delete when it is set."
+  },
+  {
+   "id": "I45",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L54",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `gcp.bigquery.Dataset` resource in `pulumi/pulumi-gcp` has a `deleteContentsOnDestroy` attribute."
+  },
+  {
+   "id": "I46",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L54",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Destroying a `gcp.bigquery.Dataset` that still contains tables fails unless `deleteContentsOnDestroy` is `true`."
+  },
+  {
+   "id": "I47",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L56",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `aws.s3.BucketV2` resource in `pulumi/pulumi-aws` has a `forceDestroy` attribute."
+  },
+  {
+   "id": "I48",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L56",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `forceDestroy` attribute on `aws.s3.BucketV2` defaults to `false`."
+  },
+  {
+   "id": "I49",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L56",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Deleting a non-empty `aws.s3.BucketV2` fails unless `forceDestroy` is `true`."
+  },
+  {
+   "id": "I50",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L58",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `aws.dynamodb.Table` resource in `pulumi/pulumi-aws` has a `deletionProtectionEnabled` attribute."
+  },
+  {
+   "id": "I51",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L58",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `deletionProtectionEnabled` attribute on `aws.dynamodb.Table` is enforced by the AWS API (the API rejects the delete when it is set)."
+  },
+  {
+   "id": "I52",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L58",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The `deletionProtectionEnabled` attribute on `aws.dynamodb.Table` defaults to `false`."
+  },
+  {
+   "id": "I53",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L59",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `pulumi/pulumi-azure-native` provider has a `azure-native.authorization.ManagementLockByScope` resource."
+  },
+  {
+   "id": "I54",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L59",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The `pulumi/pulumi-azure-native` provider has scope-specific management-lock resource variants, including `azure-native.authorization.ManagementLockAtResourceLevel`."
+  },
+  {
+   "id": "I55",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L59",
+   "type": "behavior",
+   "importance": "high",
+   "text": "An Azure management lock of type `CanNotDelete` must be removed before the locked resource can be deleted, independent of anything in the Pulumi program; the lock is enforced by Azure Resource Manager."
+  },
+  {
+   "id": "I56",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L60",
+   "type": "feature",
+   "importance": "high",
+   "text": "`azure-native.keyvault.Vault` (Azure Key Vault) supports soft delete and purge protection."
+  },
+  {
+   "id": "I57",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L60",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Destroying an `azure-native.keyvault.Vault` only soft-deletes the vault rather than permanently removing it."
+  },
+  {
+   "id": "I58",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L60",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Recreating an Azure Key Vault with the same name as a soft-deleted vault fails with the error `VaultAlreadyExists` until the soft-deleted vault is purged or recovered."
+  },
+  {
+   "id": "I59",
+   "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+   "line_range": "L60",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Azure Key Vault purge protection prevents purging a soft-deleted vault until its retention period elapses."
+  }
+ ]
+}

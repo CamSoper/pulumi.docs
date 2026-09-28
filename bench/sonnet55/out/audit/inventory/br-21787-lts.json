@@ -1,0 +1,892 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/support/_index.md",
+   "line_range": "L66",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The support landing page links to `/docs/support/provider-support-policy/`, which must exist as a page."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/support/_index.md",
+   "line_range": "L67",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi maintains each provider major version for a defined length of time and provides long-term security updates for a subset of providers (as described by the support-landing-page card for the provider support policy)."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L24",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi does not automatically roll back changes made during an update when an error or failure occurs."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L24-25",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When an error or failure occurs during a Pulumi update, Pulumi completes any pending operations currently in progress and then exits and reports the error."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L27",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Reverting the code and configuration changes of a failed deployment and running `pulumi up` updates the infrastructure back to its previous state (manual rollback)."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L33",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi does not automatically query the cloud provider's live state before running `pulumi up` or `pulumi preview`."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L33",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi determines what changes to make by comparing the desired state declared in the program against the last recorded state (the state file), not live cloud state."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L35",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "A Pulumi refresh requires a round-trip to the cloud provider for every resource in a stack."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L35",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Refreshing every resource adds significant latency to Pulumi operations, especially for large stacks."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L35",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In Pulumi, changes made outside of Pulumi are treated as drift that the user decides explicitly how to handle."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L37-41",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi refresh` synchronizes Pulumi's recorded state with the actual state of the cloud resources."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L43",
+   "type": "behavior",
+   "importance": "high",
+   "text": "`pulumi up --refresh` refreshes state and applies the desired state in a single step."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L43",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi Cloud provides built-in drift detection for automated drift detection and remediation on a schedule."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L43",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/deployments/concepts/drift/` exists."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L45",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/iac/concepts/state-and-backends/` exists and has a `#refreshing-state` anchor."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi resources have distinct logical names and physical names."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi resource's logical name is how the resource is known to Pulumi and is part of the auto-assigned resource URN."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "A Pulumi resource's physical name is how the resource is known to the cloud provider."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi resource's logical name only needs to be unique within a stack."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L51",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "A resource's physical name typically needs to be unique within a certain cloud-provider scope, sometimes globally."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L53",
+   "type": "behavior",
+   "importance": "high",
+   "text": "By default Pulumi auto-names each resource by combining the logical name with a random suffix appended afterwards."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L53",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi auto-naming allows Pulumi to replace resources with less downtime by creating the replacement resource before deleting the old one."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L53",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "An auto-named Pulumi resource's physical name typically looks like `my-bucket-d7c2fa0` (logical name plus a random hex suffix) rather than `my-bucket`."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L55",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi auto-naming can be disabled on a per-resource basis."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L55",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/iac/concepts/resources/names/` exists and has an `#autonaming` anchor."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L55",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Disabling Pulumi auto-naming for a resource yields a precise physical name but loses the side-by-side uniqueness and create-before-delete replacement benefits."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L57",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi project or stack configuration can customize or disable auto-naming globally, per provider, or per resource type."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L57",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/iac/concepts/resources/names/` has an `#autonaming-configuration` anchor."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L63",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi provides primitives to enforce that secrets are stored securely in the CLI, the state file, and Pulumi Cloud."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L63",
+   "type": "behavior",
+   "importance": "high",
+   "text": "During a Pulumi update, secrets are decrypted in memory and are visible to the Pulumi program."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L63",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/iac/concepts/secrets/` exists and has a `#secrets` anchor."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L67",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`pulumi config set` accepts a `--secret` flag that causes the configuration value to be encrypted so it can be safely persisted in `Pulumi.<stack-name>.yaml`."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L67",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi Cloud manages a unique encryption key for every stack and uses it to encrypt that stack's secrets."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L67",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi's stack secrets encryption is configurable to use a custom secrets provider instead of the Pulumi Cloud-managed key."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L67",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Encrypting the same secret value in two different Pulumi stacks produces different encrypted strings in the respective `Pulumi.<stack-name>.yaml` files."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L67",
+   "type": "behavior",
+   "importance": "high",
+   "text": "An encrypted secret value cannot be copied from one stack's `Pulumi.<stack-name>.yaml` to another's with a text editor; `pulumi config set` must be used instead."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L67",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/iac/concepts/config/` exists."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L69",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When running a preview, update, or destroy, Pulumi decrypts secret configuration; it is plaintext during execution and accessible to any part of the program via the Pulumi config object."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L75",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi does not use the Terraform engine in any way."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L75",
+   "type": "feature",
+   "importance": "high",
+   "text": "Some Pulumi providers use open-source Terraform schemas to determine available resources, parameters, and return/response attributes."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L75",
+   "type": "feature",
+   "importance": "high",
+   "text": "Pulumi native providers map directly to cloud provider APIs and do not use Terraform schemas."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L75",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The URL `https://www.terraform.io/docs/extend/schemas/index.html` resolves to Terraform schema documentation."
+  },
+  {
+   "id": "I43",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L75",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/blog/pulumiup-native-providers/` exists."
+  },
+  {
+   "id": "I44",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L79",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi is a declarative tool that uses imperative programming languages to define the desired end state."
+  },
+  {
+   "id": "I45",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L79",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In Pulumi, the programming language is used only for authoring the program and is not used for talking to the cloud provider API."
+  },
+  {
+   "id": "I46",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L83",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi uses strongly typed programming languages that support IntelliSense and the Language Server Protocol."
+  },
+  {
+   "id": "I47",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L83",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "When defining Pulumi programs you rarely need to leave your IDE."
+  },
+  {
+   "id": "I48",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L83",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The URLs `https://code.visualstudio.com/docs/editor/intellisense` and `https://en.wikipedia.org/wiki/Language_Server_Protocol` resolve."
+  },
+  {
+   "id": "I49",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L89",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi experimental features are always opt-in, enabled explicitly via a flag, command, or environment variable."
+  },
+  {
+   "id": "I50",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L89",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`PULUMI_EXPERIMENTAL=true` is an environment variable that enables Pulumi experimental functionality."
+  },
+  {
+   "id": "I51",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L89",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi experimental features are not necessarily supported."
+  },
+  {
+   "id": "I52",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L89",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi experimental features can change or be removed at any time without a deprecation cycle."
+  },
+  {
+   "id": "I53",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L89",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "When an experimental Pulumi feature proves valuable, Pulumi stabilizes it and promotes it to general availability."
+  },
+  {
+   "id": "I54",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L95",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi focuses on actively supporting the latest released major version of the providers it maintains."
+  },
+  {
+   "id": "I55",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L95",
+   "type": "feature",
+   "importance": "high",
+   "text": "For a set of widely used providers, Pulumi ships security updates for the previous major version (long-term support)."
+  },
+  {
+   "id": "I56",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L95",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi's previous-major security updates for covered providers last for up to one year."
+  },
+  {
+   "id": "I57",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L95",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi's previous-major security-update window for a covered provider ends either after one year or when the next major version is released, whichever comes first."
+  },
+  {
+   "id": "I58",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L95",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/support/provider-support-policy/` exists and lists the covered providers and what a long-term support release contains."
+  },
+  {
+   "id": "I59",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L97",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi provider major versions older than the previous major receive no patches at all."
+  },
+  {
+   "id": "I60",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L97",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi Registry at `/registry/` shows the current version for all providers maintained by Pulumi."
+  },
+  {
+   "id": "I61",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L101",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends that the release of a new provider major version be treated as the signal to begin planning a provider version update."
+  },
+  {
+   "id": "I62",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L101, L107",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Pulumi provider major versions typically include significant changes such as deprecations, new resources, and new functionality that may require additional migration steps."
+  },
+  {
+   "id": "I63",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L103",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends updating to the latest minor version on the current provider major at least quarterly and reviewing provider release notes."
+  },
+  {
+   "id": "I64",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L103",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Pulumi provider minor versions typically include new resources, features, performance improvements, and bug fixes without breaking changes."
+  },
+  {
+   "id": "I65",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L103",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The release notes for each Pulumi provider release summarize the new capabilities or fixes in that release."
+  },
+  {
+   "id": "I66",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L105",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "In npm, the tilde version operator (e.g. `~1.2.3`) allows patch updates within the current minor version."
+  },
+  {
+   "id": "I67",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L105",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends always allowing patch updates on the current provider minor version."
+  },
+  {
+   "id": "I68",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L105",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Pulumi provider patch versions are primarily bug fixes and security updates and are designed to be fully backward compatible."
+  },
+  {
+   "id": "I69",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L107",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends never being two major provider versions behind because jumping a major version is inadvisable given the potential breaking changes."
+  },
+  {
+   "id": "I70",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L107",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Each Pulumi provider major version includes migration logic to smooth the upgrade from the immediately previous major version."
+  },
+  {
+   "id": "I71",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L107",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi provider major-version migration logic does not always work across multiple major versions, so being two or more majors behind may require a multi-step upgrade."
+  },
+  {
+   "id": "I72",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L111",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The 'Learn more' link `/docs/support/provider-support-policy/` resolves to an existing page."
+  },
+  {
+   "id": "I73",
+   "file": "content/docs/support/faq/infrastructure.md",
+   "line_range": "L112-114",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The pages `/docs/support/faq/secrets-config/`, `/docs/support/faq/pulumi-cloud/`, and `/docs/support/faq/policies/` exist."
+  },
+  {
+   "id": "I74",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L14",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi actively maintains the latest released major version of every provider it publishes."
+  },
+  {
+   "id": "I75",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L4, L15",
+   "type": "feature",
+   "importance": "high",
+   "text": "For a set of widely used providers, Pulumi ships security updates for the previous major version (long-term support)."
+  },
+  {
+   "id": "I76",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L15, L55, L70",
+   "type": "numerical",
+   "importance": "high",
+   "text": "Pulumi's long-term support (N−1) window for a covered provider lasts up to 12 months from the release of the current major N."
+  },
+  {
+   "id": "I77",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L15, L70",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi's long-term support window for a provider's previous major ends at 12 months or when the next major version ships, whichever comes first."
+  },
+  {
+   "id": "I78",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L19",
+   "type": "temporal",
+   "importance": "normal",
+   "text": "The list of ten providers on the provider support policy page is the current list of providers receiving long-term support updates."
+  },
+  {
+   "id": "I79",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L21",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi AWS provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I80",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L22",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Azure Classic provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I81",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L23",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Azure Native provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I82",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L24",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Azure AD provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I83",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L25",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Command provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I84",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L26",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Docker Build provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I85",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L27",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi GCP provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I86",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L28",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Kubernetes provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I87",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L29",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi TLS provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I88",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L30",
+   "type": "feature",
+   "importance": "high",
+   "text": "The Pulumi Vault provider is covered by Pulumi's long-term support policy."
+  },
+  {
+   "id": "I89",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L21-30",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The registry pages `/registry/packages/aws/`, `/registry/packages/azure/`, `/registry/packages/azure-native/`, `/registry/packages/azuread/`, `/registry/packages/command/`, `/registry/packages/docker-build/`, `/registry/packages/gcp/`, `/registry/packages/kubernetes/`, `/registry/packages/tls/`, and `/registry/packages/vault/` each exist."
+  },
+  {
+   "id": "I90",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L34-36, L70",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider LTS branch ships fixes for High/Critical CVEs affecting the provider's code or its direct dependencies."
+  },
+  {
+   "id": "I91",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L37",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "A Pulumi provider LTS branch ships fixes for broken internal infrastructure on the LTS branch when needed to ship security patches."
+  },
+  {
+   "id": "I92",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L39-41",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider LTS release does not contain new upstream API versions."
+  },
+  {
+   "id": "I93",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L42",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider LTS release does not contain new resources or new resource properties."
+  },
+  {
+   "id": "I94",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L43",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "A Pulumi provider LTS release does not contain performance improvements."
+  },
+  {
+   "id": "I95",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L44",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider LTS release does not contain non-security bug fixes."
+  },
+  {
+   "id": "I96",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L45",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider LTS release does not add compatibility with newer versions of language runtimes."
+  },
+  {
+   "id": "I97",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L49",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi LTS providers remain compatible with the Pulumi engine version they were frozen at, unless a security fix requires otherwise."
+  },
+  {
+   "id": "I98",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L53, L65",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Exactly one long-term support major version exists per covered Pulumi provider at any time."
+  },
+  {
+   "id": "I99",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L54",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When a covered Pulumi provider ships major N+1, the previous current major N becomes the new LTS major."
+  },
+  {
+   "id": "I100",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L55",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When a covered Pulumi provider ships major N+1, the old LTS major (N−1) reaches end of life on the same day, regardless of how much of its 12-month window remained."
+  },
+  {
+   "id": "I101",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L56",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Within a Pulumi provider's LTS major, only the latest minor version receives patches; earlier minors are frozen."
+  },
+  {
+   "id": "I102",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L60",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi provider LTS releases are published through the same standard package registries as current-major releases."
+  },
+  {
+   "id": "I103",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L60",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi provider LTS releases are tagged differently from current-major releases in the package registries."
+  },
+  {
+   "id": "I104",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L61",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Pulumi recommends pinning to a specific provider major version."
+  },
+  {
+   "id": "I105",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L61",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Customers who pin to a specific Pulumi provider major version automatically receive LTS patch releases as they ship."
+  },
+  {
+   "id": "I106",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L65, L71",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi provider major versions at N−2 and older are end of life, are not supported, and receive no patches or updates."
+  },
+  {
+   "id": "I107",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L65",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "In Pulumi's provider support policy, N denotes the latest released major version: if v3 is newest, v3 is N, v2 is N−1 (LTS), and v1 and earlier are end of life."
+  },
+  {
+   "id": "I108",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L69",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider's current major (N) is supported until N+1 ships."
+  },
+  {
+   "id": "I109",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L69",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi provider's current major (N) receives new features, new resources, bug fixes, security patches, dependency upgrades, and new upstream API versions."
+  },
+  {
+   "id": "I110",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L75",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page `/docs/support/faq/infrastructure/` exists and has a `#what-are-the-best-practices-for-maintaining-provider-versions` anchor."
+  },
+  {
+   "id": "I111",
+   "file": "content/docs/support/provider-support-policy.md",
+   "line_range": "L76-77",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The pages `/registry/` and `/docs/support/getting-support/` exist."
+  }
+ ]
+}

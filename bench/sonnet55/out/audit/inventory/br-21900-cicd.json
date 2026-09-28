@@ -1,0 +1,340 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L154",
+   "type": "behavior",
+   "importance": "high",
+   "text": "AWS CodePipeline's default execution mode is `SUPERSEDED`."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L154",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In CodePipeline's `SUPERSEDED` execution mode, a stage is locked to one execution at a time (an execution is protected from being superseded once it is actually running in a stage)."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L154",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In CodePipeline's `SUPERSEDED` execution mode, a newer execution can supersede an execution that is still waiting to enter a locked stage, so the waiting execution is dropped and never runs (a queued deployment can be silently skipped)."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L154",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The linked AWS docs page https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works.html exists and documents CodePipeline execution modes."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`QUEUED` is a valid AWS CodePipeline execution mode."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In CodePipeline's `QUEUED` execution mode, waiting executions form a queue and each runs in turn; a later execution does not supersede/drop an earlier waiting one."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The CodePipeline `QUEUED` execution mode requires a V2 pipeline (pipeline type V2), so `pipelineType` must be set along with `executionMode`."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The AWS CLI's CodePipeline `create-pipeline` and `update-pipeline` commands can set a pipeline's execution mode and pipeline type."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi AWS provider's `aws.codepipeline.Pipeline` resource has an `executionMode` input (source: pulumi/pulumi-aws)."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi AWS provider's `aws.codepipeline.Pipeline` resource has a `pipelineType` input (source: pulumi/pulumi-aws)."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The registry page /registry/packages/aws/api-docs/codepipeline/pipeline/ exists (target of the `aws.codepipeline.Pipeline` link)."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/iac/operations/continuous-delivery/aws-code-services.md",
+   "line_range": "L156",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The `aws.codepipeline.Pipeline` resource is described below on the aws-code-services page (in the 'Manage the pipeline with Pulumi' section)."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L175",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When two runs attempt to update the same Pulumi stack at the same time, Pulumi Cloud grants the stack lease to only one of them."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L175",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When two concurrent runs target the same stack, the run that does not get the Pulumi Cloud lease has its `pulumi up` fail with an update-conflict error."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L175",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/update-conflicts/ exists (target of the 'update conflict' link)."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L175",
+   "type": "feature",
+   "importance": "high",
+   "text": "Azure Pipelines supports an 'exclusive lock' check that can be applied to an environment, which prevents concurrent runs of deployment jobs targeting that environment (source: learn.microsoft.com approvals/checks docs)."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L175",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The linked Microsoft page https://learn.microsoft.com/azure/devops/pipelines/process/approvals?view=azure-devops exists and documents the exclusive lock check."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L177",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "In Azure DevOps, the exclusive lock check is added from an environment's 'Approvals and checks' tab."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L177, L182, L197",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "Azure Pipelines YAML supports a stage-level `lockBehavior` property that controls how a stage acquires an exclusive lock on the environment it references."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L197",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The default value of Azure Pipelines' `lockBehavior` is `runLatest`."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L182, L197",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "`sequential` is a valid value for Azure Pipelines' stage `lockBehavior` property."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L197",
+   "type": "behavior",
+   "importance": "high",
+   "text": "With `lockBehavior: runLatest`, only the most recently queued run acquires the exclusive lock; an older run waiting behind it is passed over (cancelled) rather than eventually applied."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L197",
+   "type": "behavior",
+   "importance": "high",
+   "text": "With `lockBehavior: sequential`, every queued stage acquires the exclusive lock in order, one at a time, so no queued run is skipped."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L197",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi Cloud serializes updates to a stack, running them one at a time."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L197",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi Azure DevOps provider has an `azuredevops.CheckExclusiveLock` resource for managing an exclusive lock check as code (source: pulumi/pulumi-azuredevops)."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/iac/operations/continuous-delivery/azure-devops.md",
+   "line_range": "L197",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The registry page /registry/packages/azuredevops/api-docs/checkexclusivelock/ exists (target of the `azuredevops.CheckExclusiveLock` link)."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L120",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When two builds attempt to update the same Pulumi stack at the same time, Pulumi Cloud grants the stack lease to only one of them."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L120",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When two concurrent builds target the same stack, the build that does not get the Pulumi Cloud lease has its `pulumi up` fail with an update-conflict error."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L120",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/update-conflicts/ exists (target of the 'update conflict' link)."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L120",
+   "type": "behavior",
+   "importance": "high",
+   "text": "By default, TeamCity lets builds of the same build configuration run concurrently on as many free agents as are available (no limit on simultaneous builds)."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L122",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "TeamCity build configurations have an advanced option named 'Limit the number of simultaneously running builds'."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L122",
+   "type": "api-surface",
+   "importance": "normal",
+   "text": "The TeamCity 'Limit the number of simultaneously running builds' option is found under the build configuration's General Settings (as an advanced option)."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The default value of TeamCity's 'Limit the number of simultaneously running builds' option is `0`, which means unlimited."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Setting TeamCity's 'Limit the number of simultaneously running builds' to `1` causes a second build of that configuration to be queued behind the first and run only after the first finishes."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/iac/operations/continuous-delivery/teamcity.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi Cloud uses a per-stack lease that allows only one update to a stack at a time (one-at-a-time behavior)."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L43",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The anchor /docs/iac/operations/continuous-delivery/azure-devops/#serialize-deployments-with-an-exclusive-lock exists on the Azure DevOps guide."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L43",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In Azure Pipelines, adding an exclusive lock check to the environment a deployment job targets, together with `lockBehavior: sequential` on the stage, prevents concurrent deployments to the same stack (they are serialized)."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L44",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The anchor /docs/iac/operations/continuous-delivery/aws-code-services/#serialize-pipeline-executions exists on the AWS Code Services guide."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L44",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Setting an AWS CodePipeline pipeline's execution mode to `QUEUED` makes waiting executions run in turn rather than being superseded."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L44",
+   "type": "behavior",
+   "importance": "high",
+   "text": "AWS CodePipeline's default execution mode lets a newer execution supersede an older execution that is still waiting to start."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L45",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The anchor /docs/iac/operations/continuous-delivery/teamcity/#limit-concurrent-builds exists on the TeamCity guide."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/iac/operations/troubleshooting/update-conflicts.md",
+   "line_range": "L45",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Setting TeamCity's 'Limit the number of simultaneously running builds' option to `1` on a build configuration prevents concurrent deployment builds of that configuration (serializes them)."
+  }
+ ]
+}

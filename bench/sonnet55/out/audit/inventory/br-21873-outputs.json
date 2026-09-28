@@ -1,0 +1,668 @@
+{
+ "items": [
+  {
+   "id": "I1",
+   "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+   "line_range": "L31",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When a Pulumi Output is treated as if it were already a plain value (e.g. converted to a string), Pulumi substitutes placeholder text such as `Calling [toString] on an [Output<T>] is not supported` in place of the value, which can appear in a log line, a generated file, or a resource property."
+  },
+  {
+   "id": "I2",
+   "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+   "line_range": "L31",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/output-values/ (\"Output value errors\") exists and covers symptoms of treating an output as a plain value."
+  },
+  {
+   "id": "I3",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L8",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "The Pulumi troubleshooting guides are described as 'comprehensive' troubleshooting guides for common issues with Pulumi infrastructure, deployments, and configuration."
+  },
+  {
+   "id": "I4",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L34",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/update-conflicts/ exists."
+  },
+  {
+   "id": "I5",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L35",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi emits the error string \"409 conflict: Another update is currently in progress\" when an update conflicts with another in-progress update."
+  },
+  {
+   "id": "I6",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L39",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/server-errors/ exists."
+  },
+  {
+   "id": "I7",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L40",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Pulumi Cloud can return 500 internal server errors to the CLI, and the server-errors troubleshooting page covers handling them."
+  },
+  {
+   "id": "I8",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L44",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/post-step-errors/ exists."
+  },
+  {
+   "id": "I9",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L49",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/connection-issues/ exists."
+  },
+  {
+   "id": "I10",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L54",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/stack-management/using-a-diy-backend/ exists and has an anchor #error-reading-pulumimetayaml."
+  },
+  {
+   "id": "I11",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L55",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The Pulumi CLI produces `read \".pulumi/meta.yaml\"` errors when it cannot access a self-managed (DIY) state backend."
+  },
+  {
+   "id": "I12",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L59",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/destroy-failures/ exists."
+  },
+  {
+   "id": "I13",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L64",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/interrupted-updates/ exists."
+  },
+  {
+   "id": "I14",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L69",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/architecture-mismatch/ exists."
+  },
+  {
+   "id": "I15",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L70",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Running x86_64 Pulumi binaries under Rosetta 2 on Apple Silicon Macs can cause crashes or hangs."
+  },
+  {
+   "id": "I16",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L74",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/troubleshooting/output-values/ (\"Output Value Errors\") exists."
+  },
+  {
+   "id": "I17",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L75",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Stringifying, branching on, or reading a Pulumi output value as if it were a plain value produces errors, which the Output Value Errors page diagnoses."
+  },
+  {
+   "id": "I18",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L82",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/continuous-delivery/troubleshooting/ exists."
+  },
+  {
+   "id": "I19",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L87",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/stack-management/editing-state-files/ exists."
+  },
+  {
+   "id": "I20",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L92",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/stack-management/restoring-deleted-stacks/ exists."
+  },
+  {
+   "id": "I21",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L93",
+   "type": "feature",
+   "importance": "high",
+   "text": "A recently deleted stack can be recovered from the Pulumi Cloud console, including after an accidental `pulumi stack rm --force`."
+  },
+  {
+   "id": "I22",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L97",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/stack-management/targeted-updates/ exists."
+  },
+  {
+   "id": "I23",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L98",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi CLI `--target` and `--exclude` flags limit an operation to specific resources."
+  },
+  {
+   "id": "I24",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L102",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/debugging/logging/ exists."
+  },
+  {
+   "id": "I25",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L103",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi's logging guide covers automatic logging, CLI verbose logging, and program logging."
+  },
+  {
+   "id": "I26",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L107",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/debugging/using-dev-builds/ exists."
+  },
+  {
+   "id": "I27",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L108",
+   "type": "feature",
+   "importance": "normal",
+   "text": "Pulumi publishes pre-release (dev) builds that can be installed to access bug fixes that have not yet shipped in a stable release."
+  },
+  {
+   "id": "I28",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L113, L120",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The Pulumi Community Slack is reachable at https://slack.pulumi.com."
+  },
+  {
+   "id": "I29",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L114",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/support/filing-issues/ (guide for filing GitHub issues) exists."
+  },
+  {
+   "id": "I30",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L115",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Running `pulumi logs share` securely sends the logs from a failed Pulumi operation to the Pulumi team."
+  },
+  {
+   "id": "I31",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L115",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/debugging/logging/ has an anchor #automatic-logging."
+  },
+  {
+   "id": "I32",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L116",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /contact/ exists and offers paid support options."
+  },
+  {
+   "id": "I33",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L120",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The pages https://github.com/pulumi and /support/ exist."
+  },
+  {
+   "id": "I34",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L125, L131",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "GitHub issues pulumi/pulumi#20846 and pulumi/docs#16985 exist and concern the update-conflict and verbose-logging page redirects respectively."
+  },
+  {
+   "id": "I35",
+   "file": "content/docs/iac/operations/troubleshooting/_index.md",
+   "line_range": "L133",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/operations/debugging/logging/ has an anchor #cli-verbose-logging."
+  },
+  {
+   "id": "I36",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L15",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi resource properties are represented as Outputs rather than plain values."
+  },
+  {
+   "id": "I37",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L15",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The real value of a Pulumi Output is not known until the resource providing it has been created or updated."
+  },
+  {
+   "id": "I38",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L15",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "Outputs are central to how Pulumi builds its dependency graph and runs `pulumi preview`."
+  },
+  {
+   "id": "I39",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L15",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/concepts/inputs-outputs/ exists with an anchor #outputs."
+  },
+  {
+   "id": "I40",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L17, L68",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The pages /docs/iac/concepts/inputs-outputs/apply/ (Accessing single outputs with apply) and /docs/iac/concepts/inputs-outputs/all/ (Working with multiple outputs) exist."
+  },
+  {
+   "id": "I41",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L19, L21",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Converting a Pulumi Output to a string directly (concatenating, logging) does not raise an error by default; Pulumi silently substitutes a placeholder message in place of the value."
+  },
+  {
+   "id": "I42",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L28-32",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi TypeScript SDK, stringifying an Output yields literal text such as `Calling [toString] on an [Output<T>] is not supported`, and no exception is thrown."
+  },
+  {
+   "id": "I43",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L32",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The TypeScript SDK's toString placeholder message is followed by guidance to use `apply` or `pulumi.interpolate` instead."
+  },
+  {
+   "id": "I44",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L32",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi TypeScript SDK, calling `JSON.stringify()` on an Output (or letting one flow into a JSON body) produces the string `Calling [toJSON] on an [Output<T>] is not supported` rather than the value."
+  },
+  {
+   "id": "I45",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L39-43",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Python SDK, stringifying an Output (e.g. in an f-string) yields literal text such as `Calling __str__ on an Output[T] is not supported` and no exception is raised."
+  },
+  {
+   "id": "I46",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L39, L43",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Python SDK, stringifying an Output also logs a warning."
+  },
+  {
+   "id": "I47",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L43",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Python SDK, passing an Output to `json.dumps()` fails with `TypeError: Object of type Output is not JSON serializable`."
+  },
+  {
+   "id": "I48",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L43, L68",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi Python SDK provides `Output.json_dumps()` for JSON-serializing values that contain Outputs."
+  },
+  {
+   "id": "I49",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L49",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Go SDK, passing a `pulumi.StringOutput` where a `string` is expected is a compile error rather than a runtime surprise."
+  },
+  {
+   "id": "I50",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L49",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "In the Pulumi Go SDK, `ApplyT` is the method used to resolve an Output's value inside a callback."
+  },
+  {
+   "id": "I51",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L56-60",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi C# SDK, stringifying an Output (e.g. via string interpolation) yields literal text such as `Calling [ToString] on an [Output<T>] is not supported` and no exception is thrown."
+  },
+  {
+   "id": "I52",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L60",
+   "type": "behavior",
+   "importance": "normal",
+   "text": "The C# SDK's ToString placeholder message is followed by guidance to use `Apply` or `Output.Format` instead."
+  },
+  {
+   "id": "I53",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L66",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi program that stringifies an Output still runs and `pulumi up` succeeds; the placeholder text only surfaces later in a log line, generated config file, or downstream resource property."
+  },
+  {
+   "id": "I54",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L66",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The environment variable `PULUMI_ERROR_OUTPUT_STRING=true` is supported by the Pulumi TypeScript, Python, and C# SDKs."
+  },
+  {
+   "id": "I55",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L66",
+   "type": "behavior",
+   "importance": "high",
+   "text": "With `PULUMI_ERROR_OUTPUT_STRING=true` set, stringifying an Output throws an exception at the point of the mistake instead of returning placeholder text."
+  },
+  {
+   "id": "I56",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L68",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi TypeScript SDK provides `pulumi.interpolate` and `pulumi.concat` as string-composition helpers for Outputs."
+  },
+  {
+   "id": "I57",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L68",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi Python SDK provides `Output.concat` and `Output.format` as string-composition helpers for Outputs."
+  },
+  {
+   "id": "I58",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L68",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi Go SDK provides `pulumi.Sprintf` and `pulumi.JSONMarshal` as string/JSON-composition helpers for Outputs."
+  },
+  {
+   "id": "I59",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L68",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi C# SDK provides `Output.Format` as a string-composition helper for Outputs."
+  },
+  {
+   "id": "I60",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L72",
+   "type": "behavior",
+   "importance": "high",
+   "text": "The plain value read out of an Output inside an `apply` callback is only available inside that callback or in another Output derived from it; assigning it to an outer variable and reading it outside the callback does not yield the value."
+  },
+  {
+   "id": "I61",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L77, L80, L87",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi `apply` callback runs asynchronously once the Output resolves, which is generally after the rest of the program's top-level code has finished running, so an outer variable set inside it is still `undefined` when read at top level."
+  },
+  {
+   "id": "I62",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L87",
+   "type": "behavior",
+   "importance": "high",
+   "text": "An `apply` callback runs when the Pulumi engine resolves the dependency graph, not on the program's clock, so adding a delay does not make the value available outside the callback."
+  },
+  {
+   "id": "I63",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L89, L93",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Passing an Output directly as a resource input (e.g. `bucket: bucket.bucketName` on `aws.s3.BucketObject`) lets Pulumi resolve the dependency without any `apply`."
+  },
+  {
+   "id": "I64",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L89",
+   "type": "positioning",
+   "importance": "normal",
+   "text": "Passing an Output itself as the input to whatever needs it is 'usually the better option' compared to doing downstream work inside the same `apply` or chaining a further `apply`."
+  },
+  {
+   "id": "I65",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L98",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Most Pulumi resource inputs accept Outputs as well as plain values."
+  },
+  {
+   "id": "I66",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L98, L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "A Pulumi resource's logical name cannot be an Output; it must be a known plain value while the program is being evaluated."
+  },
+  {
+   "id": "I67",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L98",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The output-values page has a section with anchor #using-an-output-as-a-resource-name-a-map-key-or-a-loop-bound."
+  },
+  {
+   "id": "I68",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L102, L109-112",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In a dynamically typed Pulumi SDK, an `if` statement on an Output evaluates the Output object itself (not its eventual value), so the condition is generally always true regardless of what the Output resolves to."
+  },
+  {
+   "id": "I69",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L102",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In a statically typed Pulumi SDK, branching on an Output directly is usually a compile error because an `Output<bool>` is not a `bool`."
+  },
+  {
+   "id": "I70",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L104",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Values already known at program start — a stack configuration setting read with `pulumi.Config`, an environment variable, or a hardcoded flag — are plain values, not Outputs, and can be branched on normally."
+  },
+  {
+   "id": "I71",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L106, L114-115, L118",
+   "type": "behavior",
+   "importance": "high",
+   "text": "When a branch depends on a resource's Output, the branch must move inside `apply` and both outcomes must be expressed as values (deriving a new Output) rather than as separate blocks of resource-creation code."
+  },
+  {
+   "id": "I72",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L122",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "A Pulumi resource's logical name is the first argument to its constructor."
+  },
+  {
+   "id": "I73",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Loop bounds and map keys used while authoring a Pulumi program must be known plain values at evaluation time, before any resource exists."
+  },
+  {
+   "id": "I74",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Passing an Output as a resource logical name, loop bound, or map key fails to compile in the Pulumi TypeScript, Go, and C# SDKs, because those positions are typed as plain strings or numbers."
+  },
+  {
+   "id": "I75",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Python SDK, passing an Output as a resource's logical name raises `TypeError: Expected resource name to be a string` at runtime."
+  },
+  {
+   "id": "I76",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Python SDK, using an Output as a loop bound (`range(some_output)`) raises `TypeError: 'Output' object cannot be interpreted as an integer`."
+  },
+  {
+   "id": "I77",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L122",
+   "type": "behavior",
+   "importance": "high",
+   "text": "In the Pulumi Python SDK, using an Output as a dictionary key does not raise; Python hashes and compares the Output object itself, so the lookup silently keys on the object rather than the eventual value."
+  },
+  {
+   "id": "I78",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L124, L133",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/concepts/stacks/ exists with an anchor #stackreferences."
+  },
+  {
+   "id": "I79",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L124, L133",
+   "type": "feature",
+   "importance": "high",
+   "text": "A Pulumi `StackReference` lets one Pulumi program/stack consume another stack's outputs as its inputs."
+  },
+  {
+   "id": "I80",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L128",
+   "type": "behavior",
+   "importance": "high",
+   "text": "Pulumi has no supported way to block a program and synchronously read the resolved value of an Output; attempting to `await` or read one synchronously either doesn't compile, fails at runtime, or returns placeholder text."
+  },
+  {
+   "id": "I81",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L132",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The CLI command `pulumi stack output <name>` reads a single stack output after a deployment."
+  },
+  {
+   "id": "I82",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L134",
+   "type": "cross-reference",
+   "importance": "normal",
+   "text": "The page /docs/iac/concepts/automation-api/ exists."
+  },
+  {
+   "id": "I83",
+   "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+   "line_range": "L134",
+   "type": "api-surface",
+   "importance": "high",
+   "text": "The Pulumi Automation API's update result exposes an `outputs` field (e.g. `res.Outputs` in Go) containing the stack outputs after running an update."
+  }
+ ]
+}
