@@ -2,7 +2,7 @@
 # Build extraction fixtures under $F from a TSV (id, base, head, kind). Idempotent. Usage: build_extract_fixtures.sh <tsv> <F>
 set -uo pipefail
 TSV=$1; F=$2; mkdir -p $F
-git remote add upstream https://github.com/pulumi/docs.git 2>/dev/null
+git remote add upstream https://github.com/pulumi/docs.git 2>/dev/null || true
 while IFS=$'\t' read fx base head kind; do
   [ -d $F/$fx/root ] && continue
   git fetch -q upstream $head 2>/dev/null || git cat-file -e "$head^{commit}" 2>/dev/null || echo "fetch head failed $fx"

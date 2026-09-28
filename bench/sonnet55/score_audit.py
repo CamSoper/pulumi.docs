@@ -95,7 +95,7 @@ summary["inter_auditor"] = {k: (round(v / agree["n"], 3) if k in ("verdict", "va
 
 # inventory sanity: does the auditor's own inventory cover the 24 human-fixed defects? (blind judge, 2026-09-22 prompt)
 EX_SYS = open(B / "score_extract.py").read().split('EX_SYS = """')[1].split('"""')[0]
-if KEY:
+if KEY or os.environ.get("AUDIT_BACKEND") == "cli":
     covp = O / "inventory_gt_coverage.json"
     if not covp.exists():
         res = {}
@@ -104,6 +104,11 @@ if KEY:
             body = {"model": "claude-fable-5-1", "max_tokens": 16000, "output_config": {"effort": "medium"},
                     "system": [{"type": "text", "text": EX_SYS.replace("{{", "{").replace("}}", "}").replace("{defects}", "\n".join(f"- {d['id']} [{d['file']}]: {d['defect']}" for d in defs))}],
                     "messages": [{"role": "user", "content": "Extracted claims (JSON):\n" + json.dumps(items, ensure_ascii=False)}]}
+            if os.environ.get("AUDIT_BACKEND") == "cli":
+                import sys; sys.path.insert(0, str(B)); from audit import call_cli
+                try: res[fx] = call_cli("claude-fable-5-1", body["system"], body["messages"][0]["content"], "medium")
+                except Exception: pass
+                continue
             for att in range(4):
                 try:
                     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=json.dumps(body).encode(), headers={"x-api-key": KEY, "anthropic-version": "2023-06-01", "content-type": "application/json"})

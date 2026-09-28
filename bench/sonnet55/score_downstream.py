@@ -22,6 +22,10 @@ Return ONLY JSON: {{"defects": {{"<id>": {{"outcome": "flagged|raised|missed", "
 
 
 def call(system, user):
+    if os.environ.get("AUDIT_BACKEND") == "cli":
+        import sys; sys.path.insert(0, str(B)); from audit import call_cli
+        try: return call_cli("claude-fable-5-1", [{"type": "text", "text": system}], user, "medium")
+        except Exception: return None
     body = {"model": "claude-fable-5-1", "max_tokens": 16000, "output_config": {"effort": "medium"},
             "system": [{"type": "text", "text": system}], "messages": [{"role": "user", "content": user}]}
     for att in range(5):
@@ -50,7 +54,7 @@ for armdir in sorted(p for p in O.iterdir() if p.is_dir() and not p.name.startsw
         usage.update({k: meta.get(k, 0) for k in ("input_tokens", "output_tokens", "cache_read_input_tokens", "cache_creation_input_tokens")})
         if (fxdir / "wall_s").exists(): walls.append(int((fxdir / "wall_s").read_text().strip() or 0))
         jp = fxdir / "judge.json"
-        if not jp.exists() and KEY:
+        if not jp.exists() and (KEY or os.environ.get("AUDIT_BACKEND") == "cli"):
             vv = [{"id": f"V{i+1}", "text": x.get("text"), "verdict": x.get("verdict"), "evidence": (x.get("evidence") or "")[:300]} for i, x in enumerate(v.get("verdicts") or [])]
             res = call(SYS.format(defects="\n".join(f"- {d['id']}: {d['defect']}" for d in GT[fx])), "Verified claims (JSON):\n" + json.dumps(vv, ensure_ascii=False))
             if res: jp.write_text(json.dumps(res, indent=1))

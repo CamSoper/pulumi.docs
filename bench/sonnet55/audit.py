@@ -52,7 +52,33 @@ For EVERY extracted claim id, return a row [id, verdict, self_contained, atomic,
 Return ONLY JSON: {"rows": [["A1","valid",1,1,1,["I3"],0], ...]}  -- one row per extracted claim, no commentary."""
 
 
+def call_cli(model, system_blocks, user, effort):
+    """Same prompt through the Claude Code CLI (the user's subscription), tools off, system prompt replaced,
+    isolated HOME so no user settings / plugins / CLAUDE.md leak in."""
+    import subprocess, tempfile
+    sysf = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False); sysf.write("\n\n".join(b["text"] for b in system_blocks)); sysf.close()
+    env = {k: v for k, v in os.environ.items() if k not in ("CLAUDE_EFFORT", "CLAUDE_ADDITIONAL_DIRECTORIES", "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD", "MAX_THINKING_TOKENS", "ANTHROPIC_API_KEY")}
+    env["HOME"] = os.environ.get("AUDIT_HOME", "/tmp/claude-0/fakehome")
+    last = None
+    for attempt in range(4):
+        try:
+            r = subprocess.run(["claude", "-p", "--model", model, "--effort", effort, "--tools", "", "--system-prompt-file", sysf.name,
+                                "--output-format", "json"], input=user, capture_output=True, text=True, timeout=1200, env=env, cwd="/tmp")
+            d = json.loads(r.stdout)
+            if d.get("is_error"): raise ValueError(f"cli error: {str(d.get('result'))[:200]}")
+            for m, v in (d.get("modelUsage") or {}).items():
+                u = USAGE.setdefault(m, {})
+                for k in ("inputTokens", "outputTokens", "cacheReadInputTokens", "cacheCreationInputTokens", "costUSD"):
+                    u[k] = u.get(k, 0) + (v.get(k) or 0)
+            return json.loads(re.search(r"\{.*\}", d.get("result") or "", re.S).group(0))
+        except (json.JSONDecodeError, AttributeError, ValueError, subprocess.TimeoutExpired) as e:
+            last = e; time.sleep(10 * (attempt + 1))
+    raise RuntimeError(f"auditor CLI call failed: {last}")
+
+
 def call(model, system_blocks, user, effort, max_tokens=32000):
+    if os.environ.get("AUDIT_BACKEND") == "cli":
+        return call_cli(model, system_blocks, user, effort)
     body = {"model": model, "max_tokens": max_tokens, "output_config": {"effort": effort},
             "system": system_blocks, "messages": [{"role": "user", "content": user}]}
     last = None
@@ -144,7 +170,11 @@ def main():
         for f in cf.as_completed(jobs):
             try: f.result()
             except Exception as e: errs += 1; print("AUDIT ERROR", jobs[f], e, file=sys.stderr)
-    (O / f"usage-{a.tag}.json").write_text(json.dumps(USAGE, indent=1))
+    up = O / f"usage-{a.tag}-{os.environ.get('AUDIT_BACKEND', 'api')}.json"
+    prev = json.loads(up.read_text()) if up.exists() else {}
+    for m, u in USAGE.items():
+        for k, v in u.items(): prev.setdefault(m, {})[k] = prev.get(m, {}).get(k, 0) + v
+    up.write_text(json.dumps(prev, indent=1))
     print("audit done; errors:", errs, "usage:", json.dumps(USAGE))
 
 
