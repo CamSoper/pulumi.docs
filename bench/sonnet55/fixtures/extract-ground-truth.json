@@ -1,0 +1,280 @@
+{
+ "extract": {
+  "ex-21535": [
+   {
+    "id": "21535-F1",
+    "file": "content/docs/iac/guides/clouds/aws/elb.md",
+    "defect": "*\"When you create a listener, the `listener` property chooses smart defaults based on whether the listener is created against a load balancer or a target group.\"* \u2014 verdict: contradicted \u2014 awsx always attaches a listener to the load balancer; there is no target-group path. \u2014 \u2705 fixed in fe51417 \u2014 the target-group branch is gone; the sentence now reads \"When you create a listener against a load balancer, the `listener` property chooses smart defaults for you.\"",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21535-F2",
+    "file": "content/docs/iac/guides/clouds/aws/elb.md",
+    "defect": "*\"A target group is automatically created for each listener that doesn't override the default action.\"* \u2014 verdict: contradicted \u2014 awsx creates one shared default target group per load balancer, not one per listener. \u2014 \u2705 fixed in fe51417 \u2014 rewritten to \"The load balancer creates a single default target group, and every listener that doesn't override the default action forwards to it.\", so the shared group is now singular.",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21535-F3",
+    "file": "content/docs/iac/guides/clouds/aws/elb.md",
+    "defect": "*\"The `unhealthyThreshold` health check parameter specifies the number of consecutive failed health checks required before considering a target unhealthy, with\u2026\"* \u2014 verdict: contradicted \u2014 AWS documents the default as 2 for ALB target groups, not 3. \u2014 \u2705 fixed in fe51417 \u2014 `unhealthyThreshold` default corrected 3 \u2192 2, matching AWS's CreateTargetGroup reference (\"If the target group protocol is TCP, TCP_UDP, UDP, TLS, QUIC, TCP_QUIC, HTTP or HTTPS, the default is 2\"). The same push also corrected `healthyThreshold` 3 \u2192 5, which that page likewise documents as the default for every non-Lambda protocol; unqualified wording is right in both cases, so the suggested \"for ALB target groups\" hedge is",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21535-F4",
+    "file": "content/docs/iac/guides/clouds/aws/elb.md",
+    "defect": "*\"For NLBs, the `unhealthyThreshold` value must be the same as `healthyThreshold`.\"* \u2014 verdict: unverifiable \u2014 the NLB equality constraint couldn't be confirmed; cite a source or drop the sentence. \u2014 \u2705 fixed in fe51417 \u2014 the unverifiable NLB equality sentence was dropped, which was one of the two remedies the finding offered. Re-checked AWS's CreateTargetGroup reference: `UnhealthyThresholdCount` and `HealthyThresholdCount` are documented as independent settings for TCP/TLS/UDP/TCP_UDP with no equality constraint, so dropping it was the correct call.",
+    "provenance": "author-fixed after upstream v3 review"
+   }
+  ],
+  "ex-21438": [
+   {
+    "id": "21438-F1",
+    "file": "content/blog/infrastructure-as-code-tools/index.md",
+    "defect": "*\"AWS CDK's latest stable release is v2.268.0, released on 2026-09-02.\"* \u2014 verdict: contradicted. This PR's own license table two sections down says AWS CDK is on v2.270.0 (2026-09-17). Update the at-a-glance row to match. \u2014 \u2705 fixed in f85199b \u2014 at-a-glance AWS CDK row now v2.270.0 (2026-09-17), matching the governance table",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21438-F2",
+    "file": "content/blog/infrastructure-as-code-tools/index.md",
+    "defect": "*\"Terraform's latest stable release is v1.16.1, released on 2026-09-02.\"* \u2014 verdict: contradicted. This PR's own license table two sections down says Terraform is on v1.16.3 (2026-09-16). Update the at-a-glance row to match. \u2014 \u2705 fixed in f85199b \u2014 at-a-glance Terraform row now v1.16.3 (2026-09-16), matching the governance table",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21438-F4",
+    "file": "content/blog/infrastructure-as-code-tools/index.md",
+    "defect": "*\"Latest stable release (as of 2026-09-21)\"* \u2014 the at-a-glance table's new column header promises figures current to 2026-09-21, but four of its rows were not refreshed and still carry July/August or 2026-09-02 versions. Either refresh the rows or date the header honestly. \u2014 \u2705 fixed in f85199b \u2014 every at-a-glance release cell now matches the governance table (Pulumi v3.263.0, Terraform v1.16.3, AWS CDK v2.270.0, Bicep v0.47.16, Kubernetes v1.37.0, Crossplane v2.4.1, OpenTofu v1.12.6), and a dated-snapshot sentence backs the 'as of 2026-09-21' header",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21438-F5",
+    "file": "content/blog/infrastructure-as-code-tools/index.md",
+    "defect": "*\"Latest stable release: v3.263.0 (2026-09-16)\"* \u2014 Pulumi's own version is stated three times on this page and the at-a-glance row disagrees with the other two (v3.261.0 vs v3.263.0). Same class of problem as F4; fix the row. \u2014 \u2705 fixed in f85199b \u2014 at-a-glance Pulumi row now v3.263.0 (2026-09-16), matching the governance table and the \u00a71 header",
+    "provenance": "author-fixed after upstream v3 review"
+   }
+  ],
+  "ex-21693": [
+   {
+    "id": "21693-F1",
+    "file": "content/docs/esc/vs/vault.md",
+    "defect": "*\"HashiCorp Vault does not provide the ability to see existing secrets.\"* \u2014 verdict: contradicted; Vault reads secret values back by path \u2014 \u2705 fixed in b5c8574",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21693-F2",
+    "file": "content/docs/esc/vs/vault.md",
+    "defect": "*\"Configuring HashiCorp Vault as an OIDC provider is only available from the CLI.\"* \u2014 verdict: contradicted; Vault's UI configures this too \u2014 \u2705 fixed in b5c8574",
+    "provenance": "author-fixed after upstream v3 review"
+   }
+  ],
+  "ex-21614": [
+   {
+    "id": "21614-F5",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"Alphabet raised its full-year 2026 capital expenditure guidance to $195-205 billion, up from an earlier $180-190 billion estimate that had itself already\u2026\"* \u2014 the cited link is an Alphabet earnings-call event landing page carrying no figures, so none of the numbers in this bullet are confirmed. \u2014 \u2705 fixed in 2f1c8e1 \u2014 citation repointed from the earnings-call landing page to CNBC's Q2 2026 Alphabet coverage; verified independently that Google Cloud rose 82% to $24.8B, backlog hit $514B from $106B a year earlier, and capex guidance moved to $195\u2013205B from $180\u2013190B",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21614-F6",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"Oracle's remaining performance obligations growth was driven by large-scale AI infrastructure contracts, including prepaid and customer-supplied GPU deals\u2026\"* \u2014 the Oracle release fetched as boilerplate only, so the RPO attribution and the $75 billion GPU-deal figure are unconfirmed. \u2014 \u2705 fixed in 2f1c8e1 \u2014 the $75B prepaid/customer-supplied GPU figure now cites the Q4 FY2026 earnings-call transcript alongside the press release; verified independently that $638B RPO at +363% is in the release and that the $75B total was stated on the call by co-CEO Magouyrk",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21614-F8",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"According to Gartner, total worldwide AI spending, spanning software, hardware, and services, is forecast to reach $2.59 trillion in 2026, a 47% increase\u2026\"* \u2014 the Gartner press release returns 403 to automated requests, so the $2.59 trillion and 47% figures are unconfirmed. \u2014 \u2705 fixed in 2f1c8e1 \u2014 figure updated to $2.7 trillion at 49.5% growth citing Gartner's 2026-09-16 release; verified independently that the release states total worldwide AI spending (software, hardware, services) of $2.7T in 2026, up 49.5%, so the scope now matches the sentence",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21614-F9",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"As AI becomes embedded across cloud-native systems, DevSecOps is entering a new era. [Gartner predicts](https://www.gartner.com/en/newsroom/press-releases/2026\u2026\"* \u2014 the Gartner press release returns 403, so the \"over 50% by 2028\" and the ~$4.8 billion 2027 spend figure are unconfirmed. \u2014 \u2705 fixed in 2f1c8e1 \u2014 split into two citations; verified independently that Gartner's 2026-03-17 release does contain \"by 2028, more than 50% of enterprises will use AI security platforms to secure third-party AI service usage and protect custom-built AI applications,\" and the new 2026-08-26 release states the ~$4.8B 2027 securing-AI market at 68.7% growth",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21614-F10",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"According to Gartner, by 2026, 80% of large software engineering organizations will establish platform engineering teams as internal providers of reusable\u2026\"* \u2014 the Gartner article returns 403, so the widely-repeated \"80% by 2026\" figure is unconfirmed here; the sentence also keeps a future tense for a year that has now arrived. \u2014 \u2705 fixed in 2f1c8e1 \u2014 recast to \"Gartner predicted \u2026 would establish,\" resolving the future tense for an arrived year; verified independently that the 80%-by-2026 platform-engineering-teams prediction is Gartner's (up from 45% in 2022)",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21614-F16",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"The CNCF's Q3 2025 State of Cloud Native Development report finds that 30% of backend developers are now using Kubernetes directly, down from a peak of 36%\u2026\"* \u2014 the cited PDF could not be read as text, so the 41%, 30%, and 36% figures and the maturity attribution are unconfirmed. \u2014 \u2705 fixed in 2f1c8e1 \u2014 the post's paraphrase is replaced by the report's own quoted language (\"due to the maturity of the technology\"), so the interpretation is no longer put in the report's mouth; the three figures could not be re-checked here (the PDF is not text-extractable in this environment) and nothing contradicts them",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21614-F19",
+    "file": "content/blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond/index.md",
+    "defect": "*\"Manual approval for agent-driven production changes remains close to universal today, per Pulumi's 2026 survey findings.\"* \u2014 verdict: framing-drift; framing: overclaim \u2014 source reports 62% \"with approval\" vs 19% \"autonomously\" (a majority but not universal); claim states manual approval is \"close to universal today.\" Pulumi's own survey reports 62% of production agent changes go through approval against 19% run autonomously \u2014 a clear majority, but not \"close to universal.\" Confirm the author narrows the phrasing to the reported split, e.g. \"yet 62% of teams still gate those changes behind manual approval, against 19% who let agents run autonomously.\" \u2014 \u2705 fixed in 2f1c8e1 \u2014 \"manual approval",
+    "provenance": "author-fixed after upstream v3 review"
+   }
+  ],
+  "ex-21651": [
+   {
+    "id": "21651-F3",
+    "file": "content/blog/sst-built-on-pulumi/index.md",
+    "defect": "*\"SST v3's Ion architecture has been the only supported SST architecture since it shipped in mid-2024.\"* \u2014 \u274c contradicted: SST's own announcement says v2 keeps getting updates and PRs after v3 shipped, so \"the only supported architecture\" overstates it. \u2014 \u2705 fixed in b00c651 \u2014 now reads \"is the architecture SST develops on today\"",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21651-F12",
+    "file": "content/blog/sst-built-on-pulumi/index.md",
+    "defect": "Block quote attributed to Kiryl Anoshka's \"SST ditches AWS CDK. Time to move on to Ion\" could not be matched against the live page. Confirm it is verbatim. \u2014 \u2705 fixed in b00c651 \u2014 quote now matches the dev.to page verbatim (lowercase, ellipsis-led): \"...you may notice right away the imports from Pulumi.\"",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21651-F13",
+    "file": "content/blog/sst-built-on-pulumi/index.md",
+    "defect": "Quoted sentence attributed to Nitric's docs could not be matched, and the bullet links to `nitric.io` rather than to the page the quote came from. Confirm the wording and cite the exact page. \u2014 \u2705 fixed in b00c651 \u2014 link now points at nitric.io/docs/get-started/foundations/deployment, which carries the quoted sentence verbatim",
+    "provenance": "author-fixed after upstream v3 review"
+   },
+   {
+    "id": "21651-F16",
+    "file": "content/blog/sst-built-on-pulumi/index.md",
+    "defect": "The claim that `anomalyco/opencode` now carries more GitHub stars than SST could not be confirmed. Confirm the comparison, or soften it. \u2014 \u2705 fixed in b00c651 \u2014 footnote now cites both counts; GitHub API confirms anomalyco/opencode 207,670 vs anomalyco/sst 26,297, so the comparison holds",
+    "provenance": "author-fixed after upstream v3 review"
+   }
+  ],
+  "ex-anchor-terraform-next-steps": [
+   {
+    "id": "20348-getOutput",
+    "file": "content/docs/iac/get-started/terraform/next-steps.md",
+    "defect": "The page presents `terraform.state.S3Reference` / `.getOutput(\"...\")` as a valid Pulumi API for reading Terraform/stack outputs; it is fabricated (fixed in merged pulumi/docs#20348).",
+    "provenance": "merged fix pulumi/docs#20348"
+   },
+   {
+    "id": "20348-events",
+    "file": "content/docs/iac/get-started/terraform/next-steps.md",
+    "defect": "'Community Events: Speak at meetups and conferences' \u2014 the linked events page hosts workshops/demos, not a venue to sign up to speak (fixed in pulumi/docs#20348).",
+    "provenance": "merged fix pulumi/docs#20348"
+   }
+  ],
+  "ex-anchor-packages-repository-strategy": [
+   {
+    "id": "20348-gitref",
+    "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+    "defect": "'Source-based packages referenced directly from a Pulumi.yaml file can use any Git ref (tag, branch, or commit)' \u2014 only a semver tag or commit hash is accepted; branches error out (fixed in pulumi/docs#20348).",
+    "provenance": "merged fix pulumi/docs#20348"
+   }
+  ]
+ },
+ "readthrough": {
+  "rt-fork197": [
+   {
+    "id": "197-setup",
+    "mode": "missing-step/prerequisite-inversion",
+    "defect": "Procedure starts by opening an environment that was never created, with no install/login step: the environment (and esc CLI auth) is used before it exists \u2014 missing setup step / prerequisite inversion.",
+    "provenance": "planted (fork PR #197)"
+   },
+   {
+    "id": "197-targetfile",
+    "mode": "missing-step",
+    "defect": "Step 2 says to add an `environment` block 'to your stack' without naming the file (Pulumi.<stack>.yaml), so the step can't be followed as written.",
+    "provenance": "June 2026-06-18 lane finding, validated true positive"
+   },
+   {
+    "id": "197-refdrift",
+    "mode": "orphaned-structure/missing-step",
+    "defect": "Step 1 opens `my-org/my-project/dev` but Step 2 imports `my-project/dev` \u2014 the reference drifts between steps.",
+    "provenance": "June 2026-06-18 lane finding, validated true positive"
+   }
+  ],
+  "rt-fork198": [
+   {
+    "id": "198-theory",
+    "mode": "purpose-mismatch/buried-outcome",
+    "defect": "A task page ('Configure team access') that is mostly conceptual theory/history, with the actual three-step procedure buried at the very bottom \u2014 should be split / restructured (reconception).",
+    "provenance": "planted (fork PR #198)"
+   },
+   {
+    "id": "198-rolegap",
+    "mode": "missing-step",
+    "defect": "The procedure tells the reader to pick a role but never lists or explains which roles exist, so the step can't be completed.",
+    "provenance": "June 2026-06-18 lane finding, validated true positive"
+   }
+  ],
+  "rt-fork190": [
+   {
+    "id": "190-apt",
+    "mode": "missing-step",
+    "defect": "The cloud-init/user-data script installs packages with apt on an Amazon Linux AMI, which only has yum/dnf \u2014 the procedure can't work as written.",
+    "provenance": "June 2026-06-18 hold-out, validated real"
+   },
+   {
+    "id": "190-keypair",
+    "mode": "missing-step/prerequisite-inversion",
+    "defect": "The post uses an EC2 key pair / private-key file (for SSH) that is never created or explained beforehand.",
+    "provenance": "June 2026-06-18 hold-out, validated real"
+   }
+  ],
+  "rt-fork191": [
+   {
+    "id": "191-redundancy",
+    "mode": "self-redundancy",
+    "defect": "Two sections (\u00a78 and \u00a714) cover the same logging/observability tools, repeating each other.",
+    "provenance": "June 2026-06-18 hold-out, validated real"
+   },
+   {
+    "id": "191-tldr",
+    "mode": "orphaned-structure",
+    "defect": "The TL;DR/summary list promises the full set of numbered sections (20) but skips/mismatches one of them.",
+    "provenance": "June 2026-06-18 hold-out, validated real"
+   },
+   {
+    "id": "191-callout",
+    "mode": "self-redundancy",
+    "defect": "A callout/note duplicates content already stated in the surrounding section.",
+    "provenance": "June 2026-06-18 hold-out, validated real"
+   }
+  ],
+  "rt-cr21818": [
+   {
+    "id": "I1",
+    "mode": "buried-outcome/missing-step",
+    "defect": "The lifecycle step to remove the `import` resource option after the import succeeds is buried / not presented where the reader needs it.",
+    "provenance": "content-review adjudication 2026-09-22 + upstream fix #21818"
+   },
+   {
+    "id": "I2",
+    "mode": "missing-step",
+    "defect": "The procedure never tells the reader to run `pulumi up` to perform the import.",
+    "provenance": "content-review adjudication 2026-09-22 + upstream fix #21818"
+   },
+   {
+    "id": "I3",
+    "mode": "orphaned-structure",
+    "defect": "An orphaned HCL import-blocks mention/section without a pointer to the HCL reference's import-blocks section.",
+    "provenance": "content-review adjudication 2026-09-22"
+   },
+   {
+    "id": "I4",
+    "mode": "prerequisite-inversion",
+    "defect": "The region-configuration prerequisite is explained after the example that already depends on it.",
+    "provenance": "upstream fix #21818 (human-merged)"
+   },
+   {
+    "id": "I5",
+    "mode": "prerequisite-inversion",
+    "defect": "The auto-naming explanation comes after the output it explains.",
+    "provenance": "upstream fix #21818 (human-merged)"
+   }
+  ],
+  "rt-cr21690": [
+   {
+    "id": "R2",
+    "mode": "self-redundancy",
+    "defect": "A block of four commands repeats examples already given earlier on the page.",
+    "provenance": "content-review adjudication 2026-09-22 + upstream fix #21690"
+   }
+  ],
+  "rt-cr21662": [
+   {
+    "id": "U2",
+    "mode": "self-redundancy",
+    "defect": "The destroy / --target-dependents rule is stated twice (around L80 and L116).",
+    "provenance": "content-review adjudication 2026-09-22 + upstream fix #21662"
+   }
+  ]
+ }
+}
