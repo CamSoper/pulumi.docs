@@ -1,0 +1,147 @@
+{
+ "disabled": {
+  "ok": false,
+  "code": 400,
+  "err": "{\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"\\\"thinking.type.disabled\\\" is not supported for this model. Use \\\"thinking.type.between_tools\\\" for the lowest thinking setting, or \\\"thinking.type.adaptive\\\" and \\\"output_config.effort\\\" to control thinking behavior.\"},\"request_id\":\"req_011CfWJt8utH8Cnv7KbStbpC\"}"
+ },
+ "between_tools": {
+  "ok": true,
+  "stop": "tool_use",
+  "usage": {
+   "input_tokens": 381,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 55,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global"
+  },
+  "types": [
+   "text",
+   "tool_use"
+  ]
+ },
+ "between_tools_low": {
+  "ok": true,
+  "stop": "tool_use",
+  "usage": {
+   "input_tokens": 381,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 56,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global"
+  },
+  "types": [
+   "text",
+   "tool_use"
+  ]
+ },
+ "adaptive_low": {
+  "ok": true,
+  "stop": "tool_use",
+  "usage": {
+   "input_tokens": 382,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 45,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global"
+  },
+  "types": [
+   "tool_use"
+  ]
+ },
+ "adaptive_high": {
+  "ok": true,
+  "stop": "tool_use",
+  "usage": {
+   "input_tokens": 382,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 45,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global"
+  },
+  "types": [
+   "tool_use"
+  ]
+ },
+ "forced_tool": {
+  "ok": false,
+  "code": 400,
+  "err": "{\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"tool_choice: type \\\"tool\\\" and \\\"any\\\" are not supported for this model.\"},\"request_id\":\"req_011CfWJtvZGBNZ3BU4qE554k\"}"
+ },
+ "auto_tool": {
+  "ok": true,
+  "stop": "tool_use",
+  "usage": {
+   "input_tokens": 381,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 74,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global"
+  },
+  "types": [
+   "text",
+   "tool_use"
+  ]
+ },
+ "s5_control": {
+  "ok": true,
+  "stop": "tool_use",
+  "usage": {
+   "input_tokens": 571,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 38,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global"
+  },
+  "types": [
+   "tool_use"
+  ]
+ }
+}
