@@ -1,0 +1,34 @@
+{
+ "defects": {
+  "21438-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4"
+   ],
+   "why": "V4 asserts v2.268.0 as latest, contradicted with newer releases cited"
+  },
+  "21438-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V5",
+    "V16"
+   ],
+   "why": "V5 contradicts v1.16.1; V16 notes at-a-glance inconsistency"
+  },
+  "21438-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4",
+    "V5",
+    "V6",
+    "V16"
+   ],
+   "why": "Stale at-a-glance rows contradicted; V16 notes internal inconsistency"
+  },
+  "21438-F5": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance v3.261.0 Pulumi row"
+  }
+ }
+}

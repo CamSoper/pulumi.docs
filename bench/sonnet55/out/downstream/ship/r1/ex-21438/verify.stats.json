@@ -1,0 +1,990 @@
+{
+ "calls": 72,
+ "http_errors": {},
+ "stop_reasons": {
+  "tool_use": 72
+ },
+ "refusals": [],
+ "no_tool_use_when_tools": 0,
+ "usage": {
+  "input_tokens": 119600,
+  "output_tokens": 24813,
+  "cache_read_input_tokens": 650651,
+  "cache_creation_input_tokens": 268634,
+  "thinking_tokens": 6073
+ },
+ "rewrites": {},
+ "per_call": [
+  {
+   "stop": "tool_use",
+   "out": 145,
+   "in": 311,
+   "cr": 0,
+   "cw": 7063,
+   "think": 67,
+   "s": 2.5,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 162,
+   "in": 285,
+   "cr": 0,
+   "cw": 7063,
+   "think": 84,
+   "s": 2.7,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 153,
+   "in": 293,
+   "cr": 0,
+   "cw": 7063,
+   "think": 53,
+   "s": 2.7,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 91,
+   "in": 292,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 3.3,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 177,
+   "in": 260,
+   "cr": 0,
+   "cw": 7063,
+   "think": 85,
+   "s": 3.6,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 146,
+   "in": 317,
+   "cr": 0,
+   "cw": 7063,
+   "think": 66,
+   "s": 3.6,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 111,
+   "in": 290,
+   "cr": 7063,
+   "cw": 0,
+   "think": 34,
+   "s": 3.7,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 183,
+   "in": 276,
+   "cr": 7063,
+   "cw": 0,
+   "think": 82,
+   "s": 4.1,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 375,
+   "in": 477,
+   "cr": 0,
+   "cw": 8997,
+   "think": 47,
+   "s": 4.4,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 285,
+   "in": 283,
+   "cr": 7063,
+   "cw": 0,
+   "think": 106,
+   "s": 4.4,
+   "types": [
+    "thinking",
+    "tool_use",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 304,
+   "in": 393,
+   "cr": 0,
+   "cw": 8997,
+   "think": 51,
+   "s": 5.0,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 389,
+   "in": 3611,
+   "cr": 7063,
+   "cw": 0,
+   "think": 69,
+   "s": 4.2,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 341,
+   "in": 401,
+   "cr": 7063,
+   "cw": 0,
+   "think": 63,
+   "s": 3.6,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 405,
+   "in": 421,
+   "cr": 8997,
+   "cw": 18893,
+   "think": 0,
+   "s": 7.4,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 395,
+   "in": 808,
+   "cr": 7063,
+   "cw": 0,
+   "think": 50,
+   "s": 4.0,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 320,
+   "in": 3772,
+   "cr": 7063,
+   "cw": 0,
+   "think": 54,
+   "s": 3.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 479,
+   "in": 610,
+   "cr": 7063,
+   "cw": 0,
+   "think": 102,
+   "s": 4.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 292,
+   "in": 412,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 3.7,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 606,
+   "in": 426,
+   "cr": 8997,
+   "cw": 17985,
+   "think": 129,
+   "s": 9.2,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 560,
+   "in": 436,
+   "cr": 8997,
+   "cw": 18391,
+   "think": 106,
+   "s": 9.6,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 138,
+   "in": 286,
+   "cr": 7063,
+   "cw": 0,
+   "think": 60,
+   "s": 2.7,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 167,
+   "in": 287,
+   "cr": 7063,
+   "cw": 0,
+   "think": 87,
+   "s": 2.3,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 130,
+   "in": 298,
+   "cr": 7063,
+   "cw": 0,
+   "think": 54,
+   "s": 2.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 231,
+   "in": 3803,
+   "cr": 7063,
+   "cw": 0,
+   "think": 132,
+   "s": 6.4,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 461,
+   "in": 794,
+   "cr": 7063,
+   "cw": 0,
+   "think": 151,
+   "s": 6.5,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 77,
+   "in": 287,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 1.3,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 571,
+   "in": 435,
+   "cr": 17994,
+   "cw": 8502,
+   "think": 82,
+   "s": 6.9,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 720,
+   "in": 451,
+   "cr": 8997,
+   "cw": 26123,
+   "think": 153,
+   "s": 12.2,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "server_tool_use",
+    "web_search_tool_result",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 463,
+   "in": 428,
+   "cr": 17994,
+   "cw": 8365,
+   "think": 63,
+   "s": 8.0,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 813,
+   "in": 437,
+   "cr": 28192,
+   "cw": 28304,
+   "think": 232,
+   "s": 12.4,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 91,
+   "in": 4097,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 2.1,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 379,
+   "in": 426,
+   "cr": 17994,
+   "cw": 7665,
+   "think": 0,
+   "s": 5.8,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 135,
+   "in": 286,
+   "cr": 7063,
+   "cw": 0,
+   "think": 57,
+   "s": 2.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 231,
+   "in": 582,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 2.8,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 134,
+   "in": 288,
+   "cr": 7063,
+   "cw": 0,
+   "think": 56,
+   "s": 1.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 134,
+   "in": 287,
+   "cr": 7063,
+   "cw": 0,
+   "think": 58,
+   "s": 1.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 785,
+   "in": 3916,
+   "cr": 7063,
+   "cw": 0,
+   "think": 377,
+   "s": 9.2,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 487,
+   "in": 578,
+   "cr": 7063,
+   "cw": 0,
+   "think": 128,
+   "s": 5.2,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 134,
+   "in": 290,
+   "cr": 7063,
+   "cw": 0,
+   "think": 54,
+   "s": 3.3,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 484,
+   "in": 441,
+   "cr": 17994,
+   "cw": 8190,
+   "think": 37,
+   "s": 8.3,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 422,
+   "in": 518,
+   "cr": 7063,
+   "cw": 0,
+   "think": 91,
+   "s": 4.3,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 89,
+   "in": 2532,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 1.8,
+   "types": [
+    "text",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 766,
+   "in": 431,
+   "cr": 17994,
+   "cw": 9620,
+   "think": 252,
+   "s": 8.6,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 458,
+   "in": 785,
+   "cr": 7063,
+   "cw": 0,
+   "think": 133,
+   "s": 4.8,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 103,
+   "in": 324,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 2.8,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 167,
+   "in": 287,
+   "cr": 7063,
+   "cw": 0,
+   "think": 89,
+   "s": 3.5,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 210,
+   "in": 575,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 2.3,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 352,
+   "in": 782,
+   "cr": 7063,
+   "cw": 0,
+   "think": 43,
+   "s": 4.2,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 126,
+   "in": 302,
+   "cr": 7063,
+   "cw": 0,
+   "think": 22,
+   "s": 2.5,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 383,
+   "in": 454,
+   "cr": 17994,
+   "cw": 7566,
+   "think": 0,
+   "s": 6.1,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 100,
+   "in": 1308,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 2.2,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 813,
+   "in": 430,
+   "cr": 17994,
+   "cw": 8246,
+   "think": 236,
+   "s": 10.8,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 277,
+   "in": 279,
+   "cr": 7063,
+   "cw": 0,
+   "think": 184,
+   "s": 3.3,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 90,
+   "in": 3775,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 1.7,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 446,
+   "in": 2775,
+   "cr": 7063,
+   "cw": 0,
+   "think": 100,
+   "s": 4.4,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 146,
+   "in": 4243,
+   "cr": 7063,
+   "cw": 0,
+   "think": 46,
+   "s": 3.0,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 537,
+   "in": 461,
+   "cr": 17994,
+   "cw": 9105,
+   "think": 76,
+   "s": 8.0,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 122,
+   "in": 6885,
+   "cr": 7063,
+   "cw": 0,
+   "think": 16,
+   "s": 2.3,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 885,
+   "in": 7122,
+   "cr": 7063,
+   "cw": 0,
+   "think": 339,
+   "s": 10.1,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 531,
+   "in": 440,
+   "cr": 17994,
+   "cw": 8051,
+   "think": 52,
+   "s": 7.8,
+   "types": [
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 300,
+   "in": 769,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 6.0,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 422,
+   "in": 1635,
+   "cr": 7063,
+   "cw": 0,
+   "think": 57,
+   "s": 4.6,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 136,
+   "in": 5270,
+   "cr": 7063,
+   "cw": 0,
+   "think": 61,
+   "s": 2.4,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 531,
+   "in": 755,
+   "cr": 7063,
+   "cw": 0,
+   "think": 160,
+   "s": 7.9,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 1022,
+   "in": 438,
+   "cr": 58510,
+   "cw": 22295,
+   "think": 334,
+   "s": 15.7,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 800,
+   "in": 469,
+   "cr": 17994,
+   "cw": 8024,
+   "think": 348,
+   "s": 9.6,
+   "types": [
+    "thinking",
+    "server_tool_use",
+    "web_search_tool_result",
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 513,
+   "in": 10226,
+   "cr": 7063,
+   "cw": 0,
+   "think": 143,
+   "s": 5.8,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 531,
+   "in": 421,
+   "cr": 8997,
+   "cw": 0,
+   "think": 173,
+   "s": 6.1,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 195,
+   "in": 5493,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 5.0,
+   "types": [
+    "tool_use",
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 93,
+   "in": 5838,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 3.3,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 102,
+   "in": 8990,
+   "cr": 7063,
+   "cw": 0,
+   "think": 0,
+   "s": 17.4,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 461,
+   "in": 11517,
+   "cr": 7063,
+   "cw": 0,
+   "think": 89,
+   "s": 5.6,
+   "types": [
+    "thinking",
+    "tool_use"
+   ]
+  }
+ ]
+}

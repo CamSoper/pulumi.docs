@@ -1,0 +1,32 @@
+{
+ "defects": {
+  "21535-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V23"
+   ],
+   "why": "V23 contradicted; evidence shows listeners only attach to load balancer, never target group."
+  },
+  "21535-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V35"
+   ],
+   "why": "V35 contradicted; evidence shows exactly one shared default target group per LB."
+  },
+  "21535-F3": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V46"
+   ],
+   "why": "V46 contradicted covers default 3; evidence emphasizes NLB rule, default reasoning truncated."
+  },
+  "21535-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V46"
+   ],
+   "why": "V46 contradicted; evidence explicitly says NLB equality rule doesn't hold per AWS."
+  }
+ }
+}

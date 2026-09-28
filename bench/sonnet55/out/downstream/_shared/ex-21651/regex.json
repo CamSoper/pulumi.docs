@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "line_range": "L181",
+      "text": "- For a closer look at the engine mechanics behind this migration, see [SST Runs on the Pulumi Engine: What It Means to Build on Pulumi](/blog/sst-built-on-pulumi/)",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/blog/sst-built-on-pulumi/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L3",
+      "text": "date: 2026-09-16",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L26",
+      "text": "When SST rebuilt its deployment engine for v3, it didn't write a new one. `sst deploy` now runs on an embedded Pulumi engine that calls Terraform-bridged providers to make the actual cloud API calls \u2014 no CDK, no CloudFormation, no Pulumi account or Pulumi Cloud dependency required.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L30",
+      "text": "We wrote up what \"built on the Pulumi engine\" actually means mechanically, why a framework would rather embed an engine than write one, and where SST stands today (still shipping, team's public attention has broadened to include an AI coding agent called opencode).",
+      "type": "attribution",
+      "confidence": "high",
+      "source_hint": "We"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L41",
+      "text": "That's what the SST team has said about their own architecture, repeatedly, since the rewrite shipped. This post covers what \"built on the Pulumi engine\" means mechanically, why a framework would choose to embed an engine instead of writing one, who else has made the same choice, and where SST stand",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L45",
+      "text": "[SST](https://sst.dev/) is an open source TypeScript framework, from the team formerly known as Serverless Stack, for building and deploying full-stack applications to AWS and more than 150 other providers. You define your app's infrastructure and code together in a single `sst.config.ts` file, usin",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://sst.dev/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L47",
+      "text": "Through 2023, SST's provisioning layer was built directly on AWS CDK and CloudFormation. In late 2023 the team began a rewrite, code-named Ion, that replaced that entire deployment layer. Ion shipped as SST v3 in mid-2024 and has been the only supported architecture since.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L47",
+      "text": "Through 2023, SST's provisioning layer was built directly on AWS CDK and CloudFormation. In late 2023 the team began a rewrite, code-named Ion, that replaced that entire deployment layer. Ion shipped as SST v3 in mid-2024 and has been the only supported architecture since.",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L53",
+      "text": "> \"Ion is a code name for a new engine for deploying SST applications. The constructs (or components) are defined using Terraform providers and deployed using Pulumi; as opposed to CDK and CloudFormation (CFN).\" \u2014 [SST, \"Moving away from CDK\"](https://sst.dev/blog/moving-away-from-cdk)",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://sst.dev/blog/moving-away-from-cdk"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L53",
+      "text": "> \"Ion is a code name for a new engine for deploying SST applications. The constructs (or components) are defined using Terraform providers and deployed using Pulumi; as opposed to CDK and CloudFormation (CFN).\" \u2014 [SST, \"Moving away from CDK\"](https://sst.dev/blog/moving-away-from-cdk)",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L55",
+      "text": "> \"When you run `sst deploy`, those resources make a call to an embedded Pulumi engine that makes a call to their bridged Terraform provider, and this makes the AWS SDK calls to create your resources.\" \u2014 [SST, \"Moving away from CDK\"](https://sst.dev/blog/moving-away-from-cdk)",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://sst.dev/blog/moving-away-from-cdk"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L57",
+      "text": "> \"SST uses Pulumi behind the scenes for the providers and the deployment engine. And Terraform's providers are bridged through Pulumi.\" \u2014 [SST docs, \"What is SST\"](https://sst.dev/docs/)",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://sst.dev/docs/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L59",
+      "text": "That's confirmed outside SST's own writing, too. Independent developers who've compared SST, Terraform, and Pulumi directly describe the same architecture:",
+      "type": "attribution",
+      "confidence": "high",
+      "source_hint": "That"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L61",
+      "text": "> \"SST uses the Pulumi engine under the hood to manage and provision resources, and lets users write Pulumi code in addition to using SST's constructs, enabling resources with no associated SST constructs to still be defined and deployed.\" \u2014 [Gautier Blandin, \"Terraform, Pulumi, SST: a tradeoff anal",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://www.gautierblandin.com/articles/terraform-pulumi-sst-tradeoff-analysis"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L63",
+      "text": "> \"You may notice right away the imports from Pulumi. It means the whole deployment process will be built on Pulumi now.\" \u2014 [Kiryl Anoshka, \"SST ditches AWS CDK. Time to move on to Ion\"](https://dev.to/fively/sst-ditches-aws-cdk-time-to-move-on-to-ion-19pi)",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://dev.to/fively/sst-ditches-aws-cdk-time-to-move-on-to-ion-19pi"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L74",
+      "text": "| Terraform-bridged providers translate each resource into cloud API calls | [Pulumi's Terraform bridge](https://github.com/pulumi/pulumi-terraform-bridge) |",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://github.com/pulumi/pulumi-terraform-bridge"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L83",
+      "text": "[Pulumi's Terraform bridge](https://github.com/pulumi/pulumi-terraform-bridge) is Apache-2.0 licensed and built specifically to let projects like SST reuse that provider surface \u2014 Terraform's ecosystem of providers, adapted for the Pulumi engine \u2014 instead of writing and maintaining their own. Pulumi",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://github.com/pulumi/pulumi-terraform-bridge"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L89",
+      "text": "SST isn't the only project to make this choice.",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L91",
+      "text": "- **[Nitric](https://nitric.io/)**, a cloud-agnostic application framework, states in its own docs that \"all of the direct deployment providers use Pulumi under the hood for their deployments,\" with official Nitric providers built directly on Pulumi's AWS, GCP, and Azure providers.",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://nitric.io/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L92",
+      "text": "- **[Defang](https://github.com/DefangLabs/pulumi-defang)**, which deploys Docker Compose applications to the cloud, describes its Pulumi provider as taking \"a Compose file, translates it to a Pulumi program, and runs `pulumi up`\" to provision the result.",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://github.com/DefangLabs/pulumi-defang"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L100",
+      "text": "- **SST users are not Pulumi Cloud customers.** SST's state lives in your own S3 bucket, not in Pulumi's hosted service, and SST doesn't require a Pulumi account to work.",
+      "type": "attribution",
+      "confidence": "high",
+      "source_hint": "SST's"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L106",
+      "text": "SST continues to ship: the latest release, v4.17.1, went out in July 2026, and the `sst` package on npm is pulling roughly 796,000 downloads a week as of this writing.[^npm-downloads] The team's public attention has also broadened. SST's own team page credits the same team behind [opencode](https://",
+      "type": "version",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L106",
+      "text": "SST continues to ship: the latest release, v4.17.1, went out in July 2026, and the `sst` package on npm is pulling roughly 796,000 downloads a week as of this writing.[^npm-downloads] The team's public attention has also broadened. SST's own team page credits the same team behind [opencode](https://",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://opencode.ai/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L106",
+      "text": "SST continues to ship: the latest release, v4.17.1, went out in July 2026, and the `sst` package on npm is pulling roughly 796,000 downloads a week as of this writing.[^npm-downloads] The team's public attention has also broadened. SST's own team page credits the same team behind [opencode](https://",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L114",
+      "text": "It's also worth knowing what's available if your needs grow past a single app: [Pulumi Cloud](/docs/iac/concepts/pulumi-cloud/) for cross-team visibility into infrastructure state, [policy as code](/docs/iac/concepts/policy/) for guardrails your platform team can enforce centrally, and [components](",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/concepts/pulumi-cloud/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L120",
+      "text": "Yes. Since SST v3 (the Ion rewrite, shipped mid-2024), `sst deploy` runs through an embedded Pulumi engine that calls Terraform-bridged providers to make the underlying cloud API calls, replacing SST's earlier architecture on AWS CDK and CloudFormation.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L128",
+      "text": "Not directly. SST's components are defined using Terraform providers, but those providers are bridged through the Pulumi engine rather than run through Terraform itself. SST doesn't invoke the Terraform CLI or write Terraform state.",
+      "type": "attribution",
+      "confidence": "high",
+      "source_hint": "Terraform"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L136",
+      "text": "Yes. SST shipped v4.17.1 in July 2026 and the `sst` package continues to see roughly 796,000 weekly downloads on npm. The team's public attention has broadened to include opencode, an open source AI coding agent, but that hasn't changed SST's release cadence or its dependency on the Pulumi engine.",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L136",
+      "text": "Yes. SST shipped v4.17.1 in July 2026 and the `sst` package continues to see roughly 796,000 weekly downloads on npm. The team's public attention has broadened to include opencode, an open source AI coding agent, but that hasn't changed SST's release cadence or its dependency on the Pulumi engine.",
+      "type": "version",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L136",
+      "text": "Yes. SST shipped v4.17.1 in July 2026 and the `sst` package continues to see roughly 796,000 weekly downloads on npm. The team's public attention has broadened to include opencode, an open source AI coding agent, but that hasn't changed SST's release cadence or its dependency on the Pulumi engine.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L144",
+      "text": "- [AWS CDK vs Pulumi: Why SST Chose Pulumi](/blog/aws-cdk-vs-pulumi-why-sst-switched/) \u2014 the fuller story of SST's move off CDK, told from SST's side",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/blog/aws-cdk-vs-pulumi-why-sst-switched/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L145",
+      "text": "- [How Pulumi IaC Works](/docs/iac/guides/basics/how-pulumi-works/) \u2014 the engine mechanics referenced throughout this post",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/basics/how-pulumi-works/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L146",
+      "text": "- [Introducing: Support For Using Any Terraform Provider with Pulumi](/blog/any-terraform-provider/) \u2014 the bridge SST and others build on",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/blog/any-terraform-provider/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L147",
+      "text": "- [Automation API](/docs/iac/concepts/automation-api/) \u2014 how other tools embed Pulumi the same way SST does",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/concepts/automation-api/"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L149",
+      "text": "[^sst-package-json]: [`platform/package.json`](https://github.com/anomalyco/sst/blob/dev/platform/package.json) in the `anomalyco/sst` repository (formerly `sst/sst`), verified September 2026: `@pulumi/pulumi`, `@pulumi/aws`, `@pulumi/cloudflare`, `@pulumi/command`, `@pulumi/docker-build`, `@pulumi/",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://github.com/anomalyco/sst/blob/dev/platform/package.json"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L150",
+      "text": "[^npm-downloads]: [npm download stats for `sst`](https://api.npmjs.org/downloads/point/last-week/sst), 796,291 downloads for the week of September 5-11, 2026.",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L150",
+      "text": "[^npm-downloads]: [npm download stats for `sst`](https://api.npmjs.org/downloads/point/last-week/sst), 796,291 downloads for the week of September 5-11, 2026.",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://api.npmjs.org/downloads/point/last-week/sst"
+    },
+    {
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "line_range": "L151",
+      "text": "[^opencode-stars]: [`anomalyco/opencode`](https://github.com/anomalyco/opencode) on GitHub, star count observed September 2026.",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://github.com/anomalyco/opencode"
+    }
+  ],
+  "renames": [],
+  "errors": [],
+  "stats": {
+    "claims_count": 38,
+    "files_scanned": 2,
+    "by_type": {
+      "url": 20,
+      "numerical": 3,
+      "temporal": 7,
+      "attribution": 4,
+      "positioning": 2,
+      "version": 2
+    }
+  }
+}

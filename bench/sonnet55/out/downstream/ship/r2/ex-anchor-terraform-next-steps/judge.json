@@ -1,0 +1,19 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4"
+   ],
+   "why": "V4 contradicted: SDK exports only getS3Reference functions, no S3Reference class with getOutput."
+  },
+  "20348-events": {
+   "outcome": "missed",
+   "claim_ids": [
+    "V44",
+    "V45"
+   ],
+   "why": "V45 covers the claim but marked verified despite noting speaking not confirmed."
+  }
+ }
+}

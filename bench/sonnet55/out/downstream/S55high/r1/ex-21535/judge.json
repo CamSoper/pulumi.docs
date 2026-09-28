@@ -1,0 +1,32 @@
+{
+ "defects": {
+  "21535-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V24"
+   ],
+   "why": "V24 contradicted: listener always created against LB, no target-group path."
+  },
+  "21535-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V38"
+   ],
+   "why": "V38 contradicted: single shared default target group per load balancer."
+  },
+  "21535-F3": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V48"
+   ],
+   "why": "V48 covers unhealthyThreshold default but unverifiable; V47 wrongly verified healthyThreshold."
+  },
+  "21535-F4": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V48"
+   ],
+   "why": "V48 includes NLB equality rule, marked unverifiable."
+  }
+ }
+}

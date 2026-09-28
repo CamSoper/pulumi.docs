@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L29",
+      "text": "integrates with other services, including [API Gateway](/docs/iac/guides/clouds/aws/api-gateway/),",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/clouds/aws/api-gateway/"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L30",
+      "text": "[Elastic Container Service (ECS)](/docs/iac/guides/clouds/aws/ecs/), [Lambda](/docs/iac/guides/clouds/aws/lambda/), and [VPC](/docs/iac/guides/clouds/aws/vpc/), to give",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/clouds/aws/ecs/"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L31",
+      "text": "the different kinds of compute you run in AWS configurable network accessibility.",
+      "type": "entity-spec",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L61",
+      "text": "To create a new load balancer, instantiate its class. You also need a _listener_ so that traffic can reach the",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L124",
+      "text": "[LaunchTemplate](/registry/packages/aws/api-docs/ec2/launchtemplate/) and",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/registry/packages/aws/api-docs/ec2/launchtemplate/"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L136",
+      "text": "[The AWSx ECS component](/docs/iac/guides/clouds/aws/ecs/) \u2014 the classes in the `awsx.ecs` package \u2014 creates the",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/clouds/aws/ecs/"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L236",
+      "text": "information, see [Authenticate users using an Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html).",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L236",
+      "text": "information, see [Authenticate users using an Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html).",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L242",
+      "text": "[Fixed-response actions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#fixed-response-actions).",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#fixed-response-actions"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L242",
+      "text": "[Fixed-response actions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#fixed-response-actions).",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L245",
+      "text": "[Redirect actions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#redirect-actions).",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#redirect-actions"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L245",
+      "text": "[Redirect actions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#redirect-actions).",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L258",
+      "text": "For more information on listener rules, refer to the [AWS documentation about listener rules](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-rules.html).",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-rules.html"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L258",
+      "text": "For more information on listener rules, refer to the [AWS documentation about listener rules](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-rules.html).",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L269",
+      "text": "draining to unused. The range is 0\u20133600 seconds, and the default is 300. This is how long an application has to",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L269",
+      "text": "draining to unused. The range is 0\u20133600 seconds, and the default is 300. This is how long an application has to",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L273",
+      "text": "the application time to boot and warm up before it takes traffic. The range is 30\u2013900 seconds, or 0 to disable.",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L280",
+      "text": "ID), `ip` (an IP address), `lambda` (a Lambda function), and `alb` (an Application Load Balancer). The default is",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L282",
+      "text": "must fall within your VPC's private subnet range, the RFC 1918 ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16),",
+      "type": "attribution",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L283",
+      "text": "or the RFC 6598 range (100.64.0.0/10).",
+      "type": "attribution",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L289",
+      "text": "target. The range is 5\u2013300 seconds, and the default is 30 seconds.",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L289",
+      "text": "target. The range is 5\u2013300 seconds, and the default is 30 seconds.",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L292",
+      "text": "unhealthy target healthy. The range is 2\u201310, and the default is 3.",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L292",
+      "text": "unhealthy target healthy. The range is 2\u201310, and the default is 3.",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L295",
+      "text": "unhealthy. For NLBs, this value must be the same as `healthyThreshold`. The range is 2\u201310, and the default",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L295",
+      "text": "unhealthy. For NLBs, this value must be the same as `healthyThreshold`. The range is 2\u201310, and the default",
+      "type": "positioning",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L302",
+      "text": "check. The range is 2\u2013120 seconds. When you don't set it, AWS applies its own default: 6 seconds for `HTTP`",
+      "type": "numerical",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L303",
+      "text": "target groups, and 10 seconds for `HTTPS`, `TCP`, and `TLS` target groups.",
+      "type": "numerical",
+      "confidence": "high"
+    }
+  ],
+  "renames": [],
+  "errors": [],
+  "stats": {
+    "claims_count": 28,
+    "files_scanned": 1,
+    "by_type": {
+      "url": 8,
+      "entity-spec": 1,
+      "temporal": 5,
+      "numerical": 7,
+      "positioning": 5,
+      "attribution": 2
+    }
+  }
+}

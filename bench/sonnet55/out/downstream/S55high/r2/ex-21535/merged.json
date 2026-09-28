@@ -1,0 +1,700 @@
+{
+  "schema_version": 2,
+  "claims": [
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L5, L28-31",
+      "text": "The AWSx ELB component provides APIs for provisioning Application and Network Load Balancers.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L5, L28-31",
+      "text": "The AWSx ELB component integrates with API Gateway, ECS, Lambda, and VPC functionality to give compute running in AWS configurable network accessibility.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "/docs/iac/guides/clouds/aws/api-gateway/",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L31",
+      "text": "the different kinds of compute you run in AWS configurable network accessibility.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "entity-spec/different-kinds-compute-run-aws",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L51-52",
+      "text": "In AWSx, `NetworkLoadBalancer` is used for NLBs and `ApplicationLoadBalancer` is used for ALBs.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": "api-surface/networkloadbalancer",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L54-56",
+      "text": "In the AWSx ELB component, switching from an ApplicationLoadBalancer to a NetworkLoadBalancer is usually just a matter of swapping out the class.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L61",
+      "text": "To create a new load balancer, instantiate its class. You also need a _listener_ so that traffic can reach the",
+      "type": "temporal",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L66-67",
+      "text": "The example AWSx load balancer listens on port 80 in the account's per-region default VPC, using its public subnets, thereby exposing it to the internet.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L73",
+      "text": "The AWSx load balancer `enableHttp2` property set to true enables HTTP/2 traffic on an ALB; HTTP/2 is not supported for NLBs.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/enablehttp2",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L90-96",
+      "text": "To target an EC2 instance with a load balancer, ingress traffic to the load balancer must be opened explicitly for NLB but not for ALB.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L96",
+      "text": "The EC2 targeting procedure consists of five steps.",
+      "type": "numerical",
+      "confidence": "low",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": "numerical/ec2-targeting-procedure-consists-five",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L99",
+      "text": "ALBs automatically open ingress traffic to the ports they listen on, whereas NLBs do not.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L117",
+      "text": "The AWSx load balancer creates a default target group that forwards traffic on the same port.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L121-125",
+      "text": "The AWS provider has API docs for LaunchTemplate at /registry/packages/aws/api-docs/ec2/launchtemplate/ and AutoScalingGroup at /registry/packages/aws/api-docs/autoscaling/group/ for configuring EC2 Auto Scaling.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "/registry/packages/aws/api-docs/ec2/launchtemplate/",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L129-131",
+      "text": "In AWSx, passing the load balancer's target group in an ECS task definition's `portMappings` causes AWSx to populate the ECS service's load balancer configuration automatically.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L136-138",
+      "text": "The AWSx ECS component (classes in the `awsx.ecs` package) automatically creates the right ingress and egress rules, whereas raw `aws.ecs` requires manually managing security group rules.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "/docs/iac/guides/clouds/aws/ecs/",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L137-138",
+      "text": "When using raw `aws.ecs`, users must manage security group ingress and egress rules manually.",
+      "type": "behavior",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L144",
+      "text": "The example program for the ECS Fargate nginx load balancer exports a stack output named `url` that can be curled.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/url",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L153",
+      "text": "The AWSx load balancer uses reasonable targeting defaults and health checks for ECS service targets.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L156-159",
+      "text": "ECS supports both NLB and ALB, and ALBs offer two features that make them more attractive for ECS: dynamic host port mapping (multiple tasks from the same service using the same container instance) and path-based routing and priority rules (multiple services sharing the same listener port on a single ALB).",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L169-171",
+      "text": "By default, an AWSx load balancer is created as internet-facing, using the VPC's public subnets; setting the `internal` property to `true` makes it private over the VPC's private subnets.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L175-176",
+      "text": "AWSx load balancers accept either a `subnets` property (subnet objects) or a `subnetIds` property (subnet IDs) for an explicit list of subnets.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/subnets",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L180",
+      "text": "Each AWS region contains a default VPC for an account.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L215-216",
+      "text": "The `NetworkLoadBalancer` and `ApplicationLoadBalancer` classes have smart defaults, including automatically creating target groups from the same inbound port information as the listeners.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L220-221",
+      "text": "When a listener is created, the `listener` property chooses smart defaults based on whether the listener is created against a load balancer or a target group.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L223-224",
+      "text": "NLB listeners support protocols `TCP`, `TLS`, `UDP`, `TCP_UDP`, `QUIC`, and `TCP_QUIC`, while ALB listeners support `HTTP` and `HTTPS`.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "entity-spec/nlb-listeners-support-protocols-tcp",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L226-229",
+      "text": "`certificateArn` and `sslPolicy` enable SSL using the given certificate and policy; the linked AWS doc is 'Create an HTTPS listener for your Application Load Balancer' at create-https-listener.html.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L235-236",
+      "text": "The `authenticateCognito` listener default action enables Cognito authentication for access through the load balancer; linked AWS doc is listener-authenticate-users.html.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "found_by": [
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/authenticatecognito",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L235-236",
+      "text": "The AWS page 'Authenticate users using an Application Load Balancer' exists at the listener-authenticate-users.html URL.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic"
+      ],
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L238-239",
+      "text": "The `authenticateOidc` listener default action authenticates access through the load balancer using an OIDC-compliant identity provider.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "found_by": [
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/authenticateoidc",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L241-245",
+      "text": "AWS docs for fixed-response actions and redirect actions are at rule-action-types.html#fixed-response-actions and rule-action-types.html#redirect-actions under elasticloadbalancing/latest/application.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#fixed-response-actions",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L245",
+      "text": "AWS documents redirect actions at https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#redirect-actions.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic"
+      ],
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html#redirect-actions",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L258",
+      "text": "AWS documents listener rules at https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-rules.html.",
+      "type": "url",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-rules.html",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L262",
+      "text": "In AWSx, a target group is automatically created for each listener that doesn't override the default action.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L265-266",
+      "text": "A target group can be created manually either by defining a `defaultTargetGroup` on the load balancer directly or by creating a `TargetGroupAttachment` resource.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/defaulttargetgroup",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L268-270",
+      "text": "The target group `deregistrationDelay` range is 0\u20133600 seconds and the default is 300 seconds.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "numerical/target-group-deregistrationdelay-range-seconds",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L272-274",
+      "text": "The target group `slowStart` range is 30\u2013900 seconds, or 0 to disable, and slow start is disabled by default.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "numerical/target-group-slowstart-range-seconds",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L276-277",
+      "text": "Target group `stickiness`, if enabled (for ALBs only), uses a cookie to ensure traffic consistently flows to the same targets while they remain active.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L279-281",
+      "text": "The target group `targetType` possible values are `instance`, `ip`, `lambda`, and `alb`, and the default is `instance`.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/targettype",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L281-283",
+      "text": "For target groups with IP targets, IP addresses must be routable within the VPC and cannot be public; they must fall within the VPC's private subnet range, RFC 1918 ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), or RFC 6598 range (100.64.0.0/10).",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "entity-spec/target-groups-ip-targets-addresses",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L285-286",
+      "text": "Health check parameters available vary by target protocol and differ considerably between NLB and ALB.",
+      "type": "behavior",
+      "confidence": "low",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L288-289",
+      "text": "The target group `healthCheck.interval` range is 5\u2013300 seconds and the default is 30 seconds.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "numerical/target-group-healthcheck-interval-range-seconds",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L291-292",
+      "text": "The target group `healthCheck.healthyThreshold` range is 2\u201310 and the default is 3.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "numerical/target-group-healthcheck-healthythreshold-range",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L294-296",
+      "text": "The target group `healthCheck.unhealthyThreshold` range is 2\u201310 and the default is 3; for NLBs this value must be the same as `healthyThreshold`.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "numerical/target-group-healthcheck-unhealthythreshold-range-nlbs",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L298-299",
+      "text": "The health check `path` is for ALB only, allowing application-level health checking, whereas NLBs only support health checking the availability of the target.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L301-303",
+      "text": "The health check `timeout` applies to any target group (not ALB only), has range 2\u2013120 seconds, and when unset AWS defaults to 6 seconds for HTTP target groups and 10 seconds for HTTPS, TCP, and TLS target groups.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "numerical/health-check-timeout-applies-target",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L303",
+      "text": "target groups, and 10 seconds for `HTTPS`, `TCP`, and `TLS` target groups.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/target-groups-seconds-https-tcp",
+      "volatile": true
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L305-306",
+      "text": "The `healthCheck.matcher` property is ALB only and accepts multiple values (e.g., \"200,202\") or a range (e.g., \"200-299\").",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": "api-surface/healthcheck-matcher",
+      "volatile": false
+    }
+  ],
+  "stances": [
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L161",
+      "text": "Pulumi recommends ALBs for ECS services unless a service requires a feature only available with NLBs.",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ]
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L269",
+      "text": "draining to unused. The range is 0\u20133600 seconds, and the default is 300. This is how long an application has to",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ]
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L280",
+      "text": "ID), `ip` (an IP address), `lambda` (a Lambda function), and `alb` (an Application Load Balancer). The default is",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ]
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L289",
+      "text": "target. The range is 5\u2013300 seconds, and the default is 30 seconds.",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ]
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L292",
+      "text": "unhealthy target healthy. The range is 2\u201310, and the default is 3.",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ]
+    },
+    {
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "line_range": "L295",
+      "text": "unhealthy. For NLBs, this value must be the same as `healthyThreshold`. The range is 2\u201310, and the default",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "regex_claims": 28,
+    "llm_claims": 87,
+    "merged_claims": 47,
+    "stances": 6,
+    "llm_input_tokens": 18277,
+    "llm_output_tokens": 6942,
+    "llm_cache_read_input_tokens": 24788,
+    "llm_cache_creation_input_tokens": 0
+  }
+}

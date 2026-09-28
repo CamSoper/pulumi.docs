@@ -1,0 +1,498 @@
+{
+  "schema_version": 2,
+  "claims": [
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L23",
+      "text": "In both Pulumi ESC and Vault, secrets can be stored and accessed through a CLI, SDK, or editor interface, and granular access controls can be implemented across all secrets.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27, L46-48",
+      "text": "Pulumi ESC is fully open source and licensed under Apache License 2.0.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": "entity-spec/pulumi-esc-fully-open-source",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27, L46-48",
+      "text": "Pulumi ESC is fully open source and licensed under Apache 2.0.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "pulumi/esc",
+      "entity_key": "entity-spec/pulumi-esc-fully-open-source",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27",
+      "text": "Pulumi ESC environments can be composed together from multiple other environments, so shared configuration is inherited rather than duplicated.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L31",
+      "text": "Pulumi ESC environments can reference secrets stored in Vault, and through ESC those secrets can be organized as collections that are versioned, branched, and composed inside other collections.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L53",
+      "text": "Vault offers a hosted cloud service and self-hosting, and self-hosting Vault requires significant management overhead.",
+      "type": "entity-spec",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": "entity-spec/vault-offers-hosted-cloud-service",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L57-58",
+      "text": "Both Pulumi ESC and Vault provide a key-value store.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L62-63",
+      "text": "Pulumi ESC supports pulling and using secrets from multiple sources including HashiCorp Vault, 1Password, AWS Secrets Manager; Vault can only store and manage secrets stored in Vault.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L63",
+      "text": "Vault can only store and manage secrets stored in Vault.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L70-71",
+      "text": "Pulumi ESC supports both a GUI and a Document Editor with autocomplete, docs hover, and error checking.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L71",
+      "text": "Vault's editing and authoring support is limited: it offers a key/value form editor with a JSON toggle.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L75",
+      "text": "Pulumi ESC is available as `pulumi env` in the Pulumi CLI, and supports injecting application secrets as environment variables and modifying secrets.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "pulumi/pulumi",
+      "entity_key": "api-surface/pulumi-esc-env-cli-injecting",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L76",
+      "text": "Vault Agent's process supervisor mode can inject secrets as environment variables into a supervised process.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Agent",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L80-81",
+      "text": "Both Pulumi ESC and Vault offer client SDKs.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L85-86",
+      "text": "Pulumi ESC supports a declarative provider via the Pulumi Service Provider, which allows management (create, update, delete) of collections of secrets and configuration as a resource through infrastructure as code.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "pulumi/pulumi-pulumiservice",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L90",
+      "text": "In Pulumi ESC, hierarchical environments inherit values from the environments they import.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L91",
+      "text": "Vault has no equivalent concept of composable environments; secrets are organized by path convention and the structure is maintained by hand.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L96",
+      "text": "In Vault, secrets are individually versioned, which is a limited form of versioning.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L99-101",
+      "text": "In Pulumi ESC, values can be secret or plaintext; in Vault, values can only be secrets.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L104-106",
+      "text": "Pulumi ESC allows seeing existing secrets, whereas Vault does not.",
+      "type": "feature",
+      "confidence": "low",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L110",
+      "text": "In Pulumi ESC, environments can import secrets from another environment, and secrets updated in the referenced environment automatically propagate to downstream environments.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L111",
+      "text": "Vault has no first-class environment to reference, so secrets are read by path and Vault has no equivalent secret-referencing concept.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L115",
+      "text": "Pulumi ESC supports constructing new dynamic values through string interpolation, and Vault does not support interpolating values from other values.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L120-121",
+      "text": "In Pulumi ESC, environments can be forked for testing without rewriting entire environments and overriding specific values; Vault does not support branching or personal configs.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L125-126",
+      "text": "`pulumi env diff` shows the changes between two environments or two versions of a single environment; Vault has no equivalent for comparing secrets across environments.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "pulumi/esc",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L130",
+      "text": "Pulumi ESC supports built-in functions such as `toJSON`, `fromJSON`, `fromBase64`, and `toString`, which allow data manipulation for any scenario.",
+      "type": "api-surface",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "pulumi/esc",
+      "entity_key": "api-surface/tojson",
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L131",
+      "text": "Vault provides templating and transformation functions, such as username templating and the Transform secrets engine, rather than functions for composing configuration values.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L138-139",
+      "text": "Both Pulumi ESC and Vault provide audit logs.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L143",
+      "text": "Pulumi ESC uses TLS for encryption in transit and unique encryption keys per environment for encryption at rest.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L144",
+      "text": "Vault uses a security barrier for all requests made to the backend, which automatically encrypts all data leaving Vault using a 256-bit AES cipher in Galois Counter Mode (GCM) with 96-bit nonces.",
+      "type": "behavior",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L148-149",
+      "text": "Both Pulumi ESC and Vault provide access controls.",
+      "type": "feature",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L153-154",
+      "text": "Vault cloud secrets engines generate short-lived credentials for AWS, Azure, and Google Cloud, and each engine is configured with a static credential that Vault uses to mint them.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L158",
+      "text": "Pulumi Cloud can be used as an OIDC provider from the Pulumi SDK, CLI, UI, and `pulumi-service` provider.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi Cloud",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L159",
+      "text": "Configuring Vault as an OIDC provider is only available from the CLI.",
+      "type": "feature",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault",
+      "entity_key": null,
+      "volatile": false
+    }
+  ],
+  "stances": [
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27, L90-91",
+      "text": "Pulumi ESC environments can be composed together from multiple other environments so shared configuration is inherited rather than duplicated; Vault has no equivalent concept and structure is maintained by hand.",
+      "type": "comparison",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp Vault"
+    },
+    {
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L52-53",
+      "text": "Pulumi ESC is a fully managed SaaS service provided by Pulumi Cloud, whereas Vault offers a hosted cloud service and self-hosting, which requires significant management overhead.",
+      "type": "comparison",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi ESC"
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "regex_claims": 1,
+    "llm_claims": 71,
+    "merged_claims": 34,
+    "stances": 2,
+    "llm_input_tokens": 9001,
+    "llm_output_tokens": 5521,
+    "llm_cache_read_input_tokens": 24786,
+    "llm_cache_creation_input_tokens": 0
+  }
+}

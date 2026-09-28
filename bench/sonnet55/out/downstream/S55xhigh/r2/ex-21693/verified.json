@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "model": "claude-opus-5-5",
+  "verdicts": [
+    {
+      "claim_id": "c1",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27, L47-48",
+      "text": "HashiCorp Vault is not open source; it is licensed under the Business Source License (BSL 1.1) model.",
+      "type": "attribution",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "HashiCorp moved its products from MPL 2.0 to \"the Business Source License (BSL, also known as BUSL) v1.1 on all future releases,\" and describes BSL 1.1 as \"a source-available license.\" The hashicorp/vault LICENSE file on main is still BSL 1.1, covering \"Vault Version 1.15.0 or later.\" Older releases (before 1.15) are still under MPL 2.0, which is open source, but the claim holds for current Vault.",
+      "source": "https://www.hashicorp.com/en/blog/hashicorp-adopts-business-source-license; https://github.com/hashicorp/vault/blob/main/LICENSE",
+      "model_usage": {
+        "input_tokens": 432,
+        "output_tokens": 597,
+        "cache_read_input_tokens": 17994,
+        "cache_creation_input_tokens": 8800,
+        "turns": 1
+      },
+      "framing": "exact-match",
+      "framing_note": "HashiCorp calls BSL 1.1 'source-available' rather than open source, which matches the claim's 'not open source'. The BSL applies to Vault 1.15.0 and later; pre-1.15 versions stay MPL 2.0."
+    },
+    {
+      "claim_id": "c2",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27, L47-48",
+      "text": "HashiCorp Vault is licensed under Business Source License 1.1 (not an open source license).",
+      "type": "entity-spec",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "Vault's LICENSE file on its main branch is the Business Source License, covering \"Vault Version 1.15.0 or later\". HashiCorp calls BSL 1.1 \"a source-available license\", and it moved Vault off the open source MPL 2.0 when the change was announced in August 2023.",
+      "source": "https://github.com/hashicorp/vault/blob/main/LICENSE; https://www.hashicorp.com/en/blog/hashicorp-adopts-business-source-license",
+      "model_usage": {
+        "input_tokens": 421,
+        "output_tokens": 491,
+        "cache_read_input_tokens": 17994,
+        "cache_creation_input_tokens": 8788,
+        "turns": 1
+      },
+      "framing": "none",
+      "framing_note": "Versions of Vault older than 1.15 are still under MPL 2.0, so the claim is true for current releases only.",
+      "entity_key": "entity-spec/hashicorp-vault-licensed-under-business",
+      "volatile": false
+    },
+    {
+      "claim_id": "c3",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L27",
+      "text": "Pulumi ESC environments can be composed together from multiple other environments, so shared configuration is inherited rather than duplicated.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The pulumi/esc README says: \"Each environment can be composed from multiple environments.\" It also says: \"Composable environments: Environments support importing one into another, allowing for easy composability and inheritance of shared secrets and configuration.\"",
+      "source": "gh api repos/pulumi/esc/contents/README.md",
+      "model_usage": {
+        "input_tokens": 6450,
+        "output_tokens": 504,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c4",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L31",
+      "text": "Through Pulumi ESC, secrets stored in Vault can be organized as collections that are versioned, branched, and composed inside other collections.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "The ESC docs describe the Vault integration (\"The `vault-secrets` provider enables you to dynamically import Secrets from HashiCorp Vault into your Environment\") and describe an environment as \"a named, versioned YAML document\". Composition is covered by imports (\"values imported from other environments\"). For \"branched\", the closest documented feature is `pulumi env clone` (the CLI covers \"diff and tag versions, clone, and delete\"). ESC has no real branching feature.",
+      "source": "repo:content/docs/esc/providers/secrets/vault-secrets.md; repo:content/docs/esc/concepts/environments.md L42, L136, L141",
+      "model_usage": {
+        "input_tokens": 22523,
+        "output_tokens": 1436,
+        "cache_read_input_tokens": 49441,
+        "cache_creation_input_tokens": 0,
+        "turns": 7
+      },
+      "framing": "none",
+      "intuition_flag": "\"Branched\" is loose wording: ESC has clone and import-and-override, not git-style branches. Consider changing it to \"cloned\" or \"forked\"."
+    },
+    {
+      "claim_id": "c5",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L52",
+      "text": "Pulumi ESC is a fully managed SaaS service provided by Pulumi Cloud.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "The ESC get-started page calls ESC \"a centralized secrets and configuration management service that is part of Pulumi Cloud\" and says it \"requires the Pulumi Cloud backend.\" Pulumi Cloud is the managed SaaS at app.pulumi.com. The pricing FAQ also says \"we offer a self-hosted Pulumi Cloud... available in the Enterprise edition,\" so SaaS is not the only way to run ESC.",
+      "source": "repo:content/docs/esc/get-started/_index.md L19, L132; repo:content/pricing/_index.md L143-144",
+      "model_usage": {
+        "input_tokens": 9809,
+        "output_tokens": 1045,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none",
+      "intuition_flag": "The comparison table credits Vault with \"hosted cloud service and self-hosting\" but leaves out that ESC can also be self-hosted (Enterprise self-hosted Pulumi Cloud). That makes the comparison lopsided."
+    },
+    {
+      "claim_id": "c6",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L53",
+      "text": "HashiCorp Vault offers a hosted cloud service and self-hosting, and self-hosting requires significant management overhead.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) HashiCorp's docs say Vault Enterprise can be \"in a self-managed environment, but is also available as a managed service through the HashiCorp Cloud Platform (HCP)\". For self-managed deployments, the customer is \"responsible for the design, deployment, security, reliability, scaling, and upgrading\". The 'significant overhead' part is a judgment, but it is backed by HCP's own pitch to \"Reduce operational overhead\".",
+      "source": "https://developer.hashicorp.com/vault/tutorials/get-started/available-editions; https://developer.hashicorp.com/hcp/docs/vault/what-is-hcp-vault",
+      "model_usage": {
+        "input_tokens": 1369,
+        "output_tokens": 1255,
+        "cache_read_input_tokens": 32120,
+        "cache_creation_input_tokens": 9312,
+        "turns": 3
+      },
+      "framing": "none",
+      "framing_note": "The claim names no source. 'Significant management overhead' is a characterization, but HashiCorp's own list of operator responsibilities supports it.",
+      "intuition_flag": "HCP Vault Secrets (the SaaS product) reached end-of-life July 1, 2026. HCP Vault Dedicated is now the only hosted option, so if the page names a specific hosted product, check that it isn't Vault Secrets."
+    },
+    {
+      "claim_id": "c7",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L62-63",
+      "text": "Vault has no open ecosystem: it can only store and manage secrets stored in Vault (in contrast to ESC pulling secrets from multiple sources).",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "(escalated from pass1) HashiCorp's docs describe Secrets Sync as one-way, pushing Vault KVv2 secrets out to external systems: \"Secrets can be synced into various external systems, called destinations\" (AWS SM, Azure KV, GCP SM, GitHub, Vercel). The results showed no native feature for pulling secrets in from outside stores, which partly supports the \"can only manage secrets stored in Vault\" half. But \"no open ecosystem\" is a subjective marketing label, and Vault's dynamic secrets engines and plugin architecture weaken it.",
+      "source": "https://developer.hashicorp.com/vault/docs/sync",
+      "model_usage": {
+        "input_tokens": 1947,
+        "output_tokens": 1772,
+        "cache_read_input_tokens": 32120,
+        "cache_creation_input_tokens": 8964,
+        "turns": 3
+      },
+      "framing": "none",
+      "intuition_flag": "\"No open ecosystem\" is overstated. Vault has a pluggable secrets-engine architecture, dynamic credentials for AWS and databases, and Enterprise Secrets Sync to AWS, Azure, GCP, GitHub, and Vercel. Consider narrowing the claim to \"doesn't pull or aggregate secrets from external secret stores\"."
+    },
+    {
+      "claim_id": "c8",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L70",
+      "text": "Pulumi ESC supports both a GUI and a Document Editor with autocomplete, docs hover, and error checking.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) Pulumi release notes say the ESC YAML editor gained \"auto-complete for faster coding, enhanced diagnostics offering deeper error insights, and hover documentation\". They also say the Table view (the GUI) \"complements the existing YAML-based editor\". The ESC editor-enhancements blog post confirms autocomplete, as-you-type error diagnostics, and hover documentation.",
+      "source": "https://www.pulumi.com/blog/pulumi-release-notes-103/ ; https://www.pulumi.com/blog/esc-editor-enhancements/",
+      "model_usage": {
+        "input_tokens": 18061,
+        "output_tokens": 2014,
+        "cache_read_input_tokens": 74498,
+        "cache_creation_input_tokens": 9224,
+        "turns": 9
+      },
+      "framing": "none",
+      "framing_note": "The sources call the GUI the \"Table view/Table Editor\" and the document editor the \"YAML editor\". The claim uses different names for the same two editors."
+    },
+    {
+      "claim_id": "c9",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L71",
+      "text": "Vault's editing and authoring experience is limited: it offers a key/value form editor with a JSON toggle.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "(escalated from pass1) HashiCorp's KV v2 tutorial describes the Vault UI's key/value form entry plus a JSON toggle: \"Notice the JSON toggle in the UI. Instead of entering the key-value pairs one by one, you can enter the secret values using JSON.\" Calling it \"limited\" is the PR's editorial opinion. A Vault GitHub feature request backs it up, noting the JSON view is just a plain text box.",
+      "source": "https://developer.hashicorp.com/vault/tutorials/secrets-management/versioned-kv; https://github.com/hashicorp/vault/issues/6909",
+      "model_usage": {
+        "input_tokens": 701,
+        "output_tokens": 1084,
+        "cache_read_input_tokens": 25057,
+        "cache_creation_input_tokens": 8987,
+        "turns": 2
+      },
+      "framing": "none",
+      "framing_note": "No source is cited in the claim. The fact that the UI is a KV form editor with a JSON toggle is confirmed; the word \"limited\" is a subjective comparison."
+    },
+    {
+      "claim_id": "c10",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L76",
+      "text": "Vault Agent's process supervisor mode can inject secrets as environment variables into a process (covering what the `vault` CLI does not).",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "HashiCorp's docs say: \"Vault Agent's Process Supervisor Mode allows Vault secrets to be injected into a process via environment variables using Consul Template markup.\" The parenthetical, that the `vault` CLI doesn't do this itself, fits the CLI having no exec/run-with-env command, but no fetched source says so directly.",
+      "source": "https://developer.hashicorp.com/vault/docs/agent-and-proxy/agent/process-supervisor",
+      "model_usage": {
+        "input_tokens": 445,
+        "output_tokens": 521,
+        "cache_read_input_tokens": 17994,
+        "cache_creation_input_tokens": 8010,
+        "turns": 1
+      },
+      "framing": "exact-match",
+      "framing_note": "The docs say \"injected into a process via environment variables\" and the claim says \"inject secrets as environment variables into a process\". Same statement."
+    },
+    {
+      "claim_id": "c11",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L90",
+      "text": "In Pulumi ESC, hierarchical environments inherit values from the environments they import.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The pulumi/esc README says: \"Composable environments: Environments support importing one into another, allowing for easy composability and inheritance of shared secrets and configuration.\" That confirms environments inherit values from the environments they import.",
+      "source": "gh api repos/pulumi/esc/contents/README.md",
+      "model_usage": {
+        "input_tokens": 7238,
+        "output_tokens": 603,
+        "cache_read_input_tokens": 35315,
+        "cache_creation_input_tokens": 0,
+        "turns": 5
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c12",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L91",
+      "text": "HashiCorp Vault has no equivalent to composable/hierarchical environments; secrets are organized by path convention and the structure is maintained by hand.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "contradicted",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) Vault Enterprise namespaces are built-in and nest: HashiCorp's docs describe \"B is a child namespace of A and the parent namespace of C,\" and say \"Children can inherit elements from their parent namespaces.\" The same docs say namespaces can \"organize teams, projects, or environments.\" So \"no hierarchical equivalent; structure maintained by hand\" is too broad. The narrower point holds: namespaces inherit policies and identities, not secret or config values, so Vault has nothing like ESC's import/merge composition.",
+      "source": "https://developer.hashicorp.com/vault/docs/enterprise/namespaces; https://developer.hashicorp.com/vault/docs/ui/namespaces",
+      "model_usage": {
+        "input_tokens": 2611,
+        "output_tokens": 1756,
+        "cache_read_input_tokens": 32120,
+        "cache_creation_input_tokens": 9236,
+        "turns": 3
+      },
+      "framing": "none",
+      "intuition_flag": "This is probably fixable by rewording rather than wrong outright: say Vault lacks value-level composition (imports/merging), and note that Enterprise namespaces give hierarchy only for tenancy and policy."
+    },
+    {
+      "claim_id": "c13",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L111",
+      "text": "HashiCorp Vault has no equivalent concept to Pulumi ESC secret referencing between environments; Vault has no first-class environment to reference, so secrets are read by path.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) In an open Vault feature request (#18337), users ask for native secret references. The issue describes the gap: \"It would be useful to have secrets that are a 'pointer' / 'link' to another secret.\" The request, along with third-party integrations that address Vault secrets by path (e.g., Harness's \"/path/secret_key#my_key\"), backs the claim that Vault has no first-class environment or reference concept and that secrets are read by path.",
+      "source": "https://github.com/hashicorp/vault/issues/18337; https://developer.harness.io/docs/platform/secrets/secrets-management/reference-existing-secret-manager-secrets/",
+      "model_usage": {
+        "input_tokens": 2109,
+        "output_tokens": 1344,
+        "cache_read_input_tokens": 32120,
+        "cache_creation_input_tokens": 8680,
+        "turns": 3
+      },
+      "framing": "none",
+      "framing_note": "The evidence is indirect: it's a feature request from 2022, and I didn't find an official HashiCorp statement. Vault namespaces and Vault Agent templating could arguably count as partial analogues, but neither is an environment that other environments can reference."
+    },
+    {
+      "claim_id": "c14",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L130",
+      "text": "Pulumi ESC supports built-in functions such as `toJSON`, `fromJSON`, `fromBase64`, and `toString`.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "In pulumi/esc eval/eval.go, the declare() mapping lists \"FromBase64Expr -> fromBase64Expr\", \"FromJSONExpr -> fromJSONExpr\" and \"ToJSONExpr -> toJSONExpr\", so three of the four functions are confirmed in product source. I couldn't confirm `toString` in this session: the part of ast/expr.go I fetched stopped before the function list, and code search hit its rate limit.",
+      "source": "gh api repos/pulumi/esc/contents/eval/eval.go; gh api repos/pulumi/esc/contents/ast/expr.go (output truncated)",
+      "model_usage": {
+        "input_tokens": 63938,
+        "output_tokens": 1762,
+        "cache_read_input_tokens": 63567,
+        "cache_creation_input_tokens": 0,
+        "turns": 9
+      },
+      "framing": "none",
+      "intuition_flag": "`fn::toString` is believed to exist in ESC but was not seen in fetched source; a reviewer could check ast/expr.go tryParseFunction to confirm.",
+      "entity_key": "api-surface/tojson",
+      "volatile": false
+    },
+    {
+      "claim_id": "c15",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L131",
+      "text": "Vault provides limited function support: templating and transformation functions such as username templating and the Transform secrets engine, rather than functions for composing configuration values.",
+      "type": "feature",
+      "route": "pass3",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) HashiCorp docs confirm both examples. Username templating \"uses the Go template language\" to control how dynamic usernames are generated, and the Transform engine is described as \"Perform secure data transformation and tokenization with the Transform secrets engine plugin.\" Neither is for composing configuration values. \"Limited\" is an editorial judgment, not a checkable fact.",
+      "source": "https://developer.hashicorp.com/vault/docs/concepts/username-templating; https://developer.hashicorp.com/vault/docs/secrets/transform",
+      "model_usage": {
+        "input_tokens": 1600,
+        "output_tokens": 1261,
+        "cache_read_input_tokens": 32120,
+        "cache_creation_input_tokens": 7627,
+        "turns": 3
+      },
+      "framing": "none",
+      "intuition_flag": "The Transform secrets engine is Enterprise-only. Vault Agent / Vault Secrets Operator templating (Consul Template, Go templates) does let users compose secret values into config files, so \"rather than functions for composing configuration values\" is debatable if those client-side tools count."
+    },
+    {
+      "claim_id": "c16",
+      "file": "content/docs/esc/vs/vault.md",
+      "line_range": "L153-154",
+      "text": "Each Vault cloud secrets engine is configured with a static credential that Vault uses to mint short-lived cloud provider credentials.",
+      "type": "behavior",
+      "route": "pass3",
+      "verdict": "contradicted",
+      "confidence": "medium",
+      "evidence": "(escalated from pass1) Vault's AWS API docs say the root config \"can be configured either with IAM access keys for a privileged AWS account, or using Plugin Workload Identity Federation (WIF)\". The docs also allow credentials from env vars, IAM instance profiles, or ECS roles. Plugin WIF is available for the AWS, GCP, and Azure secrets engines (Vault Enterprise 1.16/1.17+), so a static credential is one option, not something every engine requires.",
+      "source": "https://developer.hashicorp.com/vault/api-docs/secret/aws; https://developer.hashicorp.com/vault/docs/secrets/aws; https://github.com/hashicorp-services/vault-plugin-wif-examples",
+      "model_usage": {
+        "input_tokens": 1965,
+        "output_tokens": 1629,
+        "cache_read_input_tokens": 32120,
+        "cache_creation_input_tokens": 8922,
+        "turns": 3
+      },
+      "framing": "none",
+      "intuition_flag": "\"Each\" overgeneralizes. A static root credential is the classic/OSS default, but WIF (Enterprise) and instance-profile credentials avoid it. Suggest wording like \"typically configured with a static credential\"."
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "n_claims": 16,
+    "n_pass0": 0,
+    "n_pass1": 13,
+    "n_pass2": 0,
+    "n_pass3": 3,
+    "input_tokens": 141619,
+    "output_tokens": 19074,
+    "cache_read_input_tokens": 551084,
+    "cache_creation_input_tokens": 96550
+  }
+}

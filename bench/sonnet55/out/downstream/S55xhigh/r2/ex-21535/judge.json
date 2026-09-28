@@ -1,0 +1,32 @@
+{
+ "defects": {
+  "21535-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V22"
+   ],
+   "why": "V22 contradicted: listener only exists on load balancer, no target-group path."
+  },
+  "21535-F2": {
+   "outcome": "missed",
+   "claim_ids": [
+    "V21"
+   ],
+   "why": "Per-listener target group claim only covered loosely by V21, marked verified."
+  },
+  "21535-F3": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V38"
+   ],
+   "why": "V38 covers unhealthyThreshold default 3 but is unverifiable."
+  },
+  "21535-F4": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V38"
+   ],
+   "why": "V38 includes NLB equality constraint, verdict unverifiable."
+  }
+ }
+}

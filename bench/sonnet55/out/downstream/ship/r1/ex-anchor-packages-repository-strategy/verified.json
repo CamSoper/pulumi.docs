@@ -1,0 +1,441 @@
+{
+  "schema_version": 1,
+  "model": "claude-opus-5-5",
+  "verdicts": [
+    {
+      "claim_id": "c1",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L11",
+      "text": "The referenced 'Pulumi packages' concept page exists at /docs/iac/concepts/packages/.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "content/docs/iac/concepts/packages/_index.md exists and renders at /docs/iac/concepts/packages/. Its front matter has \"title: Pulumi packages\".",
+      "source": "repo:content/docs/iac/concepts/packages/_index.md",
+      "model_usage": {
+        "input_tokens": 1035,
+        "output_tokens": 326,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "exact-match"
+    },
+    {
+      "claim_id": "c2",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L15-19",
+      "text": "Pulumi packages come in two flavors (source-based and executable-based), and each is versioned and released differently.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "The sibling guide packaging-components.md names exactly two kinds of Pulumi package: \"Source-based plugin package \u2014 a Pulumi package distributed as source\" and \"Executable-based plugin package \u2014 a Pulumi package whose plugin is a pre-built executable\". Native language packages are called out as \"Not a Pulumi package\". The two kinds are distributed differently (a Git repo/ref vs. a pre-built binary plus SDKs published to package feeds), which is why they are versioned and released differently.",
+      "source": "repo:content/docs/iac/guides/building-extending/components/packaging-components.md L19-23, L46-75",
+      "model_usage": {
+        "input_tokens": 6501,
+        "output_tokens": 753,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none",
+      "framing_note": "This check relied on a sibling docs page, not product source. It confirms the two flavors and the distribution difference, but I did not confirm the versioning details against code."
+    },
+    {
+      "claim_id": "c3",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L19",
+      "text": "The referenced 'source-based plugin package' section exists at /docs/iac/guides/building-extending/components/packaging-components/#source-based-plugin-packages.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "I opened the target page, content/docs/iac/guides/building-extending/components/packaging-components.md. At L44 it has the heading \"## Source-based plugin packages\", and Hugo turns that heading into the anchor #source-based-plugin-packages.",
+      "source": "repo:content/docs/iac/guides/building-extending/components/packaging-components.md L44",
+      "model_usage": {
+        "input_tokens": 3618,
+        "output_tokens": 357,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "exact-match"
+    },
+    {
+      "claim_id": "c4",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L21-22",
+      "text": "The second step of publishing a source-based package is running `pulumi package publish` to send the package metadata to Pulumi Cloud and place the package in the Private Registry.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The auto-generated CLI reference, transcribed from pulumi/pulumi, says: \"Publish a package to the Private Registry... The package can be a provider or a schema.\" The command reads or extracts the package schema (its metadata) and publishes it to Pulumi Cloud's Private Registry, which matches step 2 of the source-based flow described in the doc.",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_package_publish.md (auto-generated from github.com/pulumi/pulumi/v3/pkg/cmd/pulumi)",
+      "model_usage": {
+        "input_tokens": 4086,
+        "output_tokens": 641,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "exact-match",
+      "framing_note": "CLI help says 'Publish a package to the Private Registry'; the claim says it 'sends the package metadata to Pulumi Cloud and places the package in the Private Registry'.",
+      "entity_key": "api-surface/second-step-publishing-source-based-package",
+      "volatile": false
+    },
+    {
+      "claim_id": "c5",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L22",
+      "text": "Running `pulumi package publish` sends the package metadata to Pulumi Cloud and places the package in the Private Registry.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The auto-generated CLI reference says: \"This command publishes a package to the Private Registry. The package can be a provider or a schema.\" It also says the schema is extracted from the provider or read from a file. \"Metadata\" is a fair paraphrase of the schema and readme that get uploaded, and the Private Registry is part of Pulumi Cloud.",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_package_publish.md (auto-generated from pulumi/pulumi cobra)",
+      "model_usage": {
+        "input_tokens": 1917,
+        "output_tokens": 530,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "entailed-narrower",
+      "framing_note": "source: \"publishes a package to the Private Registry\"; claim: \"sends the package metadata to Pulumi Cloud and places the package in the Private Registry\"",
+      "entity_key": "api-surface/running-pulumi-package-publish-sends",
+      "volatile": false
+    },
+    {
+      "claim_id": "c6",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L24",
+      "text": "Semver-tagged releases are only required for publishing a source-based package to the Private Registry.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "framing-drift",
+      "confidence": "medium",
+      "evidence": "The auto-generated `pulumi package add` help says that for Git repos \"a version can be specified. It can either be a tag (in semver format), or a Git commit hash.\" So you can skip semver tags by pinning a commit hash, which fits the claim's core point. But the same line of the page goes on to say any Git ref works, \"tag, branch, or commit \u2026 regardless of whether it is a valid semantic version\". That is contradicted: tags must be semver, and the help doesn't list branches as a supported version (it only uses the latest commit on the default branch when no version is given).",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_package_add.md L43-50 (auto-generated from pulumi/pulumi CLI help)",
+      "model_usage": {
+        "input_tokens": 66318,
+        "output_tokens": 2302,
+        "cache_read_input_tokens": 70630,
+        "cache_creation_input_tokens": 0,
+        "turns": 10
+      },
+      "framing": "none",
+      "framing_note": "Core claim (you only need semver to publish to the registry) holds via commit hashes. The next sentence's claim that non-semver tags and branch refs work conflicts with the CLI help.",
+      "intuition_flag": "\"any Git ref (tag, branch, or commit), regardless of whether it is a valid semantic version\" goes further than the CLI's own help text"
+    },
+    {
+      "claim_id": "c7",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L24",
+      "text": "Source-based packages referenced directly from a `Pulumi.yaml` file can use any Git ref (tag, branch, or commit), regardless of whether it is a valid semantic version.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "contradicted",
+      "confidence": "medium",
+      "evidence": "The CLI reference, which is auto-generated from pulumi/pulumi, says a Git-repo package version \"can either be a tag (in semver format), or a Git commit hash.\" That rules out non-semver tags and says nothing about branches, so the claim that \"any Git ref (tag, branch, or commit), regardless of whether it is a valid semantic version\" works goes beyond what the product documents.",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_package_add.md (auto-generated from github.com/pulumi/pulumi/v3/pkg/cmd/pulumi/markdown)",
+      "model_usage": {
+        "input_tokens": 16094,
+        "output_tokens": 1169,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none",
+      "intuition_flag": "This is based on the CLI help text, not a direct read of the Git-ref resolution code, which couldn't be checked because gh search hit its rate limit. How Pulumi.yaml `packages` entries resolve refs should be checked in pulumi/pulumi pkg/workspace."
+    },
+    {
+      "claim_id": "c8",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L28",
+      "text": "Releases of executable-based packages are produced by a CI/CD pipeline that builds the plugin, generates the SDKs, and pushes everything to the relevant feeds.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "This describes the usual release workflow, not a guaranteed product behavior. Pulumi's own template for executable providers, pulumi/pulumi-provider-boilerplate, includes CI workflows (`build.yml`, `prerelease.yml`, `release.yml`) for building and releasing the provider. I didn't open the workflow files, so the specific steps (build the plugin, generate SDKs, publish to package feeds) are inferred from the file names and repo purpose, not read line by line.",
+      "source": "gh api repos/pulumi/pulumi-provider-boilerplate/contents/.github/workflows",
+      "model_usage": {
+        "input_tokens": 16929,
+        "output_tokens": 888,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none",
+      "intuition_flag": "The sentence says releases \"are produced\" by a CI/CD pipeline, stated as a fact. The same page describes source-based publishing more cautiously (\"typically performed by a CI/CD pipeline\"), so this line may need a similar qualifier."
+    },
+    {
+      "claim_id": "c9",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L28",
+      "text": "Pulumi Cloud customers can additionally publish an executable-based package to the Private Registry via `pulumi package publish`.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "I checked the auto-generated CLI reference, which is taken from pulumi/pulumi source. It confirms that `pulumi package publish` publishes a provider (executable) package to the Private Registry: \"This command publishes a package to the Private Registry. The package can be a provider or a schema... When <provider> is specified as a local path, Pulumi executes the provider binary to extract its package schema.\"",
+      "source": "repo:content/docs/iac/cli/commands/pulumi_package_publish.md (auto-generated from pulumi/pulumi pkg/cmd/pulumi)",
+      "model_usage": {
+        "input_tokens": 7226,
+        "output_tokens": 641,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c10",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L28",
+      "text": "An executable-based plugin package is distributed as a pre-built plugin binary, typically alongside per-language SDKs published to package feeds such as npm, PyPI, NuGet, Maven, the Go module proxy, or private equivalents.",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "The linked anchor section exists and says: \"Executable-based plugin packages are usually distributed as pre-built per-language SDKs published to multiple package managers (one per consumer language), with the plugin executable published to an accessible location.\" The claim says the same thing, including the \"typically\" hedge.",
+      "source": "repo:content/docs/iac/guides/building-extending/components/packaging-components.md L73-L83",
+      "model_usage": {
+        "input_tokens": 8021,
+        "output_tokens": 717,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "entailed-narrower",
+      "framing_note": "The source says \"multiple package managers (one per consumer language)\". The claim names specific feeds (npm, PyPI, NuGet, Maven, Go module proxy, private equivalents), which are examples of that. The source's \"usually\" matches the claim's \"typically\"."
+    },
+    {
+      "claim_id": "c11",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L30",
+      "text": "In both the source-based and executable-based cases, the released artifact is a single, semantically-versioned Pulumi package.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "unverifiable",
+      "confidence": "low",
+      "evidence": "L30 summarizes the page's own framing and has no independent product-source backing: GitHub search hit a rate limit (HTTP 403), so I couldn't check whether `pulumi package publish` enforces semver. The same page also says at L24 that source-based packages \"referenced directly from a `Pulumi.yaml` file can use any Git ref (tag, branch, or commit), regardless of whether it is a valid semantic version\", so \"semantically-versioned\" overgeneralizes for the source-based case.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/repository-strategy.md L24, L30; gh search code (rate-limited HTTP 403)",
+      "model_usage": {
+        "input_tokens": 6132,
+        "output_tokens": 932,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none",
+      "intuition_flag": "L30 says both kinds of package are semver-versioned, but L24 on the same page says source-based packages can use non-semver Git refs; semver is only required for Private Registry publishing."
+    },
+    {
+      "claim_id": "c12",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L36",
+      "text": "Multiple components inside a single Pulumi package are fine and expected, and they ship together at the package's version.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "medium",
+      "evidence": "In the package schema, components are entries in a single `resources` map marked `\"isComponent\": true`, and the package carries one version (a Git tag for source-based packages, or the version built into the binary and SDKs for executable-based ones). That means every component in a package ships at the package's version. Calling multiple components \"fine and expected\" is Pulumi's own guidance, not a falsifiable fact. I found no per-component version field in the schema reference, but I didn't read the product source directly.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/schema.md (resources map with isComponent); repo:content/docs/iac/guides/building-extending/components/packaging-components.md",
+      "model_usage": {
+        "input_tokens": 15830,
+        "output_tokens": 1078,
+        "cache_read_input_tokens": 28252,
+        "cache_creation_input_tokens": 0,
+        "turns": 4
+      },
+      "framing": "none",
+      "framing_note": "The claim is a structural fact about how packages are versioned plus Pulumi's own recommendation; it doesn't cite an external source."
+    },
+    {
+      "claim_id": "c13",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L50",
+      "text": "Pulumi cites the Amazon EKS package as a good reference example of cohesive component grouping because its components are almost always used together and tend to evolve together.",
+      "type": "url",
+      "route": "pass2",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "The cited link works (HTTP 200) and points to the right package: \"Amazon EKS v4.4.0 ... Publisher: Pulumi ... Repository: https://github.com/pulumi/pulumi-eks\". The idea that its components \"are almost always used together and tend to evolve together\" is the docs author's own opinion about repository strategy. The registry page doesn't state it, and it isn't a third-party fact that a source could confirm or refute.",
+      "source": "https://www.pulumi.com/registry/packages/eks/",
+      "model_usage": {
+        "input_tokens": 1425,
+        "output_tokens": 687,
+        "cache_read_input_tokens": 6557,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "shifted",
+      "framing_note": "The link only names the EKS package as the example; the reasoning about cohesion is the author's editorial judgment and doesn't come from the linked page."
+    },
+    {
+      "claim_id": "c14",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L54-56",
+      "text": "In the guide's example, the `EksCluster` component consumes one or more `EksIam` instances internally to set up system-level processes, and `EksIam` is also exposed to application teams so their pods can be granted access to AWS resources like S3 buckets.",
+      "type": "feature",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "high",
+      "evidence": "Hypothetical example the author made up (\"Suppose your organization has an `EksCluster` component and an `EksIam` component...\"). The claim restates the author's own illustrative design correctly, so there's nothing to fact-check.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/repository-strategy.md L54",
+      "model_usage": {
+        "input_tokens": 1533,
+        "output_tokens": 397,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none"
+    },
+    {
+      "claim_id": "c15",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L56-65",
+      "text": "A single `PulumiPlugin.yaml` at the repository root defines the package, with the components living alongside it in the repository structure shown.",
+      "type": "api-surface",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "L56-65 accurately describe the author's own illustrative example layout: \"One `PulumiPlugin.yaml` at the repository root defines the package, and the components live alongside it\", followed by a tree with PulumiPlugin.yaml at the root and components/EksCluster and components/EksIam. This is a hypothetical example the author designed, not a checkable claim about product behavior. It also matches the general Pulumi component-package model, where one PulumiPlugin.yaml per package can host several components.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/repository-strategy.md L56-65",
+      "model_usage": {
+        "input_tokens": 1281,
+        "output_tokens": 632,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none",
+      "entity_key": "api-surface/pulumiplugin-yaml",
+      "volatile": false
+    },
+    {
+      "claim_id": "c16",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L73",
+      "text": "When unrelated components share a package, every release of the package versions every component the same way, regardless of whether each component changed, which violates semver.",
+      "type": "behavior",
+      "route": "pass1",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "This is Pulumi's own editorial recommendation, not a checkable product fact. The mechanical premise, that components carry the package's version (the page says \"the components inside it inherit the package's version\"), is consistent with how Pulumi packages are versioned. \"Violates semver\" is the author's judgment about how useful the version is as a signal.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/repository-strategy.md L11, L71-81",
+      "model_usage": {
+        "input_tokens": 3350,
+        "output_tokens": 881,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "none",
+      "intuition_flag": "\"Violates semver\" is arguably an overstatement. SemVer 2.0 versions the package's public API as a whole, so bumping the major version for a breaking change in any one component is compliant. A softer phrasing would be more accurate, e.g. \"defeats the per-component signal semver is meant to provide\"."
+    },
+    {
+      "claim_id": "c17",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L77-79",
+      "text": "In the guide's example sequence, after a breaking change to ComponentB, the package is released at v2.0.0 even though ComponentA had no breaking change or any change at all.",
+      "type": "numerical",
+      "route": "pass3",
+      "verdict": "not-a-claim",
+      "confidence": "medium",
+      "evidence": "This line describes the guide's own illustrative example: a breaking change to ComponentB forces the whole package to v2.0.0, even though ComponentA did not change. No third-party fact is being claimed. The example matches standard SemVer, where versions apply to the whole package, so any breaking change bumps the major version for every component in it.",
+      "source": "content/docs/iac/guides/building-extending/packages/repository-strategy.md L77-79 (author's own example; SemVer 2.0.0 semantics)",
+      "model_usage": {
+        "input_tokens": 459,
+        "output_tokens": 417,
+        "cache_read_input_tokens": 8997,
+        "cache_creation_input_tokens": 0,
+        "turns": 1
+      },
+      "framing": "none",
+      "entity_key": "numerical/guide-example-sequence-after-breaking",
+      "volatile": false
+    },
+    {
+      "claim_id": "c18",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L85",
+      "text": "There is a 'Publishing packages' guide at /docs/iac/guides/building-extending/packages/publishing-packages/ covering the publishing mechanics.",
+      "type": "cross-reference",
+      "route": "pass1",
+      "verdict": "matches",
+      "confidence": "high",
+      "evidence": "The target page exists at content/docs/iac/guides/building-extending/packages/publishing-packages.md, so the link resolves. The page is titled \"Publishing to the Pulumi Registry\" and \"covers publishing a Pulumi package to the public Pulumi Registry\". That fits a link about publishing mechanics, but the link text 'Publishing packages' doesn't match the page title.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/publishing-packages.md",
+      "model_usage": {
+        "input_tokens": 7616,
+        "output_tokens": 725,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none",
+      "intuition_flag": "The link text 'Publishing packages' differs from the target title 'Publishing to the Pulumi Registry'. The target also covers only the public registry, not private registry publishing."
+    },
+    {
+      "claim_id": "c19",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L85",
+      "text": "The publishing mechanics for Pulumi packages are detailed in the 'Publishing packages' guide.",
+      "type": "cross-reference",
+      "route": "pass1",
+      "verdict": "mismatch",
+      "confidence": "medium",
+      "evidence": "The link target /docs/iac/guides/building-extending/packages/publishing-packages/ exists, but the page there is titled \"Publishing to the Pulumi Registry\" (menu name the same), not \"Publishing packages\". It also covers publishing to the public Registry (\"Learn how to publish a Pulumi package to the public Pulumi Registry\"), while repository-strategy.md describes Private Registry publishing with tags and `pulumi package publish`.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/publishing-packages.md L1-12; repo:content/docs/iac/guides/building-extending/packages/repository-strategy.md L85",
+      "model_usage": {
+        "input_tokens": 8056,
+        "output_tokens": 857,
+        "cache_read_input_tokens": 21189,
+        "cache_creation_input_tokens": 0,
+        "turns": 3
+      },
+      "framing": "none",
+      "framing_note": "The link text 'Publishing packages' doesn't match the target page's title, 'Publishing to the Pulumi Registry', and the target's scope (public Registry) is narrower than the private-registry mechanics this page discusses."
+    },
+    {
+      "claim_id": "c20",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L85",
+      "text": "A thoughtful repository strategy is essential for managing Pulumi packages at scale. Group cohesive components into one package per repository so they version and release together; use separate repositories for unrelated component groups so each package can evolve at its own pace. For details on the",
+      "type": "url",
+      "route": "pass1",
+      "verdict": "verified",
+      "confidence": "high",
+      "evidence": "The link target resolves to an existing page in the repo, content/docs/iac/guides/building-extending/packages/publishing-packages.md, with the title \"Publishing to the Pulumi Registry\". That fits a \"for details on publishing\" pointer. The repository-strategy advice in the rest of the sentence is the guide's own editorial guidance, not a checkable fact.",
+      "source": "repo:content/docs/iac/guides/building-extending/packages/publishing-packages.md",
+      "model_usage": {
+        "input_tokens": 1279,
+        "output_tokens": 524,
+        "cache_read_input_tokens": 14126,
+        "cache_creation_input_tokens": 0,
+        "turns": 2
+      },
+      "framing": "exact-match",
+      "framing_note": "URL claim: the internal link path matches the file path of an existing page."
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "n_claims": 20,
+    "n_pass0": 0,
+    "n_pass1": 18,
+    "n_pass2": 1,
+    "n_pass3": 1,
+    "input_tokens": 178706,
+    "output_tokens": 15454,
+    "cache_read_input_tokens": 411082,
+    "cache_creation_input_tokens": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+ "defects": {
+  "21438-F1": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance AWS CDK v2.268.0 row; V15/V21 address other rows"
+  },
+  "21438-F2": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance Terraform v1.16.1 row; V20 targets \u00a7header only"
+  },
+  "21438-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V5",
+    "V7",
+    "V8",
+    "V4"
+   ],
+   "why": "Bicep/Crossplane/Pulumi rows contradicted as stale relative to 2026-09-21 header"
+  },
+  "21438-F5": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4"
+   ],
+   "why": "V4 contradicted, evidence notes summary table's v3.261.0 disagrees and is wrong"
+  }
+ }
+}

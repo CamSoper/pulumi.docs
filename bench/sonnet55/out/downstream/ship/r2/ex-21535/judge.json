@@ -1,0 +1,34 @@
+{
+ "defects": {
+  "21535-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V31"
+   ],
+   "why": "V31 contradicted: listener only ever applied to load balancer, no target-group path."
+  },
+  "21535-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V43"
+   ],
+   "why": "V43 contradicted: single shared defaultTargetGroup, not one per listener."
+  },
+  "21535-F3": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V56",
+    "V59"
+   ],
+   "why": "V56 unverifiable on default 3; V59 wrongly verified default 3."
+  },
+  "21535-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V58",
+    "V56"
+   ],
+   "why": "V58 contradicted: NLB equality requirement removed by AWS in 2022."
+  }
+ }
+}

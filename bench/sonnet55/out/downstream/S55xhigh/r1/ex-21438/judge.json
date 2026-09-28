@@ -1,0 +1,30 @@
+{
+ "defects": {
+  "21438-F1": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance AWS CDK v2.268.0 row; V22 checks governance table only"
+  },
+  "21438-F2": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance Terraform v1.16.1 row; V21 checks governance table only"
+  },
+  "21438-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V2",
+    "V5"
+   ],
+   "why": "Header 'as of 2026-09-21' contradicted; evidence shows stale Pulumi row"
+  },
+  "21438-F5": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V5",
+    "V2"
+   ],
+   "why": "At-a-glance Pulumi v3.261.0 contradicted; evidence cites v3.263.0 (2026-09-16)"
+  }
+ }
+}

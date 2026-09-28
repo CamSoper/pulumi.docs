@@ -1,0 +1,35 @@
+{
+ "defects": {
+  "21438-F1": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim asserts at-a-glance v2.268.0; V18/V21 check governance value; V9 only mentions split"
+  },
+  "21438-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V5"
+   ],
+   "why": "V5 contradicted: v1.16.3 was latest as of 2026-09-21, not v1.16.1"
+  },
+  "21438-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4",
+    "V5",
+    "V6",
+    "V7",
+    "V9",
+    "V10"
+   ],
+   "why": "Multiple mismatch claims show at-a-glance rows stale vs as-of header and governance table"
+  },
+  "21438-F5": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4"
+   ],
+   "why": "V4 mismatch: at-a-glance v3.261.0 contradicts v3.263.0 stated elsewhere"
+  }
+ }
+}

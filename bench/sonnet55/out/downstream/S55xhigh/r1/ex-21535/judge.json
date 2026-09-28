@@ -1,0 +1,34 @@
+{
+ "defects": {
+  "21535-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V26"
+   ],
+   "why": "V26 contradicted: no code path creates a listener against a target group."
+  },
+  "21535-F2": {
+   "outcome": "missed",
+   "claim_ids": [
+    "V12",
+    "V25"
+   ],
+   "why": "Covering claims verified; none contradicted the per-listener target group wording."
+  },
+  "21535-F3": {
+   "outcome": "missed",
+   "claim_ids": [
+    "V40",
+    "V41"
+   ],
+   "why": "V40 evidence affirms default 3 as correct; contradiction targets NLB part only."
+  },
+  "21535-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V40"
+   ],
+   "why": "V40 contradicted: docs no longer state NLB healthy/unhealthy equality constraint."
+  }
+ }
+}

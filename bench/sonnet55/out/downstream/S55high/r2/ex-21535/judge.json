@@ -1,0 +1,32 @@
+{
+ "defects": {
+  "21535-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V24"
+   ],
+   "why": "V24 contradicted; evidence shows listener always attaches to load balancer"
+  },
+  "21535-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V33"
+   ],
+   "why": "V33 contradicted; evidence shows one shared default target group"
+  },
+  "21535-F3": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V43"
+   ],
+   "why": "V43 covers default 3 but marked unverifiable"
+  },
+  "21535-F4": {
+   "outcome": "raised",
+   "claim_ids": [
+    "V43"
+   ],
+   "why": "V43 covers NLB equality constraint, verdict unverifiable"
+  }
+ }
+}

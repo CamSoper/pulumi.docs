@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L11",
+      "text": "Effectively developing and managing [Pulumi packages](/docs/iac/concepts/packages/) is key to building your organization's platform with Pulumi. A package is the unit of versioning and distribution; the [components](/docs/iac/concepts/components/) inside it inherit the package's version. This guide ",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/concepts/packages/"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L15",
+      "text": "Pulumi packages come in two flavors, and each is versioned and released differently. Understanding the release artifact for each flavor is the foundation for the repository-layout advice in this guide.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L19",
+      "text": "A [source-based plugin package](/docs/iac/guides/building-extending/components/packaging-components/#source-based-plugin-packages) is distributed as source code in a Git repository. The package's version is the Git tag on that repository. Publishing to the Pulumi IDP [Private Registry](/docs/idp/con",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/building-extending/components/packaging-components/#source-based-plugin-packages"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L21",
+      "text": "1. Apply a semver Git tag (for example, `v1.2.3`) to the repository.",
+      "type": "version",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L22",
+      "text": "1. Run [`pulumi package publish`](/docs/iac/cli/commands/pulumi_package_publish/) to send the package metadata to Pulumi Cloud and place the package in the Private Registry. This step often runs automated tests before publishing.",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/cli/commands/pulumi_package_publish/"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L28",
+      "text": "An [executable-based plugin package](/docs/iac/guides/building-extending/components/packaging-components/#executable-based-plugin-packages) is distributed as a pre-built plugin binary, typically alongside per-language SDKs published to package feeds (npm, PyPI, NuGet, Maven, the Go module proxy, or ",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/building-extending/components/packaging-components/#executable-based-plugin-packages"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L30",
+      "text": "In both cases, the released artifact is a single, semantically-versioned Pulumi package. That fact drives the central rule of repository strategy below.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L50",
+      "text": "By \"cohesive,\" we mean components that are likely to be used together and therefore likely to change together. A good reference point is the [Amazon EKS package](https://www.pulumi.com/registry/packages/eks/) in the Pulumi Registry: it bundles a managed Kubernetes cluster component along with the su",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "https://www.pulumi.com/registry/packages/eks/"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L71",
+      "text": "It is technically possible to use a single monorepo containing one giant package for all of your organization's components, but Pulumi does not recommend this approach: it forfeits meaningful semantic versioning, which is how consumers know whether a given change is a bug fix, a new feature, or a br",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L77",
+      "text": "1. The package is released at `v1.0.0`. Both components are at `v1.0.0`.",
+      "type": "version",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L77",
+      "text": "1. The package is released at `v1.0.0`. Both components are at `v1.0.0`.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L78",
+      "text": "1. An enhancement is made to `ComponentA`. The package is released at `v1.1.0`, even though `ComponentB` is unchanged.",
+      "type": "version",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L78",
+      "text": "1. An enhancement is made to `ComponentA`. The package is released at `v1.1.0`, even though `ComponentB` is unchanged.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L79",
+      "text": "1. A breaking change is made to `ComponentB`. The package is released at `v2.0.0`, even though `ComponentA` had no breaking change \u2014 or any change at all.",
+      "type": "version",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L79",
+      "text": "1. A breaking change is made to `ComponentB`. The package is released at `v2.0.0`, even though `ComponentA` had no breaking change \u2014 or any change at all.",
+      "type": "temporal",
+      "confidence": "high"
+    },
+    {
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "line_range": "L85",
+      "text": "A thoughtful repository strategy is essential for managing Pulumi packages at scale. Group cohesive components into one package per repository so they version and release together; use separate repositories for unrelated component groups so each package can evolve at its own pace. For details on the",
+      "type": "url",
+      "confidence": "high",
+      "source_hint": "/docs/iac/guides/building-extending/packages/publishing-packages/"
+    }
+  ],
+  "renames": [],
+  "errors": [],
+  "stats": {
+    "claims_count": 16,
+    "files_scanned": 1,
+    "by_type": {
+      "url": 6,
+      "temporal": 6,
+      "version": 4
+    }
+  }
+}

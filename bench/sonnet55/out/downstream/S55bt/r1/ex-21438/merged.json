@@ -1,0 +1,443 @@
+{
+  "schema_version": 2,
+  "claims": [
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L5",
+      "text": "updated: 2026-09-21",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/updated-2026-09-21",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L132",
+      "text": "| Tool | Language / approach | Clouds supported | License | Latest stable release (as of 2026-09-21) | Best for |",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/tool-language-approach-clouds-license",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L134-136",
+      "text": "| [Pulumi](#1-pulumi) | Python, TypeScript, JavaScript, Go, .NET, Java, YAML, or HCL | AWS, Azure, Google Cloud, Kubernetes, and hundreds of other providers | Apache-2.0 | v3.261.0 (2026-09-02) | Teams who want flexible, language-agnostic IaC for infrastructure and operations |",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/pulumi-python-typescript-javascript-go",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L134-136, L172-174, L203, L505, L559",
+      "text": "The latest stable release of Pulumi (pulumi/pulumi) is v3.263.0, released 2026-09-16 (the summary table at L134 lists v3.261.0 dated 2026-09-02, while the license table and Pulumi section list v3.263.0).",
+      "type": "version",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "pulumi/pulumi",
+      "entity_key": "version/pulumi",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L139",
+      "text": "The overview table lists Azure Bicep's latest stable release as v0.46.1 released 2026-07-30, as of 2026-09-21.",
+      "type": "version",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Azure/bicep",
+      "entity_key": "version/azure-bicep",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L141",
+      "text": "| [Kubernetes YAML](#8-kubernetes-yaml) | YAML manifests | Any Kubernetes cluster | Apache-2.0 | v1.37.0 (2026-08-26) | Teams managing container-native applications and cloud-native infrastructure |",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/kubernetes-yaml-8-kubernetes-yaml-manifests-cluster",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L141-142, L179-180, L793, L854",
+      "text": "The overview table lists Crossplane's latest stable release as v2.4.0 released 2026-08-20, as of 2026-09-21.",
+      "type": "version",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "kubernetes/kubernetes",
+      "entity_key": "version/kubernetes",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L142-143, L180-181, L854",
+      "text": "The latest stable release of Crossplane is v2.4.0 (2026-08-20) per the summary table 'as of 2026-09-21'.",
+      "type": "version",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "opentofu/opentofu",
+      "entity_key": "version/opentofu",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L145",
+      "text": "The version and release-date figures in the tool comparison table were checked against each project's GitHub releases on 2026-09-21.",
+      "type": "temporal",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "GitHub releases",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L149",
+      "text": "The pricing table is based on published pricing as of September 2026.",
+      "type": "temporal",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L164",
+      "text": "Spacelift's paid plans scale by private worker count rather than seats or resources, with quote-based pricing at the top end.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Spacelift pricing",
+      "entity_key": "entity-spec/spacelift-paid-plans-scale-private",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L164",
+      "text": "Env zero prices its paid tiers per successful apply or environment.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "env zero pricing",
+      "entity_key": "entity-spec/env-zero-prices-paid-tiers",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L164",
+      "text": "Env zero is the new name of env0 (formerly env0).",
+      "type": "temporal",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "env zero",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L173",
+      "text": "Terraform is licensed under BUSL-1.1 (not OSI-approved) and HashiCorp is an IBM company.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp",
+      "entity_key": "entity-spec/terraform-licensed-under-busl-1-1-osi-approved",
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L174",
+      "text": "| AWS CDK | Apache-2.0 | AWS | v2.270.0 | 2026-09-17 | ~12.9k |",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/aws-cdk-apache-2-0-2026-09-17-12-9k",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L177, L702",
+      "text": "The latest stable release of Azure Bicep is v0.47.16, released 2026-09-08.",
+      "type": "version",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Azure/bicep",
+      "entity_key": "version/azure-bicep",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L179-181, L1498",
+      "text": "Among dedicated IaC tools, Terraform is the most-starred on GitHub (roughly 49,700), followed by OpenTofu (~30,200), Pulumi (~25,700), AWS CDK (~12,900), and Crossplane (~12,100), measured 2026-09-21.",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "kubernetes/kubernetes",
+      "entity_key": "numerical/among-dedicated-iac-tools-terraform",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L180",
+      "text": "| Crossplane | Apache-2.0 | CNCF | v2.4.1 | 2026-09-15 | ~12.1k |",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/crossplane-apache-2-0-cncf-2026-09-15-12-1k",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L203",
+      "text": "Latest stable release: v3.263.0 (2026-09-16)",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/latest-stable-release-2026-09-16",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L505",
+      "text": "Latest stable release: v1.16.3 (2026-09-16)",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/latest-stable-release-2026-09-16",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L559",
+      "text": "Latest stable release: v2.270.0 (2026-09-17)",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/latest-stable-release-2026-09-17",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L702",
+      "text": "Latest stable release: v0.47.16 (2026-09-08)",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/latest-stable-release-2026-09-08",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L746",
+      "text": "Google Cloud Deployment Manager is fully turned down on June 30, 2027 for workloads still migrating.",
+      "type": "temporal",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Google Cloud",
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L854",
+      "text": "Latest stable release: v2.4.1 (2026-09-15)",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ],
+      "entity_key": "numerical/latest-stable-release-2026-09-15",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1486",
+      "text": "Cloud-native tools like AWS CDK, CloudFormation, Azure ARM, Azure Bicep, and Google Cloud Infrastructure Manager carry no separate tool fee; you pay only for cloud resources provisioned.",
+      "type": "behavior",
+      "confidence": "medium",
+      "found_by": [
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1488",
+      "text": "Pulumi Cloud's Free edition is free forever for one user with unlimited stacks and projects and 500 workflow minutes per month.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "Pulumi pricing",
+      "entity_key": "entity-spec/pulumi-cloud-free-edition-forever",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1488",
+      "text": "HCP Terraform is free for up to 500 managed resources with one concurrent run, then moves to per-resource pricing of roughly $0.10 to $0.99 per resource per month depending on tier.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "source_hint": "HashiCorp HCP Terraform pricing",
+      "entity_key": "entity-spec/hcp-terraform-free-managed-resources",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1488",
+      "text": "Self-hosted Terraform Enterprise is available at custom pricing for larger organizations.",
+      "type": "entity-spec",
+      "confidence": "medium",
+      "found_by": [
+        "llm-atomic"
+      ],
+      "source_hint": "HashiCorp",
+      "entity_key": "entity-spec/self-hosted-terraform-enterprise-custom-pricing",
+      "volatile": true
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1488",
+      "text": "The managed-platform pricing figures reflect published pricing checked on 2026-09-21.",
+      "type": "temporal",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ],
+      "entity_key": null,
+      "volatile": false
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1498",
+      "text": "Among dedicated IaC tools, Terraform remains the most-starred at roughly 49,700 GitHub stars, followed by OpenTofu (~30,200), Pulumi (~25,700), AWS CDK (~12,900), and Crossplane (~12,100).",
+      "type": "numerical",
+      "confidence": "high",
+      "found_by": [
+        "regex",
+        "llm-atomic"
+      ],
+      "source_hint": "kubernetes/kubernetes",
+      "entity_key": "numerical/among-dedicated-iac-tools-terraform",
+      "volatile": true
+    }
+  ],
+  "stances": [
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1498",
+      "text": "Terraform's larger community reflects a decade of first-mover adoption, while Pulumi, OpenTofu, and Crossplane have grown fastest among teams prioritizing general-purpose languages, open governance, or Kubernetes-native infrastructure management, respectively.",
+      "type": "comparison",
+      "confidence": "high",
+      "found_by": [
+        "llm-atomic",
+        "llm-holistic"
+      ]
+    },
+    {
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "line_range": "L1498",
+      "text": "By GitHub stars, Kubernetes leads the broader infrastructure ecosystem at roughly 127,900 stars, reflecting its role as the de facto container orchestration standard rather than a pure IaC tool. Among dedicated IaC tools, Terraform remains the most-starred at roughly 49,700, followed by OpenTofu at",
+      "type": "positioning",
+      "confidence": "high",
+      "found_by": [
+        "regex"
+      ]
+    }
+  ],
+  "errors": [
+    "llm pass [atomic]: content/blog/infrastructure-as-code-tools/index.md: content/blog/infrastructure-as-code-tools/index.md is a small edit (25 added line(s), 1526-line file) \u2014 extracting from the diff hunks only (unchanged body skipped)",
+    "llm pass [holistic]: content/blog/infrastructure-as-code-tools/index.md: content/blog/infrastructure-as-code-tools/index.md is a small edit (25 added line(s), 1526-line file) \u2014 extracting from the diff hunks only (unchanged body skipped)"
+  ],
+  "meta": {
+    "regex_claims": 48,
+    "llm_claims": 79,
+    "merged_claims": 30,
+    "stances": 2,
+    "llm_input_tokens": 14701,
+    "llm_output_tokens": 6606,
+    "llm_cache_read_input_tokens": 24786,
+    "llm_cache_creation_input_tokens": 0
+  }
+}

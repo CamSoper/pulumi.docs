@@ -1,0 +1,17 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4",
+    "V15"
+   ],
+   "why": "V4/V15 contradicted: S3Reference class doesn't exist in @pulumi/terraform or automation SDK"
+  },
+  "20348-events": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers 'Speak at meetups and conferences' events link; V38 checks user groups instead"
+  }
+ }
+}

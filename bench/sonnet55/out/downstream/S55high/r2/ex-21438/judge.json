@@ -1,0 +1,32 @@
+{
+ "defects": {
+  "21438-F1": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance AWS CDK v2.268.0 row; V20 only checks v2.270.0."
+  },
+  "21438-F2": {
+   "outcome": "missed",
+   "claim_ids": [],
+   "why": "No claim covers the at-a-glance Terraform v1.16.1 row; V14/V19 check v1.16.3."
+  },
+  "21438-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V9",
+    "V3",
+    "V5",
+    "V8"
+   ],
+   "why": "Snapshot claim contradicted as stale; Pulumi, Bicep, Crossplane at-a-glance rows flagged outdated."
+  },
+  "21438-F5": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V3",
+    "V4"
+   ],
+   "why": "Pulumi at-a-glance v3.261.0 vs v3.263.0 disagreement explicitly contradicted/mismatch."
+  }
+ }
+}

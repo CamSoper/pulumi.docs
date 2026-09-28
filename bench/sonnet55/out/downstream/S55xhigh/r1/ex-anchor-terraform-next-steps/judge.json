@@ -1,0 +1,19 @@
+{
+ "defects": {
+  "20348-getOutput": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V4",
+    "V16"
+   ],
+   "why": "V4/V16 contradicted: no S3Reference class exists in SDK, pointing at fabricated API"
+  },
+  "20348-events": {
+   "outcome": "missed",
+   "claim_ids": [
+    "V38"
+   ],
+   "why": "V38 covers events/speaking but marked verified; no claim questions speaking venue"
+  }
+ }
+}

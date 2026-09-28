@@ -1,0 +1,40 @@
+{
+ "defects": {
+  "21438-F1": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V6"
+   ],
+   "why": "V6 mismatch cites AWS CDK v2.268.0 vs v2.270.0 across the two tables"
+  },
+  "21438-F2": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V7",
+    "V6",
+    "V3"
+   ],
+   "why": "V7 contradicts at-a-glance v1.16.1; V6/V3 show v1.16.3 inconsistency"
+  },
+  "21438-F4": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V2",
+    "V3",
+    "V6",
+    "V9",
+    "V13"
+   ],
+   "why": "Header 'as of 2026-09-21' contradicted; stale Pulumi/Terraform/Bicep/Crossplane rows flagged"
+  },
+  "21438-F5": {
+   "outcome": "flagged",
+   "claim_ids": [
+    "V2",
+    "V3",
+    "V6"
+   ],
+   "why": "Pulumi v3.261.0 row contradicted by v3.263.0 release and internal inconsistency"
+  }
+ }
+}
