@@ -1,0 +1,85 @@
+diff --git a/content/docs/iac/operations/continuous-delivery/aws-code-services.md b/content/docs/iac/operations/continuous-delivery/aws-code-services.md
+index fbea1fb289..740e4e05e9 100644
+--- a/content/docs/iac/operations/continuous-delivery/aws-code-services.md
++++ b/content/docs/iac/operations/continuous-delivery/aws-code-services.md
+@@ -149,6 +149,12 @@ Production updates should be deliberate. Keep production on its own stack and de
+ 
+ Configure this CodeBuild project (or CodePipeline source stage) to trigger on git tag events rather than branch pushes. Promotion then becomes a single, traceable Git operation, and production never deploys from an untested commit.
+ 
++## Serialize pipeline executions
++
++CodePipeline's default [execution mode](https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-how-it-works.html), `SUPERSEDED`, locks a stage to one execution at a time, but only protects an execution once it's actually running: a newer execution can still overtake one that's still *waiting* to enter a locked stage, dropping it before it ever starts. If your CodeBuild stage runs `pulumi up`, and enough commits land while it's busy, a queued execution waiting behind it can be superseded and never run at all — silently skipping a deployment rather than colliding with one already in progress.
++
++Set the pipeline's execution mode to `QUEUED` instead, so waiting executions form a queue and each one runs in turn rather than a later commit erasing an earlier one that never got its turn. `QUEUED` requires a V2 pipeline, so set both `executionMode` and `pipelineType` when you define the pipeline — with the AWS CLI's `create-pipeline`/`update-pipeline`, or as code by setting the `executionMode` and `pipelineType` inputs on the [`aws.codepipeline.Pipeline`](/registry/packages/aws/api-docs/codepipeline/pipeline/) resource described below.
++
+ ## Manage the pipeline with Pulumi
+ 
+ The CodeBuild projects, CodePipeline pipelines, IAM roles, and Parameter Store entries described above are themselves AWS resources, so you can define them with Pulumi using the [AWS provider](/registry/packages/aws/). Managing the pipeline as code keeps it versioned, reviewable, and reproducible alongside the infrastructure it deploys.
+diff --git a/content/docs/iac/operations/continuous-delivery/azure-devops.md b/content/docs/iac/operations/continuous-delivery/azure-devops.md
+index 7d4222c779..e4cd98e187 100644
+--- a/content/docs/iac/operations/continuous-delivery/azure-devops.md
++++ b/content/docs/iac/operations/continuous-delivery/azure-devops.md
+@@ -170,6 +170,32 @@ To use the task with AWS, Google Cloud, or another provider, pass the required c
+ 
+ Using [Pulumi ESC](/docs/esc/) to broker short-lived cloud credentials avoids storing provider keys as pipeline variables at all.
+ 
++## Serialize deployments with an exclusive lock
++
++If two runs reach the same stack at once — a scheduled run overlapping a manual one, say, or two merges landing close together — Pulumi Cloud grants the lease to only one of them, and the other's `pulumi up` fails with an [update conflict](/docs/iac/operations/troubleshooting/update-conflicts/). Azure Pipelines can prevent that at the source with an [exclusive lock check](https://learn.microsoft.com/azure/devops/pipelines/process/approvals?view=azure-devops) on the environment your deployment job targets.
++
++Add the check from that environment's **Approvals and checks** tab, then set `lockBehavior` on the stage that references it:
++
++```yaml
++stages:
++- stage: DeployProduction
++  lockBehavior: sequential
++  jobs:
++  - deployment: Deploy
++    environment: production
++    strategy:
++      runOnce:
++        deploy:
++          steps:
++          - task: Pulumi@1
++            inputs:
++              command: up
++              stack: acme/website/production
++              args: --yes
++```
++
++Use `sequential` rather than the default `runLatest`. With `runLatest`, only the most recently queued run ever acquires the lock, so an older run stuck waiting behind it is passed over rather than eventually applied — acceptable for a preview environment where only the newest state matters, but not for a stack where every update needs to land. `sequential` runs every queued stage against the lock in order instead, one at a time, the same way Pulumi Cloud itself serializes updates to a stack. You can also manage the check as code with the [`azuredevops.CheckExclusiveLock`](/registry/packages/azuredevops/api-docs/checkexclusivelock/) resource in the Azure DevOps provider.
++
+ ## Managing Azure DevOps with Pulumi
+ 
+ You can also manage Azure DevOps itself — projects, repositories, pipelines, and service connections — as code with the [Azure DevOps provider](/registry/packages/azuredevops/) in the Pulumi Registry.
+diff --git a/content/docs/iac/operations/continuous-delivery/teamcity.md b/content/docs/iac/operations/continuous-delivery/teamcity.md
+index 4866ed1c9f..1e700e2712 100644
+--- a/content/docs/iac/operations/continuous-delivery/teamcity.md
++++ b/content/docs/iac/operations/continuous-delivery/teamcity.md
+@@ -115,6 +115,12 @@ Promotion then becomes a single, traceable Git operation, and production never d
+ 
+ Independently of TeamCity, Pulumi offers native [version control integrations](/docs/integrations/version-control/) for popular Git hosts. With one configured, Pulumi Cloud posts infrastructure-change summaries as pull request comments and status checks, and links each stack update back to the commit and pull request that produced it. See the [Version Control](/docs/integrations/version-control/) page for the integrations currently available.
+ 
++## Limit concurrent builds
++
++If two runs of the same build configuration reach the same stack at once — a scheduled build overlapping a manual one, or two commits triggering back to back — Pulumi Cloud grants the lease to only one, and the other's `pulumi up` fails with an [update conflict](/docs/iac/operations/troubleshooting/update-conflicts/). TeamCity's own default is to let build configurations run concurrently against as many free agents as it has, so nothing stops that race on its own.
++
++Turn the build configuration's advanced option **Limit the number of simultaneously running builds** from its default of `0` (unlimited) to `1`, under that configuration's **General Settings**. A second build that would otherwise start immediately is queued behind the first instead, and runs only once it finishes — the same one-at-a-time behavior Pulumi Cloud's own per-stack lease gives you, applied earlier so the build never gets far enough to hit the conflict.
++
+ ## Speed up builds with caching
+ 
+ A clean build agent starts with an empty plugin cache, so Pulumi re-downloads its provider plugins on every run. How you avoid that depends on your agents:
+diff --git a/content/docs/iac/operations/troubleshooting/update-conflicts.md b/content/docs/iac/operations/troubleshooting/update-conflicts.md
+index 370d905987..9ce9a5d51b 100644
+--- a/content/docs/iac/operations/troubleshooting/update-conflicts.md
++++ b/content/docs/iac/operations/troubleshooting/update-conflicts.md
+@@ -40,6 +40,9 @@ How you serialize updates depends on your CI/CD system:
+ - **GitHub Actions** — use a [concurrency group](/docs/iac/operations/continuous-delivery/github-actions/#control-concurrent-runs) keyed to the stack, without `cancel-in-progress`, so queued deployments wait rather than overlap.
+ - **GitLab CI/CD** — assign deployment jobs a [`resource_group`](/docs/iac/operations/continuous-delivery/gitlab-ci/#serialize-deployments) so GitLab runs them one at a time.
+ - **Travis CI** — set **Limit concurrent jobs** to `1` for deployment builds, as described in the [Travis CI guide](/docs/iac/operations/continuous-delivery/travis/#concurrency).
++- **Azure Pipelines** — add an [exclusive lock check](/docs/iac/operations/continuous-delivery/azure-devops/#serialize-deployments-with-an-exclusive-lock) to the environment your deployment job targets, with `lockBehavior: sequential` on the stage.
++- **AWS CodePipeline** — set the pipeline's [execution mode](/docs/iac/operations/continuous-delivery/aws-code-services/#serialize-pipeline-executions) to `QUEUED` so waiting executions run in turn instead of the default, which lets a newer execution supersede an older one that's still waiting to start.
++- **TeamCity** — set **Limit the number of simultaneously running builds** to `1` on the build configuration, as described in the [TeamCity guide](/docs/iac/operations/continuous-delivery/teamcity/#limit-concurrent-builds).
+ - **Jenkins** — wrap the deployment stage in a [`lock`](https://www.jenkins.io/doc/pipeline/steps/lockable-resources/) step from the Lockable Resources plugin, keyed to the stack, so the Jenkins queue holds a second run until the first finishes:
+ 
+   ```groovy

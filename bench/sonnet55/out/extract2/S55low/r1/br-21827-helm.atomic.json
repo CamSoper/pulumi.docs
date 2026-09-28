@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L38",
+      "text": "Helm installs resources in a fixed order by Kubernetes kind, defined in kind_sorter.go in the Helm repo; chart authors can't declare dependencies between resources or subcharts except through hook weights.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L38, L58",
+      "text": "In Pulumi, resource ordering derives from the dependency graph: each resource waits for its dependencies to become ready and independent resources deploy in parallel.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "The Helm docs state: \"the Kubernetes objects from the charts and all its dependencies are aggregated into a single set; then sorted by type followed by name; and then created/updated in that order.\"",
+      "type": "quote",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Helm's kind sorter is a hardcoded list beginning with PriorityClasses and Namespaces, then Secrets and ConfigMaps, then CustomResourceDefinitions and RBAC, then Services and workloads, with unlisted kinds (including custom resources) last.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Helm uninstall runs the same kind-sorted list in reverse.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Helm sends sorted manifests to the API server in a single pass and doesn't wait for one resource to become ready before applying the next.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "A Helm subchart's objects are merged into the parent chart's set and sorted by kind, so a chart can't express installing one subchart before another.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "Helm chart hooks are ordered with helm.sh/hook-weight annotations, and hook resources are not managed by Helm as part of the release.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "HIP-0025 proposes native sequencing for resources and subcharts in Helm and is still a draft.",
+      "type": "temporal",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "Passing one resource's output into another, or setting the dependsOn resource option, creates an edge in the Pulumi dependency graph.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "Pulumi deletes follow the dependency graph in reverse.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "The Pulumi Kubernetes provider's helm.v4.Chart supports the config.kubernetes.io/depends-on annotation for ordering between objects inside the chart, and dependsOn on the chart for dependencies on outside resources.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L136",
+      "text": "Helm merges objects from a chart and its dependencies into a single set, sorts by Kubernetes kind and applies in that order, so declaring a subchart as a dependency doesn't make it install first.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L90",
+      "text": "Two patterns cover most production deployments of Pulumi and Helm together.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L118",
+      "text": "Using Helm charts directly from a Pulumi program is the most common adoption pattern.",
+      "type": "positioning",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "helm.v4.Chart registers each chart object as a Pulumi resource so every child shows up in plan output, drift detection, and state.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "helm.v3.Release uses the embedded Helm SDK and creates a real Helm release, preserving chart hooks, post-rendering, and release history.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L144",
+      "text": "Pulumi installs a Helm chart after the resources its values depend on.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "Helm is a graduated CNCF project, open source under Apache License 2.0, with no commercial tier.",
+      "type": "entity-spec",
+      "source_hint": "CNCF",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L42, L70",
+      "text": "A failed Pulumi update leaves the stack partially updated, and you roll forward by reverting program code and running pulumi up.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "Pulumi creates and deletes resources in dependency order, with each resource ready before dependents.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 11499,
+    "output_tokens": 1695,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 12394
+  }
+}

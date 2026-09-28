@@ -1,0 +1,686 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L31",
+      "text": "The literal placeholder text 'Calling [toString] on an [Output<T>] is not supported' can appear in a log line, a generated file, or a resource property when an Output is treated as if it were already a plain value.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L31",
+      "text": "Pulumi's documentation includes an 'Output value errors' page at /docs/iac/operations/troubleshooting/output-values/ that provides a rundown of symptoms of treating an output as if it were already a plain value.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L35",
+      "text": "Resources created inside an `apply` callback will not appear in `pulumi preview` unless the output's value is already known.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L35",
+      "text": "Because resources created inside `apply` may not appear in `pulumi preview`, the preview output may not match the actual changes made when `pulumi up` is run.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L72-75",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/output-values/) that diagnoses errors from stringifying, branching on, or reading a Pulumi output value like a plain value.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L72-75",
+      "text": "Stringifying, branching on, or reading a Pulumi output value like a plain value causes errors.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L33-35",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/update-conflicts/) for resolving \"409 conflict: Another update is currently in progress\" errors.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L33-35",
+      "text": "Pulumi returns a \"409 conflict: Another update is currently in progress\" error when another update is in progress.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L37-40",
+      "text": "Pulumi Cloud can return 500 internal server errors, and Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/server-errors/) for handling them.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L42-45",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/post-step-errors/) for troubleshooting post-step event failures and engine bugs.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47-50",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/connection-issues/) for fixing network connectivity and proxy problems.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L52-55",
+      "text": "Pulumi's DIY backend troubleshooting content (at /docs/iac/operations/stack-management/using-a-diy-backend/#error-reading-pulumimetayaml) resolves `read \".pulumi/meta.yaml\"` errors that occur when the CLI can't access a self-managed state backend.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L52-55",
+      "text": "The Pulumi CLI can raise a `read \".pulumi/meta.yaml\"` error when it can't access a self-managed (DIY) state backend.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L57-60",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/destroy-failures/) for handling scenarios when `pulumi destroy` fails.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L62-65",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/interrupted-updates/) for recovering from interrupted deployments.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L67-70",
+      "text": "Running x86_64 Pulumi binaries under Rosetta 2 on Apple Silicon (macOS) can cause crashes or hangs due to architecture mismatch.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L67-70",
+      "text": "Pulumi has a troubleshooting guide page (at /docs/iac/operations/troubleshooting/architecture-mismatch/) addressing macOS architecture mismatch crashes/hangs on Apple Silicon.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L80-83",
+      "text": "Pulumi has CI/CD troubleshooting documentation (at /docs/iac/operations/continuous-delivery/troubleshooting/) for resolving continuous integration and deployment pipeline issues.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L85-88",
+      "text": "Pulumi documents safe techniques for modifying Pulumi state files when necessary, at /docs/iac/operations/stack-management/editing-state-files/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L90-93",
+      "text": "A recently deleted Pulumi stack can be recovered from the Pulumi Cloud console, including after an accidental `pulumi stack rm --force`.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L90-93",
+      "text": "Pulumi documents restoring deleted stacks at /docs/iac/operations/stack-management/restoring-deleted-stacks/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95-98",
+      "text": "The Pulumi CLI supports `--target` and `--exclude` flags to limit operations to specific resources, useful when a stuck or misbehaving resource is blocking a wider update.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L100-103",
+      "text": "Pulumi provides automatic logging, CLI verbose logging, and program logging for debugging and diagnostics, documented at /docs/iac/operations/debugging/logging/.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L105-108",
+      "text": "Pulumi supports installing pre-release (dev) builds to access bug fixes that haven't shipped in a stable release yet.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L105-108",
+      "text": "Pulumi documents using dev builds at /docs/iac/operations/debugging/using-dev-builds/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "Pulumi has a Community Slack (at https://slack.pulumi.com) that provides fast community support.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L114",
+      "text": "Pulumi has a guide for filing GitHub issues at /docs/support/filing-issues/ to report bugs in the right repository.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L115",
+      "text": "Running `pulumi logs share` securely sends the logs from a failed operation to the Pulumi team.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L115",
+      "text": "Pulumi documents automatic logging at /docs/iac/operations/debugging/logging/#automatic-logging.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L116",
+      "text": "Pulumi offers paid support options that can be reached via a contact page at /contact/.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L120",
+      "text": "Pulumi offers support channels for questions or feedback via community Slack, GitHub, and a contact-support page (/support/).",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L123-128",
+      "text": "Navigating to this troubleshooting page with the URL hash `#conflict` redirects the browser to /docs/iac/operations/troubleshooting/update-conflicts/.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L125",
+      "text": "The redirect for the `#conflict` hash on this page references Pulumi GitHub issue https://github.com/pulumi/pulumi/issues/20846.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L130-134",
+      "text": "Navigating to this troubleshooting page with the URL hash `#verbose-logging` redirects the browser to /docs/iac/operations/debugging/logging/#cli-verbose-logging.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "The redirect for the `#verbose-logging` hash on this page references Pulumi docs GitHub issue https://github.com/pulumi/docs/issues/16985.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L15",
+      "text": "Pulumi resource properties are represented as Outputs rather than plain values because their real values are not known until the resource providing them has actually been created or updated.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L21",
+      "text": "If you concatenate, log, or otherwise convert a Pulumi output value to a string directly instead of going through `apply` or an equivalent helper, Pulumi does not raise an error by default and instead silently substitutes a placeholder message in place of the value.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L27-32",
+      "text": "In Pulumi's TypeScript SDK, converting an Output to a string (e.g. via template literal interpolation) silently produces a broken string containing literal text such as `Calling [toString] on an [Output<T>] is not supported`, with no exception thrown.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L32",
+      "text": "In Pulumi's TypeScript SDK, calling `JSON.stringify()` on an output, or letting one flow into a JSON body, produces a `Calling [toJSON] on an [Output<T>] is not supported` string rather than throwing or serializing the value.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38-43",
+      "text": "In Pulumi's Python SDK, converting an output value to a string (e.g. via an f-string) produces a broken string containing literal text such as `Calling __str__ on an Output[T] is not supported`, and Pulumi also logs a warning; no exception is raised.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "In Pulumi's Python SDK, passing an output to `json.dumps()` fails outright with `TypeError: Object of type Output is not JSON serializable`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "Pulumi's Python SDK provides `Output.json_dumps()` as the supported way to JSON-serialize an output.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (Python SDK)",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L49",
+      "text": "In Pulumi's Go SDK, passing a `pulumi.StringOutput` where a `string` is expected is a compile error rather than a runtime surprise, because Go's static typing generally prevents converting an output to a string incorrectly.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56-60",
+      "text": "In Pulumi's C# SDK, converting an output value to a string (e.g. via string interpolation in `Console.WriteLine`) silently produces a broken string containing literal text such as `Calling [ToString] on an [Output<T>] is not supported`, with no exception thrown.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "Pulumi's C# SDK provides `Output.Format` as an alternative to `Apply` for composing strings from outputs.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (.NET SDK)",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "Setting the environment variable `PULUMI_ERROR_OUTPUT_STRING=true` in Pulumi's TypeScript, Python, and C# SDKs causes code that would otherwise silently produce placeholder output-to-string text to instead throw an exception at the point of the mistake.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L68",
+      "text": "Pulumi's TypeScript SDK provides `pulumi.interpolate` and `pulumi.concat` as string-composition helpers for working with outputs.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (TypeScript SDK)",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L68",
+      "text": "Pulumi's Python SDK provides `Output.concat`, `Output.format`, and `Output.json_dumps` as string-composition helpers for working with outputs.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (Python SDK)",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L68",
+      "text": "Pulumi's Go SDK provides `pulumi.Sprintf` and `pulumi.JSONMarshal` as string-composition helpers for working with outputs.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (Go SDK)",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L68",
+      "text": "Pulumi's C# SDK provides `Output.Format` as a string-composition helper for working with outputs.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (.NET SDK)",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L72-87",
+      "text": "A value assigned to an outer variable from inside an `apply`/`Apply` callback remains unset/undefined outside that callback when read later in the program, because the callback runs asynchronously after the output resolves, which is generally after the rest of the program's top-level code has already finished running.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L87",
+      "text": "The delay in an output's `apply`/`Apply` callback resolving is governed by when the Pulumi engine resolves the dependency graph, not by the program's own clock, so it cannot be fixed by adding a delay.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L98",
+      "text": "Most Pulumi resource inputs accept outputs as well as plain values.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L98",
+      "text": "A resource's logical name is a position that cannot accept a Pulumi output value directly, unlike most resource inputs.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "In a dynamically typed Pulumi SDK language, branching on an output object directly (e.g. `if (someOutput) {...}`) evaluates the output object itself rather than its eventual value, so the condition is generally always true regardless of what the output resolves to.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "In a statically typed Pulumi SDK language, branching directly on an output (e.g. treating an `Output<bool>` as a `bool`) is usually a compile error.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L104",
+      "text": "A plain value known when a Pulumi program starts, such as a stack configuration setting read with `pulumi.Config`, an environment variable, or a hardcoded flag, branches normally and is not subject to the output-branching problem.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Pulumi's TypeScript, Go, and C# SDKs, passing an output as a resource's logical name, a loop bound, or a map key fails to compile because these positions are typed as plain strings or numbers.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Pulumi's Python SDK, passing an output as a resource's logical name raises `TypeError: Expected resource name to be a string` at runtime.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Pulumi's Python SDK, using an output as a loop bound via `range(some_output)` raises `TypeError: 'Output' object cannot be interpreted as an integer`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Pulumi's Python SDK, using an output as a dictionary key does not raise an error; instead Python falls back to comparing and hashing the output object itself, causing the lookup to silently key on the wrong thing.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L124",
+      "text": "Pulumi supports restructuring dependent resources into a later, separate stack that consumes an earlier stack's outputs through a StackReference, when resource names or counts depend on data only known after an earlier resource is provisioned.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "Pulumi has no supported way to block a program and synchronously pull a resolved value out of an output; attempting to await or read an output's value synchronously either fails to compile, fails at runtime, or quietly returns placeholder text.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "The `pulumi stack output <name>` CLI command reads a single stack output after a deployment.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L133",
+      "text": "A Pulumi StackReference allows one Pulumi program to consume another stack's outputs as its own inputs.",
+      "type": "feature",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L134",
+      "text": "Pulumi's Automation API exposes an `outputs` field on the result of running an update, such as `res.Outputs` in Go, for programmatically reading deployment outputs.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi (Automation API)",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 3,
+    "scrutiny": "standard",
+    "input_tokens": 8529,
+    "output_tokens": 6130,
+    "cache_read_input_tokens": 37386,
+    "cache_creation_input_tokens": 0
+  }
+}

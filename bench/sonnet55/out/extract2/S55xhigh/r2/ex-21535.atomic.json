@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L5, L28-29",
+      "text": "The Pulumi AWSx ELB component provides APIs for provisioning Application Load Balancers and Network Load Balancers.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L5, L29-31",
+      "text": "The Pulumi AWSx ELB component integrates with other AWS services, including API Gateway, Elastic Container Service (ECS), Lambda, and VPC, to give the compute you run in AWS configurable network accessibility.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L55-56",
+      "text": "In Pulumi AWSx, switching from an ApplicationLoadBalancer to a NetworkLoadBalancer is usually just a matter of swapping out the class used (`ApplicationLoadBalancer` to `NetworkLoadBalancer`).",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L61-62",
+      "text": "In Pulumi AWSx, in addition to creating a load balancer by instantiating its class, you also need a listener so that traffic can reach the load balancer.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L66-67",
+      "text": "The example AWSx load balancer listens on port 80, in the account's per-region default VPC, using its public subnets, thereby exposing it to the internet.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L82-84",
+      "text": "A load balancer target can be an EC2 instance, an ECS service, or anything else with an IP address.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L82-84",
+      "text": "For a load balancer to route traffic to targets, you must configure security groups to let traffic flow inside your VPC on the correct ports.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L91",
+      "text": "To target an EC2 instance with a load balancer, you must open egress traffic from the EC2 instance to the load balancer for health checks.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L99",
+      "text": "ALBs automatically open ingress traffic to the ports they listen on, whereas NLBs do not.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "The awsx-load-balanced-ec2-instances example creates an EC2 instance per availability zone, running an Amazon Linux 2 web server.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L123-125",
+      "text": "The Pulumi Registry AWS provider API docs include a page for the `aws.ec2.LaunchTemplate` resource at /registry/packages/aws/api-docs/ec2/launchtemplate/ and one for `AutoScalingGroup` at /registry/packages/aws/api-docs/autoscaling/group/.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L130-131",
+      "text": "When you pass the load balancer's target group in an ECS task definition's `portMappings` with AWSx, AWSx uses that target group to populate the ECS service's load balancer configuration for you.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L136-138",
+      "text": "The AWSx ECS component (the classes in the `awsx.ecs` package) automatically creates the right ingress and egress rules for load balancing.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L137-138",
+      "text": "When using raw `aws.ecs` resources rather than the AWSx ECS component, you need to manage the security group ingress and egress rules yourself.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L144",
+      "text": "The awsx-load-balanced-fargate-nginx example program exports a stack output named `url` that can be used with curl to reach the endpoint.",
+      "type": "api-surface",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L156-159",
+      "text": "ALBs offer two features that make them more attractive than NLBs for ECS: dynamic host port mapping, and path-based routing with priority rules.",
+      "type": "comparison",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L156",
+      "text": "ECS supports both NLB and ALB load balancers.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L161",
+      "text": "The recommendation for ECS services is to use ALBs unless a service requires a feature that is only available with NLBs.",
+      "type": "positioning",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L169",
+      "text": "By default, an AWSx load balancer is created as internet-facing, using the VPC's public subnets and listening for traffic coming from the internet.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L175-176",
+      "text": "AWSx load balancers accept an explicit list of subnets via either the `subnets` property (subnet objects) or the `subnetIds` property (subnet IDs).",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L215-216",
+      "text": "The `NetworkLoadBalancer` and `ApplicationLoadBalancer` classes in AWSx use smart defaults, including automatically creating target groups from the same inbound port information as the listeners.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L220-221",
+      "text": "When you create a listener in AWSx, the `listener` property chooses smart defaults based on whether the listener is created against a load balancer or a target group.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L228-229",
+      "text": "The AWS documentation page 'Create an HTTPS listener for your Application Load Balancer' exists at https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L236",
+      "text": "The AWS documentation page 'Authenticate users using an Application Load Balancer' exists at https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L242",
+      "text": "The AWS documentation page https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html has a 'fixed-response-actions' section describing fixed-response actions.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L245",
+      "text": "The AWS documentation page https://docs.aws.amazon.com/elasticloadbalancing/latest/application/rule-action-types.html has a 'redirect-actions' section describing redirect actions.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L258",
+      "text": "The AWS documentation page https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-rules.html exists and covers ALB listener rules.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L265-266",
+      "text": "In AWSx, a target group can be created manually either by defining a `defaultTargetGroup` on the load balancer directly or by creating a `TargetGroupAttachment` resource.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L268-269",
+      "text": "The `deregistrationDelay` target group option has a range of 0\u20133600 seconds.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L268-269",
+      "text": "The `deregistrationDelay` target group option defaults to 300 seconds.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L273",
+      "text": "The `slowStart` target group option has a range of 30\u2013900 seconds, or 0 to disable it.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L274",
+      "text": "The `slowStart` target group option is disabled by default.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L279-281",
+      "text": "The `targetType` target group option accepts the values `instance` (an EC2 instance ID), `ip` (an IP address), `lambda` (a Lambda function), and `alb` (an Application Load Balancer).",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L280-281",
+      "text": "The `targetType` target group option defaults to `instance`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L281-283",
+      "text": "For target groups with `targetType` `ip`, IP addresses must be routable within your VPC and cannot be public IP addresses; they must fall within the VPC's private subnet range, the RFC 1918 ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), or the RFC 6598 range (100.64.0.0/10).",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L289",
+      "text": "The health check `interval` option (approximate time in seconds between health checks of an individual target) has a range of 5\u2013300 seconds.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L289",
+      "text": "The health check `interval` option defaults to 30 seconds.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L291-292",
+      "text": "The health check `healthyThreshold` option has a range of 2\u201310.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L292",
+      "text": "The health check `healthyThreshold` option defaults to 3.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L294-296",
+      "text": "The health check `unhealthyThreshold` option has a range of 2\u201310.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L295-296",
+      "text": "The health check `unhealthyThreshold` option defaults to 3.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L295",
+      "text": "For NLBs, the health check `unhealthyThreshold` value must be the same as `healthyThreshold`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L301-302",
+      "text": "The health check `timeout` option (time in seconds during which no response from a target means a failed health check) has a range of 2\u2013120 seconds and applies to target groups generally, not only ALB target groups.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L302",
+      "text": "When the health check `timeout` is not set, AWS applies a default of 6 seconds for HTTP target groups.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L302-303",
+      "text": "When the health check `timeout` is not set, AWS applies a default of 10 seconds for HTTPS, TCP, and TLS target groups.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/clouds/aws/elb.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 9114,
+    "output_tokens": 6253,
+    "cache_read_input_tokens": 12394,
+    "cache_creation_input_tokens": 0
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L27",
+      "text": "Pulumi's component state migrations let component authors ship an upgrade path with the component itself; a migration translates the saved state of a component and its children before Pulumi works out which resources need to change.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L27, L5",
+      "text": "Pulumi component authors can change a component's internal design and include the state migration in the same release.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L32",
+      "text": "The Pulumi component state migrations API is experimental and may change.",
+      "type": "temporal",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L34",
+      "text": "A GitHub discussion for component state migrations feedback exists at https://github.com/pulumi/pulumi/discussions/24799.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L19, L39, L144",
+      "text": "The pulumi/examples repository contains an aws-ts-awsx-vpc-state-migration example with v1, v2, and v3 programs and the migration code.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L41",
+      "text": "The v1 example uses the legacy `awsx.classic.ec2.Vpc` component, which creates a VPC with one isolated subnet, a route table and its association, and an internet gateway.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "Replacing a VPC would require replacing the security group too, because the security group refers to the VPC's ID (per AWS CloudFormation EC2 SecurityGroup VpcId documentation).",
+      "type": "attribution",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "The modern AWSX component is `awsx.ec2.Vpc`.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L49",
+      "text": "The third version removes AWSX and declares the resources directly with `@pulumi/aws`.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L51",
+      "text": "Across all three versions of the example, the AWS resource IDs stay the same and the security group continues to use the same VPC.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L55-77",
+      "text": "The resource trees show legacy AWSX v1 uses component types `awsx:x:ec2:Vpc`, `awsx:x:ec2:Subnet`, `awsx:x:ec2:InternetGateway`, and modern AWSX uses `awsx:ec2:Vpc`.",
+      "type": "entity-spec",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L81",
+      "text": "Pulumi state records both physical resources and components; each record has a Pulumi name called a URN, and managed resources also have a provider ID.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "Legacy AWSX wraps the subnet and internet gateway in separate components, modern AWSX removes those wrappers, and the subnet's Pulumi name changes from `vpc-isolated-0` to `vpc-isolated-1`.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L85",
+      "text": "Pulumi aliases handle changes to a resource's name, type, or parent when its saved state remains compatible, but cannot remove component wrappers and transfer references.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L89",
+      "text": "Pulumi resource options accept a `stateMigrations` option for registering a migration callback, used together with an alias for the legacy component type.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95-98",
+      "text": "A state migration callback receives the old component's saved state followed by its children's state, and returns `newState` (the complete set of records replacing the old component and its children) and `successors` (a map from each disappearing old URN to the URN that replaces it).",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L110",
+      "text": "Pulumi uses the `successors` mappings to update dependencies and resource references elsewhere in the stack, keeping the security group's reference to the VPC valid.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L108",
+      "text": "The `rename` helper copies the saved record, changes its URN, type, and parent, and preserves the AWS resource ID and other saved fields.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L124",
+      "text": "Pulumi runs multiple state migration callbacks in order, passing each result to the next; a legacy AWSX stack can upgrade directly to plain AWS, a modern AWSX stack skips the first migration, and after both have run the callbacks return no result on later updates.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L130",
+      "text": "After a migration, Pulumi compares the new program with the migrated state and calls the provider for remaining changes; this example can still show in-place updates for provider defaults and tags.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L134",
+      "text": "Before each upgrade, `pulumi preview` should show no creates, deletes, or replacements for the existing VPC, subnet, route table, association, internet gateway, and security group; preview evaluates the migration without saving it, and the update saves the migrated state.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L138-140",
+      "text": "When a component registers its migration internally, users need not write the migration, attach the callback, or edit stack state; Pulumi runs it as part of the normal preview and update.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L16, L144",
+      "text": "A Pulumi docs guide on component state migrations exists at /docs/iac/guides/building-extending/components/state-migrations/ and covers the callback contract.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/component-state-migrations/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L74",
+      "text": "Pulumi state migration callbacks (the state migrations resource option) run during both previews and updates when prior state exists.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L74",
+      "text": "Pulumi state migration callbacks must be idempotent.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L74",
+      "text": "A Pulumi state migration callback must return no result when the state no longer needs migration.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L74",
+      "text": "Pulumi state migration callbacks rewrite resource state without performing provider operations.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/resources/options/statemigrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "A Pulumi component state migration callback is a pure function that transforms the saved state of a component and its children into the state expected by a new component version.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "A Pulumi component state migration callback returns the updated state records and successor mappings.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "In a Pulumi component state migration result, each successor mapping connects an old URN that is omitted from the result to the URN of the returned resource that takes its place.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "If no migration is needed, a Pulumi component state migration callback returns no result.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L40",
+      "text": "The state entries passed to a Pulumi component state migration callback use the checkpoint resource format, including fields such as urn, type, id, parent, provider, inputs, and outputs.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L40",
+      "text": "The Pulumi stateMigrations resource option reference page documents the callback API at a 'callback-api' anchor.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L204",
+      "text": "A Pulumi component state migration callback that returns no result can remain attached when using update plans or targeted updates.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L204",
+      "text": "The Pulumi restrictions on state-changing migration results (for update plans and targeted updates) do not require removing an already-applied migration.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/components/state-migrations.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 3,
+    "scrutiny": "standard",
+    "input_tokens": 6338,
+    "output_tokens": 2979,
+    "cache_read_input_tokens": 37179,
+    "cache_creation_input_tokens": 0
+  }
+}

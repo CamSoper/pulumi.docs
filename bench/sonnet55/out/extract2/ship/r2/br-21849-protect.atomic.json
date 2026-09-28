@@ -1,0 +1,630 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L19",
+      "text": "The `protect` resource option is a Pulumi-engine construct, enforced entirely within Pulumi and never sent to the cloud provider.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "Many cloud resources carry their own, separate deletion-protection attributes that the cloud provider enforces independently of anything Pulumi knows about.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "GCP Cloud SQL instances have a `deletionProtection` attribute.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "AWS RDS instances have a `deletionProtection` attribute.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "A resource can be unprotected in Pulumi and still refuse to delete due to a cloud-provider-level deletion-protection attribute.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "A resource can be protected in Pulumi while its cloud-provider-level deletion-protection attribute allows deletion (or vice versa, deletion can succeed despite Pulumi protection being absent).",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "The page /docs/iac/operations/troubleshooting/destroy-failures/#deletion-protection-on-the-resource-itself exists and describes how to tell apart Pulumi's `protect` option from a cloud resource's own deletion-protection attribute and how to resolve each.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/resources/options/protect.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L111",
+      "text": "Pulumi has no single flag to protect every resource in a stack.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L111",
+      "text": "Using stack transforms to set the `protect` option on every resource as it's registered applies `protect: true` across the board.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "The `protect` resource option guards a resource within Pulumi.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "Many cloud resources carry their own, separate deletion-protection attributes that the provider or the cloud API enforces independently of Pulumi's `protect` option.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "A GCP Cloud SQL instance has a `deletionProtection` attribute that the provider or cloud API enforces independently of Pulumi's `protect` option.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "An AWS RDS instance has a `deletionProtection` attribute that the provider or cloud API enforces independently of Pulumi's `protect` option.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "Pulumi's `protect` resource option and a cloud resource's native deletion-protection attribute are complementary layers rather than substitutes for one another.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "The 'Deletion protection on the resource itself' section of the destroy-failures troubleshooting page explains how to tell Pulumi's `protect` option apart from a resource's native deletion-protection attribute and how to resolve a destroy failure caused by either.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L117",
+      "text": "The `retainOnDelete` resource option takes the opposite approach from `protect`.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L117",
+      "text": "The `retainOnDelete` resource option lets Pulumi remove a resource from state without calling the provider's delete operation, leaving the underlying cloud resource in place.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L117",
+      "text": "The `retainOnDelete` resource option is the right choice when you want to stop managing a resource with Pulumi, or hand it off, without destroying its data.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/stack-management/protecting-against-undesired-changes.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L33",
+      "text": "A `pulumi destroy` failure is often not an engine problem: the resource itself may be guarded against deletion, and something has to remove that guard before Pulumi can delete it.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L33",
+      "text": "Three distinct layers can hold deletion protection on a resource, and the error message usually indicates which layer was hit.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L35",
+      "text": "Pulumi's `protect` resource option is an engine-level guard that never reaches the cloud provider.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L35",
+      "text": "An error naming a URN and mentioning `protect` indicates the `protect` resource option is the cause, and the fix is described in the Protect documentation page.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "Some Pulumi providers refuse to issue the delete call at all when a resource carries a deletion-protection attribute.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "The `gcp.sql.DatabaseInstance` resource has a `deletionProtection` attribute that, when set, causes the provider to refuse to issue the delete call.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "The `gcp.container.Cluster` resource has a `deletionProtection` attribute that, when set, causes the provider to refuse to issue the delete call.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "When a provider-enforced deletion-protection attribute blocks a delete, the failure surfaces from the provider before any request reaches the cloud API.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L37",
+      "text": "Some cloud APIs reject the delete call themselves, independent of Pulumi.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L37",
+      "text": "AWS RDS has a `deletionProtection` attribute enforced at the cloud-API level.",
+      "type": "api-surface",
+      "source_hint": "AWS RDS",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L37",
+      "text": "AWS EC2 has a `disableApiTermination` attribute enforced at the cloud-API level.",
+      "type": "api-surface",
+      "source_hint": "AWS EC2",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L37",
+      "text": "Azure Resource Manager management locks are a cloud-API-enforced protection independent of Pulumi.",
+      "type": "api-surface",
+      "source_hint": "Azure Resource Manager",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L37",
+      "text": "When a cloud-API-enforced protection blocks a delete, the error text comes back from the cloud provider's API, often with a distinct error code such as `ScopeLocked`.",
+      "type": "behavior",
+      "source_hint": "Azure Resource Manager",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L39",
+      "text": "`pulumi destroy` deletes what is already recorded in the stack's state, not what the program currently specifies.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L39",
+      "text": "Setting a deletion-protection attribute to `false` in the program alone is not sufficient to allow a subsequent `pulumi destroy` to succeed, for provider-enforced or cloud-API-enforced protection cases.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L41-43",
+      "text": "Setting the deletion-protection attribute to `false` in the Pulumi program, then running `pulumi up`, then running `pulumi destroy` is the correct remediation sequence for provider- or cloud-API-enforced deletion protection.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L42",
+      "text": "Running `pulumi up` after changing the deletion-protection attribute propagates the change to both the live resource and Pulumi's state.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L45",
+      "text": "If deletion protection was already disabled outside of Pulumi (e.g., directly in the cloud console), running `pulumi refresh` synchronizes the stack's state with reality.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L45",
+      "text": "After a `pulumi refresh` synchronizes state following an out-of-band disabling of deletion protection, `pulumi destroy` then succeeds without needing an intervening `pulumi up`.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L51",
+      "text": "The GCP `gcp.sql.DatabaseInstance` resource's `deletionProtection` attribute is provider-enforced.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L51",
+      "text": "The GCP `gcp.sql.DatabaseInstance` resource has a nested `settings.deletionProtectionEnabled` attribute that also guards the instance at the GCP API level.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L52",
+      "text": "The GCP `gcp.container.Cluster` resource's `deletionProtection` attribute is provider-enforced.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "The GCP `gcp.bigquery.Table` resource's `deletionProtection` attribute is provider-enforced.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "The GCP `gcp.bigquery.Dataset` resource has a `deleteContentsOnDestroy` attribute.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Destroying a `gcp.bigquery.Dataset` that still contains tables fails unless `deleteContentsOnDestroy` is set to `true`.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi-gcp",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L55",
+      "text": "The `aws.rds.Instance` and `aws.rds.Cluster` resources have a `deletionProtection` attribute enforced by the AWS API.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L55",
+      "text": "The `deletionProtection` attribute on `aws.rds.Instance` / `aws.rds.Cluster` defaults to `false`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "The `aws.s3.BucketV2` resource has a `forceDestroy` attribute.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "The `forceDestroy` attribute on `aws.s3.BucketV2` defaults to `false`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "A non-empty `aws.s3.BucketV2` bucket fails to delete unless `forceDestroy` is set to `true`.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L57",
+      "text": "The `aws.ec2.Instance` resource has a `disableApiTermination` attribute enforced by the AWS API (EC2 termination protection).",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "The `aws.dynamodb.Table` resource has a `deletionProtectionEnabled` attribute enforced by the AWS API.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "The `deletionProtectionEnabled` attribute on `aws.dynamodb.Table` defaults to `false`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L59",
+      "text": "Any Azure resource under a management lock is protected via `azure-native.authorization.ManagementLockByScope` and its scope-specific variants such as `ManagementLockAtResourceLevel`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-azure-native",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L59",
+      "text": "Azure management locks are enforced by Azure Resource Manager.",
+      "type": "behavior",
+      "source_hint": "Azure Resource Manager",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L59",
+      "text": "A `CanNotDelete` Azure management lock must be removed before the locked resource can be deleted, independent of anything in the Pulumi program.",
+      "type": "behavior",
+      "source_hint": "Azure Resource Manager",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "The `azure-native.keyvault.Vault` resource supports soft delete and purge protection.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-azure-native",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "Destroying an `azure-native.keyvault.Vault` only soft-deletes it.",
+      "type": "behavior",
+      "source_hint": "pulumi/pulumi-azure-native",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "Recreating an Azure Key Vault with the same name fails with a `VaultAlreadyExists` error until the soft-deleted vault is purged or recovered.",
+      "type": "behavior",
+      "source_hint": "Azure Key Vault",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "Purge protection on an Azure Key Vault prevents purging the vault until its retention period elapses.",
+      "type": "behavior",
+      "source_hint": "Azure Key Vault",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/destroy-failures.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 3,
+    "scrutiny": "standard",
+    "input_tokens": 4112,
+    "output_tokens": 5054,
+    "cache_read_input_tokens": 37386,
+    "cache_creation_input_tokens": 0
+  }
+}

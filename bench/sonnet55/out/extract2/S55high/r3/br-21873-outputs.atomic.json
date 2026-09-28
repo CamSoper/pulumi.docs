@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L31",
+      "text": "Calling toString on an Output<T> in Pulumi produces placeholder text of the form `Calling [toString] on an [Output<T>] is not supported`, which can appear in a log line, a generated file, or a resource property instead of the expected value.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L31",
+      "text": "A page titled 'Output value errors' exists at /docs/iac/operations/troubleshooting/output-values/ and covers this and other symptoms of treating a Pulumi output as if it were already a plain value.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/docs/iac/concepts/inputs-outputs/apply.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L72-75",
+      "text": "A troubleshooting page exists at /docs/iac/operations/troubleshooting/output-values/ covering errors from stringifying, branching on, or reading a Pulumi output value like a plain value.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "In Pulumi programs, stringifying, branching on, or reading an Output value as if it were a plain value produces errors.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L34-35",
+      "text": "A troubleshooting page exists at /docs/iac/operations/troubleshooting/update-conflicts/ for \"409 conflict: Another update is currently in progress\" errors from Pulumi Cloud.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L40",
+      "text": "Pulumi Cloud can return 500 internal server errors.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54-55",
+      "text": "The page /docs/iac/operations/stack-management/using-a-diy-backend/ has an anchor #error-reading-pulumimetayaml covering `read \".pulumi/meta.yaml\"` errors when the CLI can't access a self-managed state backend.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "Crashes or hangs on Apple Silicon can be caused by x86_64 binaries running under Rosetta 2.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L93",
+      "text": "A recently deleted Pulumi stack can be recovered from the Pulumi Cloud console, including after an accidental `pulumi stack rm --force`.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L98",
+      "text": "The Pulumi CLI supports `--target` and `--exclude` flags to limit operations to specific resources.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L103",
+      "text": "Pulumi provides automatic logging, CLI verbose logging, and program logging for debugging and diagnostics.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L108",
+      "text": "Pulumi offers pre-release dev builds that include bug fixes that haven't shipped in a stable release yet.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L115",
+      "text": "Running `pulumi logs share` securely sends the logs from a failed operation to the Pulumi team.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L115",
+      "text": "The logging guide at /docs/iac/operations/debugging/logging/ has an 'automatic-logging' anchor section.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L133",
+      "text": "The verbose logging content is at /docs/iac/operations/debugging/logging/#cli-verbose-logging.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "`pulumi destroy` can fail in some scenarios, covered by the destroy-failures page.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L15",
+      "text": "Pulumi resource properties are represented as Outputs rather than plain values because their real values are not known until the resource providing them has been created or updated.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L21",
+      "text": "When an Output is converted to a string directly (concatenated or logged) instead of via apply or an equivalent helper, Pulumi does not raise an error by default but silently substitutes a placeholder message for the value.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L32",
+      "text": "In TypeScript, converting an Output to a string produces literal text such as `Calling [toString] on an [Output<T>] is not supported`, followed by guidance to use `apply` or `pulumi.interpolate`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L32",
+      "text": "In TypeScript, calling `JSON.stringify()` on an Output, or letting one flow into a JSON body, produces a `Calling [toJSON] on an [Output<T>] is not supported` string rather than the value.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "In Python, formatting an Output into a string produces literal text such as `Calling __str__ on an Output[T] is not supported`, and Pulumi also logs a warning.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "In Python, passing an Output to `json.dumps()` fails with `TypeError: Object of type Output is not JSON serializable`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "In Python, `Output.json_dumps()` is the way to serialize an Output to JSON.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L49",
+      "text": "In Go, passing a `pulumi.StringOutput` where a `string` is expected is a compile error.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L49",
+      "text": "In Go, values are resolved inside `ApplyT`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "In C#, converting an Output to a string produces literal text such as `Calling [ToString] on an [Output<T>] is not supported`, followed by guidance to use `Apply` or `Output.Format`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "Setting the environment variable `PULUMI_ERROR_OUTPUT_STRING=true` makes converting an Output to a string throw an exception instead of returning placeholder text, in TypeScript, Python, and C#.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "When Output-to-string conversion yields placeholder text, the program runs and `pulumi up` succeeds.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L68",
+      "text": "String-composition helpers for Outputs are `pulumi.interpolate` and `pulumi.concat` in TypeScript, `Output.concat`/`Output.format`/`Output.json_dumps` in Python, `pulumi.Sprintf`/`pulumi.JSONMarshal` in Go, and `Output.Format` in C#.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L87",
+      "text": "The `apply` callback runs asynchronously once the output resolves, generally after the program's top-level code has finished running.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L98",
+      "text": "Most resource inputs accept Outputs as well as plain values.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L98",
+      "text": "A resource's logical name is a position that cannot accept an Output.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "In a dynamically typed language, an `if` on an Output evaluates the Output object rather than its eventual value and is generally always true.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "In a statically typed language, branching on an `Output<bool>` is usually a compile error because an `Output<bool>` is not a `bool`.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L104",
+      "text": "A stack configuration setting read with `pulumi.Config`, an environment variable, or a hardcoded flag is a plain value that can be branched on directly.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "Passing an Output as a resource's logical name or loop bound or map key fails to compile in TypeScript, Go, and C#.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Python, passing an Output as a resource's logical name raises `TypeError: Expected resource name to be a string`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Python, using an Output as a loop bound (`range(some_output)`) raises `TypeError: 'Output' object cannot be interpreted as an integer`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L122",
+      "text": "In Python, using an Output as a dictionary key does not raise; Python falls back to comparing and hashing the Output object itself.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L124",
+      "text": "A StackReference lets a later, separate stack consume the first stack's outputs.",
+      "type": "cross-reference",
+      "source_hint": "/docs/iac/concepts/stacks/#stackreferences",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "Pulumi has no supported way to block the program and read a resolved value out of an Output synchronously; awaiting or reading it synchronously either doesn't compile, fails at runtime, or returns placeholder text.",
+      "type": "feature",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "`pulumi stack output <name>` reads a single stack output after a deployment.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L134",
+      "text": "The Automation API exposes an `outputs` field on the result of running an update (for example `res.Outputs` in Go).",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L15, L17, L68, L98, L124, L133, L134",
+      "text": "Cross-referenced pages exist: /docs/iac/concepts/inputs-outputs/#outputs, /docs/iac/concepts/inputs-outputs/apply/, /docs/iac/concepts/inputs-outputs/all/, /docs/iac/concepts/stacks/#stackreferences, /docs/iac/concepts/automation-api/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/operations/troubleshooting/output-values.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 3,
+    "scrutiny": "standard",
+    "input_tokens": 8007,
+    "output_tokens": 3767,
+    "cache_read_input_tokens": 37182,
+    "cache_creation_input_tokens": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+ "calls": 1,
+ "http_errors": {},
+ "stop_reasons": {
+  "tool_use": 1
+ },
+ "refusals": [],
+ "no_tool_use_when_tools": 0,
+ "usage": {
+  "input_tokens": 3116,
+  "output_tokens": 2750,
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 10096,
+  "thinking_tokens": 0
+ },
+ "rewrites": {},
+ "per_call": [
+  {
+   "stop": "tool_use",
+   "out": 2750,
+   "in": 3116,
+   "cr": 0,
+   "cw": 10096,
+   "think": 0,
+   "s": 20.0,
+   "types": [
+    "tool_use"
+   ]
+  }
+ ]
+}

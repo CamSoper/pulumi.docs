@@ -1,0 +1,1094 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L181",
+      "text": "A Pulumi blog post exists at the path /blog/sst-built-on-pulumi/ titled \"SST Runs on the Pulumi Engine: What It Means to Build on Pulumi\".",
+      "type": "cross-reference",
+      "source_hint": "/blog/sst-built-on-pulumi/",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L181",
+      "text": "The post at /blog/sst-built-on-pulumi/ covers the engine mechanics behind SST's migration from AWS CDK to Pulumi.",
+      "type": "cross-reference",
+      "source_hint": "/blog/sst-built-on-pulumi/",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L64, L97, L101",
+      "text": "AWS CDK ties infrastructure to AWS and is AWS-only (no multi-cloud support).",
+      "type": "feature",
+      "source_hint": "AWS CDK",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "Multi-cloud deployments were nearly impossible with AWS CDK.",
+      "type": "feature",
+      "source_hint": "AWS CDK",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L65, L102",
+      "text": "Debugging AWS CDK is frustrating/hard because of CloudFormation templates, whereas Pulumi offers 'real-time debugging'.",
+      "type": "comparison",
+      "source_hint": "AWS CDK / Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L87",
+      "text": "AWS Cloud Development Kit (CDK) lets developers define infrastructure using TypeScript or Python.",
+      "type": "feature",
+      "source_hint": "AWS CDK",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L103",
+      "text": "AWS CDK supports only TypeScript and Python as languages (marked with a warning in the comparison table).",
+      "type": "feature",
+      "source_hint": "AWS CDK",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L103",
+      "text": "Pulumi supports any programming language.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L159",
+      "text": "Pulumi lets you define infrastructure in TypeScript, Python, Go, or C#, and deploy across AWS, Azure, Google Cloud, and on-premises environments from one workflow.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "Pulumi supports multi-cloud deployment to AWS, Azure, GCP, and on-prem.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95, L112",
+      "text": "AWS CDK and CloudFormation act as a code generator, producing an intermediary format (YAML or JSON) that is then executed to deploy resources, so the code a developer writes is not the code running during deployment.",
+      "type": "behavior",
+      "source_hint": "AWS CDK / CloudFormation",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L112, L116, L154",
+      "text": "Pulumi does not generate an intermediary format; the infrastructure program is executed directly during deployment, so the infrastructure code is the same code running during deployment.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L104",
+      "text": "Pulumi deployments are faster than AWS CDK deployments because CDK is slower due to CloudFormation while Pulumi uses direct execution.",
+      "type": "comparison",
+      "source_hint": "AWS CDK / Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L105",
+      "text": "AWS CDK has poor deployment visibility (hard to trace errors) while Pulumi provides clear deployment state.",
+      "type": "comparison",
+      "source_hint": "AWS CDK / Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L106",
+      "text": "AWS CDK extensibility is limited to the AWS ecosystem, while Pulumi supports custom providers and workflows.",
+      "type": "comparison",
+      "source_hint": "AWS CDK / Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L107",
+      "text": "AWS CDK state management relies on a CloudFormation state file, whereas Pulumi manages state itself.",
+      "type": "comparison",
+      "source_hint": "AWS CDK / Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L108",
+      "text": "AWS CDK secrets management is limited to AWS Secrets Manager only, while Pulumi supports cross-cloud secrets.",
+      "type": "comparison",
+      "source_hint": "AWS CDK / Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L142",
+      "text": "Pulumi has built-in extensibility features, including custom providers and dynamic components (dynamic providers/component resources).",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L144",
+      "text": "With CDK/CloudFormation, SST had to resort to hacky workarounds or custom Lambda functions to achieve desired customization.",
+      "type": "attribution",
+      "source_hint": "SST",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "A Founding Engineer at SST said: \"With Pulumi, the deployment process feels like a natural extension of writing code - it's intuitive and powerful and capable of advanced things that traditional IaC tools can't handle.\"",
+      "type": "quote",
+      "source_hint": "SST Founding Engineer",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L136, L169",
+      "text": "Pulumi Insights (https://www.pulumi.com/product/pulumi-insights/) provides improved visibility and debugging capabilities into deployments.",
+      "type": "feature",
+      "source_hint": "https://www.pulumi.com/product/pulumi-insights/",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L168",
+      "text": "Pulumi Cloud Deployments (https://www.pulumi.com/docs/pulumi-cloud/deployments/) enables advanced deployment workflows.",
+      "type": "cross-reference",
+      "source_hint": "https://www.pulumi.com/docs/pulumi-cloud/deployments/",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95",
+      "text": "The Pulumi docs page https://www.pulumi.com/docs/iac/comparisons/cloudformation/ has a section 'what-is-aws-cloudformation'.",
+      "type": "cross-reference",
+      "source_hint": "https://www.pulumi.com/docs/iac/comparisons/cloudformation/#what-is-aws-cloudformation",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L97",
+      "text": "The Pulumi docs page https://www.pulumi.com/docs/iac/comparisons/aws-cdk/ has a section 'what-is-aws-cdk' describing the AWS-centric nature of CDK.",
+      "type": "cross-reference",
+      "source_hint": "https://www.pulumi.com/docs/iac/comparisons/aws-cdk/#what-is-aws-cdk",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L177",
+      "text": "Pulumi Crosswalk for AWS simplifies 'day one' tasks, documented in the AWS guide at /docs/iac/guides/clouds/aws/.",
+      "type": "feature",
+      "source_hint": "/docs/iac/guides/clouds/aws/",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L178",
+      "text": "Pulumi offers an on-demand workshop 'Getting Started with Infrastructure as Code on AWS' at https://www.pulumi.com/resources/getting-started-with-iac-pulumi-aws/.",
+      "type": "cross-reference",
+      "source_hint": "https://www.pulumi.com/resources/getting-started-with-iac-pulumi-aws/",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L179",
+      "text": "Pulumi lists upcoming Platform Engineering and DevOps workshops at https://www.pulumi.com/resources/#upcoming.",
+      "type": "cross-reference",
+      "source_hint": "https://www.pulumi.com/resources/#upcoming",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L193",
+      "text": "Ion is the code name for a new engine for deploying SST applications, in which constructs/components are deployed using Pulumi instead of CDK and CloudFormation.",
+      "type": "entity-spec",
+      "source_hint": "SST",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L193",
+      "text": "Once Ion is stable, it will be released as SST v3.",
+      "type": "temporal",
+      "source_hint": "SST",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L197",
+      "text": "SST leverages Pulumi behind the scenes for its providers and deployment engine, while also bridging Terraform providers through Pulumi.",
+      "type": "behavior",
+      "source_hint": "SST",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L199-201",
+      "text": "SST (Serverless Stack) makes money primarily through its managed service, SST Console; the Console is optional and includes a free tier.",
+      "type": "entity-spec",
+      "source_hint": "SST",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L201",
+      "text": "SST relies primarily on SaaS revenue through its managed platform and potentially supplemental income streams like enterprise services and consulting.",
+      "type": "entity-spec",
+      "source_hint": "SST",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L189, L62, L87",
+      "text": "SST (Serverless Stack) is a framework for building modern full-stack applications, and was originally built on top of AWS CDK.",
+      "type": "entity-spec",
+      "source_hint": "SST",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L87, L122, L193",
+      "text": "SST migrated from AWS CDK/CloudFormation to Pulumi.",
+      "type": "attribution",
+      "source_hint": "SST",
+      "confidence": "high",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L148, L167",
+      "text": "With Pulumi, the SST team was able to add support for new providers, and SST users can deploy across multiple clouds and on-premises through a single consistent interface.",
+      "type": "attribution",
+      "source_hint": "SST",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L97, L117, L148",
+      "text": "The SST team expanded focus beyond AWS to other cloud providers and on-premises infrastructure, which is why AWS-centric CDK became a limitation.",
+      "type": "attribution",
+      "source_hint": "SST",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L168",
+      "text": "Pulumi enables SST to offer faster deployment times, better rollback capabilities, and more granular control over the deployment process.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L21, L54, L55, L70",
+      "text": "Pulumi lets SST offer a faster, more flexible, provider-agnostic infrastructure experience with multi-cloud flexibility, faster deployments, and a better developer experience.",
+      "type": "positioning",
+      "confidence": "medium",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L132, L142",
+      "text": "Pulumi is capable of advanced things that traditional IaC tools can't handle.",
+      "type": "comparison",
+      "source_hint": "SST Founding Engineer",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L11, L193",
+      "text": "The post is presented as current (updated 2025-03-05) while stating that SST v3/Ion is not yet stable/released.",
+      "type": "temporal",
+      "source_hint": "SST",
+      "confidence": "low",
+      "file": "content/blog/aws-cdk-vs-pulumi-why-sst-switched/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L5, L22, L26, L32, L37, L120",
+      "text": "SST v3 replaced AWS CDK and CloudFormation with an embedded Pulumi engine that calls Terraform-bridged providers to make the underlying cloud API calls.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L37, L120",
+      "text": "SST v3 is the Ion-based rewrite of the SST framework.",
+      "type": "entity-spec",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L22, L26, L32, L37, L100, L124",
+      "text": "Running `sst deploy` requires no separate Pulumi install and no Pulumi account or Pulumi Cloud dependency; the Pulumi engine ships inside the SST CLI.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L37, L75, L100, L124",
+      "text": "SST keeps its deployment state in an S3 bucket in the user's own AWS account (self-hosted), not in Pulumi Cloud.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L41",
+      "text": "The SST team has said, repeatedly since the rewrite shipped, that SST's architecture is built on the Pulumi engine (embedded engine plus Terraform-bridged providers).",
+      "type": "attribution",
+      "source_hint": "SST team",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L45",
+      "text": "SST is an open source TypeScript framework from the team formerly known as Serverless Stack, for building and deploying full-stack applications to AWS and more than 150 other providers.",
+      "type": "entity-spec",
+      "source_hint": "https://sst.dev/",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L45",
+      "text": "In SST, app infrastructure and code are defined together in a single `sst.config.ts` file using SST's own components (functions, queues, buckets, static sites, etc.), and `sst deploy` handles provisioning end to end.",
+      "type": "behavior",
+      "source_hint": "https://sst.dev/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "Through 2023, SST's provisioning layer was built directly on AWS CDK and CloudFormation.",
+      "type": "temporal",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "In late 2023 the SST team began a rewrite, code-named Ion, that replaced SST's entire deployment layer.",
+      "type": "temporal",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47, L120",
+      "text": "Ion shipped as SST v3 in mid-2024.",
+      "type": "temporal",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "Ion (SST v3 architecture) has been the only supported SST architecture since it shipped in mid-2024.",
+      "type": "temporal",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "SST's blog post \"Moving away from CDK\" (https://sst.dev/blog/moving-away-from-cdk) states: \"Ion is a code name for a new engine for deploying SST applications. The constructs (or components) are defined using Terraform providers and deployed using Pulumi; as opposed to CDK and CloudFormation (CFN).\"",
+      "type": "quote",
+      "source_hint": "https://sst.dev/blog/moving-away-from-cdk",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L55",
+      "text": "SST's blog post \"Moving away from CDK\" states: \"When you run `sst deploy`, those resources make a call to an embedded Pulumi engine that makes a call to their bridged Terraform provider, and this makes the AWS SDK calls to create your resources.\"",
+      "type": "quote",
+      "source_hint": "https://sst.dev/blog/moving-away-from-cdk",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L57",
+      "text": "The SST docs page \"What is SST\" (https://sst.dev/docs/) states: \"SST uses Pulumi behind the scenes for the providers and the deployment engine. And Terraform's providers are bridged through Pulumi.\"",
+      "type": "quote",
+      "source_hint": "https://sst.dev/docs/",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L59",
+      "text": "The SST-on-Pulumi architecture is confirmed by independent developers who have compared SST, Terraform, and Pulumi directly.",
+      "type": "attribution",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L61",
+      "text": "Gautier Blandin's article \"Terraform, Pulumi, SST: a tradeoff analysis\" states: \"SST uses the Pulumi engine under the hood to manage and provision resources, and lets users write Pulumi code in addition to using SST's constructs, enabling resources with no associated SST constructs to still be defined and deployed.\"",
+      "type": "quote",
+      "source_hint": "https://www.gautierblandin.com/articles/terraform-pulumi-sst-tradeoff-analysis",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L63",
+      "text": "Kiryl Anoshka's dev.to article \"SST ditches AWS CDK. Time to move on to Ion\" states: \"You may notice right away the imports from Pulumi. It means the whole deployment process will be built on Pulumi now.\"",
+      "type": "quote",
+      "source_hint": "https://dev.to/fively/sst-ditches-aws-cdk-time-to-move-on-to-ion-19pi",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L65, L149",
+      "text": "The published `platform/package.json` of SST's platform package (in the anomalyco/sst repository, formerly sst/sst) lists as direct dependencies `@pulumi/pulumi`, `@pulumi/aws`, `@pulumi/cloudflare`, `@pulumi/command`, `@pulumi/docker-build`, `@pulumi/random`, `@pulumi/tls`, and `@pulumiverse/vercel`.",
+      "type": "api-surface",
+      "source_hint": "https://github.com/anomalyco/sst/blob/dev/platform/package.json",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L65",
+      "text": "SST's platform package depends on first-party Pulumi providers for AWS, Cloudflare, Docker builds, and more, alongside a Pulumiverse Vercel provider.",
+      "type": "feature",
+      "source_hint": "anomalyco/sst",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L149",
+      "text": "The SST GitHub repository `sst/sst` was renamed/moved to `anomalyco/sst`.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/anomalyco/sst",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L71-72",
+      "text": "In SST, `sst deploy` reads `sst.config.ts`, resolves SST's own components, and those components compile into Pulumi resource declarations.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L73",
+      "text": "The Pulumi engine diffs desired versus actual state, builds a dependency graph, and orders operations.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L74",
+      "text": "Terraform-bridged providers (via Pulumi's Terraform bridge, github.com/pulumi/pulumi-terraform-bridge) translate each resource into cloud API calls.",
+      "type": "behavior",
+      "source_hint": "https://github.com/pulumi/pulumi-terraform-bridge",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L77",
+      "text": "Pulumi's engine handles dependency resolution, preview and diff, state tracking, and the plumbing to hundreds of provider APIs underneath SST, while SST owns the CLI, component model, and local dev loop.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L81",
+      "text": "AWS alone exposes hundreds of resource types, each with its own create, update, and delete semantics.",
+      "type": "numerical",
+      "source_hint": "AWS",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "Pulumi's Terraform bridge (pulumi/pulumi-terraform-bridge) is Apache-2.0 licensed.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/pulumi/pulumi-terraform-bridge",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "Pulumi's Terraform bridge was built specifically to let projects like SST reuse Terraform's ecosystem of providers, adapted for the Pulumi engine.",
+      "type": "attribution",
+      "source_hint": "https://github.com/pulumi/pulumi-terraform-bridge",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "Pulumi's engine can run without a Pulumi account, without a network call to Pulumi Cloud, and without any Pulumi-hosted service.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "Pulumi's Automation API works by embedding Pulumi programs inside other teams' own tools, in the same embedded way SST embeds the engine.",
+      "type": "behavior",
+      "source_hint": "/docs/iac/concepts/automation-api/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "The Pulumi provider bridge lets any Pulumi user consume Terraform providers directly.",
+      "type": "feature",
+      "source_hint": "/docs/iac/get-started/terraform/terraform-providers/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L85",
+      "text": "By embedding the Pulumi engine, SST gets a production-grade provisioning engine and hundreds of cloud providers without building either from scratch.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28, L89, L91, L94",
+      "text": "Nitric and Defang, like SST, run application deployments through the Pulumi engine rather than building their own diff, state, and provider layer.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L91",
+      "text": "Nitric is a cloud-agnostic application framework (nitric.io).",
+      "type": "entity-spec",
+      "source_hint": "https://nitric.io/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L91",
+      "text": "Nitric's own docs state that \"all of the direct deployment providers use Pulumi under the hood for their deployments.\"",
+      "type": "quote",
+      "source_hint": "https://nitric.io/",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L91",
+      "text": "Official Nitric providers are built directly on Pulumi's AWS, GCP, and Azure providers.",
+      "type": "feature",
+      "source_hint": "https://nitric.io/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L92",
+      "text": "Defang deploys Docker Compose applications to the cloud.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/DefangLabs/pulumi-defang",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L92",
+      "text": "Defang's Pulumi provider (DefangLabs/pulumi-defang) is described by Defang as taking \"a Compose file, translates it to a Pulumi program, and runs `pulumi up`\" to provision the result.",
+      "type": "quote",
+      "source_hint": "https://github.com/DefangLabs/pulumi-defang",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L94",
+      "text": "Nitric, Defang, and SST each expose a narrower, more opinionated interface to their users while relying on the Pulumi engine and its provider bridge underneath.",
+      "type": "comparison",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "Most SST users never write a line of Pulumi code; they work entirely in SST's component model.",
+      "type": "numerical",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L102, L132",
+      "text": "Inside an SST app, resources without a dedicated SST construct can be defined directly with raw Pulumi resources and deployed as part of the same app, because SST's constructs compile to Pulumi resources.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L106, L136",
+      "text": "The latest SST release, v4.17.1, went out in July 2026.",
+      "type": "version",
+      "source_hint": "sst/sst",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L106, L136, L150",
+      "text": "The `sst` npm package is pulling roughly 796,000 downloads a week (796,291 downloads for the week of September 5-11, 2026, per the npm downloads API).",
+      "type": "numerical",
+      "source_hint": "https://api.npmjs.org/downloads/point/last-week/sst",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L106, L30, L136",
+      "text": "SST's own team page credits the same team that is behind opencode, an open source AI coding agent.",
+      "type": "attribution",
+      "source_hint": "https://opencode.ai/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L106, L151",
+      "text": "opencode has grown quickly since launch and now has a larger following on GitHub (more stars) than SST itself.",
+      "type": "comparison",
+      "source_hint": "https://github.com/anomalyco/opencode",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L108, L136",
+      "text": "SST's release cadence and its dependency on the Pulumi engine have not changed as a result of the team's attention broadening to opencode; SST is not being abandoned.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L30, L134-136",
+      "text": "SST is still maintained and shipping releases as of September 2026.",
+      "type": "temporal",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L112",
+      "text": "If you run SST, you are already running Pulumi's engine, whether or not you've written any Pulumi code.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L114",
+      "text": "Pulumi Cloud provides cross-team visibility into infrastructure state.",
+      "type": "feature",
+      "source_hint": "/docs/iac/concepts/pulumi-cloud/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L114",
+      "text": "Pulumi policy as code provides guardrails that a platform team can enforce centrally.",
+      "type": "feature",
+      "source_hint": "/docs/iac/concepts/policy/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L114",
+      "text": "Pulumi components allow sharing infrastructure patterns across a whole organization rather than just within one SST app.",
+      "type": "feature",
+      "source_hint": "/docs/iac/concepts/components/",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L114, L140",
+      "text": "Pulumi Cloud, policy as code, and components can be adopted without leaving the Pulumi engine SST already uses; SST runs on the same engine.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "SST's components are defined using Terraform providers bridged through the Pulumi engine; SST does not invoke the Terraform CLI or write Terraform state.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L124",
+      "text": "SST users don't need to install Pulumi separately or create a Pulumi account to deploy an SST app.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L140",
+      "text": "SST is a strong fit if you want an opinionated, full-stack application framework with infrastructure and code defined together; Pulumi directly makes more sense once you need cross-team visibility, policy enforcement, or infrastructure shared across more than one application, capabilities SST doesn't expose on its own.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L22",
+      "text": "The Pulumi engine embedded in SST is one that most SST users never see.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L15-16, L144",
+      "text": "A blog post exists at /blog/aws-cdk-vs-pulumi-why-sst-switched/ titled \"AWS CDK vs Pulumi: Why SST Chose Pulumi\" that tells the fuller story of SST's move off CDK from SST's side.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L145",
+      "text": "A docs page exists at /docs/iac/guides/basics/how-pulumi-works/ titled \"How Pulumi IaC Works\" covering engine mechanics.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83, L146",
+      "text": "A blog post exists at /blog/any-terraform-provider/ titled \"Introducing: Support For Using Any Terraform Provider with Pulumi\" describing the bridge SST and others build on.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83, L147",
+      "text": "A docs page exists at /docs/iac/concepts/automation-api/ describing the Automation API for embedding Pulumi in other tools.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "A docs page exists at /docs/iac/get-started/terraform/terraform-providers/ about consuming Terraform providers directly in Pulumi.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L114",
+      "text": "Docs pages exist at /docs/iac/concepts/pulumi-cloud/, /docs/iac/concepts/policy/, and /docs/iac/concepts/components/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/blog/sst-built-on-pulumi/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 2,
+    "scrutiny": "standard",
+    "input_tokens": 12464,
+    "output_tokens": 12601,
+    "cache_read_input_tokens": 23362,
+    "cache_creation_input_tokens": 0
+  }
+}

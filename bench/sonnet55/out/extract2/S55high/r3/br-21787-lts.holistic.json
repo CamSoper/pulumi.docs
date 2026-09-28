@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L66",
+      "text": "A page exists in the Pulumi docs at /docs/support/provider-support-policy/ (the link target of the 'Provider support policy' card on the support index).",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L65-67",
+      "text": "The Pulumi docs page 'Provider support policy' describes how long Pulumi maintains each provider major version.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "Pulumi provides long-term security updates for some providers, and the Provider support policy page states which providers get them.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/support/_index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95",
+      "text": "Pulumi focuses on actively supporting the latest released major version of the providers it maintains.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95",
+      "text": "For a set of widely used providers, Pulumi ships security updates for the previous major version for up to a year, or until the next major version is released, whichever comes first.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L95, L111",
+      "text": "The Pulumi provider support policy page at /docs/support/provider-support-policy/ exists and lists the covered providers and what a long-term support release contains.",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L97",
+      "text": "Pulumi provider major versions older than the previous major (for providers covered by long-term support) and older majors of other providers receive no patches at all.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L97",
+      "text": "The current version of all providers maintained by Pulumi can be found in the Pulumi Registry at /registry/.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L89",
+      "text": "Pulumi experimental features are always opt-in, enabled with a flag, command, or environment variable such as PULUMI_EXPERIMENTAL=true; they can change or be removed without a deprecation cycle.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L24",
+      "text": "Pulumi does not automatically roll back changes during an update if an error occurs; it completes pending in-progress operations, then exits and reports the error.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L33",
+      "text": "Pulumi does not automatically query the cloud provider's live state before running `pulumi up` or `pulumi preview`.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "`pulumi up --refresh` refreshes state and applies the desired state in a single step.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "Pulumi Cloud provides built-in drift detection for scheduled automated drift detection and remediation.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "Pulumi auto-naming appends a random suffix to the logical name and lets Pulumi create replacement resources before deleting old ones.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "Pulumi Cloud manages a unique encryption key per stack, configurable to use a custom secrets provider, so encrypting the same value in different stacks yields different ciphertext.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "Pulumi does not use the Terraform engine; some Pulumi providers use Terraform schemas, while Pulumi native providers map directly to cloud provider APIs and do not use Terraform schemas.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L105",
+      "text": "In npm, the tilde operator (~1.2.3) allows patch updates on the current minor version.",
+      "type": "api-surface",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L107",
+      "text": "Each major version of a Pulumi provider includes migration logic to smooth upgrade from the immediately previous major version, but these migrations do not always work across multiple major versions.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L4, L14",
+      "text": "Pulumi actively maintains the latest released major version of every provider it publishes.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L4, L15",
+      "text": "For a set of widely used providers, Pulumi ships security updates for the previous major version for up to 12 months, or until the next major version is released, whichever comes first.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L19-30",
+      "text": "The providers that receive long-term support updates on eligible older versions are: AWS, Azure Classic, Azure Native, Azure AD, Command, Docker Build, GCP, Kubernetes, TLS, and Vault.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L21-30",
+      "text": "The Pulumi Registry has package pages at /registry/packages/aws/, azure, azure-native, azuread, command, docker-build, gcp, kubernetes, tls, and vault for the listed LTS providers.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L34-37",
+      "text": "The Pulumi provider LTS branch ships High/Critical CVE security patches: fixes for CVEs affecting the provider's code or its direct dependencies, and fixes for broken internal infrastructure on the LTS branch needed to ship them.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L39-45",
+      "text": "A Pulumi provider LTS release does not contain new upstream API versions, new resources or properties, performance improvements, non-security bug fixes, or compatibility with newer language runtime versions.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L49",
+      "text": "Pulumi LTS providers remain compatible with the version of the Pulumi engine they were frozen at, unless security fixes prompt otherwise.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "Under the Pulumi provider support policy, exactly one long-term support major version exists per provider at any time.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L54-55",
+      "text": "When major version N+1 of a Pulumi provider ships, it becomes the new N, the old N becomes the new LTS major, and the old LTS major reaches end of life on the same day regardless of how much of its 12-month window remained.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "Within the Pulumi provider LTS major version, only the latest minor version receives patches; earlier minors are frozen.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "Pulumi provider LTS releases are available through the same standard package registries as current-major releases but are tagged differently.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L61",
+      "text": "Customers pinning to a specific major version of a Pulumi provider automatically receive patch releases as they ship, and pinning to a major version is recommended.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L65",
+      "text": "At any time, exactly one major version of a covered provider is the LTS version, and older majors receive no patches.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L65",
+      "text": "If v3 is the newest release, then v3 is N, v2 is N\u22121 (LTS), and v1 and earlier are end of life.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L69",
+      "text": "The current major (N) of a Pulumi provider receives new features, new resources, bug fixes, security patches, dependency upgrades, and new upstream API versions until N+1 ships.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "The LTS major (N\u22121) of a covered Pulumi provider is supported for up to 12 months from N's release, or until N+1 ships, and receives security updates in the provider's code or its direct dependencies.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L71",
+      "text": "Pulumi provider versions N\u22122 and older are end of life, not supported, and will not receive updates.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "The Pulumi support FAQ at /docs/support/faq/infrastructure/ has a section 'what-are-the-best-practices-for-maintaining-provider-versions'.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L76-77",
+      "text": "Pages exist at /registry/ and /docs/support/getting-support/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 3,
+    "scrutiny": "standard",
+    "input_tokens": 6340,
+    "output_tokens": 3023,
+    "cache_read_input_tokens": 37182,
+    "cache_creation_input_tokens": 0
+  }
+}

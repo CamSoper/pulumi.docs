@@ -1,0 +1,61 @@
+{
+ "calls": 3,
+ "http_errors": {},
+ "stop_reasons": {
+  "tool_use": 3
+ },
+ "refusals": [],
+ "no_tool_use_when_tools": 0,
+ "usage": {
+  "input_tokens": 3737,
+  "output_tokens": 2592,
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 37182,
+  "thinking_tokens": 0
+ },
+ "rewrites": {
+  "model": "claude-sonnet-5-5",
+  "thinking": "adaptive",
+  "effort": "low",
+  "max_tokens": 32000,
+  "tool_choice": "auto"
+ },
+ "per_call": [
+  {
+   "stop": "tool_use",
+   "out": 411,
+   "in": 860,
+   "cr": 0,
+   "cw": 12394,
+   "think": 0,
+   "s": 3.3,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 539,
+   "in": 762,
+   "cr": 0,
+   "cw": 12394,
+   "think": 0,
+   "s": 4.0,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 1642,
+   "in": 2115,
+   "cr": 0,
+   "cw": 12394,
+   "think": 0,
+   "s": 9.0,
+   "types": [
+    "tool_use"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L11",
+      "text": "In Pulumi, a package is the unit of versioning and distribution, and the components inside a package inherit the package's version.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L11",
+      "text": "Pulumi recommends structuring Git repositories for publishing packages per the strategies in this guide, and following them improves reliability, maintainability, and delivery speed of packages.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L15",
+      "text": "Pulumi packages come in two flavors (source-based and executable-based), and each is versioned and released differently.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "A source-based plugin package is distributed as source code in a Git repository, and its version is the Git tag on that repository.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L19",
+      "text": "Publishing a source-based package to the Pulumi IDP Private Registry is a two-step flow (apply a semver Git tag, then run `pulumi package publish`), typically performed by a CI/CD pipeline that runs on tag.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L21",
+      "text": "Publishing a source-based package to the Private Registry requires applying a semver Git tag (e.g., `v1.2.3`) to the repository.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L22",
+      "text": "`pulumi package publish` sends the package metadata to Pulumi Cloud and places the package in the Private Registry.",
+      "type": "api-surface",
+      "source_hint": "pulumi package publish CLI",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L24",
+      "text": "Semver-tagged releases are only required for publishing to the Private Registry; source-based packages referenced directly from a `Pulumi.yaml` file can use any Git ref (tag, branch, or commit), regardless of whether it is a valid semantic version.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "An executable-based plugin package is distributed as a pre-built plugin binary, typically alongside per-language SDKs published to package feeds (npm, PyPI, NuGet, Maven, the Go module proxy, or private equivalents).",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "The version of an executable-based package is the version embedded in the published binary and SDKs.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "Pulumi Cloud customers can publish an executable-based package to the Private Registry via `pulumi package publish`.",
+      "type": "feature",
+      "source_hint": "Pulumi Cloud Private Registry",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L30",
+      "text": "In both source-based and executable-based cases, the released artifact is a single, semantically-versioned Pulumi package.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L34",
+      "text": "Pulumi recommends that a repository contain exactly one Pulumi package, regardless of package type.",
+      "type": "positioning",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L34",
+      "text": "A repository containing multiple packages must either release them in lockstep or invent per-package release tooling that fights the way Pulumi naturally consumes packages.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "Multiple components inside a single Pulumi package are supported and expected, and the components ship together at the package's version.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L40-L46",
+      "text": "Pulumi recommends defining exactly one package per repository, grouping a cohesive set of components in that package, and using multiple repositories (one per package) for distinct packages.",
+      "type": "positioning",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L50",
+      "text": "The Amazon EKS package in the Pulumi Registry (https://www.pulumi.com/registry/packages/eks/) bundles a managed Kubernetes cluster component along with supporting components needed to secure and operate it.",
+      "type": "entity-spec",
+      "source_hint": "https://www.pulumi.com/registry/packages/eks/",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L50",
+      "text": "The components in the Pulumi Amazon EKS package are almost always used together and tend to evolve together, so a shared semantic version makes sense.",
+      "type": "attribution",
+      "source_hint": "Pulumi EKS package",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56, L58-L65",
+      "text": "A single `PulumiPlugin.yaml` file at the repository root defines the package, with components living alongside it (e.g., in a `components/` directory).",
+      "type": "api-surface",
+      "source_hint": "PulumiPlugin.yaml",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L71",
+      "text": "Pulumi does not recommend using a single monorepo containing one giant package for all of an organization's components, because it forfeits meaningful semantic versioning.",
+      "type": "positioning",
+      "confidence": "high",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L71",
+      "text": "It is technically possible to use a single monorepo containing one giant package for all of an organization's components.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L73",
+      "text": "When unrelated components share a package, every release of the package versions every component the same way regardless of whether each component changed, which violates semver.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L75-L79",
+      "text": "In a package with two unrelated components, an enhancement to ComponentA releases the package at v1.1.0 and a subsequent breaking change to ComponentB releases the package at v2.0.0, per semver conventions (minor bump for feature, major bump for breaking change).",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L19, L22, L28",
+      "text": "The Pulumi IDP Private Registry is documented at /docs/idp/concepts/private-registry/ and `pulumi package publish` is documented at /docs/iac/cli/commands/pulumi_package_publish/ (link targets must exist).",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L11, L19, L28, L85",
+      "text": "Linked pages exist: /docs/iac/concepts/packages/, /docs/iac/concepts/components/, /docs/iac/guides/building-extending/components/packaging-components/ (anchors #source-based-plugin-packages and #executable-based-plugin-packages), and /docs/iac/guides/building-extending/packages/publishing-packages/.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/guides/building-extending/packages/repository-strategy.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 2991,
+    "output_tokens": 2236,
+    "cache_read_input_tokens": 10028,
+    "cache_creation_input_tokens": 0
+  }
+}

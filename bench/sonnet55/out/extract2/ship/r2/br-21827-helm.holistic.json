@@ -1,0 +1,654 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L28",
+      "text": "Helm is a graduated Cloud Native Computing Foundation project.",
+      "type": "entity-spec",
+      "source_hint": "https://www.cncf.io/projects/helm/",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "Helm packages Kubernetes applications as charts, which are directories of templated YAML manifests, a values.yaml file of default inputs, and metadata.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "The helm CLI renders chart templates using Go template syntax.",
+      "type": "behavior",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "The helm CLI either installs the resulting manifests into a cluster as a release or prints them to stdout.",
+      "type": "behavior",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "Charts are distributed through Helm repositories and indexed publicly on Artifact Hub.",
+      "type": "feature",
+      "source_hint": "Helm / Artifact Hub",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "Helm is open source under the Apache License 2.0.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/helm/helm/blob/main/LICENSE",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L28",
+      "text": "The Helm project does not ship a commercial tier.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "Pulumi's general-purpose authoring languages support loops, conditionals, classes, and package management.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L36",
+      "text": "Helm chart authoring uses YAML manifests with Go template syntax and a values.yaml file for inputs.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "In Pulumi, resource ordering is derived from the dependency graph: each resource waits for its dependencies to become ready, and independent resources deploy in parallel.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "In Helm, resource installation order is fixed by Kubernetes kind, as implemented in Helm's kind_sorter.go source file.",
+      "type": "api-surface",
+      "source_hint": "https://github.com/helm/helm/blob/main/pkg/release/v1/util/kind_sorter.go",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L38",
+      "text": "In Helm, chart authors can't declare dependencies between resources or subcharts, except through hook weights.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "Pulumi's Automation API is a programmatic SDK available in every supported language for embedding up, preview, and destroy in a host application.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L46",
+      "text": "Pulumi Cloud adds centralized policy management on top of Pulumi Policies.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L46",
+      "text": "The Pulumi Enterprise edition adds Pulumi-maintained policy packs for CIS, PCI DSS, HITRUST, and NIST.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "Pulumi is open source under the Apache License 2.0.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/pulumi/pulumi/blob/master/LICENSE",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "Helm is open source under the Apache License 2.0.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/helm/helm/blob/main/LICENSE",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "The Helm docs state that when Helm installs or upgrades a release, the Kubernetes objects from the charts and all its dependencies are aggregated into a single set, then sorted by type followed by name, and then created/updated in that order.",
+      "type": "quote",
+      "source_hint": "https://helm.sh/docs/topics/charts/#operational-aspects-of-using-dependencies",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Helm's resource installation order is a hardcoded list of Kubernetes kinds in the Helm source, beginning with PriorityClasses and Namespaces, then Secrets and ConfigMaps, then CustomResourceDefinitions and RBAC, then Services and workloads, with any kind not on the list, including custom resources, last.",
+      "type": "api-surface",
+      "source_hint": "https://github.com/helm/helm/blob/main/pkg/release/v1/util/kind_sorter.go",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Helm's uninstall operation runs the same kind-ordering list in reverse.",
+      "type": "behavior",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L54",
+      "text": "Helm sends the sorted manifests to the API server in a single pass and doesn't wait for one resource to become ready before applying the next.",
+      "type": "behavior",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "Helm chart dependencies are a packaging mechanism: a subchart's objects are merged into the parent chart's set and sorted by kind along with everything else, per the Helm docs.",
+      "type": "attribution",
+      "source_hint": "https://helm.sh/docs/topics/charts/#operational-aspects-of-using-dependencies",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "In Helm, a chart can't express that the database subchart should install before the application subchart, or that a Deployment should start after a Job completes.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "The workaround for sequencing in Helm is chart hooks ordered with helm.sh/hook-weight annotations, whose resources Helm doesn't manage as part of the release, or sequencing logic built into the application itself, such as init containers that poll for a dependency.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "Native sequencing for resources and subcharts has been proposed in HIP-0025, which is still a draft.",
+      "type": "temporal",
+      "source_hint": "https://helm.sh/community/hips/hip-0025/",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "Pulumi orders operations from the program's actual dependencies: passing one resource's output into another, or setting the dependsOn resource option, creates an edge in the dependency graph.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "The Pulumi Kubernetes provider waits for each resource to become ready before creating the resources that depend on it, and deploys independent resources in parallel, so updates are both correctly ordered and faster than a strict serial sequence.",
+      "type": "behavior",
+      "source_hint": "Pulumi Kubernetes provider",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "In Pulumi, deletes follow the dependency graph in reverse.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "helm.v4.Chart supports the config.kubernetes.io/depends-on annotation for ordering between objects inside the chart.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L58",
+      "text": "helm.v4.Chart supports the dependsOn resource option on the chart for dependencies on resources outside it.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "Helm manages Kubernetes resources only, and anything outside the cluster, such as a managed database, a DNS record, an IAM role, or a managed Redis instance, needs another tool.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "Pulumi manages non-Kubernetes resources and Kubernetes resources in one program through the Pulumi Registry, which covers AWS, Azure, Google Cloud, Kubernetes, and SaaS platforms like Datadog, Auth0, GitHub, and Cloudflare.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "Helm records each install or upgrade as a numbered release revision.",
+      "type": "behavior",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "helm rollback restores a prior release revision.",
+      "type": "behavior",
+      "source_hint": "https://helm.sh/docs/helm/helm_rollback/",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "A failed Pulumi update leaves the stack partially updated, and you roll forward by reverting program code and running pulumi up.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "Helm favors fast revision-based rollback of a single release, while Pulumi favors scriptable control over resources from many providers in one update.",
+      "type": "comparison",
+      "source_hint": "Pulumi vs Helm",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L90",
+      "text": "Two patterns cover most production deployments combining Helm and Pulumi.",
+      "type": "numerical",
+      "source_hint": "Pulumi docs",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L92",
+      "text": "A single Pulumi program can create the cluster (EKS, AKS, or GKE), configure networking and IAM, and install the operational stack, for example cert-manager, ingress-nginx, and external-dns, through helm.v4.Chart or helm.v3.Release.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L93",
+      "text": "Resource outputs from elsewhere in a Pulumi program, such as a database connection string from aws.rds.Instance, a KMS key ARN, a managed Redis endpoint, or a Cloudflare zone ID, can flow into a Helm chart's values input as typed Pulumi outputs.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L93",
+      "text": "Pulumi resolves chart values at deploy time and orders the chart install after its dependencies.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "Choosing Pulumi is recommended when you manage infrastructure beyond Kubernetes, such as cloud accounts, networking, databases, and SaaS platforms, and want one tool for all of it.",
+      "type": "positioning",
+      "source_hint": "Pulumi docs",
+      "confidence": "low",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "Pulumi creates and deletes resources in dependency order, with each resource ready before the ones that depend on it, rather than in a fixed order by kind.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L104",
+      "text": "Pulumi's Automation API can be embedded to drive deployments from a host application, such as an internal developer platform, a SaaS product, or ephemeral preview environments per pull request.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L116",
+      "text": "There are three common ways to adopt Pulumi alongside or in place of Helm, and they can be combined.",
+      "type": "numerical",
+      "source_hint": "Pulumi docs",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L118",
+      "text": "Using Helm charts directly from a Pulumi program with helm.v4.Chart or helm.v3.Release, and migrating incrementally, is the most common adoption pattern.",
+      "type": "positioning",
+      "source_hint": "Pulumi docs",
+      "confidence": "low",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L119",
+      "text": "Charts can be converted to native Pulumi code by rendering them with helm template and converting the YAML with pulumi convert --from kubernetes.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L120",
+      "text": "pulumi import and the import resource option bring already-provisioned in-cluster resources under Pulumi management and generate the corresponding code.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "The Pulumi Kubernetes provider exposes Helm charts as first-class resources through helm.v4.Chart and helm.v3.Release.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "A Pulumi program can pull Helm charts from any Helm repository, public or private.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "A Pulumi program can pass Helm chart values as typed Pulumi inputs, including outputs from other Pulumi resources, and manage chart lifecycle alongside other infrastructure.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "helm.v4.Chart renders chart templates locally and registers each Kubernetes object the chart produces as an individual Pulumi resource, so every child shows up in plan output, drift detection, and state.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L132",
+      "text": "helm.v3.Release uses the embedded Helm SDK and creates a real Helm release in the cluster, preserving Helm-specific behaviors like chart hooks, post-rendering, and release history.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L136",
+      "text": "Helm merges the objects from a chart and all of its dependencies into a single set, sorts them by Kubernetes kind, and applies them in that order, so declaring a subchart as a dependency doesn't make it install first.",
+      "type": "behavior",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L136",
+      "text": "Ordering resources within a single Helm release requires chart hooks with hook weights or logic in the application itself.",
+      "type": "feature",
+      "source_hint": "Helm",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L140",
+      "text": "Pulumi can replace Helm: teams can keep installing upstream charts from inside a Pulumi program, or move off Helm entirely by converting charts to native Pulumi code.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L144",
+      "text": "The chart's values input in Pulumi accepts the same shape as a values.yaml file but lets each leaf be a Pulumi output.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-kubernetes",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L144",
+      "text": "Pulumi resolves chart values at deploy time and installs the chart after the resources it depends on.",
+      "type": "behavior",
+      "source_hint": "Pulumi",
+      "confidence": "high",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L152",
+      "text": "You can migrate from Helm to Pulumi by installing existing charts from a Pulumi program and migrating incrementally, converting rendered charts to native Pulumi code with pulumi convert --from kubernetes, or importing already-provisioned in-cluster resources.",
+      "type": "feature",
+      "source_hint": "Pulumi",
+      "confidence": "medium",
+      "file": "content/docs/iac/comparisons/helm.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 11673,
+    "output_tokens": 5391,
+    "cache_read_input_tokens": 12462,
+    "cache_creation_input_tokens": 0
+  }
+}

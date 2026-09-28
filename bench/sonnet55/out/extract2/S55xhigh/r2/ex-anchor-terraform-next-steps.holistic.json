@@ -1,0 +1,449 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L20-24",
+      "text": "The Pulumi for Terraform Users guide covers how to reference existing Terraform state files from Pulumi, use any Terraform provider in Pulumi programs, import and use Terraform modules directly, convert HCL to Pulumi, and orchestrate Terraform and Pulumi deployments together.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L21",
+      "text": "Any Terraform provider can be used in Pulumi programs.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L22",
+      "text": "Terraform modules can be imported and used directly in Pulumi programs.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L57, L69, L74, L122, L203, L248",
+      "text": "The Pulumi Terraform provider SDK (`@pulumi/terraform`) exposes a `terraform.state.S3Reference` resource class that takes `bucket` and `key` arguments to reference a Terraform state file stored in S3.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-terraform (@pulumi/terraform)",
+      "confidence": "high",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L80, L81, L88, L126, L210, L211, L265-267",
+      "text": "`terraform.state.S3Reference` instances expose a `getOutput(name)` method that returns the named output from the referenced Terraform state.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-terraform (@pulumi/terraform)",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L203",
+      "text": "The `terraform.state.S3Reference` class is accessible as `pulumi.terraform.state.S3Reference` when importing from `@pulumi/pulumi/automation`.",
+      "type": "api-surface",
+      "source_hint": "@pulumi/pulumi/automation",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L53-54",
+      "text": "`new pulumi.StackReference(\"core-infra\")` with `getOutput(\"vpcId\")` retrieves the `vpcId` output from another Pulumi stack named `core-infra` (StackReference name given without org/project qualification).",
+      "type": "api-surface",
+      "source_hint": "Pulumi StackReference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L86-90",
+      "text": "The `aws.ecs.Cluster` resource accepts a `configuration.executeCommandConfiguration` argument with `kmsKeyId` and `logging` (value \"DEFAULT\") properties.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "`pulumi import` can be used to bring Terraform-managed resources under Pulumi management.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L103",
+      "text": "State ownership can be transferred from Terraform to Pulumi gradually, resource-by-resource, during migration.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L110-112",
+      "text": "The `pulumi import` CLI takes arguments in the form `<type-token> <name> <id>`, e.g. `pulumi import aws:ec2/vpc:Vpc main-vpc vpc-12345`, and these `aws:ec2/vpc:Vpc`, `aws:ec2/subnet:Subnet`, `aws:ecs/cluster:Cluster` type tokens are valid.",
+      "type": "api-surface",
+      "source_hint": "pulumi import CLI / pulumi-aws",
+      "confidence": "high",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L131",
+      "text": "There is a 'Pulumi import API' that can be used programmatically within a TypeScript program to import resources.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L147",
+      "text": "Pulumi policies (Policy as Code) can enforce infrastructure policies across both Terraform and Pulumi resources.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L152-160, L175",
+      "text": "The `@pulumi/policy` package exports `PolicyPack` and `validateResourceOfType`; a policy pack's policies take `name`, `description`, `enforcementLevel: \"mandatory\"`, and `validateResource` with callback signature `(resource, args, reportViolation)`.",
+      "type": "api-surface",
+      "source_hint": "@pulumi/policy",
+      "confidence": "high",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L176",
+      "text": "The `aws.s3.Bucket` resource has an `acl` property that can take values `public-read` and `public-read-write`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L187",
+      "text": "The Pulumi Automation API allows embedding Pulumi in applications for dynamic infrastructure management.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L191, L198-201, L223, L226-228",
+      "text": "The Automation API (`@pulumi/pulumi/automation`) provides `LocalWorkspace.createOrSelectStack({stackName, projectName, program})`, `stack.setConfig(key, {value})`, and `stack.up({onOutput})` returning a result with `.outputs`.",
+      "type": "api-surface",
+      "source_hint": "@pulumi/pulumi/automation",
+      "confidence": "high",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L239, L313",
+      "text": "Component resources can wrap Terraform-state-backed infrastructure so that developers create components in Pulumi without knowing they depend on Terraform-managed resources, leaving multi-tool complexity to the platform team.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L254-260",
+      "text": "Custom component resources extend `pulumi.ComponentResource` and call `super(\"custom:WebApplication\", name, {}, opts)` with a type token, and register outputs via `this.registerOutputs`.",
+      "type": "api-surface",
+      "source_hint": "@pulumi/pulumi",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L278-283, L297-300",
+      "text": "`aws.ecs.TaskDefinition` with Fargate accepts `cpu: \"256\"` and `memory: \"512\"`, and `aws.ecs.Service` `networkConfiguration` accepts `assignPublicIp: true` and `subnets`.",
+      "type": "api-surface",
+      "source_hint": "pulumi/pulumi-aws",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L326",
+      "text": "The page /docs/intro/concepts/ exists and is a deep dive into Pulumi's architecture.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L327",
+      "text": "The page /docs/using-pulumi/adopting-pulumi/ exists and provides comprehensive migration strategies.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L328",
+      "text": "The page /docs/intro/vs/terraform/ exists and provides a detailed comparison of Pulumi and Terraform features.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L329",
+      "text": "The page /docs/iac/concepts/automation-api/ exists and covers programmatic infrastructure management with the Automation API.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L330",
+      "text": "The page /docs/insights/policy/ exists and covers Policy as Code for infrastructure governance and compliance.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L358",
+      "text": "The page /docs/iac/guides/building-extending/ exists and covers creating new providers and components.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L10",
+      "text": "A menu entry with identifier `terraform-get-started` exists under the `iac` menu to serve as parent for this page.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L334, L365",
+      "text": "The Pulumi Community page at pulumi.com/community/ lets users join the community Slack and forum, and join or start a local user group.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L335",
+      "text": "The github.com/pulumi/examples repository contains hundreds of real-world examples.",
+      "type": "numerical",
+      "source_hint": "https://github.com/pulumi/examples",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L336, L363",
+      "text": "The Pulumi Blog at pulumi.com/blog/ provides latest updates and case studies and accepts community writing about user experiences.",
+      "type": "feature",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L337",
+      "text": "The Pulumi YouTube channel is at youtube.com/pulumitv and offers video tutorials and demos.",
+      "type": "entity-spec",
+      "source_hint": "https://www.youtube.com/pulumitv",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L341",
+      "text": "The Snowflake case study on pulumi.com describes Snowflake's multi-cloud strategy and how Snowflake uses Pulumi with existing tools.",
+      "type": "attribution",
+      "source_hint": "https://www.pulumi.com/case-studies/snowflake/",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L342",
+      "text": "The Mercedes-Benz case study on pulumi.com describes large-scale infrastructure modernization and platform engineering at Mercedes-Benz.",
+      "type": "attribution",
+      "source_hint": "https://www.pulumi.com/case-studies/mercedes-benz/",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L343",
+      "text": "The Lemonade case study on pulumi.com describes rapid development with Pulumi and Terraform at Lemonade's insurance platform.",
+      "type": "attribution",
+      "source_hint": "https://www.pulumi.com/case-studies/lemonade/",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L349, L369",
+      "text": "The Pulumi Community Slack is reachable at slack.pulumi.com and provides real-time community support.",
+      "type": "entity-spec",
+      "source_hint": "https://slack.pulumi.com/",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L350",
+      "text": "GitHub issues at github.com/pulumi/pulumi/issues are used for bug reports and feature requests for Pulumi.",
+      "type": "entity-spec",
+      "source_hint": "https://github.com/pulumi/pulumi/issues",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L351",
+      "text": "support.pulumi.com provides professional support for Pulumi Cloud customers.",
+      "type": "entity-spec",
+      "source_hint": "https://support.pulumi.com/",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L357",
+      "text": "A CONTRIBUTING.md file exists at github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md (default branch `master`).",
+      "type": "cross-reference",
+      "source_hint": "https://github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L359",
+      "text": "A CONTRIBUTING.md file exists at github.com/pulumi/examples/blob/master/CONTRIBUTING.md (default branch `master`).",
+      "type": "cross-reference",
+      "source_hint": "https://github.com/pulumi/examples/blob/master/CONTRIBUTING.md",
+      "confidence": "medium",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L364",
+      "text": "Pulumi hosts community events at pulumi.com/events/ where community members can speak at meetups and conferences.",
+      "type": "feature",
+      "source_hint": "https://www.pulumi.com/events/",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L369",
+      "text": "Documentation issues can be opened at github.com/pulumi/docs/issues.",
+      "type": "cross-reference",
+      "source_hint": "https://github.com/pulumi/docs/issues",
+      "confidence": "low",
+      "file": "content/docs/iac/get-started/terraform/next-steps.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 6235,
+    "output_tokens": 6560,
+    "cache_read_input_tokens": 10028,
+    "cache_creation_input_tokens": 0
+  }
+}

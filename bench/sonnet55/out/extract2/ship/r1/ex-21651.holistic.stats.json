@@ -1,0 +1,43 @@
+{
+ "calls": 2,
+ "http_errors": {},
+ "stop_reasons": {
+  "tool_use": 2
+ },
+ "refusals": [],
+ "no_tool_use_when_tools": 0,
+ "usage": {
+  "input_tokens": 12714,
+  "output_tokens": 5432,
+  "cache_read_input_tokens": 0,
+  "cache_creation_input_tokens": 23498,
+  "thinking_tokens": 0
+ },
+ "rewrites": {},
+ "per_call": [
+  {
+   "stop": "tool_use",
+   "out": 990,
+   "in": 6728,
+   "cr": 0,
+   "cw": 11749,
+   "think": 0,
+   "s": 7.4,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 4442,
+   "in": 5986,
+   "cr": 0,
+   "cw": 11749,
+   "think": 0,
+   "s": 32.9,
+   "types": [
+    "tool_use"
+   ]
+  }
+ ]
+}

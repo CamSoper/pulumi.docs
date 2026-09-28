@@ -1,0 +1,735 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L5, L39, L53",
+      "text": "GeoDeploy pairs TypeSafe Jev's confidence-scored decisions with the Pulumi Automation API to place and scale Kubernetes across AWS, Azure, and Google Cloud.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L39, L53",
+      "text": "GeoDeploy is open source, released today (as of the post date), and picks the best AWS, Azure, or Google Cloud region for users, gating every AI decision on confidence.",
+      "type": "temporal",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L45",
+      "text": "GeoDeploy prices every AWS, Azure, and Google Cloud region that offers managed Kubernetes.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L46",
+      "text": "GeoDeploy asks Jev to pick the best region per geo from a closed list, so Jev cannot hallucinate a region.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L47",
+      "text": "GeoDeploy gates every Jev decision on confidence, with hard rejects for data residency.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L48, L105",
+      "text": "GeoDeploy provisions consistent Kubernetes clusters using one Pulumi stack per region.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L49, L225",
+      "text": "In GeoDeploy's self-driving mode, the system scales itself, with a human in the loop when Jev's confidence is low.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "TypeSafe AI opened early access to Jev, its SystemOne model, in the week before this post (published 2026-09-25).",
+      "type": "temporal",
+      "source_hint": "TypeSafe AI",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "Jev is TypeSafe AI's SystemOne model.",
+      "type": "entity-spec",
+      "source_hint": "TypeSafe AI",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L64",
+      "text": "TypeSafe's Jev comes with a set of AI primitives that let apps, agents, and workflows make decisions based on context.",
+      "type": "feature",
+      "source_hint": "https://docs.typesafe.ai/introduction",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L66",
+      "text": "Jev's decision-making primitives are confidence scoring, multiple choice, and yes/no (noul) questions.",
+      "type": "feature",
+      "source_hint": "https://docs.typesafe.ai/introduction",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L68",
+      "text": "Jev's decision-making primitives are \"the perfect complement to agentic work.\"",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "Combining Jev's reasoning with Pulumi means the gap between dreaming up ideal infrastructure and deploying it to production practically vanishes.",
+      "type": "positioning",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L85",
+      "text": "GeoDeploy compares every AWS, Azure, and Google Cloud region that offers managed Kubernetes, picks the best one for each geo, and provisions consistent environments across all three hyperscalers.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L94, L116",
+      "text": "Jev never does arithmetic, generates code, or invents region names; it only selects from closed sets of region IDs that GeoDeploy has already priced and checked.",
+      "type": "behavior",
+      "source_hint": "TypeSafe",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "GeoDeploy fetches current AWS prices from the AWS Price List API.",
+      "type": "feature",
+      "source_hint": "AWS Price List API",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "GeoDeploy fetches current Azure prices from the Azure Retail Prices API.",
+      "type": "feature",
+      "source_hint": "Azure Retail Prices API",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "GeoDeploy fetches current Google Cloud prices from the Google Cloud Billing Catalog, normalizing all three into a single quote format.",
+      "type": "feature",
+      "source_hint": "Google Cloud Billing Catalog",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L102",
+      "text": "GeoDeploy's deterministic TypeScript bin-packs pods onto nodes, filters out instance types that don't match the image's architecture, and computes a monthly cost for each candidate region.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L104",
+      "text": "GeoDeploy assembles a Pulumi program from a curated registry of typed modules covering EKS, AKS, or GKE; ECR, ACR, or Artifact Registry; ingress; DNS through Route 53, NS1, or Cloudflare; and observability.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L105",
+      "text": "GeoDeploy's Pulumi Automation API step runs a preview and then an update, one stack per region, and refuses to run unless cloud credentials pass readiness checks.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L105",
+      "text": "The link /automation/ points to a Pulumi Automation API page that exists on the Pulumi website.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L106",
+      "text": "Every GeoDeploy run writes a `plan.json` and `plan.md` containing the full decision record, and a web UI shows the deployment on a live globe.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L110",
+      "text": "Jev doesn't return free text; it returns typed answers with calibrated confidence through three primitives.",
+      "type": "behavior",
+      "source_hint": "TypeSafe",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L112",
+      "text": "Jev's `choice()` primitive picks one option from a closed list and returns the pick, a probability distribution across all options, and a confidence.",
+      "type": "api-surface",
+      "source_hint": "@typesafe-ai/sdk",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L113",
+      "text": "Jev's `score()` primitive rates something against a rubric the caller describes, and GeoDeploy uses 10 levels in its rubrics.",
+      "type": "api-surface",
+      "source_hint": "@typesafe-ai/sdk",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L114",
+      "text": "Jev's `noul()` primitive answers a yes/no question with a single probability.",
+      "type": "api-surface",
+      "source_hint": "@typesafe-ai/sdk",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L116",
+      "text": "Because Jev only selects from closed sets, a hallucinated region such as `us-west-9` or a made-up Pulumi argument cannot happen by construction in GeoDeploy.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L118",
+      "text": "For each geo, GeoDeploy sends Jev a shortlist of up to 40 priced candidates along with the constraints and the image's architecture.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L118-123",
+      "text": "In a single call, GeoDeploy asks Jev for a region selection (choice), five quality scores (score: coverage, cost fit, maturity, sprawl risk, architecture consistency), two hard checks (noul: data residency satisfied, enough capacity), and a fallback region (choice).",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L125",
+      "text": "The file `packages/decide/src/questions.ts` in the GeoDeploy repo contains the `buildStageAQuestions` function that builds Jev's questions.",
+      "type": "cross-reference",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L128",
+      "text": "The `@typesafe-ai/sdk` package exports `choice`, `noul`, and `score`.",
+      "type": "api-surface",
+      "source_hint": "@typesafe-ai/sdk",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L157",
+      "text": "The options passed to `choice()` are the priced candidates themselves, keyed by ID, so Jev cannot answer with a region that isn't on the list.",
+      "type": "behavior",
+      "source_hint": "@typesafe-ai/sdk",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L157",
+      "text": "TypeSafe advises rubric authors to \"describe situations, not degrees.\"",
+      "type": "attribution",
+      "source_hint": "TypeSafe",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L157",
+      "text": "GeoDeploy's rubrics use 10 levels, each a concrete scenario, running from \"Serves users on a different continent with no nearby presence\" up to \"In-geo with multiple availability zones, directly in or adjacent to the demand geo's primary population center.\"",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L162-165",
+      "text": "The `@typesafe-ai/sdk` package exposes a `TypeSafeClient` class whose `systemOne({ state, questions })` method returns a result with an `answers` object, where each answer has fields such as `selection.choice`, `selection.confidence`, `residencyOk.noul`, and `coverage.score`.",
+      "type": "api-surface",
+      "source_hint": "@typesafe-ai/sdk",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L159",
+      "text": "GeoDeploy sends the whole question set to Jev in one call, along with the state Jev reasons over.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L168",
+      "text": "GeoDeploy's five scores feed a ranking system that runs on weight profiles: latency-optimized (the default), balanced, residency-first, and failure-domain.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L168",
+      "text": "Because GeoDeploy's ranking weights live in code, the ranking can be re-tuned without calling Jev again.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L171-178, L182",
+      "text": "In GeoDeploy's composite ranking, sprawl risk is subtracted from the score while cost fit, coverage, maturity, and architecture consistency are added.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L182",
+      "text": "Every extra cloud provider means more credentials, tooling, and on-call runbooks.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L184",
+      "text": "In GeoDeploy, cluster and registry modules follow directly from the provider (AWS always means EKS and ECR), and Jev decides only ingress posture, autoscaling posture, and node-pool sizing tier.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L190-197",
+      "text": "GeoDeploy's data-residency confidence gate has a threshold of 0.95, and failing it causes a hard reject.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L190-197",
+      "text": "GeoDeploy's confidence threshold for choosing a region for a new cluster is 0.90; if it doesn't pass, the top three candidates are flagged for a human to choose.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L190-197",
+      "text": "GeoDeploy's confidence threshold for the region when a stack already exists is 0.75; if it doesn't pass, the existing region is kept.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L190-197",
+      "text": "GeoDeploy's confidence threshold for an ingress or autoscaling module choice is 0.85; if it doesn't pass, the registry default is used.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L190-197",
+      "text": "GeoDeploy's confidence threshold for the node-pool sizing tier is 0.60; if it doesn't pass, the bin-packing result is used.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L190-197",
+      "text": "GeoDeploy has a global confidence floor of 0.50 for region pick, residency, or capacity; if it doesn't pass, the AI path is dropped for that geo.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L199",
+      "text": "The residency check shown is from `packages/decide/src/engine.ts` in the GeoDeploy repo, and it is followed by a validation that the selection is one of the candidates.",
+      "type": "cross-reference",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L199-204",
+      "text": "Enforcing a confidence gate in GeoDeploy is plain deterministic code, not an AI decision.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L219",
+      "text": "Each `AiPathAborted` in GeoDeploy carries the full attempt (state, questions, and answers), so even a rejected answer ends up in the audit trail.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L221",
+      "text": "If a gate check fails, the Jev API times out or returns an error, or the upstream can't be reached, GeoDeploy switches to a deterministic fallback that compares prices across providers while still enforcing the residency and constraint checks.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L221",
+      "text": "The GeoDeploy command `geodeploy explain` shows why each region won.",
+      "type": "api-surface",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L225",
+      "text": "GeoDeploy's self-driving mode is enabled with the `geodeploy monitor` command.",
+      "type": "api-surface",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L225",
+      "text": "In self-driving mode, GeoDeploy periodically checks each deployment's CPU utilization and asks Jev one joint question across all regions with options `no-change`, `scale-up:<geo>`, `scale-down:<geo>`, or `shift:<from>-><to>`, plus a separate check on disruption risk.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L225",
+      "text": "In self-driving mode, code rather than Jev computes the actual node-count changes.",
+      "type": "behavior",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L225",
+      "text": "In self-driving mode, above 0.85 confidence the resize is applied automatically.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L225",
+      "text": "In self-driving mode, between 0.70 and 0.85 confidence the resize is suggested for a human to approve.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L225",
+      "text": "In self-driving mode, below 0.70 confidence GeoDeploy ignores Jev's pick and falls back to a deterministic per-region rule based on observed utilization.",
+      "type": "numerical",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "high",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L227",
+      "text": "CPU utilization alone makes a poor autoscaling metric; once a traffic baseline is established it is usually paired with other signals such as median end-to-end request latency, error rates, or something application-specific.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L233",
+      "text": "GeoDeploy is released as open source, and anyone with access to Jev and a cloud provider can get started today.",
+      "type": "temporal",
+      "source_hint": "pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L26, L235",
+      "text": "The GitHub repository github.com/pulumi/devx-geodeploy exists and contains GeoDeploy.",
+      "type": "cross-reference",
+      "source_hint": "https://github.com/pulumi/devx-geodeploy",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L29",
+      "text": "The Pulumi Automation API docs page exists at /docs/iac/automation-api/.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L32, L64",
+      "text": "TypeSafe's Jev documentation introduction page exists at https://docs.typesafe.ai/introduction.",
+      "type": "cross-reference",
+      "source_hint": "https://docs.typesafe.ai/introduction",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L237",
+      "text": "Pulumi's X account handle is @PulumiCorp, at https://x.com/PulumiCorp.",
+      "type": "entity-spec",
+      "source_hint": "https://x.com/PulumiCorp",
+      "confidence": "medium",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L239",
+      "text": "A free Pulumi account can be signed up for at https://app.pulumi.com/signup.",
+      "type": "feature",
+      "source_hint": "https://app.pulumi.com/signup",
+      "confidence": "low",
+      "file": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 6694,
+    "output_tokens": 9571,
+    "cache_read_input_tokens": 12394,
+    "cache_creation_input_tokens": 0
+  }
+}

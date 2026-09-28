@@ -1,0 +1,616 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L66",
+      "text": "A page exists at /docs/support/provider-support-policy/ (the Provider support policy page linked from the support index).",
+      "type": "cross-reference",
+      "confidence": "high",
+      "file": "content/docs/support/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "The Provider support policy page describes how long Pulumi maintains each provider major version.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "Pulumi provides long-term security updates for some providers (the Provider support policy page describes which providers get long-term security updates).",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/support/_index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L95",
+      "text": "Pulumi focuses on actively supporting the latest released major version of the providers that Pulumi maintains.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L95",
+      "text": "For a set of widely used providers, Pulumi ships security updates for the previous major version for up to a year, or until the next major version is released, whichever comes first.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L95",
+      "text": "Pulumi's provider support policy page (/docs/support/provider-support-policy/) lists the covered providers and what a long-term support release contains.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L97",
+      "text": "Pulumi provides no patches at all for older major versions of the providers it maintains (versions older than the latest major and, for covered providers, the previous major within its security-update window).",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L97",
+      "text": "The Pulumi Registry (/registry/) shows the current version for all providers maintained by Pulumi.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L111",
+      "text": "The page /docs/support/provider-support-policy/ (Provider support policy) exists and is linked from the Learn more section.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L112-114",
+      "text": "The pages /docs/support/faq/secrets-config/, /docs/support/faq/pulumi-cloud/, and /docs/support/faq/policies/ exist (Pulumi ESC FAQ, Pulumi Cloud FAQ, Pulumi Policies FAQ).",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L24",
+      "text": "Pulumi does not automatically roll back changes made during an update if an error or failure occurs.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L24-25",
+      "text": "When an error or failure occurs during an update, Pulumi completes any pending operations currently in progress, then exits and reports the error.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L27",
+      "text": "To perform a manual rollback after a failed deployment, revert the code and configuration changes and run `pulumi up` to return infrastructure to its previous state.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L33",
+      "text": "Pulumi does not automatically query the cloud provider's live state before running `pulumi up` or `pulumi preview`; it compares the desired state in the program against the last recorded state.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L35",
+      "text": "Refreshing requires a round-trip to the cloud provider for every resource in a stack, which adds significant latency, especially for large stacks.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L40",
+      "text": "`pulumi refresh` synchronizes Pulumi's recorded state with the actual state of cloud resources.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "`pulumi up --refresh` refreshes and applies desired state in a single step.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L43",
+      "text": "Pulumi Cloud provides built-in drift detection for automated drift detection and remediation on a schedule.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L45",
+      "text": "The page /docs/iac/concepts/state-and-backends/ has a 'Refreshing state' section explaining refresh behavior.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L51",
+      "text": "In Pulumi, the logical name is part of the auto-assigned resource URN and only needs to be unique within a stack, while the physical name is how the resource is known to the cloud provider and typically needs to be unique within a certain scope.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "Pulumi auto-naming creates each resource's physical name by combining the logical name with a random suffix appended afterwards, e.g. `my-bucket-d7c2fa0`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "Auto-naming allows Pulumi to replace resources with less downtime by creating the replacement before deleting the old resource.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L55",
+      "text": "Auto-naming can be disabled on a per-resource basis.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L57",
+      "text": "Project or stack configuration can be used to customize or disable auto-naming globally, per provider, or per resource type.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L63",
+      "text": "During an update, Pulumi secrets are decrypted in memory and visible to the Pulumi program.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "Passing `--secret` to `pulumi config set` encrypts the value so it can be safely persisted in `Pulumi.<stack-name>.yaml`.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "Pulumi Cloud manages a unique encryption key for every stack to encrypt that stack's secrets, and this is configurable to use a custom secrets provider.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L67",
+      "text": "Because a different key is used per stack, encrypting the same value in two stacks yields different encrypted strings, so an encrypted value cannot be copied between stack config files with a text editor and `pulumi config set` must be used.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L69",
+      "text": "When running a preview, update or destroy, Pulumi decrypts secret data, which is plain text during deployment execution and accessible to any part of the program via the Pulumi config object.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "Pulumi does not use the Terraform engine in any way.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "Some Pulumi providers use the open-source Terraform schemas to determine available resources, parameters, and return/response attributes.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "Pulumi native providers are mapped directly to the cloud provider APIs and do not use Terraform schemas.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L79",
+      "text": "Pulumi is a declarative tool that uses imperative languages to define the end state; the language is used for authoring the program and not for talking to the cloud provider API.",
+      "type": "positioning",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L83",
+      "text": "Pulumi uses strongly typed languages that support IntelliSense and the Language Server Protocol, so users rarely need to leave their IDE when defining Pulumi programs.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L89",
+      "text": "Pulumi experimental features are always opt-in, enabled explicitly with a flag, command, or environment variable such as `PULUMI_EXPERIMENTAL=true`.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L89",
+      "text": "Pulumi experimental features can change or be removed at any time without a deprecation cycle and are not necessarily supported.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L101",
+      "text": "Major provider versions typically include significant changes such as deprecations, new resources and new functionality that may require additional migration steps.",
+      "type": "behavior",
+      "confidence": "low",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L103",
+      "text": "Minor provider versions typically include new resources, features, performance improvements and bug fixes without introducing breaking changes.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L105",
+      "text": "In npm, the tilde operator (e.g. ~1.2.3) allows patch updates on the current minor version.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L105",
+      "text": "Patch versions of providers are primarily for bug fixes and security updates and are designed to be fully backward compatible.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L107",
+      "text": "Each major version of a Pulumi provider includes migration logic to smooth the upgrade from the immediately previous major version, but these migrations do not always work across multiple major versions.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/faq/infrastructure.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L14",
+      "text": "Pulumi actively maintains the latest released major version of every provider it publishes.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L15, L70",
+      "text": "For a set of widely used providers, Pulumi ships security updates for the previous major version (N-1) for up to 12 months, or until the next major version is released, whichever comes first.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L19-30",
+      "text": "The providers receiving long-term support updates on eligible older versions are AWS, Azure Classic, Azure Native, Azure AD, Command, Docker Build, GCP, Kubernetes, TLS, and Vault.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L21-30",
+      "text": "Registry package pages exist at /registry/packages/aws/, azure/, azure-native/, azuread/, command/, docker-build/, gcp/, kubernetes/, tls/, and vault/.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L34-36",
+      "text": "The Pulumi provider LTS branch ships High/Critical CVE security patches, including fixes for CVEs affecting the provider's code or its direct dependencies.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L37",
+      "text": "The Pulumi provider LTS branch ships fixes for broken internal infrastructure on the LTS branch needed to ship the CVE patches.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L39-45",
+      "text": "A Pulumi provider LTS release does not contain new upstream API versions, new resources or properties, performance improvements, non-security bug fixes, or compatibility with newer language runtime versions.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L49",
+      "text": "LTS provider releases are compatible with the version of Pulumi they were frozen at, unless otherwise prompted via security fixes.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L53",
+      "text": "Exactly one long-term support major version exists per covered provider at any time.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L54-55",
+      "text": "When major version N+1 of a covered provider ships, it becomes the new N, the old N becomes the new LTS major, and the old LTS major reaches end of life on the same day regardless of how much of its 12-month window remained.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L56",
+      "text": "Within the LTS major of a covered provider, only the latest minor version receives patches; earlier minors are frozen.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L60",
+      "text": "Pulumi provider LTS releases are available through the same standard package registries as current-major releases, but are tagged differently.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L61",
+      "text": "Customers pinning to a specific major version of a Pulumi provider automatically receive patch releases as they ship, and pinning to a major version is recommended.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L65",
+      "text": "Older majors than the LTS version of a covered provider receive no patches; if v3 is the newest release then v3 is N, v2 is N-1, and v1 and earlier are end of life.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L69",
+      "text": "The current major (N) of a Pulumi provider receives new features, new resources, bug fixes, security patches, dependency upgrades, and new upstream API versions until N+1 ships.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L70",
+      "text": "The long-term support version (N-1) receives security updates in the provider's code or its direct dependencies, for up to 12 months from N's release or until N+1 ships.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L71",
+      "text": "Provider versions N-2 and older are end of life, not supported, and receive no updates.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L75",
+      "text": "The page /docs/support/faq/infrastructure/ has a section 'What are the best practices for maintaining provider versions'.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    },
+    {
+      "line_range": "L76-77",
+      "text": "Pages exist at /registry/ and /docs/support/getting-support/.",
+      "type": "cross-reference",
+      "confidence": "low",
+      "file": "content/docs/support/provider-support-policy.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 3,
+    "scrutiny": "standard",
+    "input_tokens": 6193,
+    "output_tokens": 4718,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 37179
+  }
+}

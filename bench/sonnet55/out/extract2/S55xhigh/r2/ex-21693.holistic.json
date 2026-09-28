@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L27, L48",
+      "text": "HashiCorp Vault is not open source; it is licensed under the Business Source License (BSL 1.1) model.",
+      "type": "attribution",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L27, L47",
+      "text": "Pulumi ESC is fully open source and licensed under Apache License 2.0.",
+      "type": "entity-spec",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L27",
+      "text": "Vault stores secrets only, whereas Pulumi ESC stores environments, secrets, and configurations.",
+      "type": "comparison",
+      "confidence": "medium",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L27",
+      "text": "Pulumi ESC environments can be composed together from multiple other environments, so shared configuration is inherited rather than duplicated.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L31",
+      "text": "Pulumi ESC environments can reference secrets stored in HashiCorp Vault.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L31",
+      "text": "Through Pulumi ESC, secrets stored in Vault can be organized as collections that are versioned, branched, and composed inside other collections.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L31",
+      "text": "Pulumi ESC can store non-secret configuration alongside the secrets a user keeps in Vault.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L52",
+      "text": "Pulumi ESC is a fully managed SaaS service provided by Pulumi Cloud.",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L63",
+      "text": "Vault has no open ecosystem: it can only store and manage secrets stored in Vault (in contrast to ESC pulling secrets from multiple sources).",
+      "type": "feature",
+      "confidence": "medium",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L71",
+      "text": "Vault's editing and authoring experience is limited: it offers a key/value form editor with a JSON toggle.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L76",
+      "text": "The Vault `vault` CLI reads and writes secrets but does not inject them as environment variables.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L76",
+      "text": "Vault Agent's process supervisor mode can inject secrets as environment variables into a process (covering what the `vault` CLI does not).",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L90",
+      "text": "In Pulumi ESC, hierarchical environments inherit values from the environments they import.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L91",
+      "text": "Vault has no equivalent concept to composable, hierarchical environments; secrets are organized by path convention and the structure is maintained by hand.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L99, L101",
+      "text": "Pulumi ESC values can be either secret or plaintext, whereas Vault values can only be secrets.",
+      "type": "comparison",
+      "confidence": "medium",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L111",
+      "text": "Vault has no equivalent to ESC's secret referencing between environments: Vault has no first-class environment to reference, so secrets are read by path.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L130",
+      "text": "Pulumi ESC supports built-in functions such as toJSON, fromJSON, fromBase64, and toString.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L131",
+      "text": "Vault provides limited function support: templating and transformation functions such as username templating and the Transform secrets engine, rather than functions for composing configuration values.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L154",
+      "text": "Vault's cloud secrets engines generate short-lived credentials for AWS, Azure, and Google Cloud.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L154",
+      "text": "Each Vault cloud secrets engine is configured with a static credential that Vault uses to mint short-lived cloud provider credentials.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/esc/vs/vault.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 4525,
+    "output_tokens": 2507,
+    "cache_read_input_tokens": 12394,
+    "cache_creation_input_tokens": 0
+  }
+}

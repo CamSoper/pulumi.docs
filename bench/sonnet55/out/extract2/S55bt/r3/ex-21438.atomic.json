@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "pass": "atomic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L134, L172, L203",
+      "text": "The latest stable release of Pulumi is v3.261.0, released 2026-09-02 (per the at-a-glance table).",
+      "type": "version",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-atomic"
+      ]
+    }
+  ],
+  "errors": [
+    "content/blog/infrastructure-as-code-tools/index.md: content/blog/infrastructure-as-code-tools/index.md is a small edit (25 added line(s), 1526-line file) \u2014 extracting from the diff hunks only (unchanged body skipped)"
+  ],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 7326,
+    "output_tokens": 3128,
+    "cache_read_input_tokens": 12393,
+    "cache_creation_input_tokens": 0
+  }
+}

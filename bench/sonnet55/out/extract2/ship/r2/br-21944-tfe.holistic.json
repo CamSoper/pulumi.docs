@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L543-545",
+      "text": "Setting the PULUMI_TFE_DOMAIN environment variable on the self-hosted Pulumi Cloud API service lets Terraform and OpenTofu use it as a state backend.",
+      "type": "feature",
+      "confidence": "high",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L549",
+      "text": "The PULUMI_TFE_DOMAIN environment variable's value should be the domain that serves the Terraform-compatible API, e.g. `tf.pulumiapi.acmecorp.com`.",
+      "type": "api-surface",
+      "confidence": "high",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L549",
+      "text": "When the PULUMI_TFE_DOMAIN environment variable is unset, the Terraform-compatible API is disabled and its routes aren't registered.",
+      "type": "behavior",
+      "confidence": "high",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L551",
+      "text": "The DNS record for the PULUMI_TFE_DOMAIN domain should point at the same host that serves the PULUMI_API_DOMAIN environment variable's domain.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L551",
+      "text": "Using a separate domain for PULUMI_TFE_DOMAIN keeps the Terraform-compatible API distinct from the Pulumi API, but it is not required, since PULUMI_TFE_DOMAIN can be set to the same value as PULUMI_API_DOMAIN.",
+      "type": "behavior",
+      "confidence": "medium",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L553",
+      "text": "In Terraform or OpenTofu configuration, and in the `terraform login`/`tofu login` commands and the `TF_TOKEN_*` variable name, the configured PULUMI_TFE_DOMAIN value should be used wherever the state backend guide at /docs/integrations/terraform/state-backend/ uses `tf.pulumi.com`.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L545",
+      "text": "Pulumi documentation includes a state backend guide at /docs/integrations/terraform/state-backend/ describing how Terraform and OpenTofu can use a Pulumi Cloud state backend.",
+      "type": "cross-reference",
+      "confidence": "medium",
+      "file": "content/docs/administration/self-hosting/components/api.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 1323,
+    "output_tokens": 760,
+    "cache_read_input_tokens": 12462,
+    "cache_creation_input_tokens": 0
+  }
+}

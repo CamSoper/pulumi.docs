@@ -1,0 +1,67 @@
+{
+ "calls": 4,
+ "http_errors": {},
+ "stop_reasons": {
+  "tool_use": 4
+ },
+ "refusals": [],
+ "no_tool_use_when_tools": 0,
+ "usage": {
+  "input_tokens": 4852,
+  "output_tokens": 4650,
+  "cache_read_input_tokens": 49848,
+  "cache_creation_input_tokens": 0,
+  "thinking_tokens": 0
+ },
+ "rewrites": {},
+ "per_call": [
+  {
+   "stop": "tool_use",
+   "out": 965,
+   "in": 1079,
+   "cr": 12462,
+   "cw": 0,
+   "think": 0,
+   "s": 7.6,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 1180,
+   "in": 1191,
+   "cr": 12462,
+   "cw": 0,
+   "think": 0,
+   "s": 9.1,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 1255,
+   "in": 1210,
+   "cr": 12462,
+   "cw": 0,
+   "think": 0,
+   "s": 9.4,
+   "types": [
+    "tool_use"
+   ]
+  },
+  {
+   "stop": "tool_use",
+   "out": 1250,
+   "in": 1372,
+   "cr": 12462,
+   "cw": 0,
+   "think": 0,
+   "s": 9.6,
+   "types": [
+    "tool_use"
+   ]
+  }
+ ]
+}

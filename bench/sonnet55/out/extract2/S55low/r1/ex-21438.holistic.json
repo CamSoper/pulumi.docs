@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "pass": "holistic",
+  "model": "claude-sonnet-5",
+  "claims": [
+    {
+      "line_range": "L134, L172, L203",
+      "text": "The latest stable Pulumi release is v3.263.0 (2026-09-16) per the license table and section; the at-a-glance table lists v3.261.0 (2026-09-02) as of 2026-09-21.",
+      "type": "version",
+      "source_hint": "pulumi/pulumi",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L135, L173, L505",
+      "text": "The latest stable Terraform release is v1.16.3 (2026-09-16); the at-a-glance table lists v1.16.1 (2026-09-02) as of 2026-09-21.",
+      "type": "version",
+      "source_hint": "hashicorp/terraform",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L136, L174, L559",
+      "text": "The latest stable AWS CDK release is v2.270.0 (2026-09-17); the at-a-glance table lists v2.268.0 (2026-09-02).",
+      "type": "version",
+      "source_hint": "aws/aws-cdk",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L139, L177, L702",
+      "text": "Azure Bicep latest stable release is v0.47.16 (2026-09-08); the at-a-glance table still lists v0.46.1 (2026-07-30).",
+      "type": "version",
+      "source_hint": "Azure/bicep",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L141, L179, L793",
+      "text": "Latest stable Kubernetes release is v1.37.0 (2026-08-26).",
+      "type": "version",
+      "source_hint": "kubernetes/kubernetes",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L142, L180, L854",
+      "text": "Latest stable Crossplane release is v2.4.1 (2026-09-15); the at-a-glance table still lists v2.4.0 (2026-08-20).",
+      "type": "version",
+      "source_hint": "crossplane/crossplane",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L143, L181",
+      "text": "Latest stable OpenTofu release is v1.12.6 (2026-08-19).",
+      "type": "version",
+      "source_hint": "opentofu/opentofu",
+      "confidence": "medium",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L172-181, L1498",
+      "text": "GitHub stars: Pulumi ~25.7k, Terraform ~49.7k, AWS CDK ~12.9k, Bicep ~3.6k, Kubernetes ~127.9k, Crossplane ~12.1k, OpenTofu ~30.2k, measured 2026-09-21.",
+      "type": "numerical",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L1498",
+      "text": "Among dedicated IaC tools Terraform is the most-starred, followed by OpenTofu, Pulumi, AWS CDK, and Crossplane.",
+      "type": "comparison",
+      "confidence": "medium",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L164",
+      "text": "Spacelift's paid plans scale by private worker count rather than seats or resources, with quote-based pricing at the top end.",
+      "type": "entity-spec",
+      "source_hint": "Spacelift",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L164",
+      "text": "env zero (formerly env0) prices its paid tiers per successful apply or environment.",
+      "type": "entity-spec",
+      "source_hint": "env zero",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L746",
+      "text": "Google Cloud Deployment Manager reached end of support on March 31, 2026, with the service fully turned down on June 30, 2027.",
+      "type": "temporal",
+      "source_hint": "Google Cloud",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L1488",
+      "text": "Pulumi Cloud's Free edition is free forever for one user with unlimited stacks and projects and 500 workflow minutes per month.",
+      "type": "entity-spec",
+      "source_hint": "Pulumi pricing",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L1488",
+      "text": "Pulumi Cloud Essentials starts at $40/month with 40 credits and up to 500 managed resources; Pro is $400/month with 400 credits and up to 2,000 managed resources; Enterprise is custom-priced.",
+      "type": "entity-spec",
+      "source_hint": "Pulumi pricing",
+      "confidence": "high",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    },
+    {
+      "line_range": "L1488",
+      "text": "HCP Terraform is free for up to 500 managed resources with one concurrent run, then costs roughly $0.10 to $0.99 per resource per month depending on tier.",
+      "type": "entity-spec",
+      "source_hint": "HashiCorp pricing",
+      "confidence": "medium",
+      "file": "content/blog/infrastructure-as-code-tools/index.md",
+      "found_by": [
+        "llm-holistic"
+      ]
+    }
+  ],
+  "errors": [
+    "content/blog/infrastructure-as-code-tools/index.md: content/blog/infrastructure-as-code-tools/index.md is a small edit (25 added line(s), 1526-line file) \u2014 extracting from the diff hunks only (unchanged body skipped)"
+  ],
+  "meta": {
+    "files": 1,
+    "scrutiny": "standard",
+    "input_tokens": 7375,
+    "output_tokens": 1513,
+    "cache_read_input_tokens": 12394,
+    "cache_creation_input_tokens": 0
+  }
+}
