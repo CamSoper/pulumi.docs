@@ -1,0 +1,19 @@
+== content/blog/sandboxing-coding-agents-yolo-mode/index.md
+status: not yet posted; publish date in the future
+
+--- X (254/255 chars):
+Every **coding** agent ships a YOLO mode, and you're probably running it daily. The fix for the horror stories isn't approving every command. It's a sandbox.
+
+Engin Diri on giving agents full autonomy safely, plus a kit preloaded for infrastructure work.
+
+--- LinkedIn (1227/2950 chars):
+We're excited to announce a new guide. Claude Code calls it --dangerously-skip-permissions. The community calls it YOLO mode, and most engineers who use coding agents seriously run it every day.
+
+Engin Diri walks through what an unsandboxed agent can actually reach: every file on the machine, every process, the Docker engine, the network, and, for infrastructure engineers, the cloud credentials sitting in ~/.aws and ~/.kube. His core argument: prompt guardrails degrade exactly when agents get dangerous, late in long sessions and deep in debugging rabbit holes, so the protections have to be enforced by the environment instead of requested in the prompt.
+
+The post covers the four isolation layers of Docker Sandboxes, a verification prompt to test the walls before trusting them with real work, and his open-source infrastructure-sandbox-kit: Pulumi, Terraform, OpenTofu, and the cloud CLIs preinstalled from checksummed binaries, 33 agent skills, guardrail hooks, and credential injection that keeps tokens out of the workspace.
+
+It closes with two live workshops where Docker and Pulumi put Neo, Pulumi's infrastructure coding agent, inside a sandbox and turn a plain-English request into running cloud infrastructure.
+
+--- Bluesky (263/300 chars):
+Every coding agent has a YOLO mode. You're probably running it daily, and prompt guardrails fail right when it matters. Engin Diri on sandboxing agents with Docker Sandboxes, plus an open-source kit preloaded with Pulumi, Terraform, and cloud CLIs for infra work.

@@ -1,0 +1,17 @@
+== content/blog/terraform-kubernetes/index.md
+status: not yet posted; publish date in the future
+
+--- X (214/255 chars):
+Terraform can manage Kubernetes — the hashicorp/kubernetes provider works. But HashiCorp's own docs flag two limits: plan-time API access and a provider-credential ordering trap.
+
+Here's how that plays out in 2026:
+
+--- LinkedIn (703/2950 chars):
+Terraform's kubernetes provider is a legitimate, well-maintained way to manage cluster objects as code. It's also worth reading HashiCorp's own warnings closely: kubernetes_manifest needs API access at plan time, and mixing cluster-provisioning resources with Kubernetes-provider resources in one module produces "intermittent and unpredictable errors."
+
+We wrote a practical, fair look at what that means day to day — what Terraform does well, where teams hit friction, how a general-purpose language (Pulumi's approach) changes testing and CRD handling, and how AI agents are starting to operate inside these workflows. Includes a step-by-step guide to provisioning a Kubernetes app stack with Pulumi.
+
+--- Bluesky (243/300 chars):
+Terraform + Kubernetes, without the hot takes.
+
+What the hashicorp/kubernetes provider does well, HashiCorp's own documented limits (plan-time API access, provider ordering), and how a general-purpose language changes testing and CRD handling.

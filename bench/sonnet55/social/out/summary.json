@@ -1,0 +1,482 @@
+{
+ "summary": {
+  "ship": {
+   "runs": 7,
+   "crashes": 2,
+   "written": 5,
+   "verdict_acc": "15/15",
+   "false_fail": 0,
+   "missed_fail": 0,
+   "unparsed": 0,
+   "repairs_valid": "8/8",
+   "repairs_present": "8/8",
+   "usd_per_run": 0.4855,
+   "reported_usd_per_run": 0.436,
+   "wall_s_per_run": 78.8,
+   "turns_per_run": 8.2,
+   "runs_with_subagent": 5,
+   "subagents_total": 8,
+   "repair_errors": [],
+   "misses": []
+  },
+  "S55def": {
+   "runs": 7,
+   "crashes": 0,
+   "written": 7,
+   "verdict_acc": "21/21",
+   "false_fail": 0,
+   "missed_fail": 0,
+   "unparsed": 0,
+   "repairs_valid": "10/10",
+   "repairs_present": "10/10",
+   "usd_per_run": 0.1591,
+   "reported_usd_per_run": 0.1591,
+   "wall_s_per_run": 19.9,
+   "turns_per_run": 7.0,
+   "runs_with_subagent": 0,
+   "subagents_total": 0,
+   "repair_errors": [],
+   "misses": []
+  },
+  "S55low": {
+   "runs": 7,
+   "crashes": 3,
+   "written": 4,
+   "verdict_acc": "12/12",
+   "false_fail": 0,
+   "missed_fail": 0,
+   "unparsed": 0,
+   "repairs_valid": "3/3",
+   "repairs_present": "3/3",
+   "usd_per_run": 0.13,
+   "reported_usd_per_run": 0.13,
+   "wall_s_per_run": 15.8,
+   "turns_per_run": 5.8,
+   "runs_with_subagent": 0,
+   "subagents_total": 0,
+   "repair_errors": [],
+   "misses": []
+  },
+  "S55med": {
+   "runs": 3,
+   "crashes": 3,
+   "written": 0,
+   "verdict_acc": "0/0",
+   "false_fail": 0,
+   "missed_fail": 0,
+   "unparsed": 0,
+   "repairs_valid": "0/0",
+   "repairs_present": "0/0",
+   "usd_per_run": 0.0,
+   "reported_usd_per_run": 0.0,
+   "wall_s_per_run": 0.0,
+   "turns_per_run": 0.0,
+   "runs_with_subagent": 0,
+   "subagents_total": 0,
+   "repair_errors": [],
+   "misses": []
+  }
+ },
+ "rows": {
+  "ship": [
+   {
+    "fx": "clean-gittags",
+    "rep": "r1",
+    "usd": 0.4172468,
+    "usd_by_model": {
+     "claude-sonnet-5": 0.4172
+    },
+    "reported_usd": 0.3530573,
+    "turns": 9,
+    "subagents": 1,
+    "wall_s": 81,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 0,
+    "repairs_present": 0,
+    "repairs_valid": 0,
+    "repair_errors": {}
+   },
+   {
+    "fx": "clean-tfk8s",
+    "rep": "r1",
+    "crash": true
+   },
+   {
+    "fx": "missing-bluesky",
+    "rep": "r1",
+    "usd": 0.7502578000000001,
+    "usd_by_model": {
+     "claude-sonnet-5": 0.7503
+    },
+    "reported_usd": 0.6736078000000001,
+    "turns": 2,
+    "subagents": 2,
+    "wall_s": 87,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 1,
+    "repairs_present": 1,
+    "repairs_valid": 1,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-hashtag-ivoice",
+    "rep": "r1",
+    "usd": 0.3794588,
+    "usd_by_model": {
+     "claude-sonnet-5": 0.3795
+    },
+    "reported_usd": 0.3357653,
+    "turns": 10,
+    "subagents": 2,
+    "wall_s": 71,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 2,
+    "repairs_present": 2,
+    "repairs_valid": 2,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-md-banned-onepara",
+    "rep": "r1",
+    "usd": 0.31126600000000004,
+    "usd_by_model": {
+     "claude-sonnet-5": 0.3113
+    },
+    "reported_usd": 0.293068,
+    "turns": 9,
+    "subagents": 1,
+    "wall_s": 69,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 3,
+    "repairs_present": 3,
+    "repairs_valid": 3,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-overlen-url",
+    "rep": "r1",
+    "crash": true
+   },
+   {
+    "fx": "real-onepara-jev",
+    "rep": "r1",
+    "usd": 0.5694638,
+    "usd_by_model": {
+     "claude-sonnet-5": 0.5695
+    },
+    "reported_usd": 0.5244953,
+    "turns": 11,
+    "subagents": 2,
+    "wall_s": 86,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 2,
+    "repairs_present": 2,
+    "repairs_valid": 2,
+    "repair_errors": {}
+   }
+  ],
+  "S55def": [
+   {
+    "fx": "clean-gittags",
+    "rep": "r1",
+    "usd": 0.15175120000000003,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1518
+    },
+    "reported_usd": 0.1517512,
+    "turns": 9,
+    "subagents": 0,
+    "wall_s": 21,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 0,
+    "repairs_present": 0,
+    "repairs_valid": 0,
+    "repair_errors": {}
+   },
+   {
+    "fx": "clean-tfk8s",
+    "rep": "r1",
+    "usd": 0.1551898,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1552
+    },
+    "reported_usd": 0.15518980000000002,
+    "turns": 6,
+    "subagents": 0,
+    "wall_s": 20,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 0,
+    "repairs_present": 0,
+    "repairs_valid": 0,
+    "repair_errors": {}
+   },
+   {
+    "fx": "missing-bluesky",
+    "rep": "r1",
+    "usd": 0.155208,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1552
+    },
+    "reported_usd": 0.155208,
+    "turns": 7,
+    "subagents": 0,
+    "wall_s": 19,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 1,
+    "repairs_present": 1,
+    "repairs_valid": 1,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-hashtag-ivoice",
+    "rep": "r1",
+    "usd": 0.16184939999999998,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1618
+    },
+    "reported_usd": 0.1618494,
+    "turns": 7,
+    "subagents": 0,
+    "wall_s": 19,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 2,
+    "repairs_present": 2,
+    "repairs_valid": 2,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-md-banned-onepara",
+    "rep": "r1",
+    "usd": 0.1424006,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1424
+    },
+    "reported_usd": 0.1424006,
+    "turns": 6,
+    "subagents": 0,
+    "wall_s": 20,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 3,
+    "repairs_present": 3,
+    "repairs_valid": 3,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-overlen-url",
+    "rep": "r1",
+    "usd": 0.1797848,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1798
+    },
+    "reported_usd": 0.17978479999999997,
+    "turns": 7,
+    "subagents": 0,
+    "wall_s": 21,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 2,
+    "repairs_present": 2,
+    "repairs_valid": 2,
+    "repair_errors": {}
+   },
+   {
+    "fx": "real-onepara-jev",
+    "rep": "r1",
+    "usd": 0.167802,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1678
+    },
+    "reported_usd": 0.167802,
+    "turns": 7,
+    "subagents": 0,
+    "wall_s": 19,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 2,
+    "repairs_present": 2,
+    "repairs_valid": 2,
+    "repair_errors": {}
+   }
+  ],
+  "S55low": [
+   {
+    "fx": "clean-gittags",
+    "rep": "r1",
+    "usd": 0.1168796,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1169
+    },
+    "reported_usd": 0.1168796,
+    "turns": 5,
+    "subagents": 0,
+    "wall_s": 15,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 0,
+    "repairs_present": 0,
+    "repairs_valid": 0,
+    "repair_errors": {}
+   },
+   {
+    "fx": "clean-tfk8s",
+    "rep": "r1",
+    "usd": 0.13685239999999999,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1369
+    },
+    "reported_usd": 0.1368524,
+    "turns": 6,
+    "subagents": 0,
+    "wall_s": 16,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 0,
+    "repairs_present": 0,
+    "repairs_valid": 0,
+    "repair_errors": {}
+   },
+   {
+    "fx": "missing-bluesky",
+    "rep": "r1",
+    "usd": 0.1340674,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1341
+    },
+    "reported_usd": 0.1340674,
+    "turns": 6,
+    "subagents": 0,
+    "wall_s": 15,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 1,
+    "repairs_present": 1,
+    "repairs_valid": 1,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-hashtag-ivoice",
+    "rep": "r1",
+    "usd": 0.1320564,
+    "usd_by_model": {
+     "claude-sonnet-5-5": 0.1321
+    },
+    "reported_usd": 0.13205640000000002,
+    "turns": 6,
+    "subagents": 0,
+    "wall_s": 17,
+    "is_error": false,
+    "written": true,
+    "correct": 3,
+    "false_fail": 0,
+    "missed_fail": 0,
+    "unparsed": 0,
+    "repairs_needed": 2,
+    "repairs_present": 2,
+    "repairs_valid": 2,
+    "repair_errors": {}
+   },
+   {
+    "fx": "plant-md-banned-onepara",
+    "rep": "r1",
+    "crash": true
+   },
+   {
+    "fx": "plant-overlen-url",
+    "rep": "r1",
+    "crash": true
+   },
+   {
+    "fx": "real-onepara-jev",
+    "rep": "r1",
+    "crash": true
+   }
+  ],
+  "S55med": [
+   {
+    "fx": "clean-gittags",
+    "rep": "r1",
+    "crash": true
+   },
+   {
+    "fx": "clean-tfk8s",
+    "rep": "r1",
+    "crash": true
+   },
+   {
+    "fx": "missing-bluesky",
+    "rep": "r1",
+    "crash": true
+   }
+  ]
+ }
+}

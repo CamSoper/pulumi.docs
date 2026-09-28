@@ -1,0 +1,241 @@
+{
+ "flag_rule": "flag = contradicted | mismatch | framing-drift (these route to \ud83d\udea8 via compose-review); unverifiable is NOT a flag (routes to \u26a0\ufe0f low-confidence). Majority = >=2 of 3 reps in the flag set. The #apply item differs under analyze.py's most_common rule and is listed separately.",
+ "O55med_only_strict": {
+  "REAL": 8,
+  "FALSE-POSITIVE": 2,
+  "UNDETERMINED": 0
+ },
+ "S_only": {
+  "REAL": 0,
+  "FALSE-POSITIVE": 2,
+  "UNDETERMINED": 0
+ },
+ "precision": {
+  "O55med_extra_flags": "7/9 = 78% (8/10 = 80% incl. #apply under analyze.py rule)",
+  "S_extra_flags": "0/2 = 0%"
+ },
+ "notes": [
+  "Claims are the July ledger-50 floor; several pages changed since. Adjudication is of the claim against the page text at claim time plus product source.",
+  "4 of the O55med-only REALs were independently fixed by merged PRs citing the same claim (#20472, #21374, #20505) or human-adjudicated (#20348).",
+  "Items 2-3 are real at claim time but on a hand-maintained HITRUST page replaced by a data-generated page 2026-07-16; they would not recur today.",
+  "Item 9 (setup.py entrypoint) is still live on content/docs/iac/concepts/projects/_index.md L99 \u2014 neither Sonnet nor prod caught it."
+ ],
+ "items": [
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/concepts/inputs-outputs/_index.md",
+   "line": "L38",
+   "claim": "An `aws.ec2.Vpc` resource has a `vpcId` property that is an output.",
+   "S_verdicts": [
+    "not-a-claim",
+    "contradicted",
+    "not-a-claim"
+   ],
+   "O55med_verdicts": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "adjudication": "REAL",
+   "evidence": "aws.ec2.Vpc has no vpcId output (pulumi-aws sdk/nodejs/ec2/vpc.ts); July page L38 said `vpcId`; fixed by merged content-review pulumi/docs#20472 citing this exact claim"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/concepts/secrets/_index.md",
+   "line": "L320",
+   "claim": "The `pulumi.Config` type offers a collection of getters and setters for retrieving configuration values of various types by their key.",
+   "S_verdicts": [
+    "verified",
+    "unverifiable",
+    "verified"
+   ],
+   "O55med_verdicts": [
+    "unverifiable",
+    "contradicted",
+    "contradicted"
+   ],
+   "adjudication": "REAL",
+   "evidence": "Config exposes only get*/require*/try* (sdk/nodejs/config.ts; sdk/go/pulumi/config/config.go) \u2014 no setters; fixed by merged pulumi/docs#21374 ('Dropped \"and setters\"')"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md",
+   "line": "L33",
+   "claim": "HITRUST CSF 11.5 framework reference '06.d Data Protection and Privacy of Covered Information' (as applied to the pubsub-encryption policy) specifies: 'Cryptographic controls shall be used in compliance with all relevant agreements, laws and regulations.'",
+   "S_verdicts": [
+    "unverifiable",
+    "unverifiable",
+    "mismatch"
+   ],
+   "O55med_verdicts": [
+    "mismatch",
+    "mismatch",
+    "mismatch"
+   ],
+   "adjudication": "REAL",
+   "evidence": "Pre-#20274 hand page (b3dd76afde^, google-cloud.md) paired pubsub-encryption '06.d' with the crypto-controls spec sentence; data/policy_pack_policies/hitrust-google-cloud.json gives 06.d its own 'Covered information shall be protected\u2026' spec. Page superseded by generated page 2026-07-16 \u2014 defect no longer live"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/reference/pre-built-policy-packs/hitrust/google-cloud.md",
+   "line": "L57",
+   "claim": "The subnetwork-flow-logs policy requires GCP subnetworks to have flowLogsConfig enabled.",
+   "S_verdicts": [
+    "mismatch",
+    "unverifiable",
+    "unverifiable"
+   ],
+   "O55med_verdicts": [
+    "mismatch",
+    "mismatch",
+    "mismatch"
+   ],
+   "adjudication": "REAL",
+   "evidence": "Pre-#20274 page said 'Require subnetworks to have flowLogsConfig enabled'; gcp.compute.Subnetwork has only `logConfig` (pulumi-gcp sdk/nodejs/compute/subnetwork.ts:456) and the data file's remediation uses logConfig. Superseded page \u2014 no longer live"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/get-started/kubernetes/create-project.md",
+   "line": "L21",
+   "claim": "A Pulumi project is a program in a chosen language that defines a collection of related cloud resources.",
+   "S_verdicts": [
+    "not-a-claim",
+    "verified",
+    "verified"
+   ],
+   "O55med_verdicts": [
+    "framing-drift",
+    "framing-drift",
+    "framing-drift"
+   ],
+   "adjudication": "FALSE-POSITIVE",
+   "evidence": "'A project is a program in your chosen language\u2026' is a deliberate tutorial simplification repeated in aws/azure/gcp/kubernetes create-project.md and kept through a human-merged glow-up (#21816); pedantic framing-drift vs /docs/iac/concepts/projects definition, not misleading"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/get-started/terraform/next-steps.md",
+   "line": "L53-54, L80-81, L88, L126, L210-211, L265-267",
+   "claim": "The `.getOutput(\"...\")` method is a valid Pulumi API for retrieving named outputs from a `StackReference` or Terraform state reference object.",
+   "S_verdicts": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "O55med_verdicts": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "adjudication": "REAL",
+   "evidence": "#20348 human-adjudicated anchor: pulumi-terraform state is invoke functions (getS3Reference etc., sdk/nodejs/state/index.ts) returning an outputs map \u2014 no S3Reference class with .getOutput()"
+  },
+  {
+   "direction": "S-only",
+   "page": "content/docs/iac/get-started/kubernetes/create-project.md",
+   "line": "L299-345",
+   "claim": "The Go example program imports `github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes` and `github.com/pulumi/pulumi/sdk/v3/go/pulumi`, creates a Deployment named \"app-dep\" with one replica running a container named \"nginx\" using the \"nginx\" image, and exports the deployment's metadata name.",
+   "S_verdicts": [
+    "mismatch",
+    "mismatch",
+    "mismatch"
+   ],
+   "O55med_verdicts": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "adjudication": "FALSE-POSITIVE",
+   "evidence": "Page's Go block imports kubernetes/apps/v1, core/v1, meta/v1 subpackages (create-project.md ~L303-305) \u2014 code is correct; S flagged the extractor's paraphrase of the imports, not a page defect"
+  },
+  {
+   "direction": "S-only",
+   "page": "content/docs/iac/concepts/projects/_index.md",
+   "line": "L230",
+   "claim": "The Configuration documentation is located at /docs/concepts/config/.",
+   "S_verdicts": [
+    "not-a-claim",
+    "contradicted",
+    "contradicted"
+   ],
+   "O55med_verdicts": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "adjudication": "FALSE-POSITIVE",
+   "evidence": "July projects page L230 did link /docs/concepts/config/; that path is an alias of content/docs/iac/concepts/config.md (aliases L16) and returns 301 live \u2014 link works; S compared against the since-edited current text"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/concepts/inputs-outputs/apply.md",
+   "line": "L634",
+   "claim": "In every Pulumi language, an unhandled error raised inside an `apply` callback is reported as a deployment failure, causing `pulumi up` to abort the update and print the error in its diagnostics.",
+   "S_verdicts": [
+    "unverifiable",
+    "framing-drift",
+    "verified"
+   ],
+   "O55med_verdicts": [
+    "mismatch",
+    "mismatch",
+    "mismatch"
+   ],
+   "adjudication": "FALSE-POSITIVE",
+   "evidence": "apply.md L634 (July) / L631 (now) qualifies the 'every language' sentence in the same paragraph: '(with one Go-specific exception described below)', and L688 describes it. The extractor dropped the qualifier; the page is not misleading (wording nit at most)"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/concepts/projects/_index.md",
+   "line": "L93",
+   "claim": "For Python Pulumi programs, the presence of a `__main__.py` or `setup.py` file defines the entrypoint.",
+   "S_verdicts": [
+    "verified",
+    "verified",
+    "verified"
+   ],
+   "O55med_verdicts": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "adjudication": "REAL",
+   "evidence": "Python executor (sdk/python/cmd/pulumi-language-python-exec) does runpy.run_path(program) and errors 'unable to find main python program `__main__.py`'; no setup.py entrypoint handling in pulumi/pulumi (code search: only codegen/policypack). STILL LIVE: projects/_index.md L99 at 4d85a74fb0"
+  },
+  {
+   "direction": "O55med-only",
+   "page": "content/docs/iac/concepts/inputs-outputs/apply.md",
+   "line": "L250",
+   "claim": "Error handling in Go's `apply` may also be achieved using an `error` channel.",
+   "S_verdicts": [
+    "not-a-claim",
+    "not-a-claim",
+    "not-a-claim"
+   ],
+   "O55med_verdicts": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "adjudication": "REAL",
+   "evidence": "July apply.md L250 said 'Error handling may also be achieved using an `error` `chan`'; Go SDK appliers take func(T)(U,error) / ApplyTWithContext only; removed by merged content-review pulumi/docs#20505 citing this claim"
+  },
+  {
+   "direction": "O55med-only under analyze.py most_common rule (S tie 1/1/1; both-flag under >=2/3 rule)",
+   "page": "content/docs/iac/concepts/secrets/_index.md",
+   "line": "L183-184",
+   "claim": "By computing a secret value by using [`apply`](/docs/concepts/inputs-outputs/#apply) or all with another secret value.",
+   "S_verdicts": [
+    "not-a-claim",
+    "contradicted",
+    "framing-drift"
+   ],
+   "O55med_verdicts": [
+    "contradicted",
+    "contradicted",
+    "contradicted"
+   ],
+   "adjudication": "REAL",
+   "evidence": "July inputs-outputs/_index.md (6cd712fdd9) has no 'apply' heading \u2014 apply content lives in inputs-outputs/apply.md \u2014 so #apply is a dead anchor"
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+== content/blog/self-driving-infrastructure-pulumi-jev/index.md
+status: not yet posted; publish date in the future
+
+--- X (237/255 chars):
+We paired TypeSafe's Jev with the Pulumi Automation API to build GeoDeploy: it picks the best AWS, Azure, or Google Cloud region for your users, gates every AI decision on confidence, and provisions Kubernetes for you. Open source today.
+
+--- LinkedIn (615/2950 chars):
+What if your infrastructure could decide where to run and then build it?
+
+We paired TypeSafe's Jev with the Pulumi Automation API to build GeoDeploy, an open source example that:
+
+- Prices every AWS, Azure, and Google Cloud region with managed Kubernetes
+- Asks Jev to pick the best region per geo from a closed list, so it can't hallucinate a region
+- Gates every decision on confidence, with hard rejects for data residency
+- Provisions consistent clusters with one Pulumi stack per region
+- Scales itself in self-driving mode, with a human in the loop when confidence is low
+
+Read how it works and grab the code.
+
+--- Bluesky (218/300 chars):
+We paired TypeSafe's Jev with the Pulumi Automation API to build GeoDeploy: confidence-gated AI picks the best AWS, Azure, or Google Cloud region for your users, and Pulumi provisions the Kubernetes. Open source today.

@@ -1,0 +1,19 @@
+== content/blog/trigger-deployments-on-git-tags/index.md
+status: not yet posted; publish date in the future
+
+--- X (251/255 chars):
+Pulumi Deployments can now trigger on git tag pushes.
+
+Push a version tag like v1.2.0 and Pulumi runs pulumi up automatically — across GitHub, GitLab, Bitbucket, Azure DevOps, and Custom VCS. Filter with glob patterns to deploy only the tags you want.
+
+--- LinkedIn (666/2950 chars):
+Many teams treat a git tag as the signal that a release is ready to ship. Pulumi Deployments now lets you act on that signal directly: configure tag-based triggers, push a version tag like v1.2.0, and Pulumi runs pulumi up automatically.
+
+Tag triggers work across all five version control integrations — GitHub, GitLab, Bitbucket, Azure DevOps, and Custom VCS — and use the same glob-based filtering model as path filters, so you can deploy on every v* release while excluding pre-releases like v1.2.0-rc1.
+
+The post also covers the PULUMI_CI_TAG_NAME variable for stamping the release version onto your resources, plus a setup note for existing GitLab integrations.
+
+--- Bluesky (199/300 chars):
+Pulumi Deployments can now trigger on git tag pushes.
+
+Push a version tag like v1.2.0 and Pulumi runs pulumi up automatically — with glob-based tag filters so you only deploy the releases you choose.

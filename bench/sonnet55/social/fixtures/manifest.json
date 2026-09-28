@@ -1,0 +1,99 @@
+[
+ {
+  "id": "clean-gittags",
+  "post": "content/blog/trigger-deployments-on-git-tags/index.md",
+  "expected": {
+   "X": "PASS",
+   "LinkedIn": "PASS",
+   "Bluesky": "PASS"
+  },
+  "social": {
+   "twitter": "Pulumi Deployments can now trigger on git tag pushes.\n\nPush a version tag like v1.2.0 and Pulumi runs pulumi up automatically — across GitHub, GitLab, Bitbucket, Azure DevOps, and Custom VCS. Filter with glob patterns to deploy only the tags you want.",
+   "linkedin": "Many teams treat a git tag as the signal that a release is ready to ship. Pulumi Deployments now lets you act on that signal directly: configure tag-based triggers, push a version tag like v1.2.0, and Pulumi runs pulumi up automatically.\n\nTag triggers work across all five version control integrations — GitHub, GitLab, Bitbucket, Azure DevOps, and Custom VCS — and use the same glob-based filtering model as path filters, so you can deploy on every v* release while excluding pre-releases like v1.2.0-rc1.\n\nThe post also covers the PULUMI_CI_TAG_NAME variable for stamping the release version onto your resources, plus a setup note for existing GitLab integrations.",
+   "bluesky": "Pulumi Deployments can now trigger on git tag pushes.\n\nPush a version tag like v1.2.0 and Pulumi runs pulumi up automatically — with glob-based tag filters so you only deploy the releases you choose."
+  }
+ },
+ {
+  "id": "clean-tfk8s",
+  "post": "content/blog/terraform-kubernetes/index.md",
+  "expected": {
+   "X": "PASS",
+   "LinkedIn": "PASS",
+   "Bluesky": "PASS"
+  },
+  "social": {
+   "twitter": "Terraform can manage Kubernetes — the hashicorp/kubernetes provider works. But HashiCorp's own docs flag two limits: plan-time API access and a provider-credential ordering trap.\n\nHere's how that plays out in 2026:\n",
+   "linkedin": "Terraform's kubernetes provider is a legitimate, well-maintained way to manage cluster objects as code. It's also worth reading HashiCorp's own warnings closely: kubernetes_manifest needs API access at plan time, and mixing cluster-provisioning resources with Kubernetes-provider resources in one module produces \"intermittent and unpredictable errors.\"\n\nWe wrote a practical, fair look at what that means day to day — what Terraform does well, where teams hit friction, how a general-purpose language (Pulumi's approach) changes testing and CRD handling, and how AI agents are starting to operate inside these workflows. Includes a step-by-step guide to provisioning a Kubernetes app stack with Pulumi.\n",
+   "bluesky": "Terraform + Kubernetes, without the hot takes.\n\nWhat the hashicorp/kubernetes provider does well, HashiCorp's own documented limits (plan-time API access, provider ordering), and how a general-purpose language changes testing and CRD handling.\n"
+  }
+ },
+ {
+  "id": "plant-hashtag-ivoice",
+  "post": "content/blog/stop-tuning-prompts-build-a-harness/index.md",
+  "expected": {
+   "X": "FAIL",
+   "LinkedIn": "FAIL",
+   "Bluesky": "PASS"
+  },
+  "social": {
+   "twitter": "Most teams' Claude Code results plateau in real codebases because the harness around the agent is empty, not because the model is weak.\n\nHere is the layer most teams are missing. #AIAgents",
+   "linkedin": "I have watched this happen on every team I have worked with. Most teams obsessing over prompt tuning and model benchmarks are missing the bigger lever. In a codebase past a few hundred thousand lines, the model is the smaller variable.\n\nAnthropic calls the layer around it the harness, and it has seven pieces.\n\nEngin Diri walks through which ones to wire first, the hook pattern that catches your CLAUDE.md going stale on its own, and the root-CLAUDE.md habit that quietly costs you the most performance.",
+   "bluesky": "Your Claude Code session plateaus in a real codebase because the layer around the agent is empty, not because the model is weak.\n\nSeven pieces of harness, in order of where to start.\n"
+  }
+ },
+ {
+  "id": "plant-overlen-url",
+  "post": "content/blog/seven-rules-ai-native-software-factory/index.md",
+  "expected": {
+   "X": "FAIL",
+   "LinkedIn": "PASS",
+   "Bluesky": "FAIL"
+  },
+  "social": {
+   "twitter": "Five engineers. Nineteen clients. Custom code shipped within a day of signing.\n\nEwan Dawson, CTO of Compostable AI, on the seven rules he built around the agents that write almost all of his company's code. Rule five is the one most teams skip, and it is the one that decides whether the factory keeps running.",
+   "linkedin": "Ewan Dawson runs a five-person software factory at Compostable AI. Most of the code it ships, he hasn't read.\n\nThe agents do the writing. The team handles what the agents can't: defining the work, talking to the customers, deciding what gets built. The factory keeps producing whether the engineers are at their desks or not.\n\nIn a recent Pulumi webinar, Ewan walked through the rules in brief. The blog post is the expanded version. For anyone trying to figure out how to set their team up for what's happening in software now.\n",
+   "bluesky": "Five engineers. Nineteen clients. Custom code shipped within a day of signing.\n\nEwan Dawson's seven rules for an AI-native software factory — where agents write nearly all the code. https://www.pulumi.com/blog/seven-rules-ai-native-software-factory/"
+  }
+ },
+ {
+  "id": "plant-md-banned-onepara",
+  "post": "content/blog/sandboxing-coding-agents-yolo-mode/index.md",
+  "expected": {
+   "X": "FAIL",
+   "LinkedIn": "FAIL",
+   "Bluesky": "FAIL"
+  },
+  "social": {
+   "twitter": "Every **coding** agent ships a YOLO mode, and you're probably running it daily. The fix for the horror stories isn't approving every command. It's a sandbox.\n\nEngin Diri on giving agents full autonomy safely, plus a kit preloaded for infrastructure work.",
+   "linkedin": "We're excited to announce a new guide. Claude Code calls it --dangerously-skip-permissions. The community calls it YOLO mode, and most engineers who use coding agents seriously run it every day.\n\nEngin Diri walks through what an unsandboxed agent can actually reach: every file on the machine, every process, the Docker engine, the network, and, for infrastructure engineers, the cloud credentials sitting in ~/.aws and ~/.kube. His core argument: prompt guardrails degrade exactly when agents get dangerous, late in long sessions and deep in debugging rabbit holes, so the protections have to be enforced by the environment instead of requested in the prompt.\n\nThe post covers the four isolation layers of Docker Sandboxes, a verification prompt to test the walls before trusting them with real work, and his open-source infrastructure-sandbox-kit: Pulumi, Terraform, OpenTofu, and the cloud CLIs preinstalled from checksummed binaries, 33 agent skills, guardrail hooks, and credential injection that keeps tokens out of the workspace.\n\nIt closes with two live workshops where Docker and Pulumi put Neo, Pulumi's infrastructure coding agent, inside a sandbox and turn a plain-English request into running cloud infrastructure.",
+   "bluesky": "Every coding agent has a YOLO mode. You're probably running it daily, and prompt guardrails fail right when it matters. Engin Diri on sandboxing agents with Docker Sandboxes, plus an open-source kit preloaded with Pulumi, Terraform, and cloud CLIs for infra work."
+  }
+ },
+ {
+  "id": "real-onepara-jev",
+  "post": "content/blog/self-driving-infrastructure-pulumi-jev/index.md",
+  "expected": {
+   "X": "FAIL",
+   "LinkedIn": "PASS",
+   "Bluesky": "FAIL"
+  },
+  "social": {
+   "twitter": "We paired TypeSafe's Jev with the Pulumi Automation API to build GeoDeploy: it picks the best AWS, Azure, or Google Cloud region for your users, gates every AI decision on confidence, and provisions Kubernetes for you. Open source today.\n",
+   "linkedin": "What if your infrastructure could decide where to run and then build it?\n\nWe paired TypeSafe's Jev with the Pulumi Automation API to build GeoDeploy, an open source example that:\n\n- Prices every AWS, Azure, and Google Cloud region with managed Kubernetes\n- Asks Jev to pick the best region per geo from a closed list, so it can't hallucinate a region\n- Gates every decision on confidence, with hard rejects for data residency\n- Provisions consistent clusters with one Pulumi stack per region\n- Scales itself in self-driving mode, with a human in the loop when confidence is low\n\nRead how it works and grab the code.\n",
+   "bluesky": "We paired TypeSafe's Jev with the Pulumi Automation API to build GeoDeploy: confidence-gated AI picks the best AWS, Azure, or Google Cloud region for your users, and Pulumi provisions the Kubernetes. Open source today.\n"
+  }
+ },
+ {
+  "id": "missing-bluesky",
+  "post": "content/blog/rest-api-docs-from-openapi/index.md",
+  "expected": {
+   "X": "PASS",
+   "LinkedIn": "PASS",
+   "Bluesky": "missing"
+  },
+  "social": {
+   "twitter": "If you called a Pulumi Cloud REST API endpoint and got back a field the docs never mentioned, that was real drift. The reference was hand-maintained and the API kept moving.\n\nWe changed how it's built. Here's what's different.\n",
+   "linkedin": "If you've ever integrated with the Pulumi Cloud REST API and found a parameter the docs never mentioned, or a response field that wasn't in the schema, that was real drift, not your reading.\n\nThe old reference was handwritten. Every endpoint change, renamed parameter, or revised response shape needed a matching docs PR. In practice those PRs didn't always land, and small mismatches compounded over time.\n\nWe changed how the reference is built. The pages at the same URL are now generated from the live OpenAPI spec the API itself publishes.\n\nWe wrote up what's different and what it means for anyone integrating with the API today.\n"
+  }
+ }
+]

@@ -1,0 +1,18 @@
+== content/blog/rest-api-docs-from-openapi/index.md
+status: not yet posted; publish date in the future
+
+--- X (226/255 chars):
+If you called a Pulumi Cloud REST API endpoint and got back a field the docs never mentioned, that was real drift. The reference was hand-maintained and the API kept moving.
+
+We changed how it's built. Here's what's different.
+
+--- LinkedIn (634/2950 chars):
+If you've ever integrated with the Pulumi Cloud REST API and found a parameter the docs never mentioned, or a response field that wasn't in the schema, that was real drift, not your reading.
+
+The old reference was handwritten. Every endpoint change, renamed parameter, or revised response shape needed a matching docs PR. In practice those PRs didn't always land, and small mismatches compounded over time.
+
+We changed how the reference is built. The pages at the same URL are now generated from the live OpenAPI spec the API itself publishes.
+
+We wrote up what's different and what it means for anyone integrating with the API today.
+
+--- Bluesky: NO social copy

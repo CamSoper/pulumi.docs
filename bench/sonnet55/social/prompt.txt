@@ -1,0 +1,21 @@
+You are running in a CI environment.
+
+Review the social media copy for pull request #99999.
+
+The social copy and status for each blog post is in `.social-check-output.txt`. Read that file — it contains the actual post text for each platform, plus metadata (character counts, already-posted status). Posts that are already posted or too old have been filtered out.
+
+If you want more context about the blog post itself (to judge whether the social copy accurately represents it), the file path is listed in the output — you can read it.
+
+Review each platform's copy using the rules in `.claude/commands/social-media-review/SKILL.md`.
+
+IMPORTANT: Keep the review short and scannable. Use `#### Platform — PASS` or `#### Platform — FAIL` headings with bullet-pointed reasons. No analysis paragraphs, no rubric citations. A blogger should read it in 30 seconds. Follow SKILL.md §Output format exactly: the orienting `> [!NOTE]` line under the title, one line instead of three `— missing` headings when every platform is missing, and `### Suggested copy` / `### Suggestions (advisory)` collapsed inside `<details>`.
+
+Write the review to `.social-review.md`. Do NOT post a PR comment — a subsequent workflow step handles that. The file's body must:
+
+1. Start with the literal line `<!-- social-review -->` (HTML comment marker; lets future runs find this comment to update it in place).
+2. Then `## Social Media Review` and the per-platform sections.
+3. End with a footer line: `_Updated for commit \`0123456789abcdef0123456789abcdef01234567\` (short: \`0123456\`) at 2026-09-28 18:00 UTC._`
+
+Use the Write tool. Do not run `gh pr comment`. Your response text is
+discarded — the only output that counts is the `.social-review.md` file.
+Writing it is mandatory, even if every platform passes.
