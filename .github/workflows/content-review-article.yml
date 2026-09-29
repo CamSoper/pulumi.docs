@@ -844,10 +844,10 @@ jobs:
       # .git, where a model step with Bash could have planted a hook or a
       # core.fsmonitor that the checkout itself would run.
       - name: Clear the trusted pre-verify checkout (round 1)
-        if: github.event.inputs.mode == 'glowup' && steps.claude.outcome == 'success' && format('{0}', vars.GLOWUP_PREVERIFY) != '0'
+        if: github.event.inputs.mode == 'glowup' && steps.claude.outcome == 'success' && format('{0}', vars.GLOWUP_PREVERIFY_FORK_SMOKE) != '0'
         run: rm -rf .preverify-code
       - name: Checkout trusted pre-verify code (round 1)
-        if: github.event.inputs.mode == 'glowup' && steps.claude.outcome == 'success' && format('{0}', vars.GLOWUP_PREVERIFY) != '0'
+        if: github.event.inputs.mode == 'glowup' && steps.claude.outcome == 'success' && format('{0}', vars.GLOWUP_PREVERIFY_FORK_SMOKE) != '0'
         continue-on-error: true
         uses: actions/checkout@v7
         with:
@@ -857,7 +857,7 @@ jobs:
           path: .preverify-code
       - name: Pre-verify glow-up edits (round 1)
         id: pv1
-        if: github.event.inputs.mode == 'glowup' && steps.claude.outcome == 'success' && format('{0}', vars.GLOWUP_PREVERIFY) != '0'
+        if: github.event.inputs.mode == 'glowup' && steps.claude.outcome == 'success' && format('{0}', vars.GLOWUP_PREVERIFY_FORK_SMOKE) != '0'
         continue-on-error: true
         uses: ./.preverify-code/.github/actions/glowup-preverify-round
         with:
