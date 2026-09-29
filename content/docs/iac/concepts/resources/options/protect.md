@@ -14,18 +14,20 @@ aliases:
   - /docs/concepts/options/protect/
 ---
 
-The `protect` resource option marks a resource as protected. A protected resource cannot be deleted directly, and it will be an error to do a Pulumi deployment which tries to delete a protected resource for any reason.
+The `protect` resource option marks a resource as protected. A protected resource can't be deleted directly. By default, any Pulumi deployment that tries to delete one, for any reason, fails with an error.
 
-`protect` is a Pulumi-engine construct, enforced entirely within Pulumi and never sent to the cloud provider. Many cloud resources also carry their own, separate deletion-protection attributes, such as `deletionProtection` on a GCP Cloud SQL instance or an AWS RDS instance, which the cloud provider enforces independently of anything Pulumi knows about. A resource can be unprotected in Pulumi and still refuse to delete, or vice versa. See [Deletion protection on the resource itself](/docs/iac/operations/troubleshooting/destroy-failures/#deletion-protection-on-the-resource-itself) for how to tell the two apart and resolve each.
+`protect` is a Pulumi-engine construct, enforced entirely within Pulumi and never sent to the cloud provider. Many cloud resources also carry their own, separate deletion-protection attributes, such as `deletionProtection` on a GCP Cloud SQL instance or an AWS RDS instance, which the Pulumi provider or the cloud API enforces independently of the `protect` option. A resource can be unprotected in Pulumi and still refuse to delete, or vice versa. See [Deletion protection on the resource itself](/docs/iac/operations/troubleshooting/destroy-failures/#deletion-protection-on-the-resource-itself) for how to tell the two apart and resolve each.
 
 {{< resource-option-scope "protect" >}}
 
-To delete a protected resource, it must first be *unprotected*. There are two ways to unprotect a resource:
+To delete a protected resource, you must first *unprotect* it. There are two ways to unprotect a resource:
 
 * Set `protect: false` and then run `pulumi up`
 * Use the [`pulumi state unprotect`](/docs/iac/cli/commands/pulumi_state_unprotect/) command
 
-Once the resource is unprotected, it can be deleted as part of a following update.
+Once the resource is unprotected, a subsequent update can delete it.
+
+To delete protected resources in a single operation without unprotecting them, pass the `--ignore-protect` flag to [`pulumi up`](/docs/iac/cli/commands/pulumi_up/) or [`pulumi destroy`](/docs/iac/cli/commands/pulumi_destroy/). The flag ignores the `protect` option for that operation only. Use it with caution: deleted resources cannot be recovered.
 
 The default is to inherit this value from the parent resource, and `false` for resources without a parent.
 
@@ -34,7 +36,7 @@ The default is to inherit this value from the parent resource, and `false` for r
 {{% choosable language typescript %}}
 
 ```typescript
-let db = new Database("db", {}, { protect: true });
+const db = new Database("db", {}, { protect: true });
 ```
 
 {{% /choosable %}}
@@ -100,7 +102,7 @@ resource "database" "db" {
 
 ## Overriding inherited protection
 
-Child resources inherit the `protect` option from their [parent resource](/docs/iac/concepts/resources/options/parent/). When a parent resource has `protect: true`, all of its children are also protected by default. To allow a specific child resource to be deleted independently of its protected parent, explicitly set `protect: false` on that child.
+Child resources inherit the `protect` option from their [parent resource](/docs/iac/concepts/resources/options/parent/). When a parent resource has `protect: true`, all its children are also protected by default. To allow a specific child resource to be deleted independently of its protected parent, explicitly set `protect: false` on that child.
 
 The following example creates a protected parent resource alongside a child resource with protection explicitly disabled:
 
