@@ -22,7 +22,7 @@ The `ignoreChanges` resource option specifies a list of properties that Pulumi w
 The `ignoreChanges` option only applies to resource inputs, not outputs.
 {{% /notes %}}
 
-In addition to passing simple property names, nested properties can also be supplied to ignore changes to a more targeted nested part of the resource's inputs. See [property paths](/docs/reference/property-paths/) for examples of legal paths that can be passed to specify nested properties of objects and arrays.
+Besides top-level property names, you can also pass nested property paths to ignore changes to a more targeted nested part of the resource's inputs. See [property paths](/docs/reference/property-paths/) for examples of valid paths that specify nested properties of objects and arrays.
 
 {{% notes type="info" %}}
 For arrays with different lengths, only changes for elements that are in both arrays are ignored. If the new input array is longer, additional elements will be taken from the new array. If the new array is shorter, we only take that number of elements from the original array.
@@ -30,7 +30,7 @@ For arrays with different lengths, only changes for elements that are in both ar
 For example `ignoreChanges` on an old array `[1, 2]` and a new array `[a, b, c]` results in `[1, 2, c]`, and an old array `[1, 2, 3]` and a new array `[a, b]` results in `[1, 2]`.
 {{% /notes %}}
 
-## How ignoreChanges works
+## How `ignoreChanges` works
 
 After the resource is created, Pulumi relies on the last recorded state for every property named in `ignoreChanges`. During a preview or update, Pulumi:
 
@@ -132,9 +132,9 @@ Some common reasons to use the `ignoreChanges` option are:
 
 - Ignoring changes to properties that lead to diffs.
 - Changing the defaults for a property without forcing all existing deployed stacks to update or replace the affected resource. This commonly occurs after importing existing infrastructure provisioned by another method into Pulumi. In these cases, there may be historical drift that you’d prefer to retain, rather than replacing and reconstructing critical parts of your infrastructure.
-- Allowing an external system to manage aspects of the resource. In these cases you do not want Pulumi to reset values to their original Pulumi value.
+- Allowing an external system to manage aspects of the resource. In these cases, you don't want Pulumi to reset values to their original Pulumi value.
 
-## Example: Preserve externally managed weights
+## Example: preserve externally managed weights
 
 Consider an AWS Application Load Balancer listener whose target group weights are managed by an external traffic controller. You can let Pulumi create the listener and target groups while preventing future updates to the weights by adding the property path to `ignoreChanges`:
 
@@ -171,9 +171,8 @@ const frontEndListener = new aws.lb.Listener("frontEndListener", {
         },
     }],
 }, {
-    ignoreChanges: ['defaultActions[*].forward.targetGroups[*].weight']
+    ignoreChanges: ["defaultActions[*].forward.targetGroups[*].weight"],
 });
-
 ```
 
 {{% /choosable %}}
@@ -208,8 +207,7 @@ front_end_listener = aws.lb.Listener("frontEndListener",
             ],
         },
     }],
-    opts=ResourceOptions(ignore_changes=["defaultActions[*].forward.targetGroups[*].weight"]))
-
+    opts=pulumi.ResourceOptions(ignore_changes=["defaultActions[*].forward.targetGroups[*].weight"]))
 ```
 
 {{% /choosable %}}
@@ -268,7 +266,6 @@ func main() {
 		return nil
 	})
 }
-
 ```
 
 {{% /choosable %}}
@@ -321,10 +318,7 @@ return await Deployment.RunAsync(() =>
         },
     },
     new CustomResourceOptions { IgnoreChanges = { "defaultActions[*].forward.targetGroups[*].weight" } });
-
 });
-
-
 ```
 
 {{% /choosable %}}
@@ -336,19 +330,14 @@ package generated_program;
 
 import com.pulumi.Context;
 import com.pulumi.Pulumi;
-import com.pulumi.core.Output;
 import com.pulumi.aws.lb.LoadBalancer;
 import com.pulumi.aws.lb.TargetGroup;
 import com.pulumi.aws.lb.Listener;
 import com.pulumi.aws.lb.ListenerArgs;
 import com.pulumi.aws.lb.inputs.ListenerDefaultActionArgs;
 import com.pulumi.aws.lb.inputs.ListenerDefaultActionForwardArgs;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.pulumi.aws.lb.inputs.ListenerDefaultActionForwardTargetGroupArgs;
+import com.pulumi.resources.CustomResourceOptions;
 
 public class App {
     public static void main(String[] args) {
@@ -386,10 +375,8 @@ public class App {
             CustomResourceOptions.builder()
                 .ignoreChanges("defaultActions[*].forward.targetGroups[*].weight")
                 .build());
-
     }
 }
-
 ```
 
 {{% /choosable %}}
@@ -480,4 +467,4 @@ HCL `ignore_changes` entries are attribute paths with constant indices; wildcard
 
 {{< /chooser >}}
 
-After the initial deployment, an external process could change the weights (for example, to a 50/50 split). Before you next run `pulumi up` to add a third target group, run `pulumi refresh` so that the stack captures the live weights. Without the refresh, Pulumi retains the original `100` and `0` values in state and will resend them to the AWS API on the next update, resetting the weights you meant to preserve.
+After the initial deployment, an external process could change the weights (for example, to a 50/50 split). Before you next run `pulumi up` to add a third target group, run `pulumi refresh` so that the stack captures the live weights. Without the refresh, Pulumi retains the original `100` and `0` values in state and resends them to the AWS API on the next update, resetting the weights you meant to preserve.
