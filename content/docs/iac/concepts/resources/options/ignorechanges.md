@@ -14,7 +14,7 @@ aliases:
   - /docs/iac/concepts/options/ignorechanges/
 ---
 
-The `ignoreChanges` resource option specifies a list of properties that Pulumi will ignore when it updates existing resources. Pulumi ignores a property by using the old value from the state instead of the value provided by the Pulumi program when determining whether an update or replace is needed. Ignored properties will still be used from the program when there is no previous value in the state (most commonly when creating the resource).
+The `ignoreChanges` resource option specifies a list of properties that Pulumi ignores when it updates existing resources. Pulumi ignores a property by using the old value from the state instead of the value provided by the Pulumi program when determining whether an update or replace is needed. Pulumi still uses the program's value for an ignored property when there is no previous value in the state (most commonly when creating the resource).
 
 {{< resource-option-scope "ignoreChanges" >}}
 
@@ -22,7 +22,7 @@ The `ignoreChanges` resource option specifies a list of properties that Pulumi w
 The `ignoreChanges` option only applies to resource inputs, not outputs.
 {{% /notes %}}
 
-In addition to passing simple property names, nested properties can also be supplied to ignore changes to a more targeted nested part of the resource's inputs. See [property paths](/docs/reference/property-paths/) for examples of legal paths that can be passed to specify nested properties of objects and arrays.
+Besides top-level property names, you can also pass nested property paths to ignore changes to a more targeted nested part of the resource's inputs. See [property paths](/docs/reference/property-paths/) for examples of legal paths that can be passed to specify nested properties of objects and arrays.
 
 {{% notes type="info" %}}
 For arrays with different lengths, only changes for elements that are in both arrays are ignored. If the new input array is longer, additional elements will be taken from the new array. If the new array is shorter, we only take that number of elements from the original array.
@@ -44,14 +44,14 @@ Because Pulumi reuses the value stored in the state, an external system can safe
 When you skip `pulumi refresh` (or `pulumi up --refresh`) after `ignoreChanges` has been set, Pulumi keeps using the previous state value when it performs an update. This can lead to unintentional changes if the cloud state has been changed (either through intentional external management, or unintentional drift). Providers that require full object replacements—such as AWS load balancer listeners where the entire target group array is sent on every update—will receive the potentially stale values from the state and may reset the live configuration.
 {{% /notes %}}
 
-For instance, in this example, the resource’s prop property "new-value" will be set when Pulumi initially creates the resource, but from then on, any updates will ignore it:
+In the following example, Pulumi sets the resource's `prop` property to `"new-value"` when it initially creates the resource, but from then on, updates ignore it:
 
 {{< chooser language "typescript,python,go,csharp,java,yaml,hcl" >}}
 
 {{% choosable language typescript %}}
 
 ```typescript
-let res = new MyResource("res",
+const res = new MyResource("res",
     { prop: "new-value" }, { ignoreChanges: ["prop"] });
 ```
 
@@ -171,9 +171,8 @@ const frontEndListener = new aws.lb.Listener("frontEndListener", {
         },
     }],
 }, {
-    ignoreChanges: ['defaultActions[*].forward.targetGroups[*].weight']
+    ignoreChanges: ["defaultActions[*].forward.targetGroups[*].weight"],
 });
-
 ```
 
 {{% /choosable %}}
@@ -208,8 +207,7 @@ front_end_listener = aws.lb.Listener("frontEndListener",
             ],
         },
     }],
-    opts=ResourceOptions(ignore_changes=["defaultActions[*].forward.targetGroups[*].weight"]))
-
+    opts=pulumi.ResourceOptions(ignore_changes=["defaultActions[*].forward.targetGroups[*].weight"]))
 ```
 
 {{% /choosable %}}
@@ -268,7 +266,6 @@ func main() {
 		return nil
 	})
 }
-
 ```
 
 {{% /choosable %}}
@@ -276,8 +273,6 @@ func main() {
 {{% choosable language csharp %}}
 
 ```csharp
-using System.Collections.Generic;
-using System.Linq;
 using Pulumi;
 using Aws = Pulumi.Aws;
 
@@ -321,10 +316,7 @@ return await Deployment.RunAsync(() =>
         },
     },
     new CustomResourceOptions { IgnoreChanges = { "defaultActions[*].forward.targetGroups[*].weight" } });
-
 });
-
-
 ```
 
 {{% /choosable %}}
@@ -336,19 +328,14 @@ package generated_program;
 
 import com.pulumi.Context;
 import com.pulumi.Pulumi;
-import com.pulumi.core.Output;
 import com.pulumi.aws.lb.LoadBalancer;
 import com.pulumi.aws.lb.TargetGroup;
 import com.pulumi.aws.lb.Listener;
 import com.pulumi.aws.lb.ListenerArgs;
 import com.pulumi.aws.lb.inputs.ListenerDefaultActionArgs;
 import com.pulumi.aws.lb.inputs.ListenerDefaultActionForwardArgs;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.pulumi.aws.lb.inputs.ListenerDefaultActionForwardTargetGroupArgs;
+import com.pulumi.resources.CustomResourceOptions;
 
 public class App {
     public static void main(String[] args) {
@@ -386,10 +373,8 @@ public class App {
             CustomResourceOptions.builder()
                 .ignoreChanges("defaultActions[*].forward.targetGroups[*].weight")
                 .build());
-
     }
 }
-
 ```
 
 {{% /choosable %}}
