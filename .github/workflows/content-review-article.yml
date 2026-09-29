@@ -59,6 +59,10 @@ on:
         description: 'Single-article queue JSON from the dispatcher (carries traffic/score/tier for deterministic provenance). Empty on manual dispatch — the worker falls back to rebuilding a traffic-blind queue from `path`.'
         required: false
         default: ''
+      smoke_force_pristine:
+        description: 'FORK-ONLY smoke test: perturb the article before settle so it restores pristine'
+        required: false
+        default: ''
       mode:
         description: 'Review mode: fix (default), glowup (whole-page rehab from the banked findings backlog; never auto-merges), or report (fact-check only — records the claim list, changes nothing, opens no PR)'
         required: false
@@ -1061,6 +1065,11 @@ jobs:
           mkdir -p .preverify
           if [ -n "$LAST" ] && [ -f "$T/snapshot/article-base.txt" ]; then
             N=$(jq -r .round "$LAST")
+            if [ "${{ github.event.inputs.smoke_force_pristine }}" = "1" ]; then
+              echo "::warning::FORK SMOKE: perturbing the article and dropping pre-repair snapshots"
+              echo "Smoke-test edit no round verified." >> "$ARTICLE_PATH"
+              rm -rf "$T/prerepair"
+            fi
             python3 "$S" settle --article "$ARTICLE_PATH" \
               --pristine "$T/snapshot/article-base.txt" --round-file "$LAST" \
               --prerepair-dir "$T/prerepair/preverify-prerepair-$N" \
@@ -1148,7 +1157,6 @@ jobs:
     # PULUMI_STACK_NAME is an environment-scoped variable, so the job must
     # select the environment to resolve it — otherwise `Resolve ledger bucket`
     # runs with --stack "" and the S3 ledger write is silently skipped.
-    environment: production
     permissions:
       contents: write
       pull-requests: write
@@ -1159,13 +1167,10 @@ jobs:
       # checkout — the branch pushed and the PR opened below then go out as
       # pulumi-bot rather than github-actions[bot], which is what lets the
       # draft→ready transition fire the downstream triage/review workflows.
-      - name: Fetch secrets from ESC
-        id: esc-secrets
-        uses: pulumi/esc-action@v3
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           # This job applies a patch on HEAD, lints, and pushes a new branch
           # — no history needed. The one historical read the guardrails used
           # to do (`git show <base-sha>:<article>` in verify-fix-scope.py)
@@ -1299,7 +1304,7 @@ jobs:
         id: publish
         if: steps.gate.outputs.publish == 'true'
         env:
-          GH_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ARTICLE_PATH: ${{ github.event.inputs.path }}
         run: |
           BRANCH="${{ steps.gate.outputs.branch }}"
@@ -1394,7 +1399,7 @@ jobs:
         if: steps.publish.outcome == 'success' && steps.gate.outputs.publish == 'true'
         continue-on-error: true
         env:
-          GH_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${{ steps.gate.outputs.branch }}"
           # Stamp the authoritative lint result into the PR body's Verification
@@ -1547,17 +1552,30 @@ jobs:
       # `gh`, stamps reviewed_at, increments attempts, and uploads. One article
       # per run ⇒ one object, so writes never collide.
       - name: Record review ledger
-        if: always() && steps.ledger-bucket.outputs.uri != ''
+        if: always()
         continue-on-error: true
         env:
           CONTENT_REVIEW_LEDGER_URI: ${{ steps.ledger-bucket.outputs.uri }}
-          GH_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 scripts/content-review/record-review.py \
             --queue .content-review-queue.json \
             --verdict .content-review-verdict.json \
             --incomplete-marker .content-review-incomplete.json \
             --claude-outcome "${{ needs.review.outputs.claude_outcome }}"
+          echo "--- ledger record (fork smoke) ---"; cat .content-review-ledger.json || true
+          echo "--- incomplete marker ---"; cat .content-review-incomplete.json 2>/dev/null || echo "(none)"
+      - name: Upload ledger record (fork smoke)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: smoke-ledger
+          include-hidden-files: true
+          if-no-files-found: warn
+          path: |
+            .content-review-ledger.json
+            .content-review-incomplete.json
+            .content-review-verdict.json
 
       # Persist the page's verified claims to the claims index (same bucket,
       # claims/ prefix) — the whole-page snapshot the nightly volatile
