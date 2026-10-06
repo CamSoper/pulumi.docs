@@ -237,7 +237,7 @@ jobs:
           # The default GITHUB_TOKEN can do neither. sentinel.py treats
           # lookup failures as action_required, never as "not a member", so
           # a missing/expired token degrades loud, not wrong.
-          GH_TOKEN_TEAM_READ: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GH_TOKEN_TEAM_READ: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN || secrets.GITHUB_TOKEN }}
           REPORT_ONLY: ${{ vars.REVIEW_V3_SENTINEL != '1' }}
         run: |
           # --status-comment is passed unconditionally on purpose: the

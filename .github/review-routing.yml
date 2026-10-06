@@ -525,6 +525,10 @@ approval: { scope: any-human, admins_satisfy: true }
 
 bot_approvers:
   - approver: "github-actions[bot]"
+    author: CamSoper
+    label: sentinel-test/bot-lane
+    why: FORK-ONLY test lane for the bot_approvers fork battery. Never upstream.
+  - approver: "github-actions[bot]"
     author: pulumi-bot
     label: automation/merge
     why: >-

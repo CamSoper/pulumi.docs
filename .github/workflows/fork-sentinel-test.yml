@@ -1,0 +1,47 @@
+name: Fork sentinel test (fork-only)
+# FORK-ONLY harness for the any-human / bot_approvers battery. Never upstream.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: open-pr | approve
+        required: true
+      pr_number:
+        description: PR to approve (approve mode)
+        required: false
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        if: inputs.mode == 'open-pr'
+        with:
+          sparse-checkout: content/docs/iac/concepts
+      - name: Open a PR as github-actions[bot]
+        if: inputs.mode == 'open-pr'
+        run: |
+          set -euo pipefail
+          BR="sentinel-test/bot-authored-${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BR"
+          F=$(ls content/docs/iac/concepts/*.md | head -1)
+          printf '\n<!-- sentinel fork test %s -->\n' "${{ github.run_id }}" >> "$F"
+          git commit -am "Sentinel fork test: bot-authored PR"
+          git push origin "$BR"
+          URL=$(gh pr create --base master --head "$BR" --title "Sentinel fork test: bot-authored PR (${{ github.run_id }})" --body "Fork-only test fixture for the any-human G3 battery.")
+          echo "PR: $URL"
+          gh workflow run review-sentinel.yml -f pr_number="${URL##*/}"
+      - name: Approve as github-actions[bot]
+        if: inputs.mode == 'approve'
+        run: |
+          set -euo pipefail
+          gh pr review "${{ inputs.pr_number }}" --approve --body "Fork test: bot approval"
+          gh workflow run review-sentinel.yml -f pr_number="${{ inputs.pr_number }}"
