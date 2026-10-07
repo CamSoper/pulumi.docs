@@ -1,0 +1,100 @@
+# Throwaway harness for pulumi/docs PR 22146: exercises the soft-fail X
+# preflight control flow from schedule-social.yml with the external calls
+# (ESC, uv, X API, upload-post.com) stubbed out. Expressions and step
+# conditions are copied verbatim from the real workflow.
+name: X preflight harness
+on:
+  push:
+    branches: [x-preflight-harness]
+  workflow_dispatch:
+
+jobs:
+  schedule-social:
+    name: verify=${{ matrix.x_check_fails && 'fail' || 'ok' }} post=${{ matrix.post_fails && 'fail' || 'ok' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { x_check_fails: false, post_fails: false, want_token: "fake-token", want_summary: "" }
+          - { x_check_fails: true,  post_fails: false, want_token: "",           want_summary: "X credential check failed, so X posts fell back to manual posting" }
+          - { x_check_fails: false, post_fails: true,  want_token: "fake-token", want_summary: "linkedin posting failed in my-post" }
+          - { x_check_fails: true,  post_fails: true,  want_token: "",           want_summary: "linkedin posting failed in my-post; X credential check failed, so X posts fell back to manual posting" }
+    env:
+      FAILURE_SUMMARY_FILE: /tmp/social-failure-summary.txt
+    steps:
+      - name: Fetch secrets from ESC (stub)
+        id: esc-secrets
+        run: |
+          echo "X_CONSUMER_KEY=fake-key" >> "$GITHUB_OUTPUT"
+          echo "X_ACCESS_TOKEN=fake-token" >> "$GITHUB_OUTPUT"
+
+      - name: Validate X API credentials
+        id: verify-x
+        continue-on-error: true
+        env:
+          FAIL: ${{ matrix.x_check_fails }}
+        run: |
+          echo "X credential check: ${FAIL}"
+          [ "$FAIL" != "true" ]
+
+      - name: Schedule social posts for new blog content
+        id: post
+        continue-on-error: true
+        env:
+          FAIL: ${{ matrix.post_fails }}
+          X_CONSUMER_KEY: ${{ steps.esc-secrets.outputs.X_CONSUMER_KEY }}
+          X_ACCESS_TOKEN: ${{ steps.verify-x.outcome == 'success' && steps.esc-secrets.outputs.X_ACCESS_TOKEN || '' }}
+        run: |
+          echo "token_seen=${X_ACCESS_TOKEN}" >> "$GITHUB_OUTPUT"
+          echo "X_CONSUMER_KEY=${X_CONSUMER_KEY} X_ACCESS_TOKEN=[${X_ACCESS_TOKEN}]"
+          if [ "$FAIL" = "true" ]; then
+            printf 'linkedin posting failed in my-post\n' > "$FAILURE_SUMMARY_FILE"
+            exit 1
+          fi
+
+      - name: Capture failure summary
+        id: failure-summary
+        if: steps.post.outcome == 'failure' || steps.verify-x.outcome == 'failure'
+        env:
+          X_CHECK: ${{ steps.verify-x.outcome }}
+        run: |
+          SUMMARY=""
+          if [ -f "$FAILURE_SUMMARY_FILE" ]; then
+            SUMMARY=$(cat "$FAILURE_SUMMARY_FILE")
+          fi
+          if [ "$X_CHECK" = "failure" ]; then
+            SUMMARY="${SUMMARY:+$SUMMARY; }X credential check failed, so X posts fell back to manual posting"
+          fi
+          if [ -n "$SUMMARY" ]; then
+            {
+              echo "summary<<EOF"
+              echo "$SUMMARY"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Assert expectations
+        if: always()
+        env:
+          TOKEN_SEEN: ${{ steps.post.outputs.token_seen }}
+          WANT_TOKEN: ${{ matrix.want_token }}
+          SUMMARY: ${{ steps.failure-summary.outputs.summary }}
+          WANT_SUMMARY: ${{ matrix.want_summary }}
+          VERIFY_OUTCOME: ${{ steps.verify-x.outcome }}
+          VERIFY_CONCLUSION: ${{ steps.verify-x.conclusion }}
+          POST_OUTCOME: ${{ steps.post.outcome }}
+        run: |
+          echo "verify-x outcome=$VERIFY_OUTCOME conclusion=$VERIFY_CONCLUSION post outcome=$POST_OUTCOME"
+          echo "token: got [$TOKEN_SEEN] want [$WANT_TOKEN]"
+          echo "summary: got [$SUMMARY] want [$WANT_SUMMARY]"
+          ok=true
+          [ "$TOKEN_SEEN" = "$WANT_TOKEN" ] || { echo "ASSERT FAIL: token"; ok=false; }
+          [ "$SUMMARY" = "$WANT_SUMMARY" ] || { echo "ASSERT FAIL: summary"; ok=false; }
+          $ok && echo "ASSERT PASS"
+          echo "$ok" > /tmp/assert-ok
+          $ok
+
+      - name: Fail if X credential check or posting step failed
+        if: steps.post.outcome == 'failure' || steps.verify-x.outcome == 'failure'
+        run: exit 1
