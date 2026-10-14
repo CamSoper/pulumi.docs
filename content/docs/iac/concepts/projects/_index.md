@@ -167,7 +167,7 @@ When your Pulumi program refers to resources in the local filesystem, paths are 
 
 ## Root-relative paths
 
-You can get the directory containing the `Pulumi.yaml` file, which may differ from your working directory if the project sets a `main` option (see [main attribute](/docs/reference/pulumi-yaml/#attributes)). Each language provides its own function to retrieve this path, as shown in the example below.
+You can get the directory containing the `Pulumi.yaml` file, which may differ from your working directory if the project sets a `main` option (see [main attribute](/docs/iac/concepts/projects/project-file/#attributes)). Each language provides its own function to retrieve this path, as shown in the example below.
 
 The path returned is an absolute path. When using this in resource properties, ensure it's relative to the working directory. This prevents diffs from running the project on multiple machines with different roots.
 
@@ -177,7 +177,7 @@ The path returned is an absolute path. When using this in resource properties, e
 
 The {{< pulumi-getproject >}} function returns the name of the currently deploying project. This can be useful for naming or tagging resources.
 
-{{< chooser language "typescript,python,go,csharp,java,yaml" >}}
+{{< chooser language "typescript,python,go,csharp,java,yaml,hcl" >}}
 
 {{% choosable language typescript %}}
 
@@ -219,6 +219,15 @@ var project = ctx.projectName();
 ```yaml
 variables:
   project: ${pulumi.project}
+```
+
+{{% /choosable %}}
+{{% choosable language hcl %}}
+
+```hcl
+locals {
+  project = pulumi.project
+}
 ```
 
 {{% /choosable %}}

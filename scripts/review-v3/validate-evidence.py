@@ -52,16 +52,10 @@ SCHEMA_VERSION = 1
 
 BUCKETS = {"outstanding", "author-answer", "reviewer-check", "preexisting"}
 STATUSES = {"open", "resolved", "conceded", "disputed-held", "accepted-as-is"}
-DISPOSITIONS = {"fixed", "refuted", "deferred", "accepted", "not-applicable", "author-accepted"}
-# The subset of DISPOSITIONS that `author-accepted` (issue #21640) may
-# collapse. Must stay in sync with review_state.AUTHOR_COLLAPSIBLE.
-AUTHOR_COLLAPSIBLE_DISPOSITIONS = {"refuted", "deferred", "accepted", "not-applicable"}
+DISPOSITIONS = {"fixed", "refuted", "deferred", "accepted", "not-applicable"}
 # Same rule, same set, as review-worklist.py's NOTE_REQUIRED: these three
 # dispositions record a judgment call, not a fact the diff or a dispute
 # comment already proves — the note is the audit trail for that call.
-# `author-accepted` is deliberately absent: whether a note was required
-# depends on the ORIGINAL disposition it collapsed, checked separately
-# below, not on the collapsed value itself (refuted never requires one).
 NOTE_REQUIRED_DISPOSITIONS = {"deferred", "accepted", "not-applicable"}
 BLOCKING_BUCKETS = {"outstanding", "author-answer"}
 VERDICTS = {
@@ -101,10 +95,14 @@ FINDING_REQUIRED = {"id", "bucket", "file", "text", "origin", "status"}
 # outside the PR's own changed lines for a file the PR touches. Advisory by
 # design -- a bad anchor breaks auto-refresh, not the review -- so nothing
 # here requires them or acts on them.
-FINDING_OPTIONAL = {"lines", "disposition", "detail", "anchor_ok", "anchor_note"}
+# `members` is set only on a group finding (compose-review's new-feature
+# carve-out): the claims it asks about in one ❓, each {file, lines?, claim}.
+FINDING_OPTIONAL = {"lines", "disposition", "detail", "anchor_ok", "anchor_note", "members"}
+MEMBER_REQUIRED = {"file", "claim"}
+MEMBER_OPTIONAL = {"lines"}
 
 DISPOSITION_REQUIRED = {"disposition", "actor", "updated_at"}
-DISPOSITION_OPTIONAL = {"note", "sha", "bulk", "original_disposition"}
+DISPOSITION_OPTIONAL = {"note", "sha", "bulk"}
 
 TRAIL_REQUIRED = {"file", "claim", "verdict"}
 # The second row is verifier metadata carried for post-mortems (why a claim
@@ -162,16 +160,6 @@ def _validate_disposition(disp, where: str) -> list[str]:
         errors.append(
             f"{where}.disposition {d!r} must be one of {', '.join(sorted(DISPOSITIONS))}"
         )
-    original = disp.get("original_disposition")
-    if d == "author-accepted":
-        if original not in AUTHOR_COLLAPSIBLE_DISPOSITIONS:
-            errors.append(
-                f"{where}.original_disposition must be one of "
-                f"{', '.join(sorted(AUTHOR_COLLAPSIBLE_DISPOSITIONS))} when disposition "
-                f"is 'author-accepted', got {original!r}"
-            )
-    elif original is not None:
-        errors.append(f"{where}.original_disposition only applies when disposition is 'author-accepted'")
     if not _nonempty_str(disp.get("actor")):
         errors.append(f"{where}.actor must be a non-empty string")
     updated_at = disp.get("updated_at")
@@ -184,14 +172,10 @@ def _validate_disposition(disp, where: str) -> list[str]:
     if bulk is not None and not isinstance(bulk, bool):
         errors.append(f"{where}.bulk must be a boolean")
     # The load-bearing check: a disposition in the note-required set with no
-    # note (or a blank one) is an unaudited close. `author-accepted` follows
-    # the ORIGINAL disposition's requirement (see AUTHOR_COLLAPSIBLE_DISPOSITIONS
-    # comment above) rather than its own — it collapses `refuted`, which
-    # never required a note, alongside three dispositions that always did.
-    note_check = original if d == "author-accepted" else d
-    if note_check in NOTE_REQUIRED_DISPOSITIONS and not _nonempty_str(disp.get("note")):
+    # note (or a blank one) is an unaudited close.
+    if d in NOTE_REQUIRED_DISPOSITIONS and not _nonempty_str(disp.get("note")):
         errors.append(
-            f"{where}.note is required and non-empty when disposition is {note_check!r}"
+            f"{where}.note is required and non-empty when disposition is {d!r}"
         )
     return errors
 
@@ -286,6 +270,27 @@ def validate_evidence(obj) -> list[str]:
             errors.append(f"{where}.anchor_note must be a non-empty string")
         if f.get("anchor_ok") is False and not _nonempty_str(f.get("anchor_note")):
             errors.append(f"{where}.anchor_note is required when anchor_ok is False")
+
+        if "members" in f:
+            members = f["members"]
+            if not (isinstance(members, list) and members):
+                errors.append(f"{where}.members must be a non-empty array")
+                members = []
+            for j, m in enumerate(members):
+                mwhere = f"{where}.members[{j}]"
+                if not isinstance(m, dict):
+                    errors.append(f"{mwhere} must be an object")
+                    continue
+                errors += _check_keys(m, MEMBER_REQUIRED, MEMBER_OPTIONAL, mwhere)
+                for key in ("file", "claim"):
+                    if key in m and not _nonempty_str(m[key]):
+                        errors.append(f"{mwhere}.{key} must be a non-empty string")
+                mlines = m.get("lines")
+                if mlines is not None and not (
+                        isinstance(mlines, list) and 1 <= len(mlines) <= 2
+                        and all(isinstance(n, int) and not isinstance(n, bool) and n >= 1
+                                for n in mlines)):
+                    errors.append(f"{mwhere}.lines must be [start] or [start, end] of positive integers")
 
         lines = f.get("lines")
         if lines is not None:
@@ -620,6 +625,29 @@ def self_test() -> int:
     check("empty anchor_note rejected",
           any("anchor_note must be" in e
               for e in validate_evidence(_with_finding(anchor_ok=False, anchor_note="  "))))
+
+    group_members = [{"file": "content/docs/a.md", "lines": [3], "claim": "x does y"},
+                     {"file": "content/docs/b.md", "claim": "z is w"}]
+    check("group finding members accepted",
+          validate_evidence(_with_finding(members=group_members)) == [])
+
+    check("empty members rejected",
+          any("members must be a non-empty array" in e
+              for e in validate_evidence(_with_finding(members=[]))))
+
+    check("member without a claim rejected",
+          any(".members[0]" in e and "claim" in e
+              for e in validate_evidence(_with_finding(members=[{"file": "a.md"}]))))
+
+    check("member with bad lines rejected",
+          any(".members[0].lines" in e
+              for e in validate_evidence(_with_finding(
+                  members=[{"file": "a.md", "claim": "c", "lines": [0]}]))))
+
+    check("unknown member key rejected",
+          any(".members[0]" in e
+              for e in validate_evidence(_with_finding(
+                  members=[{"file": "a.md", "claim": "c", "verdict": "x"}]))))
 
     check("investigation_log with non-string value rejected",
           any("investigation_log" in e for e in validate_evidence({

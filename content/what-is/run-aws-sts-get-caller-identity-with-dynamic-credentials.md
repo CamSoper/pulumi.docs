@@ -19,7 +19,7 @@ The same dynamic-credentials approach also prevents the AWS CLI credential error
 
 ## Using Pulumi ESC for dynamic credentials with AWS
 
-[Pulumi ESC](https://www.pulumi.com/product/esc/) is a service that helps to alleviate the burden of managing cloud configuration and secrets by providing a centralized way to handle these critical aspects of cloud development. The `pulumi env run` command of this service in particular helps to resolve concerns around how to:
+[Pulumi ESC](https://www.pulumi.com/product/secrets-management/) is a service that helps to alleviate the burden of managing cloud configuration and secrets by providing a centralized way to handle these critical aspects of cloud development. The `pulumi env run` command of this service in particular helps to resolve concerns around how to:
 
 - Securely share credentials with teammates in a consistent way.
 - Minimize the risks associated with locally configured, long-lived and highly privileged credentials.
@@ -62,7 +62,7 @@ This service can dynamically generate credentials on your behalf each time you n
 
 ### Step 3: Create a new Pulumi ESC environment
 
-Once OIDC has been configured between Pulumi and AWS, the next step is to create a new environment in the [Pulumi Cloud](https://app.pulumi.com/signin). Make sure that you have the correct organization selected in the left-hand navigation menu. From there, click the **Environments** link, then click the **Create environment** button. In the following pop-up, provide a name for your environment before clicking the **Create environment** button.
+Once OIDC has been configured between Pulumi and AWS, the next step is to create a new environment in [Pulumi Cloud](https://app.pulumi.com/signin). Make sure that you have the correct organization selected in the left-hand navigation menu. From there, click the **Environments** link, then click the **Create environment** button. In the following pop-up, provide a name for your environment before clicking the **Create environment** button.
 
 {{< video title="Open environment in Pulumi ESC console" src="https://www.pulumi.com/uploads/esc-create-new-env.mp4" autoplay="true" loop="true" >}}
 

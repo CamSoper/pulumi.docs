@@ -8,10 +8,13 @@ One blocking check-run answers "is this PR mergeable?" from five gates:
                         may stand on triage's prose-check comment)
   G2 findings-answered  every 🚨/❓ finding on the author card carries a
                         REVIEW_STATE disposition (or is checked off)
-  G3 right-approver     a human approver who can clear the lane: a member of
-                        every matrix-required team, or — under
-                        `approval.scope: any-team` — of any routing team, or
-                        a repo admin when `approval.admins_satisfy` is on
+  G3 right-approver     an approver who can clear the lane: under
+                        `approval.scope: any-human`, any human with write
+                        access; under `any-team`, a member of any routing
+                        team; under `lane`, a member of every matrix-required
+                        team (or a repo admin when `approval.admins_satisfy`
+                        is on). A bot clears it only on an automated lane
+                        `bot_approvers` names (approver + author + label)
   G4 deploy-evidence    a change on `staging_evidence.paths` carries a green
                         staging/pulumi-test-io commit status at the current
                         head SHA, posted by a trusted writer. That list is
@@ -21,7 +24,7 @@ One blocking check-run answers "is this PR mergeable?" from five gates:
                         the matrix answers who reviews, this answers what
                         must be applied to be believed
   G5 oversized-ack      review:oversized PRs replace G1/G2 with an explicit
-                        `sentinel:oversized-ack` in the approving review body
+                        `/oversized-ack` in the approving review body
 
 One config-driven shortcut sits around the gates
 (`.github/review-routing.yml`): `not_governed` lanes (Dependabot, the
@@ -72,8 +75,8 @@ stand-in is triage's own `<!-- TRIAGE_PROSE -->` comment: with it present
 G1/G2 pass (advisory nits only, nothing to answer) and G3 still wants the
 human approver the demotion asked for.
 
-I/O lives behind the `Gh` wrapper (subprocess `gh api`, the
-resolve-handler.py pattern) so tests substitute a stub. Team-membership
+I/O lives behind the `Gh` wrapper (subprocess `gh api`) so tests
+substitute a stub. Team-membership
 reads need an org-scoped token (the default GITHUB_TOKEN cannot read team
 membership): the workflow passes PULUMI_BOT_TOKEN as $GH_TOKEN_TEAM_READ,
 used for that one endpoint only.
@@ -88,6 +91,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -146,10 +150,28 @@ STAGING_STATUS_CONTEXT = "staging/pulumi-test-io"
 # evidence. Anyone with push access can write a commit status, so an
 # unattributed one is not evidence of anything.
 STAGING_STATUS_WRITERS = frozenset({BOT_LOGIN, "pulumi-bot"})
-# The workflow `/deploy-staging` dispatches, and the one G4 verifies against
+# Who may have posted a page of a legacy (v2) review. The initial lane posts
+# as github-actions[bot], but the v2 update lane runs claude-code-action with
+# PULUMI_BOT_TOKEN, so a page it (re)posted — typically page 2 of a split
+# review that grew on refresh — is pulumi-bot's. Reading only the first login
+# made G2 report "legacy page 2 unreadable" on #21210, #21487 and #21149.
+# The v3 role cards stay github-actions[bot]-only (`_find_comment`): nothing
+# but the deterministic publish job ever writes them.
+LEGACY_PAGE_WRITERS = frozenset({BOT_LOGIN, "pulumi-bot"})
+# The workflow the staging lane dispatches, and the one G4 verifies against
 # directly when the commit status is missing. See `_staging_evidence`.
 STAGING_WORKFLOW_FILE = "testing-build-and-deploy.yml"
-OVERSIZED_ACK = "sentinel:oversized-ack"
+# A review slash command, like `/update-review`: it counts only at the start
+# of a line of the approving review's comment (command-gate.py's grammar,
+# restated here because this file runs from a sparse checkout of
+# scripts/review-v3 and can't import it). It replaced the bare
+# `sentinel:oversized-ack` token, which matched anywhere.
+OVERSIZED_ACK = "/oversized-ack"
+_OVERSIZED_ACK_RE = re.compile(r"^[ \t]{0,3}/oversized-ack(?![\w-])", re.M | re.I)
+
+
+def _has_oversized_ack(body: str) -> bool:
+    return bool(_OVERSIZED_ACK_RE.search((body or "").replace("\r\n", "\n")))
 # The pinned status comment is maintained on EVERY PR the Sentinel evaluates,
 # report-only included — see `render_status_comment` for the preview banner
 # that carries the "this is not blocking you yet" disclaimer. There used to be
@@ -165,6 +187,9 @@ BREAK_GLASS = (
 )
 
 CHECK_NAME = "Sentinel"
+
+
+RETRY_SLEEP_S = 3
 
 
 class SentinelDataError(Exception):
@@ -186,9 +211,18 @@ class Gh:
         if token_env and os.environ.get(token_env):
             env = dict(os.environ)
             env["GH_TOKEN"] = os.environ[token_env]
-        result = subprocess.run(
-            ["gh", *args], text=True, capture_output=True, env=env,
-        )
+        # Reads retry a transient 5xx twice: one GitHub 500 on `pulls/N`
+        # (run 35938827723) was enough to fail a whole evaluation. Writes
+        # never retry — a PATCH that timed out may have landed.
+        is_read = not any(a in ("-X", "--method") for a in args) and "--input" not in args
+        for attempt in range(3 if is_read else 1):
+            result = subprocess.run(
+                ["gh", *args], text=True, capture_output=True, env=env,
+            )
+            if result.returncode == 0 or not re.search(r"HTTP 5\d\d", result.stderr or ""):
+                break
+            if attempt < 2:
+                time.sleep(RETRY_SLEEP_S * (attempt + 1))
         if result.returncode != 0:
             # `check=True` would raise CalledProcessError, whose message is
             # the argv and an exit code — gh's actual explanation goes in
@@ -280,7 +314,8 @@ class Gh:
     def get_repo_permission(self, user: str) -> str:
         """The user's effective permission on the repo: admin/write/read/none.
 
-        Used only by the `approval.admins_satisfy` rule in G3. The endpoint
+        Used by G3 for `approval.scope: any-human` (write or better) and the
+        `approval.admins_satisfy` rule (admin). The endpoint
         wants push access, which the default GITHUB_TOKEN does not have."""
         return self._org_scoped_lookup(
             f"repos/{self.repo}/collaborators/{user}/permission", ".permission",
@@ -316,6 +351,11 @@ class Gh:
         self._run(
             ["api", "--method", "POST", f"repos/{self.repo}/issues/{self.pr}/comments",
              "-f", f"body={body}"]
+        )
+
+    def delete_issue_comment(self, comment_id) -> None:
+        self._run(
+            ["api", "--method", "DELETE", f"repos/{self.repo}/issues/comments/{comment_id}"]
         )
 
 
@@ -376,7 +416,16 @@ class Verdict:
 
 
 def _find_comment(comments: list[dict], marker: str) -> dict | None:
-    """The bot-authored comment carrying `marker`, oldest first.
+    """The oldest bot-authored comment carrying `marker` (see `_find_comments`)."""
+    found = _find_comments(comments, marker)
+    return found[0] if found else None
+
+
+def _find_comments(comments: list[dict], marker: str) -> list[dict]:
+    """Every bot-authored comment carrying `marker`, oldest first.
+
+    More than one means overlapping writers each created their own copy;
+    `update_status_comment` is the one caller that needs to see them all.
 
     PROVENANCE IS THE WHOLE POINT. This used to match the marker anywhere in
     any comment by anyone, and return the first hit. Comments come back
@@ -390,14 +439,15 @@ def _find_comment(comments: list[dict], marker: str) -> dict | None:
     the forgery, so the real card never showed it either.
 
     The two conditions below are not new inventions; they are the contract
-    the WRITER already enforces and that two siblings already check:
-    `pinned-comment.sh`'s `list_role_comments` requires the marker to be an
-    exact line among the body's first three, and `resolve-handler.py:222`
-    requires `login == github-actions[bot]`. The far less load-bearing
-    triage-prose comment was already read this way; this function was the
+    the WRITER already enforces: `pinned-comment.sh`'s `list_role_comments`
+    requires the marker to be an exact line among the body's first three,
+    and only `github-actions[bot]` ever posts the card. The far less
+    load-bearing triage-prose comment was already read this way; this
+    function was the
     one place that checked neither, so it is now the only reader and both
     markers come through it.
     """
+    found = []
     for c in comments:
         if (c.get("user") or {}).get("login") != BOT_LOGIN:
             continue
@@ -405,8 +455,8 @@ def _find_comment(comments: list[dict], marker: str) -> dict | None:
         # marker merely quoted inside a body is not a role comment.
         lines = [ln.strip() for ln in (c.get("body") or "").splitlines()[:3]]
         if marker in lines:
-            return c
-    return None
+            found.append(c)
+    return found
 
 
 def legacy_pages(comments: list[dict]) -> dict | None:
@@ -427,8 +477,9 @@ def legacy_pages(comments: list[dict]) -> dict | None:
     total = 0
     for c in comments:
         # Bot-authored only, same rule as `_find_comment`: the first-line
-        # anchor below stops a quoted marker, but not a forged page.
-        if (c.get("user") or {}).get("login") != BOT_LOGIN:
+        # anchor below stops a quoted marker, but not a forged page. Both
+        # identities the v2 lanes post under count (LEGACY_PAGE_WRITERS).
+        if (c.get("user") or {}).get("login") not in LEGACY_PAGE_WRITERS:
             continue
         body = c.get("body") or ""
         # A v3 role card opens with a `1/1` marker of its own, so the role
@@ -673,8 +724,8 @@ def _staging_evidence(gh: Gh, head_sha: str) -> str | None:
 
     (2) exists because (1) is a *report* of the deploy, not the deploy: the
     status write is a separate API call after `gh run watch` returns, and a
-    cancelled runner, a lost token or a hand-run deploy that never went
-    through `/deploy-staging` all leave a green deploy with no status. The
+    cancelled runner, a lost token or a dispatch whose `workflow_run`
+    cascade never fired all leave a green deploy with no status. The
     run record is the deploy. Checking the status first keeps the common
     path to one API call.
 
@@ -755,6 +806,23 @@ def _waive_state(gh: Gh, config: routing.Config, labels: set[str]) -> tuple[bool
 # ---- Evaluation ---------------------------------------------------------
 
 
+# GitHub's effective-permission field (`.permission` on the collaborator
+# permission endpoint) folds `maintain` into `write` and `triage` into `read`;
+# `maintain` is listed anyway so a future API that stops folding it cannot
+# silently turn a maintainer's approval into a miss.
+WRITE_PERMISSIONS = frozenset({"admin", "maintain", "write"})
+
+
+def _stale_clause(stale_approvers: list[dict], head_sha: str) -> str:
+    """The " X approved an earlier commit" tail on a red G3 — the difference
+    between "nobody approved" and "your approval predates the push"."""
+    if not stale_approvers:
+        return ""
+    who = ", ".join(sorted(
+        f"`{(r.get('user') or {}).get('login')}`" for r in stale_approvers))
+    return f" {who} approved an earlier commit; re-approve at `{head_sha[:9]}`."
+
+
 def _stamp_report_only(verdict: Verdict) -> Verdict:
     """Turn a real verdict into its report-only twin, in place.
 
@@ -822,6 +890,12 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
     author_card = _find_comment(comments, AUTHOR_MARKER)
     brief = _find_comment(comments, BRIEF_MARKER)
     legacy = _find_legacy_comment(comments) if author_card is None else None
+    # The label is the one source of truth. Computing size here instead
+    # would flip PRs already reviewed and approved under the normal gates
+    # (G1/G2 skipped, G5 newly red), and a forced /new-review could never put
+    # an oversized PR back under them. #21936's race — this evaluation ran
+    # before triage's label landed — is closed on the triage side: it
+    # re-dispatches the Sentinel whenever it moves the label.
     oversized = OVERSIZED_LABEL in labels
     trivial = TRIVIAL_LABEL in labels
     triage_prose = _find_comment(comments, TRIAGE_PROSE_MARKER) if trivial else None
@@ -866,14 +940,19 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
             "G1 review-ran", "red",
             f"No current review for `{head_sha[:9]}` — the review lane skipped this "
             "PR as `review:trivial`, and triage's prose-check comment is missing. "
-            "Comment `@claude #new-review` to run a full review, or a maintainer "
+            "Comment `/new-review` to run a full review, or a maintainer "
             "removes `review:trivial` and pushes.",
         ))
     else:
+        # Not "push to refresh": a push refreshes the review automatically
+        # only when it touches lines a 🚨 finding flagged. On a clean review
+        # (#21840) a push just marks it stale, so the advice sent authors
+        # round a loop that never closed.
         gates.append(Gate(
             "G1 review-ran", "red",
-            f"No current review for `{head_sha[:9]}` — push to refresh, comment "
-            "`@claude #update-review`, or flip the PR to draft and back to ready.",
+            f"No current review for `{head_sha[:9]}` — comment "
+            "`/update-review <what changed>` to refresh it, or "
+            "`/new-review` for a fresh one.",
         ))
 
     # G2 findings-answered ------------------------------------------------
@@ -909,7 +988,7 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
                     f"{len(unnumbered)} blocking finding(s) still carry the "
                     "`F?` placeholder, so they have no id to answer — the "
                     "review did not finish numbering. Re-run it with "
-                    "`@claude #new-review`.",
+                    "`/new-review`.",
                 ))
                 state = None
         if state is not None:
@@ -924,8 +1003,21 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
                     "G2 findings-answered", "red",
                     f"{len(undecided)} finding(s) undecided ({ids}) — fix and push, "
                     f"or reply with your reasoning, e.g. "
-                    f"`@claude F3 is wrong because <why> #update-review` or "
-                    f"`@claude I know what I'm doing, mark everything resolved #update-review`.",
+                    f"`/update-review F3 is wrong because <why>` or "
+                    f"`/update-review I know what I'm doing, mark everything resolved`.",
+                ))
+            elif not _body_matches_head(body, head_sha):
+                # "Every finding answered" about a review of an older diff
+                # is a claim about content that may no longer exist, and it
+                # sat green beside G1's red "no current review" on #21840.
+                # Undecided findings on a stale card stay red above (they
+                # are real until someone answers them); an all-answered
+                # stale card defers to G1 like a missing one does.
+                m = HEAD_MARKER_RE.search(body)
+                at = f" at `{m.group(1)[:9]}`" if m else ""
+                gates.append(Gate(
+                    "G2 findings-answered", "skip",
+                    f"the review{at} is not current — see G1",
                 ))
             else:
                 gates.append(Gate("G2 findings-answered", "ok", "every finding answered"))
@@ -942,7 +1034,7 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
                 "G2 findings-answered", "error",
                 f"the legacy review is {legacy['review_pages']} comments and "
                 f"page(s) {', '.join(str(k) for k in missing)} could not be read — "
-                "re-run the review (`@claude #new-review`) rather than merge over an unread one.",
+                "re-run the review (`/new-review`) rather than merge over an unread one.",
             ))
         else:
             try:
@@ -958,6 +1050,9 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
                     f"{outstanding} 🚨 Outstanding finding(s) on the legacy review — "
                     "work them per CONTRIBUTING §Working the review to zero.",
                 ))
+            elif not _body_matches_head(legacy.get("body") or "", head_sha):
+                gates.append(Gate("G2 findings-answered", "skip",
+                                  "the legacy review is not current — see G1"))
             else:
                 gates.append(Gate("G2 findings-answered", "ok", "legacy review clean"))
     elif trivial_standin:
@@ -974,12 +1069,25 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
             # never voids an approval (matching GitHub's own latestReviews
             # semantics); stale-on-push is the ruleset's dismissal job.
             latest[user] = r
-    approvers = [
-        r for r in latest.values()
-        if r.get("state") == "APPROVED"
-        and (r.get("user") or {}).get("type") != "Bot"
-        and (r.get("user") or {}).get("login") not in set(config.bots or [])
-    ]
+    # Humans and bots part ways here. A bot approval counts only on the one
+    # lane `bot_approvers:` names for it (approver + PR author + label); any
+    # other bot approval is dropped before it can reach a lookup, as before.
+    # "Bot" is either test: GitHub's own `type == Bot`, or the `bots:`
+    # denylist, which exists for machine USERS like `pulumi-bot` that the
+    # type test cannot see.
+    approvers: list[dict] = []
+    bot_approvers: list[tuple[dict, str]] = []
+    for r in latest.values():
+        if r.get("state") != "APPROVED":
+            continue
+        u = r.get("user") or {}
+        login = u.get("login") or ""
+        if u.get("type") == "Bot" or login in set(config.bots or []):
+            why = routing.bot_approver_reason(config, login, author, labels)
+            if why:
+                bot_approvers.append((r, why))
+            continue
+        approvers.append(r)
     # An approval is of a COMMIT, not of a PR. The old comment above said
     # "stale-on-push is the ruleset's dismissal job" — but AGENTS.md records
     # that server-side branch protection is not in place yet, and nothing in
@@ -996,8 +1104,12 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
     # `commit_id` on a review, so an absent one is a malformed payload, and
     # "count it as current" would be fail-open on the gate that guarantees a
     # human. An approval we cannot place at this head does not clear G3.
+    # Bot approvals are held to the same rule: a lane bot that approved the
+    # previous commit has not approved this one.
     stale_approvers = [r for r in approvers if r.get("commit_id") != head_sha]
+    stale_approvers += [r for r, _ in bot_approvers if r.get("commit_id") != head_sha]
     approvers = [r for r in approvers if r.get("commit_id") == head_sha]
+    bot_approvers = [(r, why) for r, why in bot_approvers if r.get("commit_id") == head_sha]
     # The subset of `approvers` whose approval actually clears G3 — filled in
     # below. G5 reads it so the oversized ack cannot come from a bystander.
     qualified_approvers: list[dict] = []
@@ -1012,9 +1124,56 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
         gates.append(Gate(
             "G3 right-approver", "skip", "no changed paths to route",
         ))
+    elif bot_approvers:
+        # A configured automated lane. Checked first because it costs no
+        # API calls, and because on these PRs it is the approval that exists.
+        why = bot_approvers[0][1]
+        qualified_approvers.extend(r for r, _ in bot_approvers)
+        gates.append(Gate("G3 right-approver", "ok", f"automated approval: {why}"))
+    elif resolution.any_human:
+        # `approval.scope: any-human`: any human who could merge this PR
+        # anyway. Write access is the bar because it is the one GitHub's
+        # required-review rule applies — an approval from a read-only
+        # account (anyone, on a public repo) does not count at the merge
+        # box, so it must not count here either. The matrix roles are still
+        # who triage requests and the SLA sweep chases.
+        errors: list[str] = []
+        for r in approvers:
+            login = (r.get("user") or {}).get("login") or ""
+            try:
+                perm = gh.get_repo_permission(login)
+            except SentinelDataError as exc:
+                errors.append(str(exc))
+                continue
+            if perm in WRITE_PERMISSIONS:
+                qualified_approvers.append(r)
+                break
+        if qualified_approvers:
+            # No `@` — this message also renders in the pinned status
+            # comment, where a mention would ping the approver on every
+            # re-evaluation.
+            who = (qualified_approvers[0].get("user") or {}).get("login")
+            gates.append(Gate("G3 right-approver", "ok",
+                              f"approved by `{who}`, who has write access"))
+        elif errors:
+            # Only load-bearing failures land here: one approver's lookup
+            # erroring does not poison another approver who qualified.
+            gates.append(Gate(
+                "G3 right-approver", "error",
+                "Couldn't verify the approver's repo permission — re-run the "
+                "check. " + errors[0],
+            ))
+        else:
+            gates.append(Gate(
+                "G3 right-approver", "red",
+                "Needs an approval from anyone with write access to this repo "
+                "— no qualifying human approval at this head (bot approvals "
+                "count only on the automated lanes `bot_approvers` lists)."
+                + _stale_clause(stale_approvers, head_sha),
+            ))
     else:
         missing: list[str] = []
-        errors: list[str] = []
+        errors = []
         # `resolution.any_team` means one team is enough instead of all of
         # them — repo-wide under `approval.scope: any-team`, or for a
         # link-only sweep under `link_only.approval: any-team`. The matrix
@@ -1089,19 +1248,12 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
                 names += " (" + ", ".join(all_teams) + ")"
             admin_clause = (" or a repository administrator"
                             if routing.admins_satisfy(config) else "")
-            stale_clause = ""
-            if stale_approvers:
-                who = ", ".join(sorted(
-                    f"`{(r.get('user') or {}).get('login')}`" for r in stale_approvers))
-                stale_clause = (
-                    f" {who} approved an earlier commit; re-approve at "
-                    f"`{head_sha[:9]}`."
-                )
             gates.append(Gate(
                 "G3 right-approver", "red",
                 f"Needs approval from a member of {names}{admin_clause} — no "
-                f"qualifying human approval at this head (bot approvals never "
-                f"count).{stale_clause}",
+                f"qualifying human approval at this head (bot approvals count "
+                f"only on the automated lanes `bot_approvers` lists)."
+                + _stale_clause(stale_approvers, head_sha),
             ))
         else:
             gates.append(Gate(
@@ -1123,8 +1275,10 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
                 "deploy that has *finished* since this gate was last scored is "
                 "picked up within ~10 minutes by `staging-status.yml`'s sweep, "
                 "which re-runs this check — no action needed. If it never ran "
-                "or it failed, a member of any review team can comment "
-                "`/deploy-staging` to retry. (Not waivable.)",
+                "or it failed, re-run the \"Build and deploy testing\" run, or "
+                "dispatch it at this branch: "
+                "`gh workflow run testing-build-and-deploy.yml --ref <branch>`. "
+                "(Not waivable.)",
             ))
     else:
         # NOT "no infra paths": `domain:infra` and
@@ -1147,15 +1301,29 @@ def evaluate(gh: Gh, config: routing.Config, *, report_only: bool = False) -> Ve
         # team member clicked plain Approve, and a self-applied
         # `review:oversized` (nothing verifies the PR is oversized) had
         # already skipped G1 and G2.
-        acked = any(OVERSIZED_ACK in (r.get("body") or "")
+        acked = any(_has_oversized_ack(r.get("body") or "")
                     for r in qualified_approvers)
         if acked:
-            gates.append(Gate("G5 oversized-ack", "ok", "reviewer acknowledged the skipped auto-review"))
+            gates.append(Gate("G5 oversized-ack", "ok",
+                              f"the approver confirmed a hand review with `{OVERSIZED_ACK}`"))
         else:
+            # Say who, where, and what doesn't count. "Include it in the
+            # approval body" left readers guessing which box is the body, and
+            # the near misses (a PR comment, a line comment, an approval from
+            # before the last push) all look like they should work.
+            # The CLI form is spelled out because it can't drift the way
+            # GitHub's review-button labels do.
+            number = pr.get("number") or "<number>"
             gates.append(Gate(
                 "G5 oversized-ack", "red",
-                "Oversized PR skipped auto-review — the approving reviewer must "
-                f"include `{OVERSIZED_ACK}` in the approval body.",
+                "The automated review doesn't count on an oversized PR (that's why "
+                "G1 and G2 are skipped), so whoever approves it for G3 confirms they "
+                "reviewed it by hand: submit an **Approve** review on the latest commit "
+                f"with `{OVERSIZED_ACK}` at the start of a line in its comment, or run "
+                f"`gh pr review {number} --approve --body {OVERSIZED_ACK}`. Already "
+                "approved? Approve again with it, or edit your approval's comment to "
+                "add it. A PR comment, a line comment, or an approval of an earlier "
+                "commit doesn't count.",
             ))
     else:
         gates.append(Gate("G5 oversized-ack", "skip", "not oversized"))
@@ -1265,7 +1433,7 @@ def update_strip(gh: Gh, verdict: Verdict, comments: list[dict] | None = None) -
         n = len(verdict.blocking_ids)
         what = f"{n} item(s) block merge" if n else "merge is blocked"
         strip = (f"{STRIP_OPEN}\n⛔ **{what}** — fix and push, or reply "
-                 f"`@claude <your reasoning> #update-review`. "
+                 f"`/update-review <your reasoning>`. "
                  f"Details: the Sentinel check below.\n{STRIP_CLOSE}")
     else:
         if STRIP_OPEN not in body:
@@ -1429,17 +1597,52 @@ def render_status_comment(verdict: Verdict) -> str:
 
 def update_status_comment(gh: Gh, verdict: Verdict,
                           comments: list[dict] | None = None) -> bool:
-    """Upsert the pinned status comment. Idempotent; returns True on write."""
+    """Upsert the pinned status comment. Idempotent; returns True on write.
+
+    There is ONE status comment per PR, and overlapping runs are normal (the
+    workflow has no concurrency group), so a plain list-then-POST upsert
+    races: two runs that both list before either posts each create one.
+    That is how 6 of the 100 newest PRs on 2026-10-12 (pulumi/docs#22251,
+    #22154, …) came to carry two, created in the same second by runs that
+    started together (open as draft then mark ready; a bot lane opening and
+    labelling at once). Only the oldest copy is ever patched again, so the
+    other one froze on its first verdict and contradicted the live one for
+    the life of the PR.
+
+    So every write converges instead: keep the oldest bot copy, delete the
+    rest, and after a first POST list once more, because the run we raced
+    may have posted too. Two runs that both see the pair delete the same
+    one (the loser's DELETE 404s, which is fine) and patch the same
+    survivor. A duplicate that slips past that re-read still goes on the
+    next evaluation, which also heals PRs that already have one.
+    """
     comments = comments if comments is not None else gh.list_issue_comments()
     body = render_status_comment(verdict)
-    existing = _find_comment(comments, STATUS_MARKER)
-    if existing is None:
+    existing = _find_comments(comments, STATUS_MARKER)
+    wrote = False
+    if not existing:
         gh.post_issue_comment(body)
-        return True
-    if (existing.get("body") or "").strip() == body.strip():
-        return False
-    gh.patch_issue_comment(existing["id"], body)
-    return True
+        try:
+            existing = _find_comments(gh.list_issue_comments(), STATUS_MARKER)
+        except SentinelDataError:
+            return True  # posted; any duplicate goes on the next run
+        if len(existing) <= 1:
+            return True
+        wrote = True
+    existing = sorted(existing, key=lambda c: int(c.get("id") or 0))
+    keep, extras = existing[0], existing[1:]
+    for c in extras:
+        try:
+            gh.delete_issue_comment(c["id"])
+        except SentinelDataError as exc:
+            if "HTTP 404" not in str(exc):  # 404: the run we raced got it first
+                print(f"::warning::could not delete duplicate status comment "
+                      f"{c['id']}: {exc}", file=sys.stderr)
+        wrote = True
+    if (keep.get("body") or "").strip() != body.strip():
+        gh.patch_issue_comment(keep["id"], body)
+        wrote = True
+    return wrote
 
 
 # ---- CLI ----------------------------------------------------------------

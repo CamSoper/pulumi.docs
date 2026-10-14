@@ -51,7 +51,7 @@ Pulumi Cloud provides [Pulumi Insights](/product/pulumi-insights/), offering sea
 
 ### Scale
 
-Part of building an infrastructure platform is so your organization can scale and make it easy to onboard new developers. Pulumi Cloud integrates seamlessly with various [identity providers](/docs/administration/access-identity/oidc-issuers/) like Azure ActiveDirectory, Okta, G Suite, or any [SAML/SSO provider](/docs/administration/access-identity/saml/), offering deep support for role-based access control (RBAC) and SCIM for automatic synchronization and revocation of access based on identity provider groups. Audit logs keep track of developer activity within an organization, recording what actions were taken, when, and by whom.
+Part of building an infrastructure platform is so your organization can scale and make it easy to onboard new developers. Pulumi Cloud integrates seamlessly with various [identity providers](/docs/administration/concepts/identity-providers/) like Azure ActiveDirectory, Okta, G Suite, or any [SAML/SSO provider](/docs/administration/guides/saml/), offering deep support for role-based access control (RBAC) and SCIM for automatic synchronization and revocation of access based on identity provider groups. Audit logs keep track of developer activity within an organization, recording what actions were taken, when, and by whom.
 
 Pulumi Cloud also makes it easy to [build developer portals](/product/internal-developer-platforms/) for developer self-service. Organization Templates can provide a centralized repository for cloud components, best practices and configurations. The New Project Wizard also provides a gallery interface to pick a template and easily walk through configuration and deployment of the infrastructure.
 
@@ -67,7 +67,7 @@ Pulumi Cloud further enhances security with Pulumi ESC, a centralized [secrets m
 
 Building a platform and managing cloud infrastructure demands considerable time and energy. As discussed above, [Pulumi Insights](/product/pulumi-insights/) X-Rays your entire cloud footprint, so you can observe, plan, and drive changes across your infrastructure. With this total visibility, Pulumi Insights helps you reduce waste by showing you usage information and identifying potentially stale infrastructure, which can lead to substantial cost savings.
 
-You can also have a conversation with [Pulumi Copilot](/product/copilot/) about your infrastructure in natural language and get answers to operational questions that would take hours to piece together from other sources.
+You can also have a conversation with [Pulumi Copilot](/product/neo/) about your infrastructure in natural language and get answers to operational questions that would take hours to piece together from other sources.
 
 ## Why not build your own enterprise features on top of Pulumi IaC open source?
 

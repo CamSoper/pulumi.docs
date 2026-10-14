@@ -143,7 +143,10 @@ def test_plan_guards():
         env.close()
 
 
-def test_stamping_records_the_calls_before_it_merges():
+def test_stamping_posts_the_approval_and_nothing_else():
+    """The approver's judgments are board notes. Approving a judged row posts
+    the approval and the merge, never a comment answering findings on the
+    author's behalf."""
     env = Env([stampable(1)])
     try:
         r = row(env.queue, 1)
@@ -151,22 +154,14 @@ def test_stamping_records_the_calls_before_it_merges():
             {"finding_id": "F6", "disposition": "refuted", "decision": "Does the sentence claim that?",
              "note": "Spurious: the list is what the team wants to build, not the target page."},
             {"finding_id": "F7", "disposition": "accepted", "note": "Pre-existing; both bullets already shared the link."},
-            {"finding_id": "T1", "disposition": "refuted", "note": "Triage misread the item count."},   # not a card finding
-            {"finding_id": "F9", "disposition": "deferred", "note": "The author's to fix."},            # goes back, not resolved
         ]
         p = act.plan(env.queue, args(stamp="1"))
-        assert p.steps[0].args["resolves"] == [
-            "/resolve F6 refuted: Spurious: the list is what the team wants to build, not the target page.",
-            "/resolve F7 accepted: Pre-existing; both bullets already shared the link."]
-        assert "comment: /resolve F6 refuted" in act.preview(p, env.queue)
+        assert "resolves" not in p.steps[0].args
+        assert "comment:" not in act.preview(p, env.queue)
         res = act.execute(p, env.gh, queue=env.queue)
-        assert res[0].ok and "2 findings resolved" in res[0].message
-        w = env.writes()
-        # the record lands before the approval, so a merge never outruns it
-        assert w[0]["path"].endswith("/issues/1/comments") and "/resolve F6 refuted" in w[0]["body"]["body"]
-        assert "F9" not in w[0]["body"]["body"] and "T1" not in w[0]["body"]["body"]
-        assert w[1]["path"].endswith("/pulls/1/reviews") and w[1]["body"]["event"] == "APPROVE"
-        assert w[2]["method"] == "PUT"
+        assert res[0].ok and "squash-merged" in res[0].message, res[0].message
+        assert [w["path"] for w in env.writes()] == [
+            "repos/pulumi/docs/pulls/1/reviews", "repos/pulumi/docs/pulls/1/merge"]
     finally:
         env.close()
 
@@ -271,7 +266,7 @@ def test_stamp_blocked_state_needs_green_checks_and_no_changes_requested():
 #
 # The failure these cover: #21482 and #21549 both squash-merged carrying
 # review:outstanding-issues, approved and merged three seconds apart by
-# --stamp --force, with no /resolve recorded against either open finding.
+# --stamp --force, with no answer recorded against either open finding.
 # Three layers now have to agree before a merge goes out.
 
 
@@ -314,38 +309,20 @@ def test_plan_refuses_to_merge_over_findings_a_stale_verdict_missed():
         env.close()
 
 
-def test_judging_the_findings_is_what_lets_the_merge_through():
-    """The way past the gate is to answer, not to override: the `/resolve`
-    lines the stamp posts count as the answer, and the merge proceeds."""
+def test_judging_the_findings_does_not_let_the_merge_through():
+    """Blocking findings are the author's to answer. An approver's judgment,
+    however well reasoned, is not an answer, so the merge stays refused."""
     env = Env([_with_open_findings(1)])
     try:
         r = row(env.queue, 1)
         r["verdict"], r["blockers"] = "judge", []
         r["judgments"] = [{"finding_id": f, "disposition": "refuted", "note": "Checked against the source; the claim holds."}
                           for f in ("F1", "F2", "F3")]
-        p = act.plan(env.queue, args(stamp="1", force=True))
-        assert p.steps[0].args["merge"] is True
-        assert len(p.steps[0].args["resolves"]) == 3
-        res = act.execute(p, env.gh, queue=env.queue)
-        assert res[0].ok and "squash-merged" in res[0].message, res[0].message
-        # one resolve comment, then approve, then merge — in that order
-        assert [w["path"] for w in env.writes()] == [
-            "repos/pulumi/docs/issues/1/comments", "repos/pulumi/docs/pulls/1/reviews", "repos/pulumi/docs/pulls/1/merge"]
-    finally:
-        env.close()
-
-    # Answer only two of the three and the merge is still refused: the gate is
-    # per finding, not "did you engage with this PR at all".
-    env = Env([_with_open_findings(1)])
-    try:
-        r = row(env.queue, 1)
-        r["verdict"], r["blockers"] = "judge", []
-        r["judgments"] = [{"finding_id": f, "disposition": "refuted", "note": "Checked."} for f in ("F1", "F2")]
         try:
             act.plan(env.queue, args(stamp="1", force=True))
-            raise AssertionError("plan merged with F3 unanswered")
+            raise AssertionError("plan merged over findings the author never answered")
         except act.ActError as exc:
-            assert "F3" in str(exc) and "F1" not in str(exc), str(exc)
+            assert "F1, F2, F3" in str(exc) and "/update-review" in str(exc), str(exc)
     finally:
         env.close()
 
@@ -359,11 +336,6 @@ def test_preflight_re_reads_the_card_so_a_review_landing_mid_batch_stops_the_mer
         s = act.Step("stamp", 1, {"merge": True}, expect_head=row(env.queue, 1)["head"]["sha"])
         ok, msg, _ = act.preflight(env.gh, s)
         assert ok is False and "unanswered blocking finding" in msg and "F1" in msg, msg
-        # …and the step's own resolves, which post seconds from now and cannot
-        # be on the card yet, are an answer.
-        s.args["resolves"] = [f"/resolve {f} refuted: checked" for f in ("F1", "F2", "F3")]
-        ok, msg, _ = act.preflight(env.gh, s)
-        assert ok, msg
         # Approve-only never reaches the check: it merges nothing.
         ok, _, _ = act.preflight(env.gh, act.Step("stamp", 1, {"merge": False}, expect_head=row(env.queue, 1)["head"]["sha"]))
         assert ok
@@ -444,7 +416,7 @@ def test_request_changes_posts_a_review_from_the_judgments_and_labels():
         body = w[0]["body"]["body"]
         assert body.startswith("Two things before this merges:") and "`content/docs/best-practices/_index.md` L1: Give the page a nav home under Concepts." in body
         assert "IA call" not in body  # the approver's note stays on the board
-        assert "#update-review" in body  # bot author: tell it how to answer
+        assert "/update-review" in body  # bot author: tell it how to answer
         assert "Generated by [Claude Code]" not in body  # a review body, not a bot comment
         assert w[1]["path"].endswith("/issues/1/labels") and w[1]["body"] == {"labels": ["needs-author-response"]}
     finally:
@@ -471,7 +443,7 @@ def test_a_workflow_author_is_closed_not_sent_back():
         body = w[0]["body"]["body"]
         assert w[0]["path"].endswith("/issues/1/comments")
         assert "opened by a workflow run" in body and "Add a blank line before the lead-in." in body
-        assert "#update-review" not in body and "re-queues the page" in body
+        assert "/update-review" not in body and "re-queues the page" in body
         assert body.endswith("_Generated by [Claude Code](https://claude.ai/code)_")
         assert w[1]["method"] == "PATCH" and w[1]["body"] == {"state": "closed"}
     finally:
@@ -486,7 +458,7 @@ def test_request_changes_body_voice_by_author_type():
     assert act.request_changes_body(internal) == "- `a.md` L3: Wrong count."
 
 
-def test_a_send_back_leaves_out_findings_the_approver_already_resolved():
+def test_a_send_back_leaves_out_findings_the_approver_already_decided():
     pr = {"author": {"type": "internal"}, "judgments": [
         {"finding_id": "F1", "file": "a.md", "line": 3, "decision": "Is the count right?",
          "ask": "Fix the count.", "disposition": "deferred"},
@@ -500,19 +472,19 @@ def test_a_send_back_leaves_out_findings_the_approver_already_resolved():
     assert "Fix the count." in body
     assert "role section" not in body and "historical sentence" not in body  # the approver's question never reaches the author
     assert "`b.md` L5: No change needed: dated, not wrong." in body  # an explicit ask is still the approver's to send
-    resolved = {"author": {"type": "internal"}, "judgments": [pr["judgments"][2]],
+    decided = {"author": {"type": "internal"}, "judgments": [pr["judgments"][2]],
                 "review": {"items": [{"id": "F3", "bucket": "outstanding", "file": "a.md", "anchor": "L12", "summary": "Reword it."}]}}
-    assert act.ask_lines(resolved) == []  # the judged finding is resolved, and nothing else is open
+    assert act.ask_lines(decided) == []  # the judged finding is decided, and nothing else is open
     partial = {"author": {"type": "internal"}, "judgments": [pr["judgments"][0]],
                "review": {"items": [{"id": "F1", "bucket": "outstanding", "file": "a.md", "anchor": "L3", "summary": "Wrong count."},
                                     {"id": "F5", "bucket": "outstanding", "file": "c.md", "anchor": "L8", "summary": "Dead anchor."}]}}
     assert act.ask_lines(partial) == ["- `a.md` L3: Fix the count.", "- `c.md` L8: Dead anchor."]  # an unjudged finding still goes back
     env = Env([stampable(1, labels=["review:trivial"])])
     try:
-        row(env.queue, 1)["judgments"] = resolved["judgments"]
+        row(env.queue, 1)["judgments"] = decided["judgments"]
         try:
             act.plan(env.queue, args(request_changes=[1]))
-            raise AssertionError("expected refusal: every judged finding is resolved")
+            raise AssertionError("expected refusal: every judged finding is decided")
         except act.ActError as exc:
             assert "nothing to send back" in str(exc)
     finally:
@@ -523,13 +495,13 @@ def test_rerun_posts_a_new_review_mention_with_a_status_reason():
     env = Env([stampable(1, labels=["review:error", "domain:docs"]), stampable(2)])
     try:
         p = act.plan(env.queue, args(rerun=[1, 2]))
-        assert "#new-review" in act.preview(p)
+        assert "/new-review" in act.preview(p)
         res = act.execute(p, env.gh, queue=env.queue)
         assert all(r.ok for r in res)
         w = env.writes()
-        assert w[0]["body"]["body"].startswith("@claude the last review run failed #new-review") and w[0]["path"].endswith("/issues/1/comments")
+        assert w[0]["body"]["body"].startswith("/new-review the last review run failed") and w[0]["path"].endswith("/issues/1/comments")
         assert w[0]["body"]["body"].endswith("(https://claude.ai/code)_")
-        assert w[1]["body"]["body"].startswith("@claude the review is current #new-review")
+        assert w[1]["body"]["body"].startswith("/new-review the review is current")
     finally:
         env.close()
 
@@ -544,7 +516,7 @@ def test_close_cross_links_and_refresh_mention():
         assert "Closing in favor of #2" in w[0]["body"]["body"] and w[0]["path"].endswith("/issues/1/comments")
         assert "Supersedes #1" in w[1]["body"]["body"] and w[1]["path"].endswith("/issues/2/comments")
         assert w[2]["method"] == "PATCH" and w[2]["body"] == {"state": "closed"}
-        assert w[3]["body"]["body"].startswith("@claude the label lied #update-review") and w[3]["body"]["body"].endswith("(https://claude.ai/code)_")
+        assert w[3]["body"]["body"].startswith("/update-review the label lied") and w[3]["body"]["body"].endswith("(https://claude.ai/code)_")
     finally:
         env.close()
 
@@ -564,7 +536,7 @@ def test_ask_fix_names_the_open_findings_and_asks_for_a_refresh():
         assert [s.kind for s in p.steps] == ["ask-fix"]
         body = p.steps[0].args["comment"]
         first = body.splitlines()[0]
-        assert first.startswith("@claude fix ") and first.endswith(" #update-review"), first
+        assert first.startswith("/update-review fix ") and "@claude" not in first, first
         assert all(i in first for i in ids), (first, ids)
         assert " and " in first          # the ids read as a list, not a blob
         assert body.endswith("(https://claude.ai/code)_")
@@ -579,7 +551,7 @@ def test_ask_fix_names_the_open_findings_and_asks_for_a_refresh():
 
 
 def test_ask_fix_refuses_a_row_with_nothing_open():
-    """`@claude fix  #update-review` asks for nothing. A row with no open
+    """`/update-review fix ` asks for nothing. A row with no open
     finding has no list to hand over, so the plan refuses instead of posting
     an empty instruction."""
     env = Env([stampable(1)])
@@ -848,7 +820,7 @@ def test_a_reason_lands_on_exactly_one_step():
                                      reason=["1=Two things:", "2=the docs moved"]))
         by = {(s.kind, s.pr): s for s in p.steps}
         assert by[("request-changes", 1)].args["body"].startswith("Two things:")
-        assert by[("refresh", 2)].args["comment"].startswith("@claude the docs moved #update-review")
+        assert by[("refresh", 2)].args["comment"].startswith("/update-review the docs moved")
         assert "opened by a workflow run" in by[("close", 3)].args["comment"] and "Add a blank line." in by[("close", 3)].args["comment"]
         # scoped to the generated row, the reason replaces the judgment-built comment
         p = act.plan(env.queue, args(close=[3], reason=["3=Superseded by the rewrite in flight."]))
@@ -912,7 +884,7 @@ def test_bodies_are_fixed_at_plan_time_and_the_preview_shows_them():
         assert "Routing to @cnunciato: this is a docs change, not mine to approve." in text
         assert "**F1** Is the count right?" not in text  # #2 has no judgments; #1's stay on its own step
         assert "PATCH pull body: ### Proposed changes" in text
-        assert "@claude the docs moved #update-review" in text
+        assert "/update-review the docs moved" in text
         assert "review:absent" not in text  # raw reason codes the comment filters out never show as if posted
         # the world changes under the plan: a re-collect that lost the judgments and the draft
         p2 = act.Plan.from_json(json.loads(json.dumps(p.to_json())))
@@ -923,7 +895,7 @@ def test_bodies_are_fixed_at_plan_time_and_the_preview_shows_them():
         assert w[("POST", "repos/pulumi/docs/pulls/1/reviews")]["body"].startswith("Two things:\n- `a.md` L3: Fix the count.")
         assert w[("POST", "repos/pulumi/docs/issues/2/comments")]["body"].startswith("Routing to @cnunciato")
         assert w[("PATCH", "repos/pulumi/docs/pulls/2")] == {"body": "### Proposed changes\n\nAccurate now."}
-        assert w[("POST", "repos/pulumi/docs/issues/3/comments")]["body"].startswith("@claude the docs moved #update-review")
+        assert w[("POST", "repos/pulumi/docs/issues/3/comments")]["body"].startswith("/update-review the docs moved")
         try:
             act.Plan.from_json({"schema": 1, "repo": "pulumi/docs", "created_at": "", "steps": []})
             raise AssertionError("an old plan must not execute")
@@ -939,7 +911,7 @@ def test_bodies_are_fixed_at_plan_time_and_the_preview_shows_them():
         assert [w["path"] for w in res[0].writes] == ["repos/pulumi/docs/pulls/1/reviews", "repos/pulumi/docs/pulls/1/merge"]
         text = act.report(res, writes=True)
         assert "would: POST repos/pulumi/docs/pulls/1/reviews  Approved." in text
-        assert "would: PUT repos/pulumi/docs/pulls/1/merge" in text and "would: POST repos/pulumi/docs/issues/1/comments  @claude x #update-review" in text
+        assert "would: PUT repos/pulumi/docs/pulls/1/merge" in text and "would: POST repos/pulumi/docs/issues/1/comments  /update-review x" in text
     finally:
         env.close()
 
@@ -982,18 +954,15 @@ def _chain_env(**over) -> "Env":
 
 
 def test_chain_goes_through_the_stamp_gates_and_the_unblock_waits_on_the_merge():
-    """Finding 9: the chain's first link is a --stamp step (resolves, plan-time
+    """Finding 9: the chain's first link is a --stamp step (plan-time
     blocker check, preflight), and the next link's unblock is skipped when
     that stamp did not merge."""
     env = _chain_env()
     try:
         cl = env.queue["clusters"][0]
         assert cl["recommendation"]["kind"] == "chain" and cl["recommendation"]["first"] == 1
-        r = row(env.queue, 1)
-        r["judgments"] = [{"finding_id": "F6", "disposition": "refuted", "note": "Checked; the claim holds."}]
         p = act.plan(env.queue, args(chain=["C1"]))
         assert [(s.kind, s.pr) for s in p.steps] == [("stamp", 1), ("unblock", 2)]
-        assert p.steps[0].args["resolves"] == ["/resolve F6 refuted: Checked; the claim holds."]
         assert p.steps[0].args["chain"] == "C1" and p.steps[1].args["requires"] == ["stamp", 1]
         assert "skipped unless stamp #1 merges" in act.preview(p, env.queue)
         # the stamp's preflight refuses (head moved) → the unblock never runs git
@@ -1023,30 +992,25 @@ def test_chain_goes_through_the_stamp_gates_and_the_unblock_waits_on_the_merge()
 
 
 def test_a_stamp_that_fails_partway_reports_what_landed_and_a_rerun_skips_it():
-    """Finding 10: the resolves and the approval post before the merge; a
-    refused merge lists them, and re-running the step posts neither again."""
+    """Finding 10: the approval posts before the merge; a refused merge lists
+    it, and re-running the step does not post it again."""
     env = Env([stampable(1)])
     try:
         head = row(env.queue, 1)["head"]["sha"]
-        row(env.queue, 1)["judgments"] = [{"finding_id": "F6", "disposition": "refuted", "note": "Checked."}]
         p = act.plan(env.queue, args(stamp=["1"]))
         env.set_check_runs(1, [{"name": "build", "status": "completed", "conclusion": "success"},
                                {"name": "Sentinel", "status": "completed", "conclusion": "failure"}])
         res = act.execute(p, env.gh, queue=env.queue, sleep=lambda s: None)
         assert res[0].ok is False and "approved, not merged" in res[0].message, res[0].message
-        assert [w["path"] for w in res[0].writes] == ["repos/pulumi/docs/issues/1/comments", "repos/pulumi/docs/pulls/1/reviews"]
-        text = act.report(res)
-        assert "landed: POST repos/pulumi/docs/issues/1/comments  /resolve F6 refuted: Checked." in text
-        assert "landed: POST repos/pulumi/docs/pulls/1/reviews  Approved." in text
+        assert [w["path"] for w in res[0].writes] == ["repos/pulumi/docs/pulls/1/reviews"]
+        assert "landed: POST repos/pulumi/docs/pulls/1/reviews  Approved." in act.report(res)
         # what landed is now on the PR; the Sentinel comes back green; re-run
-        env.add_comment(1, res[0].writes[0]["body"]["body"])
         env.add_review(1, "APPROVED", commit_id=head)
         env.set_check_runs(1, [{"name": "build", "status": "completed", "conclusion": "success"},
                                {"name": "Sentinel", "status": "completed", "conclusion": "success"}])
         before = len(env.writes())
         res = act.execute(p, env.gh, queue=env.queue, sleep=lambda s: None)
-        assert res[0].ok and "squash-merged" in res[0].message and "resolves already posted" in res[0].message \
-            and "already approved" in res[0].message, res[0].message
+        assert res[0].ok and "squash-merged" in res[0].message and "already approved" in res[0].message, res[0].message
         assert [w["method"] for w in env.writes()[before:]] == ["PUT"]
     finally:
         env.close()
@@ -1065,15 +1029,6 @@ def test_own_changes_requested_review_is_not_a_blocker():
         assert "changes requested by cnunciato" in msg and "CamSoper" not in msg
     finally:
         env.close()
-
-
-def test_resolve_posts_the_note_and_never_the_decision():
-    """Finding 12."""
-    pr = {"review": {"surface": "v3"}, "judgments": [
-        {"finding_id": "F1", "disposition": "refuted", "decision": "Does the sentence claim that?"},
-        {"finding_id": "F2", "disposition": "fixed", "decision": "Fix the count?", "note": "Pushed in 3f2a1."},
-        {"finding_id": "F3", "disposition": "accepted", "decision": "Leave it?"}]}
-    assert act.resolve_lines(pr) == ["/resolve F2 fixed: Pushed in 3f2a1."]
 
 
 def test_sentinel_is_left_out_of_the_preflight_and_polled_before_the_merge():
@@ -1225,7 +1180,7 @@ def test_request_changes_with_only_a_reason_goes_back():
             assert "nothing to send back" in str(exc) and "--reason 1=" in str(exc)
         p = act.plan(env.queue, args(request_changes=[1], reason=["1=CI is red (lint); please fix the failing checks."]))
         body = p.steps[0].args["body"]
-        assert body.startswith("CI is red (lint); please fix the failing checks.") and "@claude F<n>" in body
+        assert body.startswith("CI is red (lint); please fix the failing checks.") and "/update-review F<n>" in body
         res = act.execute(p, env.gh, queue=env.queue)
         assert res[0].ok and env.writes()[0]["body"] == {"event": "REQUEST_CHANGES", "body": body}
     finally:
@@ -1246,10 +1201,6 @@ def test_the_merge_preflight_refuses_a_review_it_cannot_read_whole():
         s = act.Step("stamp", 1, {"merge": True}, expect_head=row(env.queue, 1)["head"]["sha"])
         ok, msg, _ = act.preflight(env.gh, s)
         assert ok is False and "page(s) 2, 3 could not be read" in msg, msg
-        # and a step's own /resolve lines are no answer to a review with holes
-        s.args["resolves"] = ["/resolve F1 refuted: checked"]
-        ok, msg, _ = act.preflight(env.gh, s)
-        assert ok is False and "could not be read" in msg, msg
     finally:
         env.close()
 
@@ -1265,5 +1216,48 @@ def test_the_merge_preflight_refuses_a_review_it_cannot_read_whole():
         ok, _, _ = act.preflight(env.gh, act.Step("stamp", 1, {"merge": False},
                                                   expect_head=row(env.queue, 1)["head"]["sha"]))
         assert ok
+    finally:
+        env.close()
+
+
+def test_unrequest_drops_my_request_and_nothing_else():
+    env = Env([stampable(1, requested_users=["CamSoper", "cnunciato"]), stampable(2, requested_teams=["docs-guild"])])
+    try:
+        try:
+            act.plan(env.queue, args(unrequest=[2]))
+            raise AssertionError("expected refusal: only a team is requested")
+        except act.ActError as exc:
+            assert "by name" in str(exc)
+        p = act.plan(env.queue, args(unrequest=[1]))
+        assert "DELETE requested_reviewers: me" in act.preview(p, env.queue)
+        env.move_head(1, "f" * 40)  # declining is about the PR, not a commit
+        res = act.execute(p, env.gh, queue=env.queue)
+        assert res[0].ok, res[0].message
+        w = env.writes()
+        assert len(w) == 1 and w[0]["method"] == "DELETE"
+        assert w[0]["path"] == "repos/pulumi/docs/pulls/1/requested_reviewers" and w[0]["body"] == {"reviewers": ["CamSoper"]}
+    finally:
+        env.close()
+
+
+def test_unrequest_when_the_request_is_already_gone_sends_nothing():
+    env = Env([stampable(1, requested_users=["CamSoper"])])
+    try:
+        p = act.plan(env.queue, args(unrequest=[1]))
+        env.set_detail(1, requested_reviewers=[])
+        res = act.execute(p, env.gh, queue=env.queue)
+        assert res[0].ok and "already" in res[0].message
+        assert env.writes() == []
+    finally:
+        env.close()
+
+
+def test_unrequest_is_a_decision():
+    env = Env([stampable(1, requested_users=["CamSoper"])])
+    try:
+        act.plan(env.queue, args(stamp=["1"], unrequest=[1]))
+        raise AssertionError("expected refusal: two decisions on one PR")
+    except act.ActError as exc:
+        assert "contradict" in str(exc)
     finally:
         env.close()

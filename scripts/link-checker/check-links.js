@@ -468,8 +468,6 @@ function getDefaultExcludedKeywords() {
         "https://www.pulumi.com/docs/cli/commands/pulumi_plugin_install",
         "https://www.pulumi.com/docs/cli/commands/pulumi_schema_check",
         // Old internal URLs with working S3 redirects, flagged on the 2026-06-16 run
-        "https://www.pulumi.com/docs/iac/clouds/kubernetes/guides/cluster-services/",                    // blog/getting-started-with-k8s-part6, blog/inside-crosswalk-for-kubernetes: S3 → /docs/integrations/clouds/kubernetes/
-        "https://www.pulumi.com/docs/iac/clouds/aws/guides/cloudwatch",                                  // blog/introducing-pulumi-crosswalk-for-aws-the-easiest-way-to-aws: S3 → /docs/iac/guides/clouds/aws/ (sub-page deleted; anchors no longer apply)
         "https://www.pulumi.com/docs/pulumi-cloud/access-management/oidc/client/",                       // blog/unified-programmatic-approach-...-bmw, docs/reference/cloud-rest-api/organizations (from OpenAPI spec): S3 → /docs/administration/access-identity/oidc-issuers/
         // Old internal URLs with working S3 redirects, recurring false positives after PR #19980 (2026-06-30, 2026-07-02)
         "https://www.pulumi.com/docs/iac/clouds/kubernetes/guides/playbooks/",                          // blog/2019-year-at-a-glance, blog/aws-enterprise-container-management, blog/beyond-yaml-kubernetes-2026-automation-era: S3 → /docs/integrations/clouds/kubernetes/ (transient CloudFront cache misses re-flag it)
@@ -486,6 +484,7 @@ function getDefaultExcludedKeywords() {
         "https://hub.docker.com/",                                                  // blog/docker-containers: 500s to automated clients
         "https://docs.microsoft.com/",                                              // MS redirects to learn.microsoft.com and bot-protects
         "https://www.zdnet.com/",                                                   // aggressive bot protection
+        "https://www.theglobeandmail.com/investing/markets/stocks/ORCL/pressreleases/2410413/", // blog/future-cloud-infrastructure-10-trends-shaping-2024-and-beyond: 404, no Wayback snapshot or equivalent replacement
         "https://gist.github.com/pulumipus/56d1ee83f295971e2a26a8091880c482",        // deleted gist in blog/automation-api-as-platform
         "https://gist.github.com/pulumipus/61edcdd8ab3f50a42b4bd34a7e1f789b",        // deleted gist in blog/automation-api-workflow
         // Dead/transient third-party links in historical blog posts (#docs-ops 2026-06-01)
@@ -503,18 +502,23 @@ function getDefaultExcludedKeywords() {
         "https://github.com/pulumi/pulumi/watchers",                                // referenced from github.com/pulumi/pulumi crawl: GitHub 404s the anonymous /watchers view for every repo; valid in a browser (same pattern as /stargazers above)
         // Recurring false positives flagged on 2026-07-23 — S3 redirects committed, but registry/build overwrites or CloudFront cache-miss re-flags them
         "https://www.pulumi.com/registry/packages/azure/api-docs/voice/",           // blog/azure-v6-release: S3 redirect in scripts/redirects/general-broken-links-redirects.txt (added in #20366) keeps getting overwritten by the registry build
-        "https://www.pulumi.com/docs/iac/clouds/kubernetes/guides/control-plane",   // blog/inside-crosswalk-for-kubernetes: S3 → /docs/integrations/clouds/kubernetes/ (same family as excluded cluster-services/, playbooks/)
-        "https://www.pulumi.com/docs/iac/clouds/kubernetes/guides/configure-defaults", // blog/inside-crosswalk-for-kubernetes: S3 → /docs/integrations/clouds/kubernetes/
-        "https://www.pulumi.com/docs/iac/clouds/kubernetes/guides/app-services",    // blog/inside-crosswalk-for-kubernetes: S3 → /docs/integrations/clouds/kubernetes/
-        "https://www.pulumi.com/docs/iac/clouds/kubernetes/guides/apps",            // blog/inside-crosswalk-for-kubernetes: S3 → /docs/integrations/clouds/kubernetes/
         "https://ieeexplore.ieee.org/",                                             // blog/aws-iam-access-analyzer-and-crossguard: IEEE returns HTTP 418 (I'm a teapot) to automated clients; loads in browsers
+        // Recurring ERRNO_ECONNREFUSED false positives (flagged on at least 4 runs between 2026-09-19 and 2026-10-13) —
+        // web.archive.org intermittently refuses connections under crawl load; both resolve 200 on recheck. Excluding
+        // the specific snapshot URLs rather than the whole archive.org domain so a genuinely dead snapshot still gets caught.
+        "https://web.archive.org/web/20260415184227/https://www.cs.colostate.edu/~fsieker/misc/debug/DEBUG.html",        // blog/next-level-iac-breakpoint-debugging
+        "https://web.archive.org/web/20240301073955/https://engineering.statefarm.com/blog/terraform-s3-upload-with-mime/", // blog/next-level-iac-package-ecosystems
     ];
 }
 
 // Filters out transient errors that needn't fail a link-check run.
 function excludeAcceptable(links) {
-    // HTTP status codes to filter out for external sites (bot protection, auth walls, timeouts)
-    const externalErrorReasons = ["HTTP_403", "HTTP_401", "HTTP_202", "HTTP_undefined"];
+    // HTTP status codes to filter out for external sites (bot protection, auth walls, timeouts).
+    // HTTP_406 added after leg.colorado.gov/bills/sb25b-004 (blog/agent-sprawl-iac-platform-is-the-answer)
+    // recurred as a false positive across at least 8 runs between 2026-09-19 and 2026-10-13: the site
+    // 406s the crawler's bare Accept/User-Agent headers but returns 200 for a browser-like request, the
+    // same content-negotiation bot-protection pattern HTTP_403/401/415 already cover below.
+    const externalErrorReasons = ["HTTP_403", "HTTP_401", "HTTP_202", "HTTP_undefined", "HTTP_406"];
 
     return (links
         // Ignore GitHub and npm 429s (rate-limited). We should really be handling these more

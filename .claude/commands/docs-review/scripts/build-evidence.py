@@ -69,10 +69,10 @@ _BUCKET_RANK = {"reviewer-check": 0, "author-answer": 1, "outstanding": 2, "pree
 # between the last table and the REVIEW_STATE block (the browser hint, the 📎
 # evidence line, the <sub> stamp, the marker comments) can be swallowed into a
 # section span and dropped on re-render — which is exactly what took the 📎
-# line off the author card on the first live #update-review (2026-09-01).
+# line off the author card on the first live /update-review (2026-09-01).
 _SECTION_TERMINATORS = (
     "### ", "#### ", "<!-- REVIEW_STATE", "<!-- AUTHOR_STATE", "<!-- CLAUDE_REVIEW",
-    "<sub>", "📎 ",
+    "<sub>", *cr.EVIDENCE_LINE_PREFIXES,
 )
 
 
@@ -85,7 +85,7 @@ def is_section_terminator(line: str) -> bool:
 # stub as triaged (caught by test_build_evidence_on_fixtures).
 _SPURIOUS_RE = re.compile(r"^(?:\*[\"']?.{0,160}?[\"']?\*\s+—\s+)?\*\*(Spurious|Mis-sourced):\*\*\s*(?P<note>.*)$")
 _PREEXISTING_RE = re.compile(r"^(?:\*[\"']?.{0,160}?[\"']?\*\s+—\s+)?\*\*Pre-existing:\*\*\s*(?P<note>.*)$")
-_PREEXISTING_COUNT_RE = re.compile(r"(💡 \*\*Pre-existing issues in touched files:\*\* )\d+")
+_PREEXISTING_COUNT_RE = re.compile(r"((?:💡 )?\*\*Pre-existing issues in touched files:\*\* )\d+")
 _STYLE_LINE_RE = re.compile(r"^- \*\*Style:\*\* .*$", re.M)
 _HEADER_RE = re.compile(r"^## Author action guide v(?P<rev>\d+) — (?:\d+ items? blocks? merge|nothing blocks merge)\s*$")
 _SUMMARY_RE = re.compile(r"^> \*\*Summary:\*\*\s*(?P<text>.+)$")
@@ -325,6 +325,8 @@ def build(author_body: str, brief_body: str, base: dict,
                 "status": (prior or {}).get("status") or "open",
                 "disposition": (prior or {}).get("disposition"),
             }
+            if prior and prior.get("members"):
+                record["members"] = prior["members"]
             pm = _PREEXISTING_RE.search(body_text)
             if pm:
                 record["bucket"] = "preexisting"
@@ -354,6 +356,12 @@ def build(author_body: str, brief_body: str, base: dict,
             "and not rewritten as **Spurious:** / **Mis-sourced:** / **Pre-existing:** — "
             "findings are dispositioned, never deleted"
         )
+    # The composer files some findings straight into `preexisting` (an
+    # unverifiable claim on a line the PR didn't write) without a card row;
+    # they reach the evidence page from the base, not from the drafts.
+    for fid, f in base_findings.items():
+        if fid not in seen_ids and f.get("bucket") == "preexisting":
+            findings.append(dict(f))
 
     # Detail blocks: every block pairs with an open blocking row on the
     # author card; blocks of dropped (Spurious/Pre-existing) rows are dropped
@@ -421,13 +429,16 @@ def build(author_body: str, brief_body: str, base: dict,
     brief_out = refresh_facts_line(brief_out, findings)
     # A model-added `F?` row got a real id above; the author card's
     # REVIEW_STATE high-water mark must move with it, or every later reader
-    # (validate-pinned's grammar rule, /resolve's range check) rejects the id
+    # (validate-pinned's grammar rule) rejects the id
     # (fork PR 245, 2026-09-01: brief carried F1 against high_water 0).
     if evidence["high_water"] != state.get("high_water", 0):
         author_out = review_state.replace_block(
             author_out, dict(state, high_water=evidence["high_water"]))
     n_blocking = sum(1 for f in findings if f["bucket"] in ("outstanding", "author-answer"))
     author_out = _fix_header(author_out, n_blocking)
+    _contrib = cr.contributing_url_for(base.get("repo") or "")
+    author_out = restamp_footer(author_out, cr.render_author_footer(_contrib, n_blocking))
+    brief_out = restamp_footer(brief_out, cr.render_reviewer_footer(_contrib))
     n_pre = sum(1 for f in findings if f["bucket"] == "preexisting")
     brief_out = _PREEXISTING_COUNT_RE.sub(lambda m: m.group(1) + str(n_pre), brief_out)
     # The advisory block is the author card's only non-blocking lane, and the
@@ -438,11 +449,16 @@ def build(author_body: str, brief_body: str, base: dict,
     evidence["style_suggestions_count"] = n_style + n_nits
     brief_out = refresh_style_line(brief_out, n_style, n_nits)
     author_out = drop_empty_style_block(author_out)
+    author_out = drop_empty_author_sections(author_out)
     # The Waiting-on-the-author block is composer-owned: regenerate it from
     # the FINAL findings + dispositions so model edits (promotions included)
     # can never leave it stale.
     brief_out = cr.replace_waiting_block(
         brief_out, findings, state.get("findings", {}))
+    # Last, so it measures the card as published. `detail` above was read from
+    # the draft, so a block shed here still reaches the evidence page.
+    author_out = fit_and_report("author", author_out, fit_author_card)
+    brief_out = fit_and_report("brief", brief_out, fit_brief_card)
     return evidence, author_out, brief_out
 
 
@@ -456,6 +472,13 @@ def _is_claim_finding(f: dict) -> bool:
     # Degraded refresh (no prior evidence): origin is unknown, but a verdict
     # row always opens with the italic claim quote the composer renders.
     return origin == "model" and str(f.get("text") or "").lstrip().startswith(("*\"", "*“", "*'"))
+
+
+def claim_weight(f: dict) -> int:
+    """How many verified claims a finding stands for: its `members` on a
+    group finding, otherwise one."""
+    members = f.get("members")
+    return len(members) if isinstance(members, list) and members else 1
 
 
 def refresh_facts_line(brief_body: str, findings: list[dict]) -> str:
@@ -474,10 +497,13 @@ def refresh_facts_line(brief_body: str, findings: list[dict]) -> str:
     mx = re.search(r"(\d+) verified clean", rest)
     x = int(mx.group(1)) if mx else 0
     claims = [f for f in findings if _is_claim_finding(f)]
-    author_open = sum(1 for f in claims
+    # A group finding asks about all of its members at once; counted as one,
+    # its other members would land in "settled" while still waiting on the
+    # author.
+    author_open = sum(claim_weight(f) for f in claims
                       if f.get("bucket") in ("outstanding", "author-answer")
                       and f.get("status") == "open" and not f.get("disposition"))
-    flagged = sum(1 for f in claims if f.get("bucket") == "reviewer-check")
+    flagged = sum(claim_weight(f) for f in claims if f.get("bucket") == "reviewer-check")
     settled = max(checked - x - author_open - flagged, 0)
     parts: list[str] = []
     if x:
@@ -537,11 +563,73 @@ def drop_empty_style_block(author_body: str) -> str:
     return "\n".join(lines) + ("\n" if author_body.endswith("\n") else "")
 
 
+_EMPTY_AUTHOR_BLOCK = [
+    "### 🚨 Fix or disagree", "", cr._V3_EMPTY_OUTSTANDING, "",
+    "### ❓ Questions for you", "", cr._V3_EMPTY_QUESTIONS,
+]
+
+
+def drop_empty_author_sections(author_body: str) -> str:
+    """Remove 🚨 and ❓ when BOTH hold nothing but their empty placeholder.
+
+    A card with nothing for the author to do opened with a NOTE saying so
+    and then spent eight lines on two headed sections each saying "nothing
+    here" (reader feedback, 2026-09-25). The NOTE is the whole message.
+
+    Strict on purpose: any row, bullet, or other text in either section
+    keeps both. "Nothing blocks merge" is not the test — the header counts
+    dispositions from REVIEW_STATE, and a row that carries one still sits in
+    its section until a refresh moves it, so it must stay visible. The
+    update lane re-inserts the pair (ensure_author_sections) before placing
+    a reopened, added, or promoted row, then calls this again."""
+    lines = author_body.splitlines()
+    spans = _sections(author_body, AUTHOR_SECTIONS)
+    if sorted(b for b, _s, _e in spans) != ["author-answer", "outstanding"]:
+        return author_body
+    allowed = {cr._V3_EMPTY_OUTSTANDING, cr._V3_EMPTY_QUESTIONS}
+    for _bucket, start, end in spans:
+        if any(ln.strip() and ln.strip() not in allowed for ln in lines[start:end]):
+            return author_body
+    (_b1, first_start, first_end), (_b2, second_start, second_end) = sorted(spans, key=lambda t: t[1])
+    if first_end != second_start - 1:
+        return author_body  # not adjacent (something sits between them): leave it alone
+    head = first_start - 1  # _sections spans start on the line after the heading
+    while head > 0 and not lines[head - 1].strip():
+        head -= 1
+    lines[head:second_end] = [""]
+    return "\n".join(lines) + ("\n" if author_body.endswith("\n") else "")
+
+
+def ensure_author_sections(author_body: str) -> str:
+    """Inverse of drop_empty_author_sections: when a card has neither 🚨
+    nor ❓, put the empty pair back where the composer renders it (after
+    the header region, before the first H3/H4 or card furniture), so a
+    re-render has somewhere to place a row. A card with either heading is
+    returned unchanged."""
+    lines = author_body.splitlines()
+    # Line-anchored: finding text can quote a heading (the composer's own
+    # TODO stubs say "promote to `### 🚨 Fix or disagree`").
+    if any(ln.startswith(h) for ln in lines for h in AUTHOR_SECTIONS):
+        return author_body
+    head = next((i for i, ln in enumerate(lines) if _HEADER_RE.match(ln)), None)
+    if head is None:
+        return author_body
+    at = next((i for i in range(head + 1, len(lines)) if is_section_terminator(lines[i])),
+              len(lines))
+    while at > head + 1 and not lines[at - 1].strip():
+        at -= 1
+    lines[at:at] = ["", *_EMPTY_AUTHOR_BLOCK]
+    return "\n".join(lines) + ("\n" if author_body.endswith("\n") else "")
+
+
 _EMPTY_SENTINEL = {
     "outstanding": cr._V3_EMPTY_OUTSTANDING,
     "author-answer": cr._V3_EMPTY_QUESTIONS,
     "reviewer-check": cr._V3_EMPTY_CHECKS,
 }
+
+
+_HANDOFF_HINT_PREFIX = "_Not your area? "
 
 
 def _collapse_empty_tables(body: str, headings: dict[str, str]) -> str:
@@ -551,7 +639,12 @@ def _collapse_empty_tables(body: str, headings: dict[str, str]) -> str:
     lines = body.splitlines()
     edits: list[tuple[int, int, list[str]]] = []
     for bucket, start, end in _sections(body, headings):
-        content = [ln for ln in lines[start:end] if ln.strip()]
+        # The ⚠️ hand-off hint ("_Not your area? Hand it to …_") is composed
+        # only beside rows, so once every row is filed off it goes with them.
+        # Counting it as content left #21948's brief with a header-only ⚠️
+        # table under "Check the ⚠️ items, then approve".
+        content = [ln for ln in lines[start:end]
+                   if ln.strip() and not ln.startswith(_HANDOFF_HINT_PREFIX)]
         if content and all(ln.startswith("|") and cr.is_table_furniture(ln) for ln in content):
             sentinel = _EMPTY_SENTINEL.get(bucket, "")
             if bucket == "reviewer-check":
@@ -598,23 +691,288 @@ def count_blocking(findings: list[dict], state_findings: dict) -> int:
 def refresh_counts(author_body: str, brief_body: str | None, state: dict | None) -> tuple[str, str | None]:
     """Recompute everything that depends on dispositions after REVIEW_STATE
     changes: the author header's blocking count and the brief's "Waiting on
-    the author" block. Shared by apply-update.py (update lane) and
-    resolve-handler.py (/resolve lane) — before this, a `/resolve F1
-    accepted` left both saying "1 item blocks merge" (2026-09-01 smoke)."""
+    the author" block. Called by apply-update.py (update lane) — before
+    this, an accepted F1 left both saying "1 item blocks merge" (2026-09-01
+    smoke)."""
     findings = open_author_findings(author_body)
     sf = (state or {}).get("findings", {}) or {}
     author_body = _fix_header(author_body, count_blocking(findings, sf))
     if brief_body is not None:
         brief_body = cr.replace_waiting_block(brief_body, findings, sf)
         # The Facts bullet moves too (an accepted ❓ is no longer "open").
-        # No evidence object here (the /resolve lane is uncredentialed), so
-        # rows stand in: origin "model" + the claim-quote heuristic.
+        # No evidence object here, so rows stand in: origin "model" + the claim-quote heuristic.
         rows = [dict(f, origin="model", status="open", disposition=sf.get(f["id"])) for f in findings]
         rows += [{"id": p["id"], "bucket": b, "text": p["body"], "origin": "model", "status": "open",
                   "disposition": sf.get(p["id"])}
                  for b, _i, p, _r in _walk(brief_body, BRIEF_SECTIONS, "brief")]
         brief_body = refresh_facts_line(brief_body, rows)
     return author_body, brief_body
+
+
+def restamp_footer(body: str, footer: str) -> str:
+    """Replace everything from FOOTER_SENTINEL to the end with `footer`.
+
+    The footer is the card's last block by contract (output-format.md), and
+    both cards' footers are composer-owned, so a refresh re-stamps them
+    rather than carrying forward whatever the card was first published with.
+    Without this, a card composed before a footer change kept the old one
+    through every refresh (#21760 kept an expanded "### How to answer" after
+    the fold shipped). A body with no sentinel is returned unchanged; the
+    validator reports that separately."""
+    at = body.find(cr.FOOTER_SENTINEL)
+    if at < 0:
+        return body
+    return body[:at] + footer.rstrip("\n") + "\n"
+
+
+# ---- the card size budget -------------------------------------------------
+#
+# pinned-comment.sh refuses a card over its budget and never splits a v3 card,
+# so a card that outgrows it fails the publish after the whole model pass has
+# run, and every retry composes the same card and fails the same way.
+# pulumi/docs#22200 did that three times running (73, 76, then 80 KB) on 88
+# blocking findings, half the bytes in Files-view links and half in 88
+# near-identical Do-this blocks. Nothing upstream measured the card.
+#
+# fit_author_card measures it here, where both lanes finish a card (build()
+# for the initial lane, apply-update.py for the update lane), and sheds the
+# parts the evidence page also carries, cheapest loss first, until it fits:
+#
+#   question-links    ❓ rows lose their Files-view and ✏️ links
+#   resolved-links    ✅ Resolved rows lose theirs
+#   question-details  ❓ Do-this blocks go (a group's block stays: it is the
+#                     only place on the card that names its claims)
+#   blocker-links     🚨 rows lose their links
+#   group-claims      a group's claim list becomes a one-line pointer
+#   blocker-details   🚨 Do-this blocks go (their one-click fixes with them)
+#
+# Every row stays: rows are what the update lane, the Sentinel, count-buckets,
+# and REVIEW_STATE join on. The evidence object keeps every block (build()
+# mirrors them into `detail` before this runs) and the evidence page renders
+# them, so what the card sheds is a click away rather than gone.
+
+CARD_MAX_BYTES = 60_000  # pinned-comment.sh DEFAULT_MAX_BYTES; keep the two in step
+# What can still grow after this runs: publish substitutes %%EVIDENCE_URL%%
+# (about 85 bytes today) and the update lane restamps the header and <sub>.
+CARD_BUDGET = CARD_MAX_BYTES - 2_000
+
+FIT_NOTE_PREFIX = "_The **Do this** notes for these "
+_RESOLVED_HEADING = "### ✅ Resolved since last review"
+_GROUP_POINTER_RE = re.compile(
+    r"^_The (?P<n>\d+) claims are listed on the evidence page \(\*\*Full evidence\*\*, below\)\._$")
+
+
+def card_bytes(body: str) -> int:
+    return len(body.encode("utf-8"))
+
+
+def fit_note(noun: str) -> str:
+    return (f"{FIT_NOTE_PREFIX}{noun} are on the evidence page (**Full evidence**, below): "
+            "with them, this card would be over GitHub's comment size limit._")
+
+
+def group_pointer(n: int) -> str:
+    return f"_The {n} claims are listed on the evidence page (**Full evidence**, below)._"
+
+
+def _row_spans(body: str, bucket: str) -> list[tuple[int, int]]:
+    """The table-row line spans of one section: a 🚨/❓ bucket, the brief's
+    ⚠️, or "resolved" (the ✅ table, collapsed inside its <details>)."""
+    lines = body.splitlines()
+    if bucket == "resolved":
+        head = next((i for i, ln in enumerate(lines) if ln.startswith(_RESOLVED_HEADING)), None)
+        if head is None:
+            return []
+        end = next((j for j in range(head + 1, len(lines)) if is_section_terminator(lines[j])),
+                   len(lines))
+        return [(head + 1, end)]
+    headings = {**AUTHOR_SECTIONS, **BRIEF_SECTIONS}
+    return [(s, e) for b, s, e in _sections(body, headings) if b == bucket]
+
+
+def _unlink_rows(body: str, bucket: str) -> str:
+    """Re-render one section's rows without their Files-view and ✏️ links
+    (the bare form the grammar already parses)."""
+    lines = body.splitlines()
+    for start, end in _row_spans(body, bucket):
+        for i in range(start, end):
+            parsed = cr.parse_finding_line(lines[i])
+            if parsed:
+                lines[i] = cr.render_finding_row(parsed["id"], ref=parsed["ref"],
+                                                 file=parsed["file"], body=parsed["body"])
+    # The browser hint explains the ✏️ links; once none are left it explains nothing.
+    if not any("[✏️" in ln for ln in lines):
+        lines = [ln for ln in lines if not ln.startswith(cr.V3_BROWSER_HINT_PREFIX)]
+    return "\n".join(lines) + ("\n" if body.endswith("\n") else "")
+
+
+def _is_group_block(text: str) -> bool:
+    return cr.GROUP_LIST_SUMMARY_SUFFIX in text or any(
+        _GROUP_POINTER_RE.match(ln.strip()) for ln in text.splitlines())
+
+
+def _drop_blocks(body: str, bucket: str, noun: str) -> str:
+    """Remove one section's Do-this blocks (never a group's) and leave a
+    pointer under its table saying where they went."""
+    ids = {p["id"] for b, _i, p, _r in _walk(body, AUTHOR_SECTIONS, "author") if b == bucket}
+    spans, texts = collect_detail_blocks(body)
+    lines = body.splitlines()
+    shed = {fid for fid in spans if fid in ids and not _is_group_block(texts[fid])}
+    # A kept block's trailing blank line is the only thing ending its
+    # </details> HTML block; take it and the next line renders as raw HTML.
+    kept_lines = {i for fid, (s, e) in spans.items() if fid not in shed for i in range(s, e)}
+    drop: set[int] = set()
+    for fid in shed:
+        start, end = spans[fid]
+        drop.update(range(start, end))
+        if start > 0 and not lines[start - 1].strip() and start - 1 not in kept_lines:
+            drop.add(start - 1)
+    if not drop:
+        return body
+    row_spans = _row_spans(body, bucket)
+    note = fit_note(noun)
+    if row_spans and note not in lines:
+        # After the section's last table row, so every row walker still
+        # reads the table first (they stop at the first `####`).
+        start, end = row_spans[0]
+        last_row = max((i for i in range(start, end) if lines[i].startswith("|")), default=None)
+        if last_row is not None:
+            lines[last_row + 1:last_row + 1] = ["", note, ""]
+            drop = {i + 3 if i > last_row else i for i in drop}
+    out = [ln for i, ln in enumerate(lines) if i not in drop]
+    return "\n".join(out) + ("\n" if body.endswith("\n") else "")
+
+
+def _collapse_group_lists(body: str) -> str:
+    """Swap each group's collapsed claim list for a one-line pointer."""
+    lines = body.splitlines()
+    out: list[str] = []
+    i = 0
+    while i < len(lines):
+        ln = lines[i]
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        m = re.match(r"^<summary>The (\d+)" + re.escape(cr.GROUP_LIST_SUMMARY_SUFFIX) + r"$", nxt)
+        if ln == "<details>" and m:
+            close = next((j for j in range(i + 2, len(lines)) if lines[j] == "</details>"), None)
+            if close is not None:
+                out.append(group_pointer(int(m.group(1))))
+                i = close + 1
+                continue
+        out.append(ln)
+        i += 1
+    return "\n".join(out) + ("\n" if body.endswith("\n") else "")
+
+
+_AUTHOR_FIT_STEPS = (
+    ("question-links", lambda b: _unlink_rows(b, "author-answer")),
+    ("resolved-links", lambda b: _unlink_rows(b, "resolved")),
+    ("question-details", lambda b: _drop_blocks(b, "author-answer", "questions")),
+    ("blocker-links", lambda b: _unlink_rows(b, "outstanding")),
+    ("group-claims", _collapse_group_lists),
+    ("blocker-details", lambda b: _drop_blocks(b, "outstanding", "findings")),
+)
+_BRIEF_FIT_STEPS = (
+    ("check-links", lambda b: _unlink_rows(b, "reviewer-check")),
+)
+
+
+def _fit(body: str, steps, budget: int) -> tuple[str, list[str]]:
+    applied: list[str] = []
+    for name, step in steps:
+        if card_bytes(body) <= budget:
+            break
+        try:
+            shed = step(body)
+        except ContractViolation:
+            # A card this can't walk would fail its validation anyway; publish
+            # it as it is rather than lose it to the budget code.
+            break
+        if shed != body:
+            applied.append(name)
+            body = shed
+    return body, applied
+
+
+def fit_author_card(body: str, budget: int = CARD_BUDGET) -> tuple[str, list[str]]:
+    """(body, steps applied) — see the section comment above. A card already
+    under `budget` comes back untouched with no steps."""
+    return _fit(body, _AUTHOR_FIT_STEPS, budget)
+
+
+def fit_brief_card(body: str, budget: int = CARD_BUDGET) -> tuple[str, list[str]]:
+    """The brief's counterpart: its ⚠️ rows lose their links. Its other bulk
+    (the Waiting table, one line per blocking finding) shrinks with the author
+    card's own finding count, which the new-feature group keeps down."""
+    return _fit(body, _BRIEF_FIT_STEPS, budget)
+
+
+def fit_and_report(role: str, body: str, fit) -> str:
+    """Run a fit and say what it shed, as a run warning (both lanes call this).
+    stderr, because apply-update.py's stdout is its JSON report."""
+    before = card_bytes(body)
+    body, applied = fit(body)
+    if applied:
+        print(f"::warning::card fit: the {role} card was {before} bytes; shed "
+              f"{', '.join(applied)} to fit the {CARD_BUDGET}-byte budget "
+              f"(now {card_bytes(body)})", file=sys.stderr)
+    if card_bytes(body) > CARD_BUDGET:
+        print(f"::warning::card fit: the {role} card is still {card_bytes(body)} bytes "
+              "after every fit step; pinned-comment.sh will refuse it", file=sys.stderr)
+    return body
+
+
+def was_fitted(author_body: str) -> bool:
+    """True when an earlier fit shed Do-this blocks or a group's claim list."""
+    return any(ln.startswith(FIT_NOTE_PREFIX) or _GROUP_POINTER_RE.match(ln.strip())
+               for ln in author_body.splitlines())
+
+
+def restore_shed_blocks(blocks: dict[str, list[str]], open_ids: list[str],
+                        prior_findings: dict[str, dict]) -> dict[str, list[str]]:
+    """Undo an earlier fit in the update lane's id → block-lines map, from the
+    evidence it carries: a missing block for an open 🚨/❓ row comes back from
+    that finding's `detail`, a group's pointer line from its `members`.
+    fit_author_card sheds them again if the card is still too big, so a card
+    that shrinks (findings resolve) gets its blocks back instead of staying
+    lean for the rest of the PR. Call only when was_fitted() says so."""
+    out = dict(blocks)
+    for fid in open_ids:
+        detail = (prior_findings.get(fid) or {}).get("detail")
+        if fid not in out and detail:
+            out[fid] = [f"#### {fid} · Do this", "", *detail.splitlines()]
+    for fid, block in out.items():
+        members = (prior_findings.get(fid) or {}).get("members")
+        if not members:
+            continue
+        rebuilt: list[str] = []
+        for ln in block:
+            if _GROUP_POINTER_RE.match(ln.strip()):
+                rebuilt += cr.render_group_member_list(members)
+            else:
+                rebuilt.append(ln)
+        out[fid] = rebuilt
+    return out
+
+
+def restamp_brief_orient(brief_body: str) -> str:
+    """Replace the TIP callout directly under the brief header with the
+    composer's current one, so a refreshed guide doesn't keep the intro it
+    was first published with. Only a `> [!TIP]` block right under the
+    header is touched; anything else there is left alone."""
+    lines = brief_body.splitlines()
+    head = next((i for i, ln in enumerate(lines) if ln.startswith("## Reviewer's guide v")), None)
+    if head is None:
+        return brief_body
+    j = head + 1
+    while j < len(lines) and not lines[j].strip():
+        j += 1
+    if j >= len(lines) or lines[j].strip() != "> [!TIP]":
+        return brief_body
+    k = j
+    while k < len(lines) and lines[k].startswith(">"):
+        k += 1
+    lines[j:k] = cr.render_brief_orient()
+    return "\n".join(lines) + ("\n" if brief_body.endswith("\n") else "")
 
 
 def _fix_header(body: str, n_blocking: int, rev: int | None = None) -> str:
@@ -640,7 +998,7 @@ def _fix_header(body: str, n_blocking: int, rev: int | None = None) -> str:
                 k = j
                 while k < len(lines) and lines[k].startswith(">"):
                     k += 1
-                lines[j:k] = cr.render_author_orient(n_blocking)
+                lines[j:k] = cr.render_author_orient(n_blocking, *cr.orient_audience(body))
             break
     return "\n".join(lines) + ("\n" if body.endswith("\n") else "")
 
@@ -778,9 +1136,9 @@ def _self_test() -> int:
             fx_all, fid, "accepted", actor="alice", note="ship it",
             now=datetime(2026, 9, 1, 20, 1, tzinfo=timezone.utc))
     ra_all, _ = refresh_counts(review_state.replace_block(fx_author, fx_all), None, fx_all)
-    assert "— nothing blocks merge" in ra_all and "> [!NOTE]" in ra_all and "needs your answers" not in ra_all, "callout swaps at zero"
+    assert "— nothing blocks merge" in ra_all and "> [!NOTE]" in ra_all and "Answer every item" not in ra_all, "callout swaps at zero"
     ra_back, _ = refresh_counts(ra_all, None, None)
-    assert "> [!IMPORTANT]" in ra_back and "needs your answers" in ra_back, "and swaps back"
+    assert "> [!IMPORTANT]" in ra_back and "Answer every item" in ra_back, "and swaps back"
     assert "✋ accepted as-is by the author" in rb and "(1 more is answered — see State)" in rb, rb
     assert "1 settled — see the evidence page" in rb or "Facts:" not in fx_brief, rb
     ra0, _ = refresh_counts(fx_author, None, None)

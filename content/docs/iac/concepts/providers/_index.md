@@ -27,14 +27,14 @@ Providers are a specific type of [plugin](/docs/iac/concepts/plugins/) called a 
 
 Most Pulumi providers fall into one of two implementation approaches:
 
-- **Bridged providers** take a Terraform or OpenTofu provider as an underlying dependency and use the [Pulumi Terraform Bridge](https://github.com/pulumi/pulumi-terraform-bridge) to translate the underlying provider's schema into a Pulumi schema. The [AWS](/registry/packages/aws) and [Google Cloud](/registry/packages/gcp) providers are examples.
-- **Native providers** are not bridged. They are generated from a cloud or service's API specification, which produces both the resource definitions and the CRUD calls that manage those resources. The [Azure Native](/registry/packages/azure-native) and [Kubernetes](/registry/packages/kubernetes) providers are examples.
+- **Bridged providers** take a Terraform or OpenTofu provider as an underlying dependency and use the [Pulumi Terraform Bridge](https://github.com/pulumi/pulumi-terraform-bridge) to translate the underlying provider's schema into a Pulumi schema. The [AWS](/registry/packages/aws/) and [Google Cloud](/registry/packages/gcp/) providers are examples.
+- **Native providers** are not bridged. They are generated from a cloud or service's API specification, which produces both the resource definitions and the CRUD calls that manage those resources. The [Azure Native](/registry/packages/azure-native/) and [Kubernetes](/registry/packages/kubernetes/) providers are examples.
 
-Some providers are also **parameterized providers**, accepting parameters at install time to generate a local SDK in the language of your Pulumi program. The [Any Terraform Provider](/docs/iac/concepts/providers/any-terraform-provider/) is a parameterized bridged provider that can wrap any Terraform or OpenTofu provider, even ones without a pre-built Pulumi package. The [Azure Native](/registry/packages/azure-native) provider supports parameters to generate an SDK that targets a specific Azure API version, useful because Azure publishes many API versions for a given service, and the [Kubernetes](/registry/packages/kubernetes) provider uses them to generate typed SDKs for [custom resource definitions](/registry/packages/kubernetes/how-to-guides/typed-customresources-with-provider-extensions/). See [Installing a Parameterized Provider](#installing-a-parameterized-provider-via-pulumi-package-add) for details.
+Some providers are also **parameterized providers**, accepting parameters at install time to generate a local SDK in the language of your Pulumi program. The [Any Terraform Provider](/docs/iac/concepts/providers/any-terraform-provider/) is a parameterized bridged provider that can wrap any Terraform or OpenTofu provider, even ones without a pre-built Pulumi package. The [Azure Native](/registry/packages/azure-native/) provider supports parameters to generate an SDK that targets a specific Azure API version, useful because Azure publishes many API versions for a given service, and the [Kubernetes](/registry/packages/kubernetes/) provider uses them to generate typed SDKs for [custom resource definitions](/dev/tutorials/typed-customresources-with-provider-extensions/). See [Installing a Parameterized Provider](#installing-a-parameterized-provider-via-pulumi-package-add) for details.
 
 Pulumi also supports **[dynamic providers](/docs/iac/concepts/providers/dynamic-providers/)** in TypeScript and Python, which let you declare custom resources inline within a Pulumi program without authoring or installing a separate provider package.
 
-The [Pulumi Registry](/registry) is the catalog of publicly available providers. Together, bridging, native generation, parameterization, and dynamic providers let a Pulumi program reach the full breadth of the infrastructure-as-code ecosystem and extend it with capabilities like API-version-specific SDKs and inline custom resource declarations.
+The [Pulumi Registry](/registry/) is the catalog of publicly available providers. Together, bridging, native generation, parameterization, and dynamic providers let a Pulumi program reach the full breadth of the infrastructure-as-code ecosystem and extend it with capabilities like API-version-specific SDKs and inline custom resource declarations.
 
 {{% notes type="info" %}}
 Some organizations also maintain their own private providers, though this is relatively uncommon. More commonly, organizations using Pulumi build [components](/docs/iac/concepts/components/) that consume one or more providers to create reusable abstractions, and distribute those components through [Pulumi IDP](/docs/idp/).
@@ -44,12 +44,12 @@ Some organizations also maintain their own private providers, though this is rel
 
 You can install a provider and use it in your Pulumi program in two ways:
 
-1. **Adding a reference to a provider's SDK using a package manager** in the language of your Pulumi program (e.g., npm in Node.js). This method is more common and is used for nearly all packages in the [Pulumi Registry](/registry).
-1. **Using the [`pulumi package add`](/docs/iac/cli/commands/pulumi_package_add/) command**. This method is most commonly used for [parameterized providers](https://pulumi-developer-docs.readthedocs.io/latest/docs/architecture/providers/parameterized.html), such as the [Any Terraform Provider](/registry/packages/terraform-provider). The `pulumi package add` command generates a local SDK on disk (as opposed to downloading a pre-generated SDK from a package feed like npm) and allows you to consume any provider in the OpenTofu registry (or any Terraform-registry-compatible source) in your Pulumi program, even if there is no corresponding provider in the Pulumi Registry.
+1. **Adding a reference to a provider's SDK using a package manager** in the language of your Pulumi program (e.g., npm in Node.js). This method is more common and is used for nearly all packages in the [Pulumi Registry](/registry/).
+1. **Using the [`pulumi package add`](/docs/iac/cli/commands/pulumi_package_add/) command**. This method is most commonly used for [parameterized providers](https://pulumi-developer-docs.readthedocs.io/latest/docs/architecture/providers/parameterized.html), such as the [Any Terraform Provider](/registry/packages/terraform-provider/). The `pulumi package add` command generates a local SDK on disk (as opposed to downloading a pre-generated SDK from a package feed like npm) and allows you to consume any provider in the OpenTofu registry (or any Terraform-registry-compatible source) in your Pulumi program, even if there is no corresponding provider in the Pulumi Registry.
 
 ### Installing a provider via a package manager
 
-The most common method of installing a provider is to use your language's package management tool: npm in Node.js, PyPI in Python, etc. For example, the [AWS provider](/registry/packages/aws/installation-configuration) has the following SDKs available:
+The most common method of installing a provider is to use your language's package management tool: npm in Node.js, PyPI in Python, etc. For example, the [AWS provider](/registry/packages/aws/installation-configuration/) has the following SDKs available:
 
 - TypeScript: `@pulumi/aws`
 - Python: `pulumi-aws`
@@ -61,7 +61,7 @@ After installing the provider using your package manager, you reference the prov
 
 ### Installing a parameterized provider via `pulumi package add`
 
-Parameterized providers accept parameters at install time and generate a local provider SDK in the language of your Pulumi program. The [Any Terraform Provider](/registry/packages/terraform-provider) is one of them: its parameter is a Terraform or OpenTofu provider, and it's how you use a provider that has no Pulumi provider at all — no plugin and no SDK — because a provider for the cloud, SaaS service, or on-prem device you need exists only in [the OpenTofu registry](https://search.opentofu.org) or another Terraform-registry-compatible source. Other parameterized providers specialize a provider that already exists: [Azure Native](/registry/packages/azure-native) generates an SDK for a specific Azure API version, and [Kubernetes](/registry/packages/kubernetes) generates typed SDKs for custom resource definitions.
+Parameterized providers accept parameters at install time and generate a local provider SDK in the language of your Pulumi program. The [Any Terraform Provider](/registry/packages/terraform-provider/) is one of them: its parameter is a Terraform or OpenTofu provider, and it's how you use a provider that has no Pulumi provider at all — no plugin and no SDK — because a provider for the cloud, SaaS service, or on-prem device you need exists only in [the OpenTofu registry](https://search.opentofu.org) or another Terraform-registry-compatible source. Other parameterized providers specialize a provider that already exists: [Azure Native](/registry/packages/azure-native/) generates an SDK for a specific Azure API version, and [Kubernetes](/registry/packages/kubernetes/) generates typed SDKs for custom resource definitions.
 
 For example, to generate a local SDK for the [`hashicorp/random` provider](https://search.opentofu.org/provider/hashicorp/random/latest):
 
@@ -175,14 +175,14 @@ pulumi config set aws:region us-west-2
 
 Then, you deploy the following Pulumi program:
 
-{{< chooser language "typescript,python,go,csharp,java,yaml" >}}
+{{< chooser language "typescript,python,go,csharp,java,yaml,hcl" >}}
 
 {{% choosable language typescript %}}
 
 ```typescript
-let aws = require("@pulumi/aws");
+import * as aws from "@pulumi/aws";
 
-let instance = new aws.ec2.Instance("myInstance", {
+const instance = new aws.ec2.Instance("myInstance", {
     instanceType: "t2.micro",
     ami: "myAMI",
 });
@@ -242,6 +242,16 @@ resources:
 ```
 
 {{% /choosable %}}
+{{% choosable language hcl %}}
+
+```hcl
+resource "aws_instance" "my_instance" {
+  instance_type = "t2.micro"
+  ami           = "myAMI"
+}
+```
+
+{{% /choosable %}}
 
 {{< /chooser >}}
 
@@ -265,25 +275,25 @@ pulumi config set aws:region us-west-2
 
 Then deploy the following program, which uses an explicit provider for the certificate:
 
-{{< chooser language "typescript,python,go,csharp,java,yaml" >}}
+{{< chooser language "typescript,python,go,csharp,java,yaml,hcl" >}}
 
 {{% choosable language typescript %}}
 
 ```typescript
-let pulumi = require("@pulumi/pulumi");
-let aws = require("@pulumi/aws");
+import * as pulumi from "@pulumi/pulumi";
+import * as aws from "@pulumi/aws";
 
 // Create an AWS provider for the us-east-1 region.
-let useast1 = new aws.Provider("useast1", { region: "us-east-1" });
+const useast1 = new aws.Provider("useast1", { region: "us-east-1" });
 
 // Create an ACM certificate in us-east-1.
-let cert = new aws.acm.Certificate("cert", {
+const cert = new aws.acm.Certificate("cert", {
     domainName: "foo.com",
     validationMethod: "EMAIL",
 }, { provider: useast1 });
 
 // Create an ALB listener in the default region that references the ACM certificate created above.
-let listener = new aws.lb.Listener("listener", {
+const listener = new aws.lb.Listener("listener", {
     loadBalancerArn: loadBalancerArn,
     port: 443,
     protocol: "HTTPS",
@@ -461,6 +471,48 @@ resources:
 ```
 
 {{% /choosable %}}
+{{% choosable language hcl %}}
+
+An explicit provider in Pulumi HCL is an aliased `provider` block, selected on a resource with the `provider` meta-argument.
+
+```hcl
+variable "load_balancer_arn" {
+  type = string
+}
+
+variable "target_group_arn" {
+  type = string
+}
+
+# Create an AWS provider for the us-east-1 region.
+provider "aws" {
+  alias  = "useast1"
+  region = "us-east-1"
+}
+
+# Create an ACM certificate in us-east-1.
+resource "aws_acm_certificate" "cert" {
+  provider          = aws.useast1
+  domain_name       = "foo.com"
+  validation_method = "EMAIL"
+}
+
+# Create an ALB listener in the default region that references the ACM certificate created above.
+resource "aws_lb_listener" "listener" {
+  load_balancer_arn = var.load_balancer_arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate.cert.arn
+
+  default_action {
+    target_group_arn = var.target_group_arn
+    type             = "forward"
+  }
+}
+```
+
+{{% /choosable %}}
 
 {{< /chooser >}}
 
@@ -478,21 +530,22 @@ implicit inheritance.
 
 Component resources also accept a set of providers to use with their child resources. For example, the EC2 instance parented to `myResource` in the program below is created in `us-east-1`, and the Kubernetes pod parented to myResource is created in the cluster targeted by the `test-ci` context.
 
-{{< chooser language "typescript,python,go,csharp,java,yaml" >}}
+{{< chooser language "typescript,python,go,csharp,java,yaml,hcl" >}}
 
 {{% choosable language typescript %}}
 
 ```typescript
 class MyResource extends pulumi.ComponentResource {
-    constructor(name, opts) {
-        let instance = new aws.ec2.Instance("instance", { ... }, { parent: this });
-        let pod = new kubernetes.core.v1.Pod("pod", { ... }, { parent: this });
+    constructor(name: string, opts?: pulumi.ComponentResourceOptions) {
+        super("example:index:MyResource", name, {}, opts);
+        const instance = new aws.ec2.Instance("instance", { ... }, { parent: this });
+        const pod = new kubernetes.core.v1.Pod("pod", { ... }, { parent: this });
     }
 }
 
-let useast1 = new aws.Provider("useast1", { region: "us-east-1" });
-let myk8s = new kubernetes.Provider("myk8s", { context: "test-ci" });
-let myResource = new MyResource("myResource", { providers: { aws: useast1, kubernetes: myk8s } });
+const useast1 = new aws.Provider("useast1", { region: "us-east-1" });
+const myk8s = new kubernetes.Provider("myk8s", { context: "test-ci" });
+const myResource = new MyResource("myResource", { providers: { aws: useast1, kubernetes: myk8s } });
 ```
 
 {{% /choosable %}}
@@ -612,6 +665,56 @@ resources:
       # pod properties...
     options:
       provider: ${myk8s}
+```
+
+{{% /choosable %}}
+{{% choosable language hcl %}}
+
+A Pulumi HCL module becomes a component resource, and the `providers` meta-argument passes provider configurations down to everything it declares.
+
+`my-resource/main.tf` declares the children:
+
+```hcl
+resource "aws_instance" "instance" {
+  ami           = "ami-0e2c8caa4b6378d8c"
+  instance_type = "t3.micro"
+}
+
+resource "kubernetes_pod_v1" "pod" {
+  metadata {
+    name = "my-pod"
+  }
+
+  spec {
+    container {
+      name  = "app"
+      image = "nginx:1.27"
+    }
+  }
+}
+```
+
+The root program configures the providers and hands them to the module:
+
+```hcl
+provider "aws" {
+  alias  = "useast1"
+  region = "us-east-1"
+}
+
+provider "kubernetes" {
+  alias          = "myk8s"
+  config_context = "test-ci"
+}
+
+module "my_resource" {
+  source = "./my-resource"
+
+  providers = {
+    aws        = aws.useast1
+    kubernetes = kubernetes.myk8s
+  }
+}
 ```
 
 {{% /choosable %}}
