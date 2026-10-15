@@ -27,6 +27,8 @@ To delete a protected resource, it must first be *unprotected*. There are two wa
 
 Once the resource is unprotected, it can be deleted as part of a following update.
 
+Running `pulumi destroy` on a stack that contains a protected resource fails before any resource is deleted. To remove a whole stack that has protected resources, unprotect them first with `pulumi state unprotect --all`, which was added in Pulumi CLI v3.0.
+
 The default is to inherit this value from the parent resource, and `false` for resources without a parent.
 
 {{< chooser language "typescript,python,go,csharp,java,yaml,hcl" >}}
