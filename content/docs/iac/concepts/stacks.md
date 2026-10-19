@@ -1316,3 +1316,5 @@ To force the deletion of a stack that still contains resources---potentially orp
 {{% notes type="info" %}}
 If a stack is deleted by mistake, organization administrators can restore it from the Pulumi Cloud console for a limited time. See [Restoring deleted stacks](/docs/iac/operations/stack-management/restoring-deleted-stacks/).
 {{% /notes %}}
+
+<!-- sentinel status regression fixture B -->
