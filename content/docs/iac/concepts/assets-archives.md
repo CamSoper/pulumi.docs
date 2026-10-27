@@ -28,6 +28,7 @@ aliases:
 - /docs/concepts/inputs-outputs/assets-archives/
 - /docs/concepts/assets-archives/
 ---
+<!-- fork test: base change that shifts the PR's hunk -->
 
 Some resource inputs take a file or a folder instead of a string or a number. Pulumi has two built-in types for those inputs: an *asset*, which is a single file, and an *archive*, which is a collection of files. When you pass one to a resource, Pulumi reads the contents, packages them in the format the resource expects, and tracks them as part of your stack.
 
