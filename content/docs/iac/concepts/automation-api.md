@@ -20,6 +20,7 @@ aliases:
 - /docs/iac/using-pulumi/automation-api/concepts-terminology/
 - /docs/iac/automation-api/concepts-terminology/
 ---
+<!-- fork test: base change that shifts the PR's hunk -->
 
 The Pulumi Automation API is a programmatic interface for running Pulumi programs without the Pulumi CLI. It encapsulates the functionality of the CLI—`pulumi up`, `pulumi preview`, `pulumi destroy`, `pulumi stack init`, and so on—as a strongly typed SDK, so you can drive the Pulumi engine from within your own application instead of invoking the `pulumi` command from a shell.
 
