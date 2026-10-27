@@ -463,6 +463,26 @@
     },
     {
       "authenticationFailure": false,
+      "category": "organization",
+      "deprecated": false,
+      "description": "A user was granted a permission set on a stack, an ESC environment or an Insights account.",
+      "displayName": "User Assignment Granted",
+      "event": "entity-user-assignment-granted",
+      "requiresOrgAdmin": false,
+      "requiresStackAdmin": false
+    },
+    {
+      "authenticationFailure": false,
+      "category": "organization",
+      "deprecated": false,
+      "description": "A user's permission set on a stack, an ESC environment or an Insights account was removed.",
+      "displayName": "User Assignment Revoked",
+      "event": "entity-user-assignment-revoked",
+      "requiresOrgAdmin": false,
+      "requiresStackAdmin": false
+    },
+    {
+      "authenticationFailure": false,
       "category": "environments",
       "deprecated": false,
       "description": "An ESC environment was cloned into a new environment.",
@@ -538,6 +558,16 @@
       "description": "The resolved values of an open ESC environment draft were read.",
       "displayName": "Environment Draft Read Open",
       "event": "environment-draft-read-open",
+      "requiresOrgAdmin": false,
+      "requiresStackAdmin": false
+    },
+    {
+      "authenticationFailure": false,
+      "category": "environments",
+      "deprecated": false,
+      "description": "An ESC environment was opened as an import of another environment.",
+      "displayName": "Environment Import Open",
+      "event": "environment-import-open",
       "requiresOrgAdmin": false,
       "requiresStackAdmin": false
     },
@@ -1129,6 +1159,26 @@
       "displayName": "Personal Token Created for OIDC Issuer",
       "event": "personal-token-created-for-oidc-issuer",
       "requiresOrgAdmin": false,
+      "requiresStackAdmin": false
+    },
+    {
+      "authenticationFailure": false,
+      "category": "policy",
+      "deprecated": false,
+      "description": "A policy exception was created.",
+      "displayName": "Policy Exception Created",
+      "event": "policy-exception-created",
+      "requiresOrgAdmin": true,
+      "requiresStackAdmin": false
+    },
+    {
+      "authenticationFailure": false,
+      "category": "policy",
+      "deprecated": false,
+      "description": "An active policy exception was removed.",
+      "displayName": "Policy Exception Removed",
+      "event": "policy-exception-removed",
+      "requiresOrgAdmin": true,
       "requiresStackAdmin": false
     },
     {

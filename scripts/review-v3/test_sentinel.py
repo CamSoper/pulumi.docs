@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Truth-table tests for sentinel.py — every gate ok/red/error individually,
 the conclusion mapping (the fails-open trap: errors are action_required,
-never neutral), the waive semantics (G4 has no waiver), the external and
+never neutral), the waive semantics (a waive clears every gate, G4 too), the external and
 legacy lanes, and the workflow's no-PR-code security invariant.
 
 Runs under pytest (make test-review-pipeline) and standalone via
@@ -103,6 +103,8 @@ class StubGh:
         label_events=None,
         workflow_runs=None,
         workflow_runs_error=False,
+        workflow_state="active",
+        workflow_state_error=False,
     ):
         self.pr = pr or {}
         self.files = files or []
@@ -117,6 +119,8 @@ class StubGh:
         self.label_events = label_events or []
         self.workflow_runs = workflow_runs or []
         self.workflow_runs_error = workflow_runs_error
+        self.workflow_state = workflow_state
+        self.workflow_state_error = workflow_state_error
         self.patched = []  # (comment_id, body)
         self.posted = []   # body
         self.deleted = []  # comment_id
@@ -155,6 +159,11 @@ class StubGh:
             raise RuntimeError("actions API unavailable")
         return self.workflow_runs
 
+    def get_workflow_state(self, workflow_file):
+        if self.workflow_state_error:
+            raise RuntimeError("actions API unavailable")
+        return self.workflow_state
+
     def patch_issue_comment(self, comment_id, body):
         self.patched.append((comment_id, body))
 
@@ -177,12 +186,15 @@ class StubGh:
 BASE_REPO = "pulumi/docs"
 
 
-def pr_meta(labels=(), draft=False, author="someone", head_repo=BASE_REPO):
+def pr_meta(labels=(), draft=False, author="someone", head_repo=BASE_REPO, branch="topic"):
     """`head_repo` is the fork test: same as base = internal; another name
     or None (deleted fork) = external. Pass `head_repo=...` omitted from
-    the dict via `_no_head_repo()` to model a payload without the fact."""
+    the dict via `_no_head_repo()` to model a payload without the fact.
+    `branch` matters for bot authors: the review lane skips their PRs except
+    on the branches it names."""
     return {
-        "head": {"sha": HEAD, "repo": None if head_repo is None else {"full_name": head_repo}},
+        "head": {"sha": HEAD, "ref": branch,
+                 "repo": None if head_repo is None else {"full_name": head_repo}},
         "base": {"repo": {"full_name": BASE_REPO}},
         "draft": draft,
         "user": {"login": author},
@@ -216,6 +228,51 @@ def docs_file_mechanical():
         "filename": "content/docs/iac/x.md",
         "status": "modified",
         "patch": "@@ -40,2 +40,2 @@\n context\n-teh stack\n+the stack",
+    }
+
+
+def blog_date_bump_file():
+    """#22417, verbatim: a `date:` bump. Frontmatter-only by triage's bar, and
+    not mechanical — that bar allows only `updated` and `tags`."""
+    return {
+        "filename": "content/blog/self-hosted-ai-infrastructure-pulumi-aicr/index.md",
+        "status": "modified",
+        "patch": ("@@ -1,6 +1,6 @@\n ---\n title: \"AI infrastructure on tap with the Pulumi AICR provider\"\n"
+                  "-date: 2026-10-19\n+date: 2026-10-21\n draft: false\n"
+                  " meta_desc: \"The Pulumi NVIDIA AI Cluster Runtime (AICR) provider deploys GPU clusters.\"\n"
+                  " feature_image: feature.png"),
+    }
+
+
+def docs_count_fix_file():
+    """#22429's shape: a one-word count correction. Trivial by triage's bar,
+    but the number trips the claims signal, so it is not mechanical."""
+    return {
+        "filename": "content/docs/iac/guides/migration/_index.md",
+        "status": "modified",
+        "patch": ("@@ -55,3 +55,3 @@\n context\n"
+                  "-New infrastructure can coexist with old infrastructure in two ways.\n"
+                  "+New infrastructure can coexist with old infrastructure in three ways.\n context"),
+    }
+
+
+def docs_external_link_file():
+    """Neither shortcut fits (a link change rules out trivial, a body change
+    rules out frontmatter-only), and an external link rules out mechanical."""
+    return {
+        "filename": "content/docs/iac/x.md",
+        "status": "modified",
+        "patch": "@@ -40,2 +40,2 @@\n context\n-See the guide.\n+See [the guide](https://example.com/guide).",
+    }
+
+
+def editions_sync_file():
+    """The marketing-web editions sync: generated data, opened by pulumi-bot
+    on `chore/sync-pulumi-editions`, with no `automation/merge` label."""
+    return {
+        "filename": "data/pulumi_editions.yaml",
+        "status": "modified",
+        "patch": "@@ -1,3 +1,3 @@\n features:\n   - id: rbac\n-    min_edition: enterprise\n+    min_edition: pro",
     }
 
 
@@ -389,7 +446,7 @@ def test_substantive_no_review_g1_red():
     v = sentinel.evaluate(gh, CONFIG)
     assert v.conclusion == "failure"
     assert _gate(v, "G1").status == "red"
-    assert "#update-review" in _gate(v, "G1").message
+    assert "/update-review" in _gate(v, "G1").message
 
 
 def test_findings_undecided_g2_red_lists_ids():
@@ -400,7 +457,7 @@ def test_findings_undecided_g2_red_lists_ids():
     v = sentinel.evaluate(gh, CONFIG)
     g2 = _gate(v, "G2")
     assert g2.status == "red" and "F1" in g2.message and "F2" in g2.message
-    assert "@claude" in g2.message and "/resolve" not in g2.message
+    assert "/update-review" in g2.message and "/resolve" not in g2.message and "@claude" not in g2.message
     assert v.conclusion == "failure"
     assert v.blocking_ids == ["F1", "F2"]
 
@@ -789,7 +846,7 @@ def test_trivial_prose_flagged_without_triage_comment_names_the_fix():
     v = sentinel.evaluate(gh, CONFIG)
     g1 = _gate(v, "G1")
     assert g1.status == "red"
-    assert "#new-review" in g1.message and "review:trivial" in g1.message
+    assert "/new-review" in g1.message and "review:trivial" in g1.message
     assert _gate(v, "G2").status == "skip"
     # A comment from someone other than the triage bot is not the stand-in.
     gh = StubGh(pr=pr_meta(labels=labels), files=[docs_file_mechanical()],
@@ -828,6 +885,186 @@ def test_stale_author_card_is_not_rescued_by_trivial_standin():
     assert "stands in" not in _gate(v, "G1").message
     assert _gate(v, "G2").status == "red"
     assert v.conclusion == "failure"
+
+
+def test_frontmatter_only_skip_passes_g1_and_still_needs_the_approver():
+    """#22417. The review lane skips `review:frontmatter-only`; G1 had no
+    branch for it, so a `date:` bump sat red until it was waived."""
+    base = dict(pr=pr_meta(labels=["review:frontmatter-only"]), files=[blog_date_bump_file()])
+    v = sentinel.evaluate(StubGh(**base), CONFIG)
+    assert v.mechanical is False  # `date` is outside the mechanical bar's keys
+    g1 = _gate(v, "G1")
+    assert g1.status == "ok", g1.message
+    assert g1.message.startswith("frontmatter-only change")
+    assert "review:frontmatter-only" in g1.message
+    assert _gate(v, "G2").status == "ok" and "no findings to answer" in _gate(v, "G2").message
+    assert _gate(v, "G3").status == "red"
+    assert v.conclusion == "failure"
+    assert "approving reviewer's review is the review" in v.summary
+    assert ("| ✅ | **G1 review-ran** | Nothing to do: frontmatter-only change"
+            in sentinel.render_status_comment(v))
+    approved = sentinel.evaluate(
+        StubGh(**base, reviews=[approval("mkt")],
+               memberships={("docs-marketing-review", "mkt"): "active"}), CONFIG)
+    assert approved.conclusion == "success", approved.to_json()
+
+
+def test_clean_trivial_skip_that_misses_the_mechanical_bar_passes_g1():
+    """#22429. Triage posts its prose comment only when it finds something, so
+    a clean trivial PR has none. The stand-in used to require it, on the
+    assumption that a clean trivial PR is mechanical anyway — but a count
+    correction trips the claims signal, so it isn't, and G1 sat red."""
+    base = dict(pr=pr_meta(labels=["review:trivial"], author="pulumi-bot",
+                           branch="content-review/docs-iac-guides-migration"),
+                files=[docs_count_fix_file()])
+    v = sentinel.evaluate(StubGh(**base), CONFIG)
+    assert v.mechanical is False
+    g1 = _gate(v, "G1")
+    assert g1.status == "ok", g1.message
+    assert g1.message.startswith("trivial change") and "left no nits" in g1.message
+    assert _gate(v, "G2").status == "ok"
+    assert _gate(v, "G3").status == "red"
+    approved = sentinel.evaluate(
+        StubGh(**base, reviews=[approval("guild")],
+               memberships={("docs-guild", "guild"): "active"}), CONFIG)
+    assert approved.conclusion == "success", approved.to_json()
+
+
+def test_prose_flagged_frontmatter_only_stands_on_the_triage_comment():
+    labels = ["review:frontmatter-only", "review:prose-flagged"]
+    v = sentinel.evaluate(StubGh(pr=pr_meta(labels=labels), files=[blog_date_bump_file()],
+                                 comments=[triage_prose_comment()]), CONFIG)
+    assert _gate(v, "G1").status == "ok" and "stands in" in _gate(v, "G1").message
+    assert _gate(v, "G2").status == "ok"
+    assert "stands in for the review" in v.summary
+    # The flag promises nits; with the comment gone nobody can see them.
+    v = sentinel.evaluate(StubGh(pr=pr_meta(labels=labels), files=[blog_date_bump_file()]), CONFIG)
+    g1 = _gate(v, "G1")
+    assert g1.status == "red"
+    assert "review:frontmatter-only" in g1.message and "/new-review" in g1.message
+    assert _gate(v, "G2").status == "skip"
+
+
+def test_a_skip_label_on_a_diff_that_does_not_fit_it_is_red():
+    """The label is triage's word, but anyone with triage access can apply
+    it. G1 honors the skip only when the diff itself has the shape."""
+    for label in ("review:trivial", "review:frontmatter-only"):
+        for f in (docs_external_link_file(), infra_file()):
+            v = sentinel.evaluate(StubGh(pr=pr_meta(labels=[label]), files=[f]), CONFIG)
+            g1 = _gate(v, "G1")
+            assert g1.status == "red", (label, f["filename"], g1.message)
+            assert label in g1.message and "neither trivial nor frontmatter-only" in g1.message
+            assert "/new-review" in g1.message
+            assert _gate(v, "G2").status == "skip"
+    # Either shortcut makes the skip legitimate, whichever label triage used.
+    v = sentinel.evaluate(StubGh(pr=pr_meta(labels=["review:trivial"]),
+                                 files=[blog_date_bump_file()]), CONFIG)
+    assert _gate(v, "G1").status == "ok"
+    assert _gate(v, "G1").message.startswith("frontmatter-only change")
+
+
+def test_a_binary_or_unrendered_patch_never_fits_a_shortcut():
+    """GitHub omits `patch` for binaries and for diffs too large to render.
+    The Sentinel can't see what changed, so it can't vouch for the skip."""
+    f = {"filename": "content/blog/x/index.md", "status": "modified"}
+    v = sentinel.evaluate(StubGh(pr=pr_meta(labels=["review:frontmatter-only"]), files=[f]), CONFIG)
+    assert _gate(v, "G1").status == "red"
+
+
+def test_a_skip_label_never_rescues_a_reviewed_pr():
+    """Same rule as the trivial stand-in: a card at any head keeps the PR on
+    the review track, so a stale card's open finding still blocks."""
+    card = author_card([("F1", "must")], state=_state_with([]), head="0" * 40)
+    v = sentinel.evaluate(StubGh(pr=pr_meta(labels=["review:frontmatter-only"]),
+                                 files=[blog_date_bump_file()], comments=[card]), CONFIG)
+    assert _gate(v, "G1").status == "red"
+    assert "frontmatter-only change" not in _gate(v, "G1").message
+    assert _gate(v, "G2").status == "red"
+    # And a current card is the review, label or not.
+    card = author_card([], state=_state_with([]))
+    v = sentinel.evaluate(StubGh(pr=pr_meta(labels=["review:frontmatter-only"]),
+                                 files=[blog_date_bump_file()], comments=[card]), CONFIG)
+    assert _gate(v, "G1").message.startswith("review current")
+
+
+def test_bot_authored_pr_the_review_lane_skips_passes_g1_not_g3():
+    """claude-code-review.yml skips pulumi-bot and Dependabot PRs except on
+    the branches it names. The editions sync is one: G1 waited for a review
+    that never runs (#22204)."""
+    base = dict(pr=pr_meta(author="pulumi-bot", branch="chore/sync-pulumi-editions"),
+                files=[editions_sync_file()])
+    v = sentinel.evaluate(StubGh(**base), CONFIG)
+    g1 = _gate(v, "G1")
+    assert g1.status == "ok", g1.message
+    assert "pulumi-bot" in g1.message and "chore/sync-pulumi-editions" in g1.message
+    assert _gate(v, "G2").status == "ok"
+    assert _gate(v, "G3").status == "red"
+    assert "Automation PR" in v.summary
+    approved = sentinel.evaluate(
+        StubGh(**base, reviews=[approval("mkt")],
+               memberships={("docs-marketing-review", "mkt"): "active"}), CONFIG)
+    assert approved.conclusion == "success", approved.to_json()
+    # The branches the lane DOES review wait for that review.
+    for branch in ("content-review/x", "fix/broken-links-2026-10-20", "vale/brand-sync-2026-10-12"):
+        v = sentinel.evaluate(StubGh(pr=pr_meta(author="pulumi-bot", branch=branch),
+                                     files=[editions_sync_file()]), CONFIG)
+        assert _gate(v, "G1").status == "red", branch
+    # And the same branch from a human is reviewed like anything else.
+    v = sentinel.evaluate(StubGh(pr=pr_meta(author="someone", branch="chore/sync-pulumi-editions"),
+                                 files=[editions_sync_file()]), CONFIG)
+    assert _gate(v, "G1").status == "red"
+
+
+def test_bot_skip_mirrors_the_review_lane():
+    """The Sentinel restates the lane's bot-author rule, so pin it to the
+    workflow: a bot or branch added there and not here turns that lane's PRs
+    into a G1 that never clears (or one that clears without a review)."""
+    wf = (REPO_ROOT / ".github" / "workflows" / "claude-code-review.yml").read_text()
+    end = wf.index('SKIP="bot-author"')
+    block = wf[wf.rindex("elif [[", 0, end):end]
+    authors = re.findall(r'"\$AUTHOR" == "([^"]+)"', block)
+    branches = re.findall(r'"\$HEAD_BRANCH" != (\S+)\*', block)
+    assert authors and branches, block
+    assert sorted(authors) == sorted(sentinel.REVIEW_LANE_SKIPPED_BOTS)
+    assert sorted(branches) == sorted(sentinel.REVIEW_LANE_REVIEWED_BOT_BRANCHES)
+    # The lane only fires after triage, which lets pulumi-bot through on its
+    # own list of branches. A branch on one list and not the other is a PR
+    # the Sentinel waits on for a review that never starts.
+    triage = (REPO_ROOT / ".github" / "workflows" / "claude-triage.yml").read_text()
+    triage_branches = re.findall(r"startsWith\(github\.event\.pull_request\.head\.ref, '([^']+)'\)", triage)
+    assert sorted(triage_branches) == sorted(sentinel.REVIEW_LANE_REVIEWED_BOT_BRANCHES)
+
+
+def test_a_zero_file_pr_is_red_in_every_lane():
+    """Every lane would wave an empty diff through: the review lane skips it,
+    G3 has nothing to route, and on a fork G1/G2 skip as well — a green
+    Sentinel with nobody involved, and over a real diff whenever the files
+    API reads empty mid-computation."""
+    lanes = {
+        "internal": pr_meta(),
+        "fork": pr_meta(head_repo="someone/docs"),
+        "trivial": pr_meta(labels=["review:trivial"]),
+        "frontmatter-only": pr_meta(labels=["review:frontmatter-only"]),
+        "bot": pr_meta(author="pulumi-bot", branch="chore/x"),
+    }
+    for lane, meta in lanes.items():
+        v = sentinel.evaluate(StubGh(pr=meta, files=[]), CONFIG)
+        g1 = _gate(v, "G1")
+        assert g1.status == "red", (lane, g1.message)
+        assert "changes no files" in g1.message
+        assert v.conclusion == "failure", lane
+
+
+def test_triage_redispatches_the_sentinel_when_a_label_it_reads_moves():
+    """Triage writes labels with the GITHUB_TOKEN, which fires no `labeled`
+    event, so the Sentinel's label filter never sees them. Triage has to
+    poke the Sentinel itself for every label it moves that G1 reads."""
+    wf = (REPO_ROOT / ".github" / "workflows" / "claude-triage.yml").read_text()
+    m = re.search(r"for SENTINEL_LABEL in ([^;]+); do", wf)
+    assert m, "triage's re-dispatch loop is gone"
+    moved = set(m.group(1).split())
+    for label in (sentinel.TRIVIAL_LABEL, sentinel.FRONTMATTER_ONLY_LABEL, sentinel.PROSE_FLAGGED_LABEL):
+        assert label in moved, label
 
 
 def test_infra_needs_staging_status_g4():
@@ -905,13 +1142,21 @@ def test_waive_with_unreadable_actor_is_refused():
     assert "NOT honored" in v.summary
 
 
-def test_waive_never_covers_infra_evidence():
+def test_waive_covers_infra_evidence():
+    """#22524: the staging workflow was disabled, so G4 could never go green,
+    and a waive that stopped at G4 left two approvers with no lever. A waive
+    clears G4 like any other gate, and the summary says what was skipped."""
     gh = StubGh(pr=pr_meta(labels=["review:waived"]), files=[infra_file()],
                 label_events=_waive_events("cam"),
                 memberships={("docs-tools", "cam"): "active"})
     v = sentinel.evaluate(gh, CONFIG)
-    assert v.conclusion == "failure"
-    assert "no waiver" in v.title.lower() or "NOT waivable" in v.summary
+    assert _gate(v, "G4").status == "red", "the row still records what was bypassed"
+    assert v.conclusion == "success", v.to_json()
+    assert v.title == "WAIVED"
+    assert "G4 was red" in v.summary
+    body = sentinel.render_status_comment(v)
+    assert "Waived — this PR can merge." in body
+    assert "no waiver" not in body.lower()
 
 
 # ---- G4: the deploy run is evidence, not just the status ----------------
@@ -1001,7 +1246,7 @@ def test_an_unattributed_staging_status_is_not_evidence():
     assert _gate(real, "G4").status == "ok"
 
 
-def test_a_waive_clears_an_error_but_never_g4():
+def test_a_waive_clears_an_error_and_g4():
     """`any_error` used to be tested before `waived`, so the break-glass was
     inert in exactly the outage it exists for: an expired team-read token
     errors G3 on every PR, so every PR sat at action_required and no waive
@@ -1019,10 +1264,70 @@ def test_a_waive_clears_an_error_but_never_g4():
     assert errored.conclusion == "success", errored.to_json()
     assert "WAIVED" in errored.title
 
-    # G4 is still not waivable.
     infra = sentinel.evaluate(StubGh(**dict(base, files=[infra_file()])), CONFIG)
-    assert infra.conclusion == "failure"
-    assert "infra evidence has no waiver" in infra.title
+    assert infra.conclusion == "success", infra.to_json()
+    assert infra.title == "WAIVED"
+
+
+def test_g4_says_when_the_staging_workflow_is_disabled():
+    """#22524: every dispatch 422'd on a disabled workflow, and the gate kept
+    saying "dispatched automatically — no action needed"."""
+    gh = StubGh(pr=pr_meta(branch="cnunciato/proxy-topics"), files=[infra_file()],
+                workflow_state="disabled_manually")
+    g4 = _gate(sentinel.evaluate(gh, CONFIG), "G4")
+    assert g4.status == "red"
+    assert "staging workflow is disabled" in g4.message
+    assert "`disabled_manually`" in g4.message
+    assert "gh workflow enable testing-build-and-deploy.yml" in g4.message
+    assert "gh workflow run testing-build-and-deploy.yml --ref cnunciato/proxy-topics" in g4.message
+    assert "dispatched automatically" not in g4.message
+
+
+def test_g4_names_the_branch_and_warns_off_the_production_workflow():
+    """The two deploy workflows sit side by side with near-identical names;
+    on #22524 someone looking for staging dispatched production instead."""
+    for kwargs in ({}, {"workflow_state_error": True}):
+        gh = StubGh(pr=pr_meta(branch="me/topic"), files=[infra_file()], **kwargs)
+        g4 = _gate(sentinel.evaluate(gh, CONFIG), "G4")
+        assert g4.status == "red"
+        assert "gh workflow run testing-build-and-deploy.yml --ref me/topic" in g4.message
+        assert "`build-and-deploy.yml`" in g4.message and "production" in g4.message
+        assert "actions/workflows/testing-build-and-deploy.yml" in g4.message
+        assert "disabled" not in g4.message, "active or unreadable state: no false alarm"
+        assert "<branch>" not in g4.message
+
+
+def test_g4_quotes_the_last_failed_staging_attempt():
+    """A failed dispatch or deploy writes its reason to the staging status;
+    the G4 row leads with it instead of leaving it in a job log."""
+    failed = {"context": "staging/pulumi-test-io", "state": "error",
+              "creator": {"login": "github-actions[bot]"},
+              "description": "Not dispatched: testing-build-and-deploy.yml is disabled.",
+              "target_url": "https://github.com/pulumi/docs/actions/runs/7"}
+    gh = StubGh(pr=pr_meta(), files=[infra_file()], statuses=[failed])
+    g4 = _gate(sentinel.evaluate(gh, CONFIG), "G4")
+    assert g4.status == "red"
+    assert g4.message.startswith(
+        "**Last staging attempt: Not dispatched: testing-build-and-deploy.yml is disabled.**")
+    assert "actions/runs/7" in g4.message
+
+    # Only the NEWEST trusted status speaks: a newer green one is evidence,
+    # and an untrusted failure is ignored like an untrusted success.
+    newer_green = dict(failed, state="success", description="staging deploy green")
+    assert _gate(sentinel.evaluate(StubGh(pr=pr_meta(), files=[infra_file()],
+                                          statuses=[newer_green, failed]), CONFIG),
+                 "G4").status == "ok"
+    forged = dict(failed, creator={"login": "someone"})
+    g4 = _gate(sentinel.evaluate(StubGh(pr=pr_meta(), files=[infra_file()],
+                                        statuses=[forged]), CONFIG), "G4")
+    assert "Last staging attempt" not in g4.message
+
+
+def test_g4_ok_never_reads_the_workflow_state():
+    """The state read is advice for a red gate, not part of the verdict."""
+    gh = StubGh(pr=pr_meta(), files=[infra_file()], workflow_runs=[_deploy_run()],
+                workflow_state_error=True)
+    assert _gate(sentinel.evaluate(gh, CONFIG), "G4").status == "ok"
 
 
 def test_g4_run_lookup_failure_blocks_rather_than_erroring():
@@ -1188,12 +1493,12 @@ def test_the_oversized_ack_must_come_from_a_qualifying_approver():
 
     bystander = sentinel.evaluate(StubGh(**dict(base, reviews=[
         approval("guild"),
-        approval("randomer", body=f"lgtm {sentinel.OVERSIZED_ACK}"),
+        approval("randomer", body=f"lgtm\n{sentinel.OVERSIZED_ACK}"),
     ])), CONFIG)
     assert _gate(bystander, "G5").status == "red"
 
     proper = sentinel.evaluate(StubGh(**dict(base, reviews=[
-        approval("guild", body=f"read it all {sentinel.OVERSIZED_ACK}"),
+        approval("guild", body=f"read it all\n{sentinel.OVERSIZED_ACK}"),
     ])), CONFIG)
     assert _gate(proper, "G5").status == "ok"
 
@@ -1309,13 +1614,27 @@ def test_status_comment_says_why_a_satisfied_gate_is_satisfied():
     assert "no changed path affects the deploy" in g4, g4
 
 
-def test_status_comment_banners_report_only_and_flags_the_unwaivable_gate():
+def test_status_comment_banners_report_only_and_offers_the_waive_for_g4():
     gh = StubGh(pr=pr_meta(), files=[infra_file()])
     body = sentinel.render_status_comment(sentinel.evaluate(gh, CONFIG, report_only=True))
     assert "> [!WARNING]" in body, "report-only leads with the preview banner"
-    assert "no waiver" in body
+    assert "_Break glass:" in body, "a red G4 alone still offers the waive"
+    assert "no waiver" not in body.lower()
     assert "> [!WARNING]" not in sentinel.render_status_comment(
         sentinel.evaluate(gh, CONFIG)), "enforcing mode has nothing to disclaim"
+
+
+def test_every_status_comment_ends_with_the_help_footer():
+    """Enforcing mode has no banner, so the footer is the one place a reader
+    stuck on a red row learns where to ask. Every body carries it (gated or
+    gateless, preview or enforcing) and names `#docs` exactly once."""
+    for make in (lambda: StubGh(pr=pr_meta(), files=[infra_file()]),
+                 lambda: StubGh(pr=pr_meta(author="dependabot[bot]"))):
+        for report_only in (False, True):
+            body = sentinel.render_status_comment(
+                sentinel.evaluate(make(), CONFIG, report_only=report_only))
+            assert body.endswith(f"\n\n---\n\n{sentinel.STATUS_HELP_FOOTER}\n"), body[-200:]
+            assert body.count("#docs") == 1, body
 
 
 def test_a_waived_pr_takes_the_waived_branch_in_preview_too():
@@ -1353,7 +1672,7 @@ def test_the_status_comment_is_maintained_for_every_pr_in_report_only():
 
 def test_oversized_ack_replaces_g1_g2():
     gh = StubGh(pr=pr_meta(labels=["review:oversized"]), files=[docs_file_substantive()],
-                reviews=[approval("guild-member", body="LGTM sentinel:oversized-ack")],
+                reviews=[approval("guild-member", body="LGTM\r\n/oversized-ack")],
                 memberships={("docs-guild", "guild-member"): "active"})
     v = sentinel.evaluate(gh, CONFIG)
     assert _gate(v, "G1").status == "skip"
@@ -1365,7 +1684,25 @@ def test_oversized_ack_replaces_g1_g2():
                  memberships={("docs-guild", "guild-member"): "active"})
     v2 = sentinel.evaluate(gh2, CONFIG)
     assert _gate(v2, "G5").status == "red"
-    assert "sentinel:oversized-ack" in _gate(v2, "G5").message
+    assert "/oversized-ack" in _gate(v2, "G5").message
+
+
+def test_oversized_ack_is_a_slash_command_not_a_substring():
+    """`/oversized-ack` follows the review-command grammar: it starts a line.
+    Mid-sentence, or spelled as the retired `sentinel:oversized-ack` token,
+    it records no hand review."""
+    def g5(body):
+        gh = StubGh(pr=pr_meta(labels=["review:oversized"]), files=[docs_file_substantive()],
+                    reviews=[approval("guild-member", body=body)],
+                    memberships={("docs-guild", "guild-member"): "active"})
+        return _gate(sentinel.evaluate(gh, CONFIG), "G5").status
+
+    assert g5("/oversized-ack") == "ok"
+    assert g5("Read every file.\n/oversized-ack") == "ok"
+    assert g5("/Oversized-Ack") == "ok"
+    assert g5("LGTM /oversized-ack") == "red"
+    assert g5("LGTM sentinel:oversized-ack") == "red"
+    assert g5("/oversized-acknowledged") == "red"
 
 
 def test_the_oversized_ack_instruction_says_where_the_string_goes():
@@ -1394,7 +1731,7 @@ def test_approving_again_with_the_ack_clears_g5():
     LATEST stateful review, so pin it."""
     gh = StubGh(pr=pr_meta(labels=["review:oversized"]), files=[docs_file_substantive()],
                 reviews=[approval("guild-member"),
-                         approval("guild-member", body=f"read by hand {sentinel.OVERSIZED_ACK}")],
+                         approval("guild-member", body=f"read by hand\n{sentinel.OVERSIZED_ACK}")],
                 memberships={("docs-guild", "guild-member"): "active"})
     assert _gate(sentinel.evaluate(gh, CONFIG), "G5").status == "ok"
 
@@ -1452,6 +1789,7 @@ def test_update_strip_insert_replace_clear():
     assert sentinel.update_strip(gh, v, comments=[card]) is True
     _, patched = gh.patched[-1]
     assert "⛔" in patched and sentinel.STRIP_OPEN in patched
+    assert "fix and push" in patched and "/update-review" in patched
 
     card2 = dict(card, body=patched)
     assert sentinel.update_strip(gh, v, comments=[card2]) is False  # idempotent
@@ -1463,6 +1801,38 @@ def test_update_strip_insert_replace_clear():
 
     fresh_no_strip = author_card([], state=_state_with([]))
     assert sentinel.update_strip(gh, ok, comments=[fresh_no_strip]) is False
+
+
+def test_strip_without_blocking_findings_says_what_merge_waits_on():
+    """Only an approver can clear G3. A strip reading "⛔ merge is blocked — fix
+    and push, or reply /update-review" over a card reading "nothing blocks
+    merge" contradicted the card and sent the author after nothing. It names
+    the gate the merge waits on, and links the status comment, which sits
+    above the card, not below it."""
+    url = "https://github.com/pulumi/docs/pull/1#issuecomment-5"
+    status = {"id": 5, "body": sentinel.STATUS_MARKER + "\n## Sentinel\n",
+              "user": {"login": sentinel.BOT_LOGIN}, "html_url": url}
+    card = author_card([], state=_state_with([]))
+    gh = StubGh(pr=pr_meta(), files=[docs_file_substantive()], comments=[status, card])
+    v = sentinel.Verdict(
+        conclusion="failure", title="", summary="", head_sha=HEAD,
+        gates=[sentinel.Gate("G1 review-ran", "ok", "current"),
+               sentinel.Gate("G3 right-approver", "red", "needs approval"),
+               sentinel.Gate("G4 infra-evidence", "skip", "n/a")])
+    assert sentinel.update_strip(gh, v, comments=[status, card]) is True
+    _, patched = gh.patched[-1]
+    strip = patched.split(sentinel.STRIP_OPEN)[1].split(sentinel.STRIP_CLOSE)[0]
+    assert "Merge is waiting on G3 right-approver." in strip, strip
+    assert f"[the Sentinel status]({url})" in strip, strip
+    for wrong in ("blocked", "⛔", "fix and push", "/update-review", "below"):
+        assert wrong not in strip, (wrong, strip)
+
+    two = sentinel.Verdict(conclusion="failure", title="", summary="", head_sha=HEAD,
+                           gates=v.gates + [sentinel.Gate("G5 oversized-ack", "red", "x")])
+    sentinel.update_strip(gh, two, comments=[card])  # no status comment yet: no link
+    strip = gh.patched[-1][1].split(sentinel.STRIP_OPEN)[1].split(sentinel.STRIP_CLOSE)[0]
+    assert "waiting on G3 right-approver and G5 oversized-ack." in strip, strip
+    assert "Details: the Sentinel status comment." in strip, strip
 
 
 def test_frontend_routes_to_marketing_without_staging():
@@ -1494,7 +1864,8 @@ def test_not_governed_regen_needs_author_and_label():
     assert v.conclusion == "success" and v.governed is False
     # pulumi-bot WITHOUT the label is a content-review PR: governed, and with
     # no review at head G1 goes red.
-    v2 = sentinel.evaluate(StubGh(pr=pr_meta(author="pulumi-bot"), files=[docs_file_substantive()]), CONFIG)
+    v2 = sentinel.evaluate(StubGh(pr=pr_meta(author="pulumi-bot", branch="content-review/x"),
+                                  files=[docs_file_substantive()]), CONFIG)
     assert v2.governed is True and _gate(v2, "G1").status == "red"
     # A human wearing the label is still governed.
     v3 = sentinel.evaluate(StubGh(pr=pr_meta(author="someone", labels=["automation/merge"]),
@@ -1628,7 +1999,7 @@ def test_workflow_has_no_concurrency_group_and_narrows_label_events():
     assert "cancel-in-progress:" not in wf
     assert "\nconcurrency:" not in wf
     for label in ("review:waived", "review:oversized", "review:trivial",
-                  "review:prose-flagged"):
+                  "review:frontmatter-only", "review:prose-flagged"):
         assert f"github.event.label.name == '{label}'" in wf, label
 
 
@@ -1649,6 +2020,7 @@ def test_label_event_filter_covers_every_label_the_evaluator_reads():
     read_by_evaluator = {
         sentinel.PROSE_FLAGGED_LABEL,
         sentinel.TRIVIAL_LABEL,
+        sentinel.FRONTMATTER_ONLY_LABEL,
         sentinel.OVERSIZED_LABEL,
         cfg.waive.get("label", "review:waived"),
     }
@@ -1663,8 +2035,22 @@ def test_label_event_filter_covers_every_label_the_evaluator_reads():
         f"drops (they only take effect on the next unrelated event): {missing}"
     )
     assert "publish_guard.py" in wf
-    assert "external_id: $run_id" in wf
     assert "steps.guard.outputs.publish == 'true'" in wf
+
+
+def test_workflow_publishes_a_status_not_a_check_run():
+    """`POST /check-runs` can't choose a check suite. GitHub filed the
+    Sentinel's run into the oldest Actions suite at the head, whichever
+    workflow created it; when that workflow ran again for the same event,
+    the suite was superseded, and branch protection read "Expected — Waiting
+    for status to be reported" on green, approved PRs (pulumi/docs#22308). A commit
+    status belongs to no suite. The guard reads the run id back out of the
+    status's `target_url`, so the publisher has to put the run URL there."""
+    wf = (REPO_ROOT / ".github" / "workflows" / "review-sentinel.yml").read_text()
+    assert "statuses: write" in wf
+    assert "publish_verdict.py" in wf
+    assert "--run-url \"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"" in wf
+    assert not re.search(r"--method POST[^\n]*check-runs", wf), "the Sentinel must not POST a check-run"
 
 
 def test_workflow_never_checks_out_pr_code():
@@ -2129,7 +2515,7 @@ def test_g2_does_not_call_a_stale_card_answered():
     gh = StubGh(pr=pr_meta(), files=[docs_file_substantive()],
                 comments=[author_card(head=old), brief_comment()])
     v = sentinel.evaluate(gh, CONFIG)
-    assert _gate(v, "G1").status == "red" and "#update-review" in _gate(v, "G1").message
+    assert _gate(v, "G1").status == "red" and "/update-review" in _gate(v, "G1").message
     assert "push to refresh" not in _gate(v, "G1").message
     assert _gate(v, "G2").status == "skip" and "not current" in _gate(v, "G2").message
 

@@ -762,6 +762,7 @@ def collect_pr(gh: GhClient, listed: dict, *, cache_dir: Path | None, repo_root:
         "ai_suspect": {"flag": suspect, "reasons": reasons},
         "review": review,
         "triage_prose": (triage_c or {}).get("body"),
+        "sentinel": sentinel_gates(comments, head_sha),
         "unblock_conflict": unblock_conflict(comments, head_sha, _unblock_conflict_authors(approver)),
         "preview": preview_info(comments, files, repo_root),
         "cache_key": key,
@@ -787,6 +788,29 @@ def _unblock_conflict_authors(approver: str | None) -> set[str]:
     reader exists to withhold."""
     return {norm_login(sentinel.BOT_LOGIN)} | ({norm_login(approver)} - {""})
 _UNBLOCK_CONFLICT_HEAD_RE = re.compile(r"the branch is exactly as it was at `([0-9a-f]{7,40})`")
+
+
+_SENTINEL_ROW_RE = re.compile(r"^\|\s*(✅|🔴|🟠|➖)\s*\|\s*\*\*(G\d+)\s+([\w-]+)\*\*\s*\|\s*(.*?)\s*\|\s*$")
+_SENTINEL_HEAD_RE = re.compile(r"Evaluated at head `([0-9a-f]+)`")
+_SENTINEL_ICON_STATE = {"✅": "ok", "🔴": "red", "🟠": "error", "➖": "skip"}
+
+
+def sentinel_gates(comments: list[dict], head_sha: str) -> dict | None:
+    """The Sentinel's gate table, from its pinned status comment, when that
+    comment was evaluated at this head. The commit status carries only a
+    count ("1 gate(s) red"); the comment carries which gate and why, which
+    is what the board's tooltip needs. None when there is no comment, or it
+    describes an older head."""
+    found = sentinel._find_comments(comments, sentinel.STATUS_MARKER)
+    if not found:
+        return None
+    body = (max(found, key=lambda c: int(c.get("id") or 0)).get("body") or "")
+    m = _SENTINEL_HEAD_RE.search(body)
+    if not m or not head_sha or not head_sha.startswith(m.group(1)):
+        return None
+    gates = [{"id": g.group(2), "name": g.group(3), "state": _SENTINEL_ICON_STATE[g.group(1)], "detail": g.group(4)}
+             for g in (_SENTINEL_ROW_RE.match(line) for line in body.splitlines()) if g]
+    return {"head": m.group(1), "gates": gates} if gates else None
 
 
 def unblock_conflict(comments: list[dict], head_sha: str, authors: set[str] | None = None) -> dict | None:
@@ -898,14 +922,19 @@ def my_team_memberships(gh: GhClient, repo_root: Path | None, login: str | None)
 def approver_team_memberships(gh: GhClient, repo_root: Path | None, prs: list[dict],
                               me: str | None) -> dict[str, dict[str, bool | None]]:
     """`{"org/slug": {login: is a member}}` for every human who has approved
-    an open PR, against every team review-routing.yml names. The analyzer
-    reads it to tell an approval from the lane's own team — after which a
-    human-authored PR is its author's to merge — from a drive-by one. GitHub
-    clears the team's review request when a member reviews for it, so the
-    request alone can't carry that. None means the token couldn't read it."""
+    an open PR or is requested on one by name, against every team
+    review-routing.yml names. The analyzer reads it to tell an approval from
+    the lane's own team — after which a human-authored PR is its author's to
+    merge — from a drive-by one. GitHub clears the team's review request when
+    a member reviews for it, so the request alone can't carry that. It also
+    tells a named reviewer who can approve my lanes (a real hand-off) from a
+    subject-matter reviewer who can't. None means the token couldn't read it."""
+    mine = (me or "").lower()
     logins = sorted({r["user"] for pr in prs for r in pr.get("reviews") or []
                      if r.get("state") == "APPROVED" and r.get("user") and r.get("user_type") != "Bot"
-                     and r["user"].lower() != (me or "").lower()})
+                     and r["user"].lower() != mine}
+                    | {u for pr in prs for u in (pr.get("requested_reviewers") or {}).get("users") or []
+                       if u and u.lower() != mine})
     if not logins:
         return {}
     path = (repo_root or _REPO_ROOT) / ".github" / "review-routing.yml"
