@@ -265,7 +265,7 @@ jobs:
           # lookup failures as action_required, never as "not a member", so
           # a missing/expired token degrades loud, not wrong.
           GH_TOKEN_TEAM_READ: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
-          REPORT_ONLY: ${{ vars.REVIEW_V3_SENTINEL != '1' }}
+          REPORT_ONLY: 'false'  # FORK HARNESS ONLY: enforcing mode without touching repo variables
         run: |
           # --status-comment is passed unconditionally on purpose: the
           # evaluator maintains the pinned comment in both modes, on every PR

@@ -1,0 +1,21 @@
+name: Collision staging deploy (fork-only)
+
+# Same shape as testing-build-and-deploy.yml: dispatched at a PR's branch,
+# with a job that shares the PR build's name.
+on:
+  workflow_dispatch:
+    inputs:
+      outcome:
+        required: false
+        default: failure
+
+jobs:
+  deploy:
+    name: Collision check
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          OUTCOME: ${{ inputs.outcome }}
+        run: |
+          echo "simulated staging deploy: $OUTCOME"
+          [ "$OUTCOME" = "success" ]

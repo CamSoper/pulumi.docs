@@ -1,0 +1,59 @@
+name: Fork harness (fork-only)
+
+# Lives only on CamSoper/pulumi.docs master while pulumi/docs#22555 is fork
+# tested. Acts as github-actions[bot], so a fixture PR has an author Cam can
+# approve, and a staging status comes from a writer the Sentinel trusts.
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: open-pr | status | comment
+        required: true
+      branch:
+        required: false
+        default: ''
+      sha:
+        required: false
+        default: ''
+      pr:
+        required: false
+        default: ''
+      file:
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  statuses: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ACTION: ${{ inputs.action }}
+          BRANCH: ${{ inputs.branch }}
+          SHA: ${{ inputs.sha }}
+          PR: ${{ inputs.pr }}
+          FILE: ${{ inputs.file }}
+        run: |
+          set -euo pipefail
+          case "$ACTION" in
+            open-pr)
+              gh pr create --repo "$REPO" --base master --head "$BRANCH" \
+                --title "[fork test] $BRANCH" --body "Fork harness fixture for pulumi/docs#22555." ;;
+            status)
+              gh api "repos/$REPO/statuses/$SHA" -f state=success \
+                -f context=staging/pulumi-test-io -f description="fork harness: simulated staging deploy" ;;
+            comment)
+              gh api "repos/$REPO/issues/$PR/comments" -F body=@"$FILE" --jq .id ;;
+            *) echo "unknown action $ACTION"; exit 2 ;;
+          esac

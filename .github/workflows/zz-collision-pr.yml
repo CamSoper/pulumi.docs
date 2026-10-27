@@ -1,0 +1,15 @@
+name: Collision PR build (fork-only)
+
+# Same shape as pull-request.yml's required "Install deps and build site":
+# a pull_request job whose name is the required context.
+on:
+  pull_request:
+    branches: [master]
+    paths: ['fork-harness/collision/**']
+
+jobs:
+  build:
+    name: Collision check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "PR build passes"
