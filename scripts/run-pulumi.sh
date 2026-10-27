@@ -182,3 +182,5 @@ case ${PULUMI_ACTION} in
         exit 1
         ;;
 esac
+
+# fork test fixture: pr6
