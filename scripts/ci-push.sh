@@ -13,3 +13,5 @@ node ./scripts/await-in-progress.js
 
 ./scripts/run-pulumi.sh update
 ./scripts/make-s3-redirects.sh
+
+# fork test fixture: pr2
