@@ -412,3 +412,5 @@ The [`automation-api-examples` repository](https://github.com/pulumi/automation-
 ## Giving feedback
 
 If you have feedback on using Automation API, [file an issue](https://github.com/pulumi/pulumi/issues/new?labels=needs-triage).
+
+<!-- fork test fixture: pr5 -->
