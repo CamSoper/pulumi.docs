@@ -1,4 +1,5 @@
 #!/bin/bash
+# fork test: base change that shifts the PR's hunk
 
 set -o errexit -o pipefail
 
