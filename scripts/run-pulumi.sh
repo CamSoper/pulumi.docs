@@ -1,4 +1,5 @@
 #!/bin/bash
+# fork test: base change that shifts the PR's hunk
 #
 # Run Pulumi to update the stack targeted by the given branch.
 
