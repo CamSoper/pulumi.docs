@@ -49,3 +49,5 @@ pulumi plugin install converter kubernetes
 ```
 
 Manual installation is useful for pre-loading plugins in CI/CD pipelines or air-gapped environments. See [plugin installation](/docs/iac/concepts/plugins/#manual-installation) for more details.
+
+<!-- fork test fixture: pr4 -->
