@@ -21,3 +21,5 @@ export const marketingWebPaths = [
     // Also takes /topics/containers/ off S3, so its old 301 to the Kubernetes docs no longer fires.
     "/topics*",
 ];
+
+// fork regression fixture: touches a staging_evidence path
