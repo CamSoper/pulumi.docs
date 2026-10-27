@@ -563,3 +563,5 @@ In Pulumi HCL, the asset and archive functions resolve relative paths against th
 - [AWS Lambda](/dev/tutorials/aws-lambda/) shows archives packaging serverless function code end to end.
 - The full API surface for each language: [TypeScript and JavaScript](/docs/reference/pkg/nodejs/pulumi/pulumi/modules/asset.html), [Python](/docs/reference/pkg/python/pulumi/#pulumi.Asset), [Go](https://pkg.go.dev/github.com/pulumi/pulumi/sdk/v3/go/pulumi#Asset), [.NET](/docs/reference/pkg/dotnet/pulumi/pulumi.asset.html), and [Java](/docs/reference/pkg/java/com/pulumi/asset/package-summary.html).
 - The built-in functions for [YAML](/docs/iac/languages-sdks/yaml/yaml-language-reference/) and [Pulumi HCL](/docs/iac/languages-sdks/hcl/hcl-language-reference/).
+
+<!-- fork test fixture: pr1 -->
