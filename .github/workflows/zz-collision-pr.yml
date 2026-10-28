@@ -12,4 +12,6 @@ jobs:
     name: Collision check
     runs-on: ubuntu-latest
     steps:
-      - run: echo "PR build passes"
+      - run: |
+          echo "PR build fails (fork test ft/collision3)"
+          exit 1
