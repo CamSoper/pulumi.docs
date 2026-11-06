@@ -35,6 +35,8 @@ To create a new stack, use `pulumi stack init stackName`. This creates an empty 
 
 The stack name must be unique within a project. Stack names may only contain alphanumeric characters, hyphens, underscores, or periods.
 
+Stack names must be at most 16 characters long. For the full rules, see [stack name limits](/docs/iac/concepts/stack-name-limits/).
+
 ```bash
 $ pulumi stack init staging
 ```
