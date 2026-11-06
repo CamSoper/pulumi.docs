@@ -42,11 +42,14 @@ jobs:
   # Refs whose commit is on master still pass: dispatching at an older ref is
   # the documented "re-publish an older build" rollback.
   #
-  # This is defense in depth, not the control. `workflow_dispatch` runs the
+  # This only covers refs that carry it. `workflow_dispatch` runs the
   # workflow file AT the dispatched ref, so a branch cut before this job
-  # existed (or one that edits it out) doesn't have it. What holds for every
-  # ref is the `production` environment's deployment-branch rule, a repo
-  # setting.
+  # existed (or one that edits it out) doesn't have it. Nothing else stops
+  # that today: the `production` environment has no deployment-branch rule,
+  # and it can't simply get a master-only one, because PR workflows
+  # (claude-code-review.yml and others) use the same environment for their
+  # secrets. A control that covers every ref needs its own environment for
+  # this job, or a branch condition on the deploy role's trust policy.
   guard:
     name: Refuse refs that aren't on master
     runs-on: ubuntu-latest
@@ -111,10 +114,8 @@ jobs:
         with:
           go-version: 1.26.x
 
-      - uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: '0.157.0'
-          extended: true
+      - name: Install Hugo (version pinned in mise.toml)
+        uses: ./.github/actions/setup-hugo
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6
@@ -161,7 +162,7 @@ jobs:
             meta-images-
 
       # Derive the cache key from the Hugo installed above rather than a literal,
-      # so revving hugo-version updates the key on its own. Fails loudly on an
+      # so revving the mise.toml pin updates the key on its own. Fails loudly on an
       # unparseable version rather than silently collapsing every build into a
       # single unversioned namespace, which is the bug this exists to prevent.
       - name: Resolve Hugo version for the cache key
