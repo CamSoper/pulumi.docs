@@ -31,7 +31,7 @@ A project can have as many stacks as you need. By default, Pulumi creates a stac
 
 ## Create a stack {#create-stack}
 
-To create a new stack, use `pulumi stack init stackName`. This creates an empty stack `stackName` and sets it as the *active* stack. The project that the stack is associated with is determined by finding the nearest `Pulumi.yaml` file.
+To create a new stack, use `pulumi stack init stackName`. Stack names are case-sensitive. This creates an empty stack `stackName` and sets it as the *active* stack. The project that the stack is associated with is determined by finding the nearest `Pulumi.yaml` file.
 
 The stack name must be unique within a project. Stack names may only contain alphanumeric characters, hyphens, underscores, or periods.
 
