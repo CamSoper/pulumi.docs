@@ -74,12 +74,13 @@ jobs:
         id: esc-secrets
         if: steps.command-gate.outputs.fire == 'true'
         uses: pulumi/esc-action@v3
+        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
 
       - name: Checkout repository
         if: steps.command-gate.outputs.fire == 'true'
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
       - name: Check repository write access
