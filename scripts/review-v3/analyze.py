@@ -755,17 +755,11 @@ def ownership(pr: dict, ctx: dict) -> dict:
     # on the Sentinel being the merge gate, which it is not.
     if link_only_diff(pr.get("files") or []):
         reasons.append("shape:link-only")
-        # The routing config decides who may approve a link sweep. With
-        # `link_only.approval: any-team` the Sentinel takes any review team,
-        # so the row is genuinely anyone's and the board says so. Where the
-        # lane still owns it, `link_fixes: mine` is the local override that
-        # takes it anyway.
-        if (config.link_only or {}).get("approval") == "any-team":
-            reasons.append("gate:any-team")
-            is_mine = True
-        elif cfg.link_fixes == "mine" and not is_mine:
-            is_mine = True
-            reasons.append("link-fixes:mine")
+        # A link sweep needs a careful reader, not a particular lane's one,
+        # and branch protection takes anyone's approval, so the row is
+        # anyone's.
+        reasons.append("gate:any-team")
+        is_mine = True
     approver = ctx.get("approver")
     author_self = bool(approver) and norm_login((pr.get("author") or {}).get("login")) == norm_login(approver)
     if author_self:
@@ -892,7 +886,7 @@ def analyze_pr(pr: dict, ctx: dict) -> None:
     if review.get("base_merged"):
         reasons.append("review:base-merged")
     # `review:waived` is the Sentinel's logged break-glass: it skips every
-    # gate but staging evidence. Once someone has waived, a review that is
+    # gate, staging evidence included. Once someone has waived, a review that is
     # stale, errored or still running is no longer what stands between the
     # row and a merge, so it stops blocking. It still fails the stamp gate (a
     # waiver is a judgment call, never a stamp). Open 🚨 rows and an
@@ -998,7 +992,7 @@ def analyze_pr(pr: dict, ctx: dict) -> None:
                           "This branch conflicts with master and can't be updated from here; please merge master into it.")
     checks = pr.get("checks") or {}
     failing = list(checks.get("failing") or [])
-    real_failures = [f for f in failing if (f or "").strip().lower() != SENTINEL_CHECK]
+    real_failures = [f for f in failing if not act._is_sentinel({"name": f or ""})]
     gates = [g for g in ((pr.get("sentinel") or {}).get("gates") or []) if g.get("state") != "skip"]
     if gates:
         # The Sentinel concludes failure until an approval exists, so "failing"
@@ -1141,6 +1135,11 @@ def analyze_pr(pr: dict, ctx: dict) -> None:
             add_action({"id": "fix", "label": "apply fixes", "cmd": f"--fix {n}"})
         if (pr.get("preview") or {}).get("pages"):
             add_action({"id": "render", "label": "screenshot the preview", "cmd": f"--render {n}"})
+    # Every bot-authored row can be closed outright, whatever its verdict: a
+    # bot PR is cheap to reopen (its lane re-queues it, or the agent opens a
+    # fresh one), so closing is always a fair way to clear it off the board.
+    if author.get("type") == "bot" and not author_self:
+        add_action({"id": "close", "label": "close PR", "cmd": f"--close {n}"})
     # A workflow opened this PR, so no author will ever answer its review:
     # the send-back is unread and closing it only re-queues the same page on
     # the next run. The remaining way out is to fix the branch yourself --
@@ -1812,11 +1811,16 @@ def merge_judgments(queue: dict, judgments: dict, *, ctx: dict | None = None) ->
         if rec == "request-changes" and pr.get("author_self"):
             rejected = "request-changes: GitHub refuses a send-back on your own PR"
         elif rec in VERDICTS + ("request-changes", "close") and pr.get("verdict") == "judge":
-            if rec == "close" and not any(a["id"] == "close" for a in pr["actions"]):
+            existing = next((a for a in pr["actions"] if a["id"] == "close"), None)
+            # The bare close every bot row carries gives way to the one that
+            # closes with the judgments; a duplicate's close stays put.
+            if rec == "close" and (existing is None or existing["cmd"] == f"--close {n}"):
                 a = _close_with_judgments(pr)
-                if a:
+                if a and existing:
+                    pr["actions"][pr["actions"].index(existing)] = a
+                elif a:
                     pr["actions"].append(a)
-                else:
+                elif existing is None:
                     rejected = "close: no judgment carries an ask to close with"
             elif rec == "route" and not any(a["id"] == "route" for a in pr["actions"]):
                 targets, _ = route_targets(pr.get("domains") or [], pr.get("owners") or {}, ctx or {})
