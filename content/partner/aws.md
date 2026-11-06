@@ -99,13 +99,13 @@ sections:
   - type: case_study_grid
     title: AWS customers building with Pulumi
     cards:
-      - customer: snowflake
+      - slug: snowflake
         title: From 1.5 weeks to 1-day deployments
         description: Snowflake uses Pulumi to allow their application and infrastructure teams to truly treat their infrastructure as software.
-      - customer: modivcare
+      - slug: modivcare
         title: 25% cost reductions
         description: Modivcare used Pulumi to transform fragmented acquisition-built infrastructure into a unified platform without service disruption, achieving up to 25% cost reductions and enabling developer self-service.
-      - customer: bmw
+      - slug: bmw
         title: Unified solution for all services
         description: BMW used Pulumi to build a scalable and resilient hybrid cloud implementation that manages more than 20,000 cloud resources with Python-based infrastructure code.
     anchor: customers

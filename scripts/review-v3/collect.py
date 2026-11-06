@@ -310,13 +310,17 @@ def review_status(labels: set[str], surface: str, review_body: str, head_sha: st
 
 
 def only_merges_since(commits: list[dict], review_body: str) -> bool:
-    """True when the history since the reviewed head (the card's
-    CLAUDE_REVIEW_HEAD) could have left the PR's changes alone: only merges
-    or no-op commits after it (an empty "kick CI" commit: #22524's reset the
-    review it sat on), or a rebase that took it out of the commit list.
-    `same_diff` has to agree too; see `sentinel.history_allows_carry`."""
+    """True when the reviewed head (the card's CLAUDE_REVIEW_HEAD) is in the
+    PR's commit list and every later commit has two parents."""
     m = sentinel.HEAD_MARKER_RE.search(review_body or "")
-    return bool(m) and sentinel.history_allows_carry(commits, m.group(1))
+    if not m:
+        return False
+    reviewed = m.group(1)
+    shas = [c.get("sha") or "" for c in commits]
+    idx = next((i for i, sha in enumerate(shas) if sha.startswith(reviewed) or reviewed.startswith(sha)), None)
+    if idx is None or idx == len(shas) - 1:
+        return False
+    return all(len(c.get("parents") or []) >= 2 for c in commits[idx + 1:])
 
 
 def reviewed_head(review_body: str) -> str | None:
@@ -324,9 +328,24 @@ def reviewed_head(review_body: str) -> str | None:
     return m.group(1) if m else None
 
 
-# Owned by sentinel.py, which G4 reads them from too.
-changed_lines = sentinel.changed_lines
-same_diff = sentinel.same_diff
+def changed_lines(files: list[dict]) -> dict[str, list[str]]:
+    """Per file, the sorted `+`/`-` lines of its patch. Hunk headers and
+    context are left out because they move whenever the base moves; the
+    changed lines themselves only move when the PR's content does."""
+    out: dict[str, list[str]] = {}
+    for f in files:
+        name = f.get("filename") or f.get("path") or ""
+        lines = [ln for ln in (f.get("patch") or "").splitlines()
+                 if ln[:1] in "+-" and not ln.startswith(("+++", "---"))]
+        out[name] = sorted(lines)
+    return out
+
+
+def same_diff(files_then: list[dict], files_now: list[dict]) -> bool:
+    """Whether two snapshots of a PR's files carry the same changes. A merge
+    of the base that resolved a conflict by editing a line the PR adds
+    changes the content the review read, and must not count as base-only."""
+    return changed_lines(files_then) == changed_lines(files_now)
 
 
 def parse_review(author_body: str, brief_body: str, pr: int, repo: str) -> dict:

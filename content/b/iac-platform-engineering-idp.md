@@ -15,7 +15,7 @@ hero:
   description: |
     Build, manage, and scale your infrastructure, secrets, and configurations in one place.
   cta_text: Get Started
-  cta_link: /up/
+  cta_link: /docs/iac/get-started/
   secondary_cta_text: Talk to a human
   secondary_cta_link: /contact/?form=sales
 

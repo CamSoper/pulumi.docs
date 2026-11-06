@@ -13,6 +13,7 @@ import "./docs-feedback";
 import "./blog-list";
 import "./blog-post";
 import "./blog-lightbox";
+import "./customers-list";
 import "./details-dropdown";
 import "./copybutton";
 import "./copy-text";
@@ -23,6 +24,7 @@ import "./resources";
 import "./event-sessions";
 import "./releases";
 import "./packages";
+import "./extend-trial";
 import "./support-form";
 import "./developer-advocates";
 import "./docs-main";
@@ -36,7 +38,6 @@ import "./console-banner";
 import "./announcement-banner";
 import "./statuspage";
 import "./intercom-identity";
-import "./consent-media";
 
 // Register all Stencil components.
 defineCustomElements();

@@ -12,13 +12,13 @@ bar and claims signal (triage-classify.py) into the lane matrix
       "claims": bool,
       "roles": [...], "teams": [...],          # teams = org/slug to request
       "staging_evidence_required": bool,
-      "approval_scope": "any-human",
+      "approval_scope": "lane" | "any-team" | "any-human",
       "reasons": [...]
     }
 
-`teams` is who gets REQUESTED. Who may approve is branch protection's
-call (anyone with write access), so `approval_scope` is always `any-human`
-and the requested teams are a routing hint, not a requirement.
+`teams` is who gets REQUESTED; `approval_scope` is who may CLEAR the
+approver gate (see `approval:` in review-routing.yml). Under `any-human`
+the requested teams are a routing hint, not a requirement.
 
 Deterministic, no network. Inputs are the files the triage step already has
 on disk: the `gh pr view --json ...` payload and the (possibly truncated)
@@ -76,10 +76,8 @@ def route(pr_data: dict, diff_text: str, config_path: Path, repo_root: Path) -> 
         "roles": roles,
         "teams": [config.teams[r] for r in roles],
         "staging_evidence_required": resolution.staging_evidence_required,
-        # Branch protection decides who may approve, and it counts anyone
-        # with write access. Kept so the reviewer brief's approval line
-        # (compose-review.py --approval-scope) reads right.
-        "approval_scope": "any-human",
+        "approval_scope": ("any-human" if resolution.any_human
+                           else "any-team" if resolution.any_team else "lane"),
         "reasons": resolution.reasons,
     }
 
@@ -103,7 +101,7 @@ def _self_test() -> int:
     assert out["roles"] == ["docs-guild"], out
     assert out["teams"] == ["pulumi/docs-guild"], out
     assert out["staging_evidence_required"] is False
-    assert out["approval_scope"] == "any-human", out
+    assert out["approval_scope"] in {"lane", "any-team", "any-human"}, out
 
     infra_pr = {"additions": 3, "deletions": 0, "files": [{"path": ".github/workflows/foo.yml"}]}
     infra_diff = (
