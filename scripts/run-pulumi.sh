@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+# Fork test: a comment-only change on a staging path, so the staging gate applies.
 # Run Pulumi to update the stack targeted by the given branch.
 
 set -o errexit -o pipefail
