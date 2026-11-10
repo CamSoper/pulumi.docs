@@ -397,7 +397,10 @@
   // `inert` from body-level elements that another component owns.
   let bgInerted: Element[] = [];
   function isSheetBypass(el: Element): boolean {
-    return el.id === 'onetrust-consent-sdk';
+    return (
+      el.id === 'segment-consent-manager' ||
+      el.classList.contains('consent-dialog-overlay')
+    );
   }
   function setBackgroundInert(on: boolean): void {
     if (on) {

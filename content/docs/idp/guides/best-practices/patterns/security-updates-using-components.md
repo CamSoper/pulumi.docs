@@ -39,9 +39,6 @@ Platform team creates security-focused components:
 
 ```typescript
 // components/secure-database.ts v1.2.3
-import * as aws from "@pulumi/aws";
-import { ComponentResource, ComponentResourceOptions } from "@pulumi/pulumi";
-
 export class SecureDatabase extends ComponentResource {
   constructor(name: string, args: SecureDatabaseArgs, opts?: ComponentResourceOptions) {
     super("acme:security:SecureDatabase", name, {}, opts);
@@ -59,7 +56,7 @@ export class SecureDatabase extends ComponentResource {
       storageEncrypted: true,
       kmsKeyId: args.kmsKeyId,
       dbSubnetGroupName: subnetGroup.name,
-      vpcSecurityGroupIds: [this.createSecurityGroup(args.vpcId).id],
+      vpcSecurityGroupIds: [this.createSecurityGroup(args.vpcId)],
 
       // Updated security settings (v1.2.3)
       enabledCloudwatchLogsExports: ["postgresql", "upgrade"],
@@ -67,7 +64,7 @@ export class SecureDatabase extends ComponentResource {
       performanceInsightsEnabled: true,
 
       // Force SSL connections
-      parameterGroupName: this.createParameterGroup().name,
+      parameterGroupName: this.createParameterGroup(),
 
       // Automated backups with encryption
       backupRetentionPeriod: args.backupRetentionDays,
@@ -116,7 +113,7 @@ Platform team creates policy to enforce current component versions:
 import { PolicyPack, validateResourceOfType } from "@pulumi/policy";
 import * as aws from "@pulumi/aws";
 
-const MINIMUM_COMPONENT_VERSIONS: Record<string, string> = {
+const MINIMUM_COMPONENT_VERSIONS = {
   "SecureDatabase": "1.2.0",
   "SecureNetwork": "2.1.0",
   "SecureStorage": "1.5.0",

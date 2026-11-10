@@ -1,6 +1,6 @@
 ---
 title_tag: "Pulumi Cloud: RBAC Scopes - Organization settings"
-meta_desc: "Reference list of Pulumi Cloud organization-level RBAC scopes, grouped by entity type, including agent pools, audit logs, and deployments."
+meta_desc: Learn about the available RBAC scopes in Pulumi Cloud.
 title: "RBAC Scopes: Organization Settings"
 h1: "RBAC Scopes: Organization Settings"
 menu:

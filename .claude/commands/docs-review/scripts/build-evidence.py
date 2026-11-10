@@ -88,9 +88,6 @@ _PREEXISTING_RE = re.compile(r"^(?:\*[\"']?.{0,160}?[\"']?\*\s+—\s+)?\*\*Pre-e
 _PREEXISTING_COUNT_RE = re.compile(r"((?:💡 )?\*\*Pre-existing issues in touched files:\*\* )\d+")
 _STYLE_LINE_RE = re.compile(r"^- \*\*Style:\*\* .*$", re.M)
 _HEADER_RE = re.compile(r"^## Author action guide v(?P<rev>\d+) — (?:\d+ items? blocks? merge|nothing blocks merge)\s*$")
-# scripts/review-v3/sentinel.py STRIP_OPEN / STRIP_CLOSE; a test pins them together.
-_SENTINEL_STRIP_OPEN = "<!-- SENTINEL_STRIP -->"
-_SENTINEL_STRIP_CLOSE = "<!-- /SENTINEL_STRIP -->"
 _SUMMARY_RE = re.compile(r"^> \*\*Summary:\*\*\s*(?P<text>.+)$")
 _DETAIL_HEADING_RE = re.compile(r"^#### (?P<id>F\d+|F\?) · Do this\s*$")
 
@@ -999,27 +996,15 @@ def _fix_header(body: str, n_blocking: int, rev: int | None = None) -> str:
             out_rev = rev if rev is not None else int(m.group("rev"))
             lines[i] = f"## Author action guide v{out_rev} — {verb}"
             # The orienting callout directly under the header follows the
-            # count: swap IMPORTANT ⇄ NOTE when it crosses zero. The
-            # Sentinel's strip (sentinel.update_strip) sits between the two
-            # on most cards, and its empty marker pair stays after it clears,
-            # so step over it: stopping at the strip froze the callout at its
-            # first wording (pulumi/docs#22524 read "nothing blocks merge"
-            # over "Answer every item below"; #22286 kept the retired
-            # `@claude … #update-review` instructions).
+            # count: swap IMPORTANT ⇄ NOTE when it crosses zero.
             j = i + 1
-            while j < len(lines):
-                if lines[j].strip() == _SENTINEL_STRIP_OPEN:
-                    while j < len(lines) and lines[j].strip() != _SENTINEL_STRIP_CLOSE:
-                        j += 1
-                elif lines[j].strip():
-                    break
+            while j < len(lines) and not lines[j].strip():
                 j += 1
             if j < len(lines) and lines[j].startswith("> [!"):
                 k = j
                 while k < len(lines) and lines[k].startswith(">"):
                     k += 1
-                lines[j:k] = cr.render_author_orient(n_blocking, *cr.orient_audience(body),
-                                                     first_id=cr.first_open_id(body))
+                lines[j:k] = cr.render_author_orient(n_blocking, *cr.orient_audience(body))
             break
     return "\n".join(lines) + ("\n" if body.endswith("\n") else "")
 

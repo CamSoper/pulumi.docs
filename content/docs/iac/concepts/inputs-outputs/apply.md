@@ -79,11 +79,11 @@ print(vpc.vpc_id)
 
 ```go
 {{< example-program-snippet path="awsx-vpc" language="go" from="1" to="3" >}}
-	"fmt"
+    "fmt"
 {{< example-program-snippet path="awsx-vpc" language="go" from="4" to="10" >}}
 {{< example-program-snippet path="awsx-vpc" language="go" from="12" to="15" >}}
 
-		fmt.Println(vpc.VpcId)
+        fmt.Println(vpc.VpcId)
 
 {{< example-program-snippet path="awsx-vpc" language="go" from="21" to="23" >}}
 ```
@@ -93,9 +93,7 @@ print(vpc.vpc_id)
 {{% choosable language csharp %}}
 
 ```csharp
-{{< example-program-snippet path="awsx-vpc" language="csharp" from="1" to="1" >}}
-using System;
-{{< example-program-snippet path="awsx-vpc" language="csharp" from="2" to="6" >}}
+{{< example-program-snippet path="awsx-vpc" language="csharp" from="1" to="6" >}}
 {{< example-program-snippet path="awsx-vpc" language="csharp" from="8" to="8" >}}
 
     Console.WriteLine(vpc.VpcId);
@@ -237,14 +235,14 @@ vpc.vpc_id.apply(lambda id: print('VPC ID:', id))
 
 ```go
 {{< example-program-snippet path="awsx-vpc" language="go" from="1" to="3" >}}
-	"fmt"
+    "fmt"
 {{< example-program-snippet path="awsx-vpc" language="go" from="4" to="10" >}}
 {{< example-program-snippet path="awsx-vpc" language="go" from="12" to="15" >}}
 
-		vpc.VpcId.ApplyT(func(id string) error {
-			fmt.Printf("VPC ID: %s", id)
-			return nil
-		})
+        vpc.VpcId().ApplyT(func(id string) error {
+            fmt.Printf("VPC ID: %s", id)
+        	return nil
+        })
 
 {{< example-program-snippet path="awsx-vpc" language="go" from="21" to="23" >}}
 ```
@@ -258,9 +256,7 @@ The function `ApplyT` spawns a goroutine to await the availability of the implic
 {{% choosable language csharp %}}
 
 ```csharp
-{{< example-program-snippet path="awsx-vpc" language="csharp" from="1" to="1" >}}
-using System;
-{{< example-program-snippet path="awsx-vpc" language="csharp" from="2" to="6" >}}
+{{< example-program-snippet path="awsx-vpc" language="csharp" from="1" to="6" >}}
 {{< example-program-snippet path="awsx-vpc" language="csharp" from="8" to="8" >}}
 
     vpc.VpcId.Apply(id => { Console.WriteLine($"VPC ID: {id}"); return id; });
@@ -277,7 +273,7 @@ using System;
 {{< example-program-snippet path="awsx-vpc" language="java" from="11" to="11" >}}
 
             vpc.vpcId().applyValue(i -> {
-                ctx.log().info("VPC ID: " + i);
+                System.out.println("VPC ID: " + i);
                 return null;
             });
 
@@ -340,7 +336,7 @@ Sometimes a resource has an output property that is an array or a more complex o
 {{% choosable language java %}}
 
 ```java
-{{< example-program-snippet path="apply-nested-output-values" language="java" from="1" to="25" >}}
+{{< example-program-snippet path="apply-nested-output-values" language="java" from="1" to="24" >}}
 ```
 
 {{% /choosable %}}
@@ -407,7 +403,7 @@ Suppose you want to validate your certificate by creating an [Amazon Route 53 re
 {{% choosable language java %}}
 
 ```java
-{{< example-program-snippet path="apply-nested-output-values" language="java" from="27" to="40" >}}
+{{< example-program-snippet path="apply-nested-output-values" language="java" from="26" to="39" >}}
 ```
 
 {{% /choosable %}}
@@ -765,8 +761,8 @@ function buildUrl(host: pulumi.Input<string>): pulumi.Output<string> {
 
 const fromPlain = buildUrl("example.com");
 
-const bucket = new aws.s3.Bucket("my-bucket");
-const fromOutput = buildUrl(bucket.bucketRegionalDomainName);
+const bucket = new aws.s3.BucketV2("my-bucket");
+const fromOutput = buildUrl(bucket.websiteEndpoint);
 ```
 
 {{% /choosable %}}
@@ -787,8 +783,8 @@ def build_url(host: pulumi.Input[str]) -> pulumi.Output[str]:
 from_plain = build_url("example.com")
 
 # Works equally well with an Output[str] from a resource.
-bucket = aws.s3.Bucket("my-bucket")
-from_output = build_url(bucket.bucket_regional_domain_name)
+bucket = aws.s3.BucketV2("my-bucket")
+from_output = build_url(bucket.website_endpoint)
 ```
 
 {{% /choosable %}}
@@ -799,7 +795,7 @@ In Go, each typed input interface exposes a `ToXxxOutput()` method that returns 
 
 ```go
 import (
-    awss3 "github.com/pulumi/pulumi-aws/sdk/v7/go/aws/s3"
+    awss3 "github.com/pulumi/pulumi-aws/sdk/v6/go/aws/s3"
     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -812,8 +808,8 @@ func buildURL(input pulumi.StringInput) pulumi.StringOutput {
 // Inside a Pulumi program:
 fromPlain := buildURL(pulumi.String("example.com"))
 
-bucket, _ := awss3.NewBucket(ctx, "my-bucket", nil)
-fromOutput := buildURL(bucket.BucketRegionalDomainName)
+bucket, _ := awss3.NewBucketV2(ctx, "my-bucket", nil, nil)
+fromOutput := buildURL(bucket.Bucket)
 ```
 
 Each typed input interface in the Go SDK—`pulumi.StringInput`, `pulumi.IntInput`, `pulumi.BoolInput`, and so on—follows this same `ToXxxOutput()` pattern.
