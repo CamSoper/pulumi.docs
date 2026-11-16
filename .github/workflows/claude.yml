@@ -54,8 +54,8 @@ jobs:
       # review, etc.) fire on those commits.
       - name: Fetch secrets from ESC
         id: esc-secrets
-        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
         uses: pulumi/esc-action@v3
+        continue-on-error: true  # ops (fork-only): no ESC trust policy on the fork
 
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -118,6 +118,15 @@ jobs:
               exit 0
             fi
           done
+          # `@claude /update-review …`: a review command typed after the
+          # mention runs nothing, and review-command-redirect.yml answers it.
+          # Answering it here too used to hand out the retired instructions
+          # (#22286).
+          if python3 "$GATE" legacy --body-env BODY --out "$RUNNER_TEMP/legacy.md" 2>/dev/null | grep -qx 'reply=true'; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "review-command-redirect.yml answers this one; standing down"
+            exit 0
+          fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
 
       - name: Run Claude Code
