@@ -6,7 +6,7 @@ set -o errexit -o pipefail
 cd "$(dirname "${BASH_SOURCE}")/.."
 
 if [ -z ${1:-} ]; then
-    echo "Usage: $0 [ preview | update ]"
+    echo "Usage: $0 [ preview | update ]" >&2
     exit 1
 fi
 
