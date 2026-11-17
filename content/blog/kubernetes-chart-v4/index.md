@@ -1084,7 +1084,7 @@ such as an IAM Role or cloud storage bucket. Such combinations make for great re
 
 Check out the following links to learn more about Pulumi Kubernetes today!
 
-- [Getting Started](/up/)
+- [Getting Started](/docs/iac/get-started/kubernetes/)
 - [Documentation](/docs/integrations/clouds/kubernetes/)
 - [Open Source](https://github.com/pulumi/pulumi-kubernetes)
 - [Community Slack](https://slack.pulumi.com/)

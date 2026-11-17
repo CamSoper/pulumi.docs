@@ -70,14 +70,17 @@ values:
     clientSecret: "oauth-client-secret"
 ```
 
-Your Pulumi stack can then compose these environments. Environments are referenced as `<project>/<environment>`, and you list them under the `environment` key of the stack configuration file. For example, assuming the environments above live in an ESC project named `platform`:
+Your Pulumi program can then compose these environments:
 
 ```yaml
-# Pulumi.dev.yaml
+# pulumi.yaml
+name: web-app
+runtime: nodejs
+
 environment:
-  - platform/database-service
-  - platform/cache-service
-  - platform/auth-service
+  - database-service
+  - cache-service
+  - auth-service
 ```
 
 This allows each service team to manage their own configuration independently while enabling your application to consume from multiple services as needed.

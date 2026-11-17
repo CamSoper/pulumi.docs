@@ -20,7 +20,7 @@ The [ECS-Hosted Installer](https://github.com/pulumi/pulumi-self-hosted-installe
 
 ## Prerequisites
 
-You must provide and manage the following:
+The customer is required to provide and manage the following:
 
 * AWS VPC with
   * At least 2 public subnets available.
@@ -28,13 +28,13 @@ You must provide and manage the following:
   * At least 2 isolated subnets available.
     * An "isolated" subnet means it can only route traffic within the subnet. So there is no NAT gateway.
 * Route53 hosted zone.
-* ACM certificate that covers FQDNs of the following form, where `{subdomain}` is optional:
+* ACM Certificate that covers FQDNs of the following form, where `{subdomain}` is optional:
   * `{subdomain}.{zoneDomainName}`
   * `api.{subdomain}.{zoneDomainName}`
   * `app.{subdomain}.{zoneDomainName}`
-* KMS key that the self-hosted Pulumi Cloud uses for encryption and decryption.
+* KMS key to be used the self-hosted Pulumi Cloud for encryption/decryption purposes.
 
-## ECS-hosted deployment
+## ECS-Hosted Deployment
 
 The ECS-hosted installation of Pulumi deploys the following services:
 
@@ -42,28 +42,29 @@ The ECS-hosted installation of Pulumi deploys the following services:
 * Fargate - Managed Container Service
 * RDS Aurora - Managed MySQL DB for persistent state and automated replication and snapshotting.
 * S3 - Object storage for checkpoints and policy packs.
-* CloudWatch Logs - Optional centralized logging for the service containers. Logging is off by default.
+* CloudWatch Logs - Centralized logging for all cluster pods.
 * Route53 - Managed DNS records.
-* ALB - Managed application traffic and TLS termination, using the ACM certificate you provide.
+* ALB - Managed application traffic and TLS termination.
+* ACM - Managed Public TLS certificates.
 
 ### Pulumi deploying Pulumi
 
-This installer uses Pulumi to deploy Pulumi Cloud. You use the Pulumi CLI with a DIY backend (for example, S3) to deploy all the services listed above and stand up the self-hosted Pulumi Cloud. The installation package includes the Pulumi project code, so you can deploy the service by running `pulumi up`.
+This installer uses Pulumi to deploy Pulumi Cloud. In this case, one uses the pulumi CLI with a DIY backend (e.g., S3) to deploy all services listed above to stand up the self-hosted Pulumi Cloud. The installation package includes the Pulumi project code so you can deploy the service by running `pulumi up`.
 
-Before you deploy, set up the following:
+To this end, you need to set up the following:
 
 * [Download and install the Pulumi CLI](/docs/install/) on your workstation
-* [Log in to an S3-compatible backend](/docs/iac/operations/stack-management/using-a-diy-backend/#aws-s3)
+* [Login to S3-compatible backend](/docs/iac/concepts/state-and-backends/#logging-into-and-out-of-state-backends)
 
-### Deployment steps
+### Deployment Steps
 
-For detailed deployment steps, see the README for your installer language: [TypeScript](https://github.com/pulumi/pulumi-self-hosted-installers/tree/master/ecs-hosted/ts) or [Go](https://github.com/pulumi/pulumi-self-hosted-installers/tree/master/ecs-hosted/go).
+See the [README](https://github.com/pulumi/pulumi-self-hosted-installers/tree/master/ecs-hosted) file provided with the installer package for detailed deployment steps.
 
-## ECS-hosted system management and maintenance
+## ECS-Hosted System Management and Maintenance
 
-### Pulumi Cloud updates
+### Pulumi Cloud Updates
 
-When deploying Pulumi Cloud, it is recommended to pin the image tag to a specific version. See the installer's README ([TypeScript](https://github.com/pulumi/pulumi-self-hosted-installers/tree/master/ecs-hosted/ts) or [Go](https://github.com/pulumi/pulumi-self-hosted-installers/tree/master/ecs-hosted/go)) to set the `imageTag` configuration property for the installer to use.
+When deploying Pulumi Cloud, it is recommended to pin the image tag to a specific version. See the [installer's README](https://github.com/pulumi/pulumi-self-hosted-installers/tree/master/ecs-hosted) file to set the `imageTag` configuration property for the installer to use.
 
 When ready to update the Pulumi Cloud containers to use a different version, do the following:
 
@@ -71,14 +72,14 @@ When ready to update the Pulumi Cloud containers to use a different version, do 
 * `pulumi config set imageTag {image tag}` to set the version you want to use.
 * `pulumi up` to deploy the updates.
 
-### Database maintenance
+### Database Maintenance
 
-The installer configures the RDS (Aurora) database with automated backups, so no routine database maintenance is needed. Read replicas default to 0; set the `numberDbReplicas` configuration value in the installer if you need them.
+The installer configures the RDS backend database for replication and checkpointing. So no additional maintenance is needed by the customer.
 
-### Blob storage maintenance
+### Blob Storage Maintenance
 
-The service automatically creates backups of checkpoint (state) files. However, you may want to enable AWS Backup to periodically back up the S3 buckets that the installer creates.
-The buckets have names of the form:
+The service automatically creates backups of checkpoint (i.e. state) files. However the customer may want to enable AWS Backup to periodically backup the S3 buckets created by the installer.
+The buckets will have names of the form:
 
 * `pulumi-checkpoints-XXX`
 * `pulumi-policypacks-XXX`

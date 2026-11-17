@@ -1,6 +1,6 @@
 ---
 title: Infrastructure as Code
-linktitle: Infrastructure as code
+linktitle: Infrastructure as Code
 docs_home: true
 notitle: true
 norightnav: true
@@ -14,7 +14,7 @@ description: <p>Define and manage cloud infrastructure using familiar programmin
 link_buttons:
   primary:
     label: Get Started
-    link: /up/
+    link: /docs/get-started/
 
 sections:
 - type: cards-logo-label-link

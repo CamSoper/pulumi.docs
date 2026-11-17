@@ -131,9 +131,9 @@ sections:
     description: |
       Some of the largest infrastructure estates in the world run on Pulumi.
     cards:
-      - customer: wiz
-      - customer: bmw
-      - customer: mercedes-benz
+      - slug: wiz
+      - slug: bmw
+      - slug: mercedes-benz
     anchor: scale
 
   - type: three_column

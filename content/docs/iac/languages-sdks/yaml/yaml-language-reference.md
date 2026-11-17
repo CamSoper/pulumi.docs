@@ -130,7 +130,7 @@ The `dependsOn`, `parent`, `provider`, and `providers` values permit expressions
     options:
       provider: ${myEksProvider}
       providers:
-        - ${myAwsProvider}
+        aws: ${myAwsProvider}
       dependsOn:
         - ${otherResource}
       parent: ${someParentResource}
@@ -148,16 +148,11 @@ The `dependsOn`, `parent`, `provider`, and `providers` values permit expressions
 | `parent` | Expression | Parent specifies a parent for the resource |
 | `protect` | bool | Protect prevents accidental deletion of a resource |
 | `provider` | Expression | Provider specifies an explicitly configured provider, instead of using the default global provider |
-| `providers` | Expression[] | List of providers for a resource and its children. |
+| `providers` |  map[string]Expression | Map of providers for a resource and its children. |
 | `version` | string | Version specifies a provider plugin version that should be used when operating on a resource |
 | `pluginDownloadURL` | string | PluginDownloadURL specifies a provider plugin download URL |
 | `replaceOnChanges` | string[] | ReplaceOnChanges specifies if changes to certain properties on a resource should force replacement instead of an in-place update. |
 | `retainOnDelete` | bool | RetainOnDelete causes a resource to be preserved in the cloud even when it is deleted from the Pulumi state. |
-| `replaceWith` | Expression[] | ReplaceWith makes this resource be replaced whenever any of the listed resources are replaced. |
-| `deletedWith` | Expression | DeletedWith skips deleting this resource when the referenced resource is deleted in the same operation. |
-| `hideDiffs` | string[] | HideDiffs lists properties whose diffs are hidden in CLI output. |
-| `replacementTrigger` | Expression | ReplacementTrigger replaces the resource whenever the value of the expression changes. |
-| `envVarMappings` | map[string]string | EnvVarMappings remaps environment variables to the keys a provider reads, for explicitly configured providers. |
 
 ### Resource getter
 
@@ -389,7 +384,6 @@ Expressions denoted by `${...}` are only converted to strings when interpolated 
 
 ```yaml
 name: kubernetes-port-example
-runtime: yaml
 variables:
   httpPort:
     protocol: TCP
@@ -484,17 +478,19 @@ Example calling the [getAmi](https://www.pulumi.com/registry/packages/aws/api-do
 variables:
   AmazonLinuxAmi:
     fn::invoke:
-      function: aws:ec2:getAmi
+      function: aws:getAmi
       arguments:
         filters:
           - name: name
-            values: ["al2023-ami-2023.*-x86_64"]
+            values: ["amzn-ami-hvm-*-x86_64-ebs"]
         owners: ["137112412989"]
         mostRecent: true
+      options:
+        version: 5.9.0
       return: id
 ```
 
-The expression `${AmazonLinuxAmi}` returns the AMI ID returned from the [`aws:ec2:getAmi`](/registry/packages/aws/api-docs/ec2/getami/) function.
+The expression `${AmazonLinuxAmi}` returns the AMI ID returned from the [`aws:getAmi`](/registry/packages/aws/api-docs/ec2/getami/) function.
 
 Example calling the `sum` function in the `pulumi-std` provider package to subtract 255 from `${route53Weight}`:
 

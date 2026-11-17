@@ -1,6 +1,6 @@
 ---
 title: Internal Developer Platform
-linktitle: Internal developer platform
+linktitle: Internal Developer Platform
 docs_home: true
 notitle: true
 norightnav: true

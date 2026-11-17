@@ -85,17 +85,14 @@ webhook = pulumi_pulumiservice.Webhook("example-webhook",
 {{% choosable language go %}}
 
 ```go
-package main
-
 import (
 	"fmt"
-
 	"github.com/pulumi/pulumi-pulumiservice/sdk/go/pulumiservice"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := pulumiservice.NewWebhook(ctx, "example-webhook", &pulumiservice.WebhookArgs{
+		webhook, err := pulumiservice.NewWebhook(ctx, "example-webhook", &pulumiservice.WebhookArgs{
 			Active:           pulumi.Bool(true),
 			DisplayName:      pulumi.String("example webhook"),
 			OrganizationName: pulumi.String("example"),
@@ -124,7 +121,7 @@ class PulumiServiceWebhook: Stack
             DisplayName = "example webhook",
             OrganizationName = "example",
             PayloadUrl = "https://example.com/webhook"
-        });
+        })
     }
 }
 ```
@@ -195,7 +192,7 @@ The following table describes the various event filters available and the contex
 | `destroy_succeeded`               | `stack_update`              | Organization or Stack      | When a stack `destroy` succeeds.                 |
 | `destroy_failed`                  | `stack_update`              | Organization or Stack      | When a stack `destroy` fails.                    |
 | `refresh_succeeded`               | `stack_update`              | Organization or Stack      | When a stack `refresh` succeeds.                 |
-| `refresh_failed`                  | `stack_update`              | Organization or Stack      | When a stack `refresh` fails.                    |
+| `refresh failed`                  | `stack_update`              | Organization or Stack      | When a stack `refresh` fails.                    |
 | `deployment_queued`               | `deployment`                | Organization or Stack      | When a deployment is queued.                     |
 | `deployment_started`              | `deployment`                | Organization or Stack      | When a deployment starts running.                |
 | `deployment_succeeded`            | `deployment`                | Organization or Stack      | When a deployment succeeds.                      |
@@ -207,8 +204,6 @@ The following table describes the various event filters available and the contex
 | `drift_remediation_failed`        | `drift_remediation`         | Organization or Stack      | When a drift remediation run fails.              |
 | `policy_violation_mandatory`      | `policy_violation`          | Organization or Stack      | When a mandatory policy violation is detected.   |
 | `policy_violation_advisory`       | `policy_violation`          | Organization or Stack      | When an advisory policy violation is detected.   |
-
-Canceled and timed-out deployments are reported as failed and trigger `deployment_failed`, and a [skipped](/docs/deployments/operations/deployment-status/) deployment doesn't trigger any event.
 
 And this table describes the various filter groups available to easily subscribe to all events within a group.
 
@@ -361,9 +356,6 @@ Each webhook will contain an `organization` field, which is the organization nam
 }
 ```
 
-A deployment payload's `status` is one of `queued`, `running`, `succeeded`, or `failed`.
-For how these map to the statuses the REST API reports, see [Deployment status](/docs/deployments/operations/deployment-status/#status-names-across-pulumi-cloud).
-
 ##### Drift detection
 
 ```json
@@ -434,7 +426,7 @@ const sharedSecret = ...
 const payload = req.body.toString();
 
 var hmacAlg = crypto.createHmac('sha256', sharedSecret);
-var expectedSignature = hmacAlg.update(payload).digest('hex');
+var expectedSignature = hmac.update(payloadBody).digest('hex');
 ```
 
 {{% /choosable %}}

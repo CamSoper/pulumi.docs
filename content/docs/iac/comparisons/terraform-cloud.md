@@ -156,7 +156,7 @@ Yes. Coding agents such as Claude Code, Codex, Cursor, and GitHub Copilot can wr
 
 ## Next steps
 
-* [Get started with Pulumi](/up/)
+* [Get started with Pulumi](/docs/get-started/)
 * [Using Pulumi Cloud as a Terraform state backend](/docs/integrations/terraform/state-backend/)
 * [Using Terraform modules in Pulumi](/docs/integrations/terraform/modules/)
 * [Terraform modules in the Pulumi Cloud registry](/docs/integrations/terraform/module-registry/)

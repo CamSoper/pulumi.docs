@@ -57,7 +57,7 @@ res = MyResource("res",
 
 ```go
 res, _ := NewMyResource(ctx, "res",
-    &MyResourceArgs{Prop: pulumi.String("new-value")},
+    &MyResourceArgs{Prop: "new-value"},
     pulumi.HideDiffs([]string{"prop"}))
 ```
 

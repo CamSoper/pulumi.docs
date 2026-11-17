@@ -24,9 +24,7 @@ if [[ "$GITHUB_EVENT_NAME" == "pull_request" && ! -z "$GITHUB_EVENT_PATH" ]]; th
         pr_comment_api_url="$(echo $event | jq -r ".pull_request._links.comments.href")"
 
         # List s3 buckets and filter all buckets associated with this PR. 
-        # grep exits 1 when nothing matches, which pipefail would turn into a script
-        # failure for any PR that never had a preview built.
-        buckets=$(aws s3 ls | { grep "$(origin_bucket_prefix)-pr-${pr_number}-" || true; } | awk '{print $3}')
+        buckets=$(aws s3 ls | grep "$(origin_bucket_prefix)-pr-${pr_number}-" | awk '{print $3}')
 
         if [ ! -z "$buckets" ]; then
             for bucket in $buckets; do

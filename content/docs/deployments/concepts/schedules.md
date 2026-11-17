@@ -20,12 +20,6 @@ Scheduled Deployments in Pulumi Cloud introduce a robust capability to automate 
 
 Users can easily define schedules for any stack with Pulumi Deployments configured, using cron expressions to specify exact times for operations. This granular level of control allows for precise management of infrastructure tasks, accommodating complex scheduling needs. Scheduled Deployments build upon the existing infrastructure provided by Pulumi Deployments, enhancing it with the flexibility to manage deployment timing extensively. This means Pulumi Deployments concurrency limits apply to scheduled deployments and pausing deployments on a stack will queue scheduled deployments as well.
 
-## Time zones
-
-Schedules run in UTC unless the cron expression starts with `CRON_TZ=` followed by an [IANA time zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For example, `CRON_TZ=America/New_York 0 9 * * *` runs at 9:00 AM New York time and follows daylight saving time changes. Pulumi Cloud rejects an expression whose time zone name it doesn't recognize.
-
-The same rule applies to every Pulumi Cloud schedule that takes a cron expression, including [drift detection](/docs/deployments/concepts/drift/) and [ESC secret rotation](/docs/esc/concepts/rotators/) schedules.
-
 ## Pulumi Cloud UI
 
 In order to set up a deployment schedule in the Pulumi Cloud console, follow these steps:
@@ -41,7 +35,7 @@ In order to set up a deployment schedule in the Pulumi Cloud console, follow the
 
 ### Setting it up in the API
 
-For those who prefer to automate and script their infrastructure tasks, scheduled deployments can be configured programmatically using simple HTTP requests.
+For those who prefer to automate and script their infrastructure tasks, Time-to-Live schedules can be configured programmatically using simple HTTP requests.
 
 - Create a schedule
 - Get a schedule for a stack
@@ -61,7 +55,7 @@ curl \
   https://api.pulumi.com/api/stacks/{organization}/{project}/{stack}/deployments/schedules
 ```
 
-Refer to the [Pulumi Deployments REST API documentation](/docs/reference/cloud-rest-api/deployments/) for more details on how to use the REST API to manage Scheduled Deployments.
+Refer to the [Pulumi Deployments REST API documentation](/docs/deployments/deployments/api) for more details on how to use the REST API to manage Scheduled Deployments.
 
 ### Pulumi Cloud provider
 
@@ -81,7 +75,7 @@ const rawSchedule = new pulumiservice.DeploymentSchedule("rawSchedule", {
     organization: organizationName,
     project: projectName,
     stack: stackName,
-    scheduleCron: "0 0 * * *", // Run an update daily at midnight UTC
+    scheduleCron: "0 0 * * *", // Run an update daily at midnight
     pulumiOperation: pulumiservice.PulumiOperation.update
 });
 
@@ -105,7 +99,7 @@ raw_schedule = pulumiservice.DeploymentSchedule("rawSchedule",
     organization=organization_name,
     project=project_name,
     stack=stack_name,
-    schedule_cron="0 0 * * *",  # Run an update daily at midnight UTC
+    schedule_cron="0 0 * * *",  # Run an update daily at midnight
     pulumi_operation=pulumiservice.PulumiOperation.update)
 
 pulumi.export('scheduleId', raw_schedule.schedule_id)
@@ -129,14 +123,14 @@ func main() {
             Organization: pulumi.String("my-org"),
             Project: pulumi.String("my-project"),
             Stack: pulumi.String("prod-stack"),
-            ScheduleCron: pulumi.String("0 0 * * *"),  // Run an update daily at midnight UTC
+            ScheduleCron: pulumi.String("0 0 * * *"),  // Run an update daily at midnight
             PulumiOperation: pulumiservice.PulumiOperationUpdate,
         })
         if err != nil {
             return err
         }
 
-        ctx.Export("scheduleId", rawSchedule.ScheduleId)
+        ctx.Export("scheduleId", rawSchedule.ScheduleID)
         return nil
     })
 }
@@ -147,8 +141,6 @@ func main() {
 {{% choosable language csharp %}}
 
 ```csharp
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Pulumi;
 using PulumiService = Pulumi.PulumiService;
 
@@ -160,7 +152,7 @@ class Program
             Organization = "my-org",
             Project = "my-project",
             Stack = "prod-stack",
-            ScheduleCron = "0 0 * * *",  // Run an update daily at midnight UTC
+            ScheduleCron = "0 0 * * *",  // Run an update daily at midnight
             PulumiOperation = PulumiService.PulumiOperation.Update,
         });
 
@@ -187,16 +179,16 @@ public class App {
         Pulumi.run(App::stack);
     }
 
-    private static void stack(Context ctx) {
+    private static to stack(Context ctx) {
         var rawSchedule = new DeploymentSchedule("rawSchedule", DeploymentScheduleArgs.builder()
             .organization("my-org")
             .project("my-project")
             .stack("prod-stack")
-            .scheduleCron("0 0 * * *") // Run an update daily at midnight UTC
+            .scheduleCron("0 0 * * *") // Run an update daily at midnight
             .pulumiOperation(com.pulumi.pulumiservice.PulumiOperation.update())
             .build());
 
-        ctx.export("scheduleId", rawSchedule.scheduleId());
+        ctx.export("scheduleId", rawSchedule.name());
     }
 }
 ```
@@ -217,7 +209,7 @@ resources:
       organization: my-org
       project: my-project
       stack: prod-stack
-      scheduleCron: "0 0 * * *" # Run an update daily at midnight UTC
+      scheduleCron: "0 0 * * *" # Run an update daily at midnight
       pulumiOperation: update
 
 outputs:
@@ -253,7 +245,7 @@ resource "pulumiservice_deployment_schedule" "raw_schedule" {
   project      = "my-project"
   stack        = "prod-stack"
 
-  schedule_cron    = "0 0 * * *" # Run an update daily at midnight UTC
+  schedule_cron    = "0 0 * * *" # Run an update daily at midnight
   pulumi_operation = "update"
 }
 

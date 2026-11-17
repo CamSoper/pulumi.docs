@@ -82,7 +82,7 @@ data "aws_ami" "amazon_linux" {
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.*-x86_64"]
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
 
@@ -255,7 +255,7 @@ const amazonLinux = aws.ec2.getAmiOutput({
     owners: ["amazon"],
     filters: [{
         name: "name",
-        values: ["al2023-ami-2023.*-x86_64"],
+        values: ["amzn2-ami-hvm-*-x86_64-gp2"],
     }],
 }, {
     provider: awsProvider,
@@ -400,7 +400,7 @@ amazon_linux = aws.ec2.get_ami(
     owners=["amazon"],
     filters=[{
         "name": "name",
-        "values": ["al2023-ami-2023.*-x86_64"],
+        "values": ["amzn2-ami-hvm-*-x86_64-gp2"],
     }],
     opts=pulumi.InvokeOptions(provider=aws_provider)
 )
@@ -557,7 +557,7 @@ func main() {
 			Filters: []ec2.GetAmiFilter{
 				{
 					Name:   "name",
-					Values: []string{"al2023-ami-2023.*-x86_64"},
+					Values: []string{"amzn2-ami-hvm-*-x86_64-gp2"},
 				},
 			},
 		}, pulumi.Provider(awsProvider))
@@ -704,7 +704,6 @@ echo "<h1>Hello from Pulumi converted infrastructure!</h1>" > /var/www/html/inde
 using System.Collections.Generic;
 using Pulumi;
 using Pulumi.Aws.Ec2;
-using Pulumi.Aws.Ec2.Inputs;
 
 return await Deployment.RunAsync(() =>
 {
@@ -729,7 +728,7 @@ return await Deployment.RunAsync(() =>
             new GetAmiFilterInputArgs
             {
                 Name = "name",
-                Values = new[] { "al2023-ami-2023.*-x86_64" },
+                Values = new[] { "amzn2-ami-hvm-*-x86_64-gp2" },
             },
         },
     }, new InvokeOptions { Provider = awsProvider });
@@ -905,7 +904,7 @@ public class App {
     public static void main(String[] args) {
         Pulumi.run(ctx -> {
             // Create configuration
-            var config = ctx.config();
+            var config = new com.pulumi.Config();
             var awsRegion = config.get("awsRegion").orElse("us-west-2");
             var instanceType = config.get("instanceType").orElse("t3.micro");
 
@@ -924,7 +923,7 @@ public class App {
                 .owners("amazon")
                 .filters(GetAmiFilterArgs.builder()
                     .name("name")
-                    .values("al2023-ami-2023.*-x86_64")
+                    .values("amzn2-ami-hvm-*-x86_64-gp2")
                     .build())
                 .build(),
                 InvokeOptions.builder()
@@ -1005,15 +1004,15 @@ public class App {
                 .ami(amazonLinux.applyValue(ami -> ami.id()))
                 .instanceType(instanceType)
                 .subnetId(publicSubnet.id())
-                .vpcSecurityGroupIds(webSg.id().applyValue(List::of))
-                .userData(String.join("\n",
-                    "#!/bin/bash",
-                    "yum update -y",
-                    "yum install -y httpd",
-                    "systemctl start httpd",
-                    "systemctl enable httpd",
-                    "echo \"<h1>Hello from Pulumi converted infrastructure!</h1>\" > /var/www/html/index.html",
-                    ""))
+                .vpcSecurityGroupIds(webSg.id())
+                .userData("""
+                    #!/bin/bash
+                    yum update -y
+                    yum install -y httpd
+                    systemctl start httpd
+                    systemctl enable httpd
+                    echo "<h1>Hello from Pulumi converted infrastructure!</h1>" > /var/www/html/index.html
+                    """)
                 .tags(Map.of("Name", "web-server"))
                 .build(), providerOptions);
 
@@ -1053,7 +1052,7 @@ variables:
         owners: ["amazon"]
         filters:
           - name: name
-            values: ["al2023-ami-2023.*-x86_64"]
+            values: ["amzn2-ami-hvm-*-x86_64-gp2"]
       options:
         provider: ${aws-provider}
 

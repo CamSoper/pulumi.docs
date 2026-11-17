@@ -114,11 +114,9 @@ my-components/
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
 
-export interface MyComponentArgs {}
-
 export class MyComponent extends pulumi.ComponentResource {
-    constructor(name: string, args: MyComponentArgs, opts?: pulumi.ComponentResourceOptions) {
-        super("my-components:index:MyComponent", name, args, opts);
+    constructor(name: string, opts?: pulumi.ComponentResourceOptions) {
+        super("my-components:index:MyComponent", name, {}, opts);
         this.registerOutputs({});
     }
 }
@@ -134,31 +132,18 @@ Exporting the class from the module named by `main` in `package.json` is all tha
 my-components/
 ├── PulumiPlugin.yaml
 ├── pyproject.toml         # the name field determines the generated SDK name
+├── __main__.py            # entry file — imports your components as top-level names
 └── my_components/
-    ├── __init__.py        # entry file, exports your components
     └── components.py      # your ComponentResource classes
 ```
 
-`pyproject.toml`:
-
-```toml
-[project]
-name = "my-components"
-version = "0.0.1"
-dependencies = ["pulumi>=3.0.0,<4.0.0"]
-
-[build-system]
-requires = ["setuptools>=61"]
-build-backend = "setuptools.build_meta"
-```
-
-`my_components/__init__.py`:
+`__main__.py`:
 
 ```python
-from .components import MyComponent
+from my_components.components import MyComponent
 ```
 
-Exporting the class from the package named after `name` in `pyproject.toml`, with `-` replaced by `_`, is all that's required. Pulumi auto-discovers it. The `[build-system]` table is required, and the plugin's root directory must not have a `__main__.py` file, which Pulumi would run instead.
+Importing the class so it becomes a top-level name on the entry module is all that's required — Pulumi auto-discovers it.
 
 {{% /choosable %}}
 
@@ -234,7 +219,7 @@ class Program
 ```plain
 my-components/
 ├── PulumiPlugin.yaml
-├── pom.xml
+├── pom.xml                                     # the artifactId determines the generated SDK name
 └── src/main/java/com/example/provider/
     ├── App.java                                # entry file — hands the host a package to scan
     └── MyComponent.java                        # your ComponentResource class
@@ -267,7 +252,7 @@ Create a separate Pulumi program — in any supported language, not just the one
 
 ```bash
 cd ..
-pulumi new typescript --name consumer --dir consumer --yes
+pulumi new typescript -n consumer --yes
 cd consumer
 pulumi package add ../my-components
 ```
@@ -320,14 +305,14 @@ Your args types also appear in the generated SDK, so consumers can construct the
 
 {{% choosable language python %}}
 
-Export your `ComponentResource` subclasses from the package named after `name` in `pyproject.toml`, with `-` replaced by `_`. The `pyproject.toml` must include a `[build-system]` table, and the plugin's root directory must not have a `__main__.py` file. A minimum `my_package/__init__.py` contains:
+Make your `ComponentResource` subclasses top-level names in your entry module. A minimum `__main__.py` is just:
 
 ```python
-from .components import StaticSite, Database
+from my_package.components import StaticSite, Database
 ```
 
 {{< notes type="info" >}}
-Under the hood, the `pulumi-language-python` host imports the package and iterates over its top-level names, collecting every class that is a subclass of `ComponentResource`. Classes that aren't top-level names in the package are skipped.
+Under the hood, the `pulumi-language-python` host imports the entry module and iterates over its `__dict__`, collecting every class that is a subclass of `ComponentResource`. Only top-level names are scanned — classes imported but not re-exported at module level are skipped.
 
 Your args types also appear in the generated SDK, so consumers can construct them in their own language. You don't need to export or register args classes separately — Pulumi finds them by reading the type annotation on each component's `__init__` `args` parameter. Each field of the args class becomes a property on the generated schema; `Optional[...]` fields become optional. The args class must be type-annotated on `args` and importable from the module being analyzed. No decorators are required.
 {{< /notes >}}
@@ -355,7 +340,7 @@ class Program
 ```
 
 {{< notes type="info" >}}
-Under the hood, `ComponentProviderHost.Serve` scans the calling assembly via reflection and collects every non-abstract type that inherits from `ComponentResource`, regardless of namespace or visibility.
+Under the hood, `ComponentProviderHost.Serve` scans the calling assembly via reflection and collects every non-abstract type that inherits from `ComponentResource`, regardless of namespace or visibility. Passing a type that does not inherit from `ComponentResource` causes startup to fail with a clear error.
 
 Your args types also appear in the generated SDK, so consumers can construct them in their own language. You don't need to register args classes separately — Pulumi finds them by looking for a constructor with exactly three parameters (`string`, a `ResourceArgs` subclass, and `ComponentResourceOptions`) and using the second parameter's type. The args class is analyzed via reflection: public fields and properties become schema properties. Nullable CLR types and `[Input(IsRequired = false)]` mark properties optional.
 {{< /notes >}}
@@ -502,18 +487,18 @@ See the [Java language docs](/docs/iac/languages-sdks/java/).
 
 ## Package contents by authoring language
 
-Source-based plugins were designed around `ComponentResource`. Custom resources (direct CRUD against an external API) and functions (invokes) are only supported when authoring in Go via `pulumi-go-provider`. In every other language today, anything that isn't a `ComponentResource` is ignored.
+Source-based plugins were designed around `ComponentResource`. Custom resources (direct CRUD against an external API) and functions (invokes) are only supported when authoring in Go via `pulumi-go-provider`. In every other language today, anything that isn't a `ComponentResource` is either rejected or silently ignored.
 
 | Language | `ComponentResource` | `CustomResource` | Functions (invokes) |
 | --- | --- | --- | --- |
-| TypeScript | Supported | Ignored | Unsupported |
-| Python | Supported | Ignored | Unsupported |
-| C# / .NET | Supported | Ignored | Unsupported |
-| Java | Supported | Ignored | Unsupported |
+| TypeScript | Supported | Silently ignored | Unsupported |
+| Python | Supported | Silently ignored | Unsupported |
+| C# / .NET | Supported | Rejected at startup | Unsupported |
+| Java | Supported | Silently filtered | Unsupported |
 | Go | Supported (`WithComponents`) | **Supported** (`WithResources`) | **Supported** (`WithFunctions`) |
 
 {{< notes type="info" >}}
-In TypeScript and Python, a non-`ComponentResource` in the list passed to `componentProviderHost` or `component_provider_host` is excluded from the schema with a warning. The warning appears only in verbose logs, so run with `-v=9` to see it.
+In a future version of Pulumi, TypeScript and Python will emit a warning when a non-`ComponentResource` is passed where a component is expected, rather than silently ignoring it. See [pulumi/pulumi#22616](https://github.com/pulumi/pulumi/issues/22616) (TypeScript) and [pulumi/pulumi#22617](https://github.com/pulumi/pulumi/issues/22617) (Python).
 {{< /notes >}}
 
 ## Patterns shared by all languages
@@ -539,17 +524,18 @@ pulumi package add <repo_url>[/path/to/component]@<release-version>
 
 The only steps to enable this are pushing your package to a Git repo and tagging a release. Pulumi supports both GitHub and GitLab releases, and can also reference self-hosted Git servers — in that case omit the `<release-version>` portion.
 
-Pulumi generates the consumer's language-specific SDK automatically. For example, if the consuming program is Python and uses the default `pip` toolchain, `pulumi package add` detects that, generates the Python SDK on-the-fly, adds the dependency to `requirements.txt`, and runs `pip install -r requirements.txt`. The output also prints the correct import statement:
+Pulumi generates the consumer's language-specific SDK automatically. For example, if the consuming program is Python, `pulumi package add` detects that, generates the Python SDK on-the-fly, adds the dependency to `requirements.txt`, and runs `pip install -r requirements.txt`. The output also prints the correct import statement:
 
 ```plain
-$ pulumi package add https://github.com/my-org/staticpagecomponent@v0.1.0
-Successfully generated an SDK for the staticpagecomponent package at /example/use-static-page-component/sdks/staticpagecomponent
+$ pulumi package add https://github.com/pulumi/staticpagecomponent@v0.1.0
+Downloading provider: github.com_pulumi_staticpagecomponent.git
+Successfully generated a Python SDK for the staticpagecomponent package at /example/use-static-page-component/sdks/staticpagecomponent
 
 [...]
 
-You can import the SDK in your Python code with:
+You can then import the SDK in your Python code with:
 
-  import pulumi_staticpagecomponent as staticpagecomponent
+  import pulumi_static_page_component as static_page_component
 ```
 
 {{< notes type="tip" >}}

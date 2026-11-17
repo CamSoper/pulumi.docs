@@ -7,15 +7,13 @@ export const group = new aws.ec2.SecurityGroup("web-secgrp", {
     ],
 });
 
-const userData = `#!/bin/bash
-echo "Hello, World!" > index.html
-nohup python3 -m http.server 80 &`;
+const userData = `#!/bin/bash echo "Hello, World!" > index.html nohup python3 -m http.server 80 &`;
 
-// Look up the latest Amazon Linux 2023 AMI.
+// Look up the latest Amazon Linux 2 AMI.
 const ami = aws.ec2.getAmiOutput({
     owners: ["amazon"],
     mostRecent: true,
-    filters: [{ name: "name", values: ["al2023-ami-2023.*-x86_64"] }],
+    filters: [{ name: "name", values: ["amzn2-ami-hvm-*-x86_64-gp2"] }],
 });
 
 export const server = new aws.ec2.Instance("web-server-www", {

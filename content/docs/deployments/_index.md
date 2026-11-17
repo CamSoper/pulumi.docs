@@ -1,6 +1,6 @@
 ---
 title: Deployments & Workflows
-linktitle: Deployments & workflows
+linktitle: Deployments & Workflows
 docs_home: true
 notitle: true
 norightnav: true

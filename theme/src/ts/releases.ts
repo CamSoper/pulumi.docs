@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let bgInerted: Element[] = [];
 
     function isInertBypass(el: Element): boolean {
-        return el.id === "onetrust-consent-sdk";
+        return el.id === "segment-consent-manager" || el.classList.contains("consent-dialog-overlay");
     }
 
     // Focus trap matching the mobile nav sheet in header-nav.ts, generalized

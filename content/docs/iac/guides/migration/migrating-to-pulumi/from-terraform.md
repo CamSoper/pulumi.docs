@@ -327,20 +327,20 @@ This will generate a local SDK in your programming language that you can import 
 {{% choosable language typescript %}}
 
 ```typescript
-import * as vpc from "@pulumi/vpc-aws";
+import * as vpc from "@pulumi/vpc";
 
 // Create a VPC using the terraform-aws-modules/vpc module
 const myVpc = new vpc.Module("my-vpc", {
     name: "pulumi-vpc",
     cidr: "10.0.0.0/16",
     azs: ["us-west-2a", "us-west-2b", "us-west-2c"],
-    privateSubnets: ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"],
-    publicSubnets: ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"],
-    enableNatGateway: true
+    private_subnets: ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"],
+    public_subnets: ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"],
+    enable_nat_gateway: true
 });
 
 // Access outputs from the module
-export const vpcId = myVpc.vpcId;
+export const vpcId = myVpc.vpc_id;
 ```
 
 {{% /choosable %}}
@@ -348,7 +348,7 @@ export const vpcId = myVpc.vpcId;
 
 ```python
 import pulumi
-import pulumi_vpc_aws as vpc
+import pulumi_vpc as vpc
 
 # Create a VPC using the terraform-aws-modules/vpc module
 my_vpc = vpc.Module("my-vpc",
@@ -372,7 +372,7 @@ package main
 
 import (
     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-    vpc "example.com/pulumi-vpc-aws/sdk/go/v5/vpcaws"
+    vpc "github.com/pulumi/pulumi-vpc/sdk/go/vpc"
 )
 
 func main() {
@@ -414,7 +414,7 @@ func main() {
 
 ```csharp
 using Pulumi;
-using Vpc = Pulumi.VpcAws;
+using Vpc = Pulumi.Vpc;
 
 class MyStack : Stack
 {

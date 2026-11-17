@@ -1,6 +1,6 @@
 ---
 title: Secrets & Configuration
-linktitle: Secrets & configuration
+linktitle: Secrets & Configuration
 docs_home: true
 notitle: true
 norightnav: true

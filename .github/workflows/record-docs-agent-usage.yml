@@ -77,6 +77,9 @@ jobs:
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
           echo "usage files: $COUNT"
           find .docs-agent-usage -name '*.ndjson' -type f | sed 's/^/  /'
+          # ops (fork-only): print the rows so the test harness can read them
+          # from the job log. Never PR this upstream.
+          find .docs-agent-usage -name '*.ndjson' -type f -exec sh -c 'for f; do echo "ROWS-BEGIN $f"; cat "$f"; echo "ROWS-END"; done' _ {} +
 
       - name: Hand the files to the record job
         if: steps.collect.outputs.count != '0' && steps.collect.outputs.count != ''

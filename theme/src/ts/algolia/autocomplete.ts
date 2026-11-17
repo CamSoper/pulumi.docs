@@ -1,7 +1,5 @@
 import { liteClient as algoliasearch, SearchClient } from "algoliasearch/lite";
 import { autocomplete, getAlgoliaResults, getAlgoliaFacets } from "@algolia/autocomplete-js";
-import aa from "search-insights";
-import { createConsentGatedInsightsClient } from "./insights";
 import { getTags, getTagsPlugin, setTags, Tag, symbolForTag, labelForTag, mapTagsToFilters, groupBy, formatCount, debounce, listenForEvents } from "./utils";
 
 interface SearchResultHit {
@@ -447,9 +445,9 @@ function initAutocomplete(el: HTMLElement) {
             return debounce(sources);
         },
 
-        // Enable Algolia insights, gated on Performance consent (see ./insights.ts).
+        // Enable Algolia insights.
         // https://www.algolia.com/doc/guides/building-search-ui/events/js/
-        insights: { insightsClient: createConsentGatedInsightsClient(aa) as typeof aa },
+        insights: true,
 
         // https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/plugins/
         plugins: [

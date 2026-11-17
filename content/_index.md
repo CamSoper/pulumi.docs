@@ -113,25 +113,25 @@ sections:
     cta_text: Read our customer stories
     cta_link: /customers/
     cards:
-      - customer: bmw
+      - slug: bmw
         size: half
-      - customer: wiz
+      - slug: wiz
         size: half
-      - customer: snowflake
+      - slug: snowflake
         size: full
-      - customer: supabase
+      - slug: supabase
         size: full
-      - customer: atlassian
+      - slug: atlassian
         size: half
-      - customer: mercedes-benz
+      - slug: mercedes-benz
         size: half
-      - customer: lemonade
+      - slug: lemonade
         size: full
-      - customer: unity
+      - slug: unity
         size: full
-      - customer: starburst
+      - slug: starburst
         size: half
-      - customer: panther-labs
+      - slug: panther-labs
         size: half
     anchor: case-studies
 

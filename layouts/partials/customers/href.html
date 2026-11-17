@@ -1,4 +1,4 @@
-{{- $cx := partialCached "customers/data.html" . "customers-data" -}}
+{{- $stories := partialCached "customers/stories.html" . "customer-stories" -}}
 {{- $href := "/customers/" -}}
-{{- with index $cx.byId (printf "%v" .) -}}{{- with .case_study -}}{{- $href = .href -}}{{- end -}}{{- end -}}
+{{- with index $stories (printf "%v" .) -}}{{- $href = .RelPermalink -}}{{- end -}}
 {{- return $href -}}

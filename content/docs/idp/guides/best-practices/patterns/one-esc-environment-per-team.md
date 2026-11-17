@@ -72,13 +72,16 @@ values:
     apiEndpoint: "https://api.example.com"
 ```
 
-Teams can compose with shared organizational environments. Environments are referenced as `<project>/<environment>`, and you list them under the `environment` key of the stack configuration file. For example, assuming the environments above live in an ESC project named `teams`, the backend team's API service stack might use:
+Teams can compose with shared organizational environments:
 
 ```yaml
-# Pulumi.dev.yaml for backend team's API service
+# pulumi.yaml for backend team's API service
+name: backend-api
+runtime: nodejs
+
 environment:
-  - teams/org-shared
-  - teams/backend-team
+  - org-shared
+  - backend-team
 ```
 
 This allows teams to maintain autonomy while accessing shared organizational resources.

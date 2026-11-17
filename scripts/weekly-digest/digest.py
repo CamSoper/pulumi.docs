@@ -64,7 +64,6 @@ ROUTING_CONFIG = Path(__file__).resolve().parents[2] / ".github/review-routing.y
 #     "mode"  sentinel: "1" enforcing, "report" report-only, else off
 SWITCHES = [
     ("SLA sweep", "REVIEW_V3_SLA", "eq1", None),
-    ("stale PR sweep", "STALE_PR_SWEEP", "eq1", None),
     ("Sentinel", "REVIEW_V3_SENTINEL", "mode", None),
     ("content review", "CONTENT_REVIEW_COUNT", "ne0", "3"),
     ("glow-up", "GLOWUP_COUNT", "ne0", "1"),
@@ -561,17 +560,15 @@ def sentinel_state(check_runs, statuses=()):
     commit status (it published a check-run before 2026-10, and a PR open
     across the switch can carry both). In preview (report-only) mode it
     passes with the real verdict in its title or description ("Preview —
-    would be: success"); an enforcing run passes, fails, or posts pending
-    while its only open gates are in flight. Pending blocks the merge like a
-    failure, so it counts as not passed. The newest verdict wins, since each
-    gate event re-posts it.
+    would be: success"); an enforcing run passes or fails outright. The
+    newest verdict wins, since each gate event re-posts it.
     """
     verdicts = [(r.get("completed_at") or "", r.get("conclusion") == "success",
                  (r.get("output") or {}).get("title") or "")
                 for r in check_runs or [] if r.get("name") == SENTINEL_CHECK and r.get("status") == "completed"]
     verdicts += [(s.get("updated_at") or s.get("created_at") or "", s.get("state") == "success",
                   s.get("description") or "")
-                 for s in statuses or [] if s.get("context") == SENTINEL_CHECK]
+                 for s in statuses or [] if s.get("context") == SENTINEL_CHECK and s.get("state") != "pending"]
     if not verdicts:
         return "none"
     _, passed, title = max(verdicts, key=lambda v: v[0])

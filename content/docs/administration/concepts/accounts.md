@@ -45,7 +45,7 @@ An account comes into existence in one of several ways:
 - **An organization invites them.** An organization admin [invites a member](/docs/administration/concepts/organizations/#inviting-members-to-an-organization) by email address or invite link. The invitee still completes signup themselves; the invitation grants membership once they do.
 - **A SAML identity provider provisions them.** When an organization is backed by SAML SSO, a user who signs in through the identity provider for the first time gets an account created for them. Your organization admin configures this, not you.
 - **SCIM provisions them.** An organization on the Enterprise edition can [sync users and groups from its identity provider](/docs/administration/guides/scim/). SCIM creates accounts ahead of first login and deactivates them when the user is removed upstream.
-- **An AI agent creates one.** The Pulumi CLI can provision an ephemeral [agent account](/docs/administration/concepts/agent-accounts/) when `PULUMI_ENABLE_AUTOMATIC_AGENT_SIGNUP=true` is set and it detects it is running in an agent context with no credentials. A person claims it later to take ownership.
+- **An AI agent creates one.** The Pulumi CLI can provision an ephemeral [agent account](/docs/administration/concepts/agent-accounts/) when it detects it is running in an agent context with no credentials. A person claims it later to take ownership.
 
 ## Account identity
 
@@ -140,8 +140,6 @@ If you signed up with an email address, you can change your password:
 
 Your password must be between 10 and 160 characters, and it cannot be the same as your username or your email address.
 
-Changing your password, or resetting it from the sign-in page, signs you out everywhere. Pulumi Cloud ends your web console sessions, revokes your [personal access tokens](/docs/administration/concepts/access-tokens/#personal-access-tokens) (which signs out the Pulumi CLI) and the tokens of OAuth apps you've connected, and removes every registered [passkey](#signing-in-with-a-passkey). Afterward, sign back in, create new access tokens, and register your passkeys again.
-
 ### Setting up MFA
 
 If you signed up with an email address, you can protect your account with multi-factor authentication using time-based one-time passwords (TOTP). MFA enrollment requires confirming your password, so it is available only to accounts that have one — if you sign in exclusively through GitHub, GitLab, Google, Atlassian, or SAML SSO, enforce multi-factor authentication with that provider instead.
@@ -179,8 +177,6 @@ Pulumi Cloud names the passkey after the authenticator it recognizes, such as "W
 You can register as many passkeys as you want. One per device is common, as is one synced credential plus a hardware key as a backup.
 
 To use one, select the passkey option on the sign-in page. If your browser supports passkey autofill, the email field also offers your registered passkeys as suggestions.
-
-Changing or [resetting your password](#resetting-your-password) removes every passkey registered on your account, so register them again afterward.
 
 Registering a passkey does not disable any other way of signing in. Your password, if you have one, keeps working, so losing every registered passkey does not lock you out of your account.
 
